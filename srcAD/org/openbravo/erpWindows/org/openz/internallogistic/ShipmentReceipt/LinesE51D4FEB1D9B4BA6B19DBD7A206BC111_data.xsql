@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="LinesE51D4FEB1D9B4BA6B19DBD7A206BC111Data" package="org.openbravo.erpWindows.org.openz.internallogistic.ShipmentReceipt">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ils_inoutline_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ils_inoutline_v.CreatedBy) as CreatedByR, 
+        to_char(ils_inoutline_v.Updated, ?) as updated, 
+        to_char(ils_inoutline_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ils_inoutline_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ils_inoutline_v.UpdatedBy) as UpdatedByR,
+        ils_inoutline_v.M_AttributeSetInstance_ID, 
+ils_inoutline_v.ILS_Inout_V_ID, 
+(CASE WHEN ils_inoutline_v.ILS_Inout_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table1.MovementDate, 'DD-MM-YYYY')),'') ) END) AS ILS_Inout_V_IDR, 
+ils_inoutline_v.Line, 
+ils_inoutline_v.M_Locator_ID, 
+(CASE WHEN ils_inoutline_v.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'') ) END) AS M_Locator_IDR, 
+ils_inoutline_v.A_Asset_ID, 
+ils_inoutline_v.M_Product_ID, 
+(CASE WHEN ils_inoutline_v.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+ils_inoutline_v.C_Projecttask_ID, 
+ils_inoutline_v.MovementQty, 
+ils_inoutline_v.C_Project_ID, 
+ils_inoutline_v.C_UOM_ID, 
+(CASE WHEN ils_inoutline_v.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+ils_inoutline_v.AD_User_ID, 
+(CASE WHEN ils_inoutline_v.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_User_IDR, 
+ils_inoutline_v.ILS_Inoutline_V_ID, 
+ils_inoutline_v.Description, 
+COALESCE(ils_inoutline_v.Isinvoiced, 'N') AS Isinvoiced, 
+ils_inoutline_v.C_OrderLine_ID, 
+ils_inoutline_v.AD_Client_ID, 
+COALESCE(ils_inoutline_v.IsActive, 'N') AS IsActive, 
+ils_inoutline_v.AD_Org_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM ils_inoutline_v left join (select ILS_Inout_V_ID, DocumentNo, MovementDate from ILS_Inout_V) table1 on (ils_inoutline_v.ILS_Inout_V_ID = table1.ILS_Inout_V_ID) left join (select M_Locator_ID, Value from M_Locator) table2 on (ils_inoutline_v.M_Locator_ID = table2.M_Locator_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (ils_inoutline_v.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select C_UOM_ID, Name from C_UOM) table4 on (ils_inoutline_v.C_UOM_ID = table4.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL4 on (table4.C_UOM_ID = tableTRL4.C_UOM_ID and tableTRL4.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table5 on (ils_inoutline_v.AD_User_ID = table5.AD_User_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ils_inoutline_v.ILS_Inoutline_V_ID = ? 
+        AND ils_inoutline_v.AD_Client_ID IN ('1') 
+           AND ils_inoutline_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="ilsInoutVId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ils_inoutline_v.ILS_Inout_V_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_inoutline_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_inoutline_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="ilsInoutVId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="mLocatorIdr"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="isinvoiced"></Parameter><Parameter name="line"></Parameter><Parameter name="cOrderlineId"></Parameter><Parameter name="ilsInoutlineVId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="movementqty"></Parameter><Parameter name="description"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="cProjectId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefED78F84708C449D9B720A7FB2E1A6321" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT a_asset_id AS DefaultValue FROM m_inout WHERE m_inout_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_inout_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4DFC21ADAE854C1AA794BFB0A3619BD3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_projecttask_id AS DefaultValue FROM m_inout WHERE m_inout_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_inout_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefD8643C706693453E8F6A6C87FBACA1A0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_Locator_ID AS DefaultValue from m_locator where m_warehouse_id=(select m_warehouse_id from m_inout where m_inout_id=?) and isactive='Y' and islogistic='Y' 
+    ]]></Sql>
+
+<Parameter name="ILS_Inout_V_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefD8643C706693453E8F6A6C87FBACA1A0_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Locator_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefB13074C9A2F342E992B270F7B9A47D89" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT value AS DefaultValue FROM AD_PREFERENCE WHERE ATTRIBUTE='DEFAULTINTERNALLOGISTICPRODUCT' 
+    ]]></Sql>
+
+  </SqlMethod>
+
+   <SqlMethod name="selectDefB13074C9A2F342E992B270F7B9A47D89_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef69B22AA407364CE28BFD2F797CB2A46F" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(Line),0)+10 AS DefaultValue FROM M_InOutLine WHERE M_InOut_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_InOut_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefE5A7431919714CD68661AB01D3C2586C_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefD1DC1492C7C14374AC6EB8438506F7CD_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefC39651F7A7934C2FAB6150AC8591C7EB" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_project_id AS DefaultValue FROM m_inout WHERE m_inout_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_inout_ID"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ils_inoutline_v.ILS_Inout_V_ID AS NAME
+        FROM ils_inoutline_v
+        WHERE ils_inoutline_v.ILS_Inoutline_V_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(table1.MovementDate, 'DD-MM-YYYY')) AS NAME FROM ils_inout_v left join (select ILS_Inout_V_ID, DocumentNo, MovementDate from ILS_Inout_V) table1 on (ils_inout_v.ILS_Inout_V_ID = table1.ILS_Inout_V_ID) WHERE ils_inout_v.ILS_Inout_V_ID = ?  
+    ]]></Sql>
+<Parameter name="ilsInoutVId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(table1.MovementDate, 'DD-MM-YYYY')) AS NAME FROM ils_inout_v left join (select ILS_Inout_V_ID, DocumentNo, MovementDate from ILS_Inout_V) table1 on (ils_inout_v.ILS_Inout_V_ID = table1.ILS_Inout_V_ID) WHERE ils_inout_v.ILS_Inout_V_ID = ?  
+    ]]></Sql>
+<Parameter name="ilsInoutVId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ils_inoutline_v
+        SET M_AttributeSetInstance_ID = (?) , ILS_Inout_V_ID = (?) , Line = TO_NUMBER(?) , M_Locator_ID = (?) , A_Asset_ID = (?) , M_Product_ID = (?) , C_Projecttask_ID = (?) , MovementQty = TO_NUMBER(?) , C_Project_ID = (?) , C_UOM_ID = (?) , AD_User_ID = (?) , ILS_Inoutline_V_ID = (?) , Description = (?) , Isinvoiced = (?) , C_OrderLine_ID = (?) , AD_Client_ID = (?) , IsActive = (?) , AD_Org_ID = (?) , updated = now(), updatedby = ? 
+        WHERE ils_inoutline_v.ILS_Inoutline_V_ID = ? 
+                 AND ils_inoutline_v.ILS_Inout_V_ID = ? 
+        AND ils_inoutline_v.AD_Client_ID IN ('1') 
+        AND ils_inoutline_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="ilsInoutVId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="ilsInoutlineVId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="ilsInoutlineVId"></Parameter>
+    
+    <Parameter name="ilsInoutVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_inoutline_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_inoutline_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ils_inoutline_v 
+        (M_AttributeSetInstance_ID, ILS_Inout_V_ID, Line, M_Locator_ID, A_Asset_ID, M_Product_ID, C_Projecttask_ID, MovementQty, C_Project_ID, C_UOM_ID, AD_User_ID, ILS_Inoutline_V_ID, Description, Isinvoiced, C_OrderLine_ID, AD_Client_ID, IsActive, AD_Org_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="ilsInoutVId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="ilsInoutlineVId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ils_inoutline_v
+        WHERE ils_inoutline_v.ILS_Inoutline_V_ID = ? 
+                 AND ils_inoutline_v.ILS_Inout_V_ID = ? 
+        AND ils_inoutline_v.AD_Client_ID IN ('1') 
+        AND ils_inoutline_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="ilsInoutVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_inoutline_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_inoutline_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ils_inoutline_v
+        WHERE ils_inoutline_v.ILS_Inoutline_V_ID = ? 
+                 AND ils_inoutline_v.ILS_Inout_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="ilsInoutVId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ils_inoutline_v
+         WHERE ils_inoutline_v.ILS_Inoutline_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ils_inoutline_v
+         WHERE ils_inoutline_v.ILS_Inoutline_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

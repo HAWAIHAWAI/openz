@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="DocumentsData" package="org.openbravo.erpWindows.AccountingSchema">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_AcctSchema_Table_DocType.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_AcctSchema_Table_DocType.CreatedBy) as CreatedByR, 
+        to_char(C_AcctSchema_Table_DocType.Updated, ?) as updated, 
+        to_char(C_AcctSchema_Table_DocType.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_AcctSchema_Table_DocType.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_AcctSchema_Table_DocType.UpdatedBy) as UpdatedByR,
+        C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID, 
+C_AcctSchema_Table_DocType.AD_Client_ID, 
+(CASE WHEN C_AcctSchema_Table_DocType.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_AcctSchema_Table_DocType.AD_Org_ID, 
+(CASE WHEN C_AcctSchema_Table_DocType.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(C_AcctSchema_Table_DocType.Isactive, 'N') AS Isactive, 
+C_AcctSchema_Table_DocType.C_Acctschema_Table_ID, 
+(CASE WHEN C_AcctSchema_Table_DocType.C_Acctschema_Table_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_Acctschema_Table_IDR, 
+C_AcctSchema_Table_DocType.Docbasetype, 
+(CASE WHEN C_AcctSchema_Table_DocType.Docbasetype IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DocbasetypeR, 
+COALESCE(C_AcctSchema_Table_DocType.AllowNegative, 'N') AS AllowNegative, 
+C_AcctSchema_Table_DocType.AD_Createfact_Template_ID, 
+(CASE WHEN C_AcctSchema_Table_DocType.AD_Createfact_Template_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS AD_Createfact_Template_IDR, 
+ 
+        ? AS LANGUAGE 
+        FROM C_AcctSchema_Table_DocType left join (select AD_Client_ID, Name from AD_Client) table1 on (C_AcctSchema_Table_DocType.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_AcctSchema_Table_DocType.AD_Org_ID = table2.AD_Org_ID) left join (select C_Acctschema_Table_ID, C_AcctSchema_ID, AD_Table_ID from C_Acctschema_Table) table3 on (C_AcctSchema_Table_DocType.C_Acctschema_Table_ID = table3.C_Acctschema_Table_ID) left join (select C_AcctSchema_ID, Name from C_AcctSchema) table4 on (table3.C_AcctSchema_ID = table4.C_AcctSchema_ID) left join (select AD_Table_ID, Name from AD_Table) table5 on (table3.AD_Table_ID =  table5.AD_Table_ID) left join ad_ref_list_v list1 on (C_AcctSchema_Table_DocType.Docbasetype = list1.value and list1.ad_reference_id = '183' and list1.ad_language = ?)  left join (select AD_Createfact_Template_ID, Name from AD_Createfact_Template) table6 on (C_AcctSchema_Table_DocType.AD_Createfact_Template_ID = table6.AD_Createfact_Template_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID = ? 
+        AND C_AcctSchema_Table_DocType.AD_Client_ID IN ('1') 
+           AND C_AcctSchema_Table_DocType.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cAcctschemaTableId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_AcctSchema_Table_DocType.C_Acctschema_Table_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_AcctSchema_Table_DocType.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_AcctSchema_Table_DocType.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cAcctschemaTableId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="docbasetype"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="cAcctschemaTableDoctypeId"></Parameter><Parameter name="allownegative"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="adCreatefactTemplateId"></Parameter>
+   </SqlMethod>
+
+
+   <SqlMethod name="selectAuxFB4C3FF138DD4B2AB582E7BFBEF5CA7F" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        select ad_table_id from c_acctschema_table where c_acctschema_table_id=? 
+    ]]></Sql>
+
+<Parameter name="C_Acctschema_Table_ID"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_AcctSchema_Table_DocType.C_Acctschema_Table_ID AS NAME
+        FROM C_AcctSchema_Table_DocType
+        WHERE C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))) AS NAME FROM C_AcctSchema_Table left join (select C_Acctschema_Table_ID, C_AcctSchema_ID, AD_Table_ID from C_Acctschema_Table) table1 on (C_AcctSchema_Table.C_Acctschema_Table_ID = table1.C_Acctschema_Table_ID) left join (select C_AcctSchema_ID, Name from C_AcctSchema) table2 on (table1.C_AcctSchema_ID = table2.C_AcctSchema_ID) left join (select AD_Table_ID, Name from AD_Table) table3 on (table1.AD_Table_ID =  table3.AD_Table_ID) WHERE C_AcctSchema_Table.C_Acctschema_Table_ID = ?  
+    ]]></Sql>
+<Parameter name="cAcctschemaTableId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))) AS NAME FROM C_AcctSchema_Table left join (select C_Acctschema_Table_ID, C_AcctSchema_ID, AD_Table_ID from C_Acctschema_Table) table1 on (C_AcctSchema_Table.C_Acctschema_Table_ID = table1.C_Acctschema_Table_ID) left join (select C_AcctSchema_ID, Name from C_AcctSchema) table2 on (table1.C_AcctSchema_ID = table2.C_AcctSchema_ID) left join (select AD_Table_ID, Name from AD_Table) table3 on (table1.AD_Table_ID =  table3.AD_Table_ID) WHERE C_AcctSchema_Table.C_Acctschema_Table_ID = ?  
+    ]]></Sql>
+<Parameter name="cAcctschemaTableId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_AcctSchema_Table_DocType
+        SET C_Acctschema_Table_Doctype_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Isactive = (?) , C_Acctschema_Table_ID = (?) , Docbasetype = (?) , AllowNegative = (?) , AD_Createfact_Template_ID = (?) , updated = now(), updatedby = ? 
+        WHERE C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID = ? 
+                 AND C_AcctSchema_Table_DocType.C_Acctschema_Table_ID = ? 
+        AND C_AcctSchema_Table_DocType.AD_Client_ID IN ('1') 
+        AND C_AcctSchema_Table_DocType.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cAcctschemaTableDoctypeId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cAcctschemaTableId"></Parameter> <Parameter name="docbasetype"></Parameter> <Parameter name="allownegative"></Parameter> <Parameter name="adCreatefactTemplateId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cAcctschemaTableDoctypeId"></Parameter>
+    
+    <Parameter name="cAcctschemaTableId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_AcctSchema_Table_DocType.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_AcctSchema_Table_DocType.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_AcctSchema_Table_DocType 
+        (C_Acctschema_Table_Doctype_ID, AD_Client_ID, AD_Org_ID, Isactive, C_Acctschema_Table_ID, Docbasetype, AllowNegative, AD_Createfact_Template_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cAcctschemaTableDoctypeId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cAcctschemaTableId"></Parameter> <Parameter name="docbasetype"></Parameter> <Parameter name="allownegative"></Parameter> <Parameter name="adCreatefactTemplateId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_AcctSchema_Table_DocType
+        WHERE C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID = ? 
+                 AND C_AcctSchema_Table_DocType.C_Acctschema_Table_ID = ? 
+        AND C_AcctSchema_Table_DocType.AD_Client_ID IN ('1') 
+        AND C_AcctSchema_Table_DocType.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cAcctschemaTableId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_AcctSchema_Table_DocType.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_AcctSchema_Table_DocType.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_AcctSchema_Table_DocType
+        WHERE C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID = ? 
+                 AND C_AcctSchema_Table_DocType.C_Acctschema_Table_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cAcctschemaTableId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_AcctSchema_Table_DocType
+         WHERE C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_AcctSchema_Table_DocType
+         WHERE C_AcctSchema_Table_DocType.C_Acctschema_Table_Doctype_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

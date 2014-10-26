@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<REPORT>
+<template id="class" file="GLCategory_Relation.html"></template>
+<PARAMETER name="isGeneratedWindow" default="N"></PARAMETER>
+<PARAMETER id="paramLanguage" name="language" default=""></PARAMETER>
+<PARAMETER id="paramCSS" name="theme" attribute="href" replace="Default"></PARAMETER>
+<PARAMETER id="paramCSS_print" name="theme" attribute="href" replace="Default"></PARAMETER>
+<PARAMETER id="tdleftTabs" name="leftTabs" default=""></PARAMETER>
+<PARAMETER id="paramSessionDate" name="paramSessionDate" attribute="value" default=""></PARAMETER>
+<PARAMETER id="paramWindowId" name="windowId" attribute="value" default=""></PARAMETER>
+<PARAMETER id="paramTabId" name="tabId" attribute="value" default=""></PARAMETER>
+<PARAMETER id="paramDirectory" name="directory" default=""></PARAMETER>
+<PARAMETER id="paramParentTabContainer" name="parentTabContainer" default=" "></PARAMETER>
+<PARAMETER id="paramMainTabContainer" name="mainTabContainer" default=" "></PARAMETER>
+<PARAMETER id="paramChildTabContainer" name="childTabContainer" default=" "></PARAMETER>
+<PARAMETER id="tdtopButtons" name="navigationBar" default=""></PARAMETER>
+<PARAMETER id="KeyField" name="KeyName" default=""></PARAMETER>
+<PARAMETER id="hiddenKey" name="KeyName" default="" replace="xx" attribute="name">GL_Category_ID</PARAMETER>
+<PARAMETER id="paramToolBar" name="toolbar" default=""></PARAMETER>
+
+<PARAMETER id="selectedColumn" name="selectedColumn" default=""></PARAMETER>
+  <PARAMETER id="messageBoxID" name="messageType" attribute="class" replace="yy" default="HIDDEN"></PARAMETER>
+  <PARAMETER id="messageBoxIDTitle" name="messageTitle" default=""></PARAMETER>
+  <PARAMETER id="messageBoxIDMessage" name="messageMessage" default=""></PARAMETER>
+
+
+<PARAMETER id="keyParent" name="keyParent" attribute="value" default=""></PARAMETER>
+
+<PARAMETER id="grid" name="grid" attribute="numrows"/><PARAMETER id="grid" name="grid_Offset" attribute="offset"/><PARAMETER id="grid" name="grid_SortCols" attribute="sortcols"/><PARAMETER id="grid" name="grid_SortDirs" attribute="sortdirs"/><PARAMETER id="grid" name="grid_Default" attribute="defaultrow"/>
+
+<DISCARD id="discard"></DISCARD>
+</REPORT>

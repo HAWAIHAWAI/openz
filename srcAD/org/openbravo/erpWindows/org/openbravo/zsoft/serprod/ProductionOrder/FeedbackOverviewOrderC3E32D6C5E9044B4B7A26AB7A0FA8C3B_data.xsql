@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="FeedbackOverviewOrderC3E32D6C5E9044B4B7A26AB7A0FA8C3BData" package="org.openbravo.erpWindows.org.openbravo.zsoft.serprod.ProductionOrder">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssm_feedback_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_feedback_v.CreatedBy) as CreatedByR, 
+        to_char(zssm_feedback_v.Updated, ?) as updated, 
+        to_char(zssm_feedback_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssm_feedback_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_feedback_v.UpdatedBy) as UpdatedByR,
+        zssm_feedback_v.Zssm_Feedback_V_ID, 
+zssm_feedback_v.Zssm_Productionorder_V_ID, 
+(CASE WHEN zssm_feedback_v.Zssm_Productionorder_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS Zssm_Productionorder_V_IDR, 
+zssm_feedback_v.AD_Client_ID, 
+zssm_feedback_v.Zssm_Workstep_V_ID, 
+(CASE WHEN zssm_feedback_v.Zssm_Workstep_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Zssm_Prj_Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.SeqNo), ''))),'') ) END) AS Zssm_Workstep_V_IDR, 
+zssm_feedback_v.Workdate, 
+zssm_feedback_v.AD_Org_ID, 
+zssm_feedback_v.Hours, 
+COALESCE(zssm_feedback_v.Isactive, 'N') AS Isactive, 
+zssm_feedback_v.AD_User_ID, 
+(CASE WHEN zssm_feedback_v.AD_User_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_User_IDR, 
+zssm_feedback_v.C_Salary_Category_ID, 
+(CASE WHEN zssm_feedback_v.C_Salary_Category_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_Salary_Category_IDR, 
+zssm_feedback_v.MA_Machine_ID, 
+(CASE WHEN zssm_feedback_v.MA_Machine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS MA_Machine_IDR, 
+zssm_feedback_v.Description, 
+zssm_feedback_v.Url, 
+zssm_feedback_v.Actualcostamount, 
+TO_CHAR(zssm_feedback_v.Hour_From, 'HH24:MI:SS') AS Hour_From, 
+TO_CHAR(zssm_feedback_v.Hour_To, 'HH24:MI:SS') AS Hour_To, 
+ 
+        ? AS LANGUAGE 
+        FROM zssm_feedback_v left join (select Zssm_Productionorder_V_ID, Value, Name from Zssm_Productionorder_V) table1 on (zssm_feedback_v.Zssm_Productionorder_V_ID = table1.Zssm_Productionorder_V_ID) left join (select Zssm_Workstep_V_ID, Value, Name, Zssm_Prj_Name, SeqNo from Zssm_Workstep_V) table2 on (zssm_feedback_v.Zssm_Workstep_V_ID = table2.Zssm_Workstep_V_ID) left join (select AD_User_ID, Name from AD_User) table3 on (zssm_feedback_v.AD_User_ID =  table3.AD_User_ID) left join (select C_Salary_Category_ID, Name from C_Salary_Category) table4 on (zssm_feedback_v.C_Salary_Category_ID = table4.C_Salary_Category_ID) left join (select MA_Machine_ID, Value, Name from MA_Machine) table5 on (zssm_feedback_v.MA_Machine_ID = table5.MA_Machine_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssm_feedback_v.Zssm_Feedback_V_ID = ? 
+        AND zssm_feedback_v.AD_Client_ID IN ('1') 
+           AND zssm_feedback_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="zssmProductionorderVId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zssm_feedback_v.Zssm_Productionorder_V_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_feedback_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_feedback_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="zssmProductionorderVId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="zssmFeedbackVId"></Parameter><Parameter name="zssmWorkstepVId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="actualcostamount"></Parameter><Parameter name="isactive"></Parameter><Parameter name="workdate"></Parameter><Parameter name="maMachineId"></Parameter><Parameter name="url"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="hours"></Parameter><Parameter name="hourFrom"></Parameter><Parameter name="description"></Parameter><Parameter name="cSalaryCategoryId"></Parameter><Parameter name="hourTo"></Parameter><Parameter name="adUserId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef6DF1DBCDF7414D599E6D831563111F5C_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefF025FC1B7D2E4F18A0332BD422842C69_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zssm_feedback_v.Zssm_Productionorder_V_ID AS NAME
+        FROM zssm_feedback_v
+        WHERE zssm_feedback_v.Zssm_Feedback_V_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM zssm_productionorder_v left join (select Zssm_Productionorder_V_ID, Value, Name from Zssm_Productionorder_V) table1 on (zssm_productionorder_v.Zssm_Productionorder_V_ID = table1.Zssm_Productionorder_V_ID) WHERE zssm_productionorder_v.Zssm_Productionorder_V_ID = ?  
+    ]]></Sql>
+<Parameter name="zssmProductionorderVId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM zssm_productionorder_v left join (select Zssm_Productionorder_V_ID, Value, Name from Zssm_Productionorder_V) table1 on (zssm_productionorder_v.Zssm_Productionorder_V_ID = table1.Zssm_Productionorder_V_ID) WHERE zssm_productionorder_v.Zssm_Productionorder_V_ID = ?  
+    ]]></Sql>
+<Parameter name="zssmProductionorderVId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssm_feedback_v
+        SET Zssm_Feedback_V_ID = (?) , Zssm_Productionorder_V_ID = (?) , AD_Client_ID = (?) , Zssm_Workstep_V_ID = (?) , Workdate = TO_DATE(?) , AD_Org_ID = (?) , Hours = TO_NUMBER(?) , Isactive = (?) , AD_User_ID = (?) , C_Salary_Category_ID = (?) , MA_Machine_ID = (?) , Description = (?) , Url = (?) , Actualcostamount = TO_NUMBER(?) , Hour_From = TO_TIMESTAMP(?,'HH24:MI:SS') , Hour_To = TO_TIMESTAMP(?,'HH24:MI:SS') , updated = now(), updatedby = ? 
+        WHERE zssm_feedback_v.Zssm_Feedback_V_ID = ? 
+                 AND zssm_feedback_v.Zssm_Productionorder_V_ID = ? 
+        AND zssm_feedback_v.AD_Client_ID IN ('1') 
+        AND zssm_feedback_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="zssmFeedbackVId"></Parameter> <Parameter name="zssmProductionorderVId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="zssmWorkstepVId"></Parameter> <Parameter name="workdate"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="hours"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="url"></Parameter> <Parameter name="actualcostamount"></Parameter> <Parameter name="hourFrom"></Parameter> <Parameter name="hourTo"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssmFeedbackVId"></Parameter>
+    
+    <Parameter name="zssmProductionorderVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_feedback_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_feedback_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssm_feedback_v 
+        (Zssm_Feedback_V_ID, Zssm_Productionorder_V_ID, AD_Client_ID, Zssm_Workstep_V_ID, Workdate, AD_Org_ID, Hours, Isactive, AD_User_ID, C_Salary_Category_ID, MA_Machine_ID, Description, Url, Actualcostamount, Hour_From, Hour_To, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_DATE(?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_TIMESTAMP(?, 'HH24:MI:SS'), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="zssmFeedbackVId"></Parameter> <Parameter name="zssmProductionorderVId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="zssmWorkstepVId"></Parameter> <Parameter name="workdate"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="hours"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="url"></Parameter> <Parameter name="actualcostamount"></Parameter> <Parameter name="hourFrom"></Parameter> <Parameter name="hourTo"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_feedback_v
+        WHERE zssm_feedback_v.Zssm_Feedback_V_ID = ? 
+                 AND zssm_feedback_v.Zssm_Productionorder_V_ID = ? 
+        AND zssm_feedback_v.AD_Client_ID IN ('1') 
+        AND zssm_feedback_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="zssmProductionorderVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_feedback_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_feedback_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_feedback_v
+        WHERE zssm_feedback_v.Zssm_Feedback_V_ID = ? 
+                 AND zssm_feedback_v.Zssm_Productionorder_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="zssmProductionorderVId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssm_feedback_v
+         WHERE zssm_feedback_v.Zssm_Feedback_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssm_feedback_v
+         WHERE zssm_feedback_v.Zssm_Feedback_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="StockPlanningData" package="org.openbravo.erpWindows.Product">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_Product_Org.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Product_Org.CreatedBy) as CreatedByR, 
+        to_char(M_Product_Org.Updated, ?) as updated, 
+        to_char(M_Product_Org.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_Product_Org.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Product_Org.UpdatedBy) as UpdatedByR,
+        M_Product_Org.M_Product_Org_ID, 
+M_Product_Org.AD_Client_ID, 
+(CASE WHEN M_Product_Org.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_Product_Org.AD_Org_ID, 
+(CASE WHEN M_Product_Org.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(M_Product_Org.IsActive, 'N') AS IsActive, 
+M_Product_Org.M_Product_ID, 
+(CASE WHEN M_Product_Org.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+M_Product_Org.M_Locator_ID, 
+(CASE WHEN M_Product_Org.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'') ) END) AS M_Locator_IDR, 
+COALESCE(M_Product_Org.Isvendorreceiptlocator, 'N') AS Isvendorreceiptlocator, 
+M_Product_Org.MRP_Planningmethod_ID, 
+(CASE WHEN M_Product_Org.MRP_Planningmethod_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS MRP_Planningmethod_IDR, 
+M_Product_Org.MRP_Planner_ID, 
+(CASE WHEN M_Product_Org.MRP_Planner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS MRP_Planner_IDR, 
+M_Product_Org.Capacity, 
+M_Product_Org.Stockmin, 
+M_Product_Org.Qtyoptimal, 
+M_Product_Org.Abc, 
+(CASE WHEN M_Product_Org.Abc IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS AbcR, 
+M_Product_Org.Qtytype, 
+M_Product_Org.Qtymin, 
+M_Product_Org.Qtystd, 
+M_Product_Org.Qtymax, 
+M_Product_Org.Delaymin, 
+ 
+        ? AS LANGUAGE 
+        FROM M_Product_Org left join (select AD_Client_ID, Name from AD_Client) table1 on (M_Product_Org.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_Product_Org.AD_Org_ID = table2.AD_Org_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (M_Product_Org.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select M_Locator_ID, Value from M_Locator) table4 on (M_Product_Org.M_Locator_ID = table4.M_Locator_ID) left join (select MRP_Planningmethod_ID, Name from MRP_Planningmethod) table5 on (M_Product_Org.MRP_Planningmethod_ID = table5.MRP_Planningmethod_ID) left join (select MRP_Planner_ID, Name from MRP_Planner) table6 on (M_Product_Org.MRP_Planner_ID = table6.MRP_Planner_ID) left join ad_ref_list_v list1 on (M_Product_Org.Abc = list1.value and list1.ad_reference_id = '1000500000' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_Product_Org.M_Product_Org_ID = ? 
+        AND M_Product_Org.AD_Client_ID IN ('1') 
+           AND M_Product_Org.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mProductId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_Product_Org.M_Product_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Product_Org.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Product_Org.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+<Parameter name="adOrgId"></Parameter><Parameter name="qtytype"></Parameter><Parameter name="isactive"></Parameter><Parameter name="qtymax"></Parameter><Parameter name="capacity"></Parameter><Parameter name="stockmin"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="mrpPlannerId"></Parameter><Parameter name="mrpPlanningmethodId"></Parameter><Parameter name="qtyoptimal"></Parameter><Parameter name="mProductOrgId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="created"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="abc"></Parameter><Parameter name="qtymin"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="mLocatorIdr"></Parameter><Parameter name="isvendorreceiptlocator"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="delaymin"></Parameter><Parameter name="qtystd"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef803456_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803458_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803459_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803460_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Locator_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_Product_Org.M_Product_ID AS NAME
+        FROM M_Product_Org
+        WHERE M_Product_Org.M_Product_Org_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_Product_Org
+        SET M_Product_Org_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , IsActive = (?) , M_Product_ID = (?) , M_Locator_ID = (?) , Isvendorreceiptlocator = (?) , MRP_Planningmethod_ID = (?) , MRP_Planner_ID = (?) , Capacity = TO_NUMBER(?) , Stockmin = TO_NUMBER(?) , Qtyoptimal = TO_NUMBER(?) , Abc = (?) , Qtytype = (?) , Qtymin = TO_NUMBER(?) , Qtystd = TO_NUMBER(?) , Qtymax = TO_NUMBER(?) , Delaymin = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE M_Product_Org.M_Product_Org_ID = ? 
+                 AND M_Product_Org.M_Product_ID = ? 
+        AND M_Product_Org.AD_Client_ID IN ('1') 
+        AND M_Product_Org.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mProductOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="isvendorreceiptlocator"></Parameter> <Parameter name="mrpPlanningmethodId"></Parameter> <Parameter name="mrpPlannerId"></Parameter> <Parameter name="capacity"></Parameter> <Parameter name="stockmin"></Parameter> <Parameter name="qtyoptimal"></Parameter> <Parameter name="abc"></Parameter> <Parameter name="qtytype"></Parameter> <Parameter name="qtymin"></Parameter> <Parameter name="qtystd"></Parameter> <Parameter name="qtymax"></Parameter> <Parameter name="delaymin"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mProductOrgId"></Parameter>
+    
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Product_Org.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Product_Org.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_Product_Org 
+        (M_Product_Org_ID, AD_Client_ID, AD_Org_ID, IsActive, M_Product_ID, M_Locator_ID, Isvendorreceiptlocator, MRP_Planningmethod_ID, MRP_Planner_ID, Capacity, Stockmin, Qtyoptimal, Abc, Qtytype, Qtymin, Qtystd, Qtymax, Delaymin, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mProductOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="isvendorreceiptlocator"></Parameter> <Parameter name="mrpPlanningmethodId"></Parameter> <Parameter name="mrpPlannerId"></Parameter> <Parameter name="capacity"></Parameter> <Parameter name="stockmin"></Parameter> <Parameter name="qtyoptimal"></Parameter> <Parameter name="abc"></Parameter> <Parameter name="qtytype"></Parameter> <Parameter name="qtymin"></Parameter> <Parameter name="qtystd"></Parameter> <Parameter name="qtymax"></Parameter> <Parameter name="delaymin"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Product_Org
+        WHERE M_Product_Org.M_Product_Org_ID = ? 
+                 AND M_Product_Org.M_Product_ID = ? 
+        AND M_Product_Org.AD_Client_ID IN ('1') 
+        AND M_Product_Org.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Product_Org.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Product_Org.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Product_Org
+        WHERE M_Product_Org.M_Product_Org_ID = ? 
+                 AND M_Product_Org.M_Product_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_Product_Org
+         WHERE M_Product_Org.M_Product_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_Product_Org
+         WHERE M_Product_Org.M_Product_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

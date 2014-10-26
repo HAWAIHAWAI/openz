@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="CreatedPaymentsData" package="org.openbravo.erpWindows.Settlement">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_Debt_Payment_Generate.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Debt_Payment_Generate.CreatedBy) as CreatedByR, 
+        to_char(C_Debt_Payment_Generate.Updated, ?) as updated, 
+        to_char(C_Debt_Payment_Generate.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_Debt_Payment_Generate.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Debt_Payment_Generate.UpdatedBy) as UpdatedByR,
+        C_Debt_Payment_Generate.AD_Client_ID, 
+(CASE WHEN C_Debt_Payment_Generate.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_Debt_Payment_Generate.C_Debt_Payment_ID, 
+C_Debt_Payment_Generate.AD_Org_ID, 
+(CASE WHEN C_Debt_Payment_Generate.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_Debt_Payment_Generate.C_Settlement_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_Settlement_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateTrx, 'DD-MM-YYYY')),'') ) END) AS C_Settlement_IDR, 
+COALESCE(C_Debt_Payment_Generate.IsActive, 'N') AS IsActive, 
+C_Debt_Payment_Generate.C_Settlement_Cancel_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_Settlement_Cancel_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table4.DateTrx, 'DD-MM-YYYY')),'') ) END) AS C_Settlement_Cancel_IDR, 
+C_Debt_Payment_Generate.PaymentRule, 
+(CASE WHEN C_Debt_Payment_Generate.PaymentRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS PaymentRuleR, 
+C_Debt_Payment_Generate.Dateplanned, 
+C_Debt_Payment_Generate.C_BPartner_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+C_Debt_Payment_Generate.Description, 
+C_Debt_Payment_Generate.C_CashBook_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_CashBook_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS C_CashBook_IDR, 
+C_Debt_Payment_Generate.C_CashLine_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_CashLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Amount), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Description), ''))),'') ) END) AS C_CashLine_IDR, 
+C_Debt_Payment_Generate.C_BankAccount_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_BankAccount_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.DisplayedAccount), ''))),'') ) END) AS C_BankAccount_IDR, 
+C_Debt_Payment_Generate.C_Invoice_ID, 
+C_Debt_Payment_Generate.C_BankStatementLine_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_BankStatementLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.StmtAmt), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Name), ''))),'') ) END) AS C_BankStatementLine_IDR, 
+C_Debt_Payment_Generate.Amount, 
+C_Debt_Payment_Generate.C_Currency_ID, 
+(CASE WHEN C_Debt_Payment_Generate.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+C_Debt_Payment_Generate.WriteOffAmt, 
+C_Debt_Payment_Generate.Discountamt, 
+COALESCE(C_Debt_Payment_Generate.IsReceipt, 'N') AS IsReceipt, 
+COALESCE(C_Debt_Payment_Generate.IsPaid, 'N') AS IsPaid, 
+COALESCE(C_Debt_Payment_Generate.IsManual, 'N') AS IsManual, 
+COALESCE(C_Debt_Payment_Generate.IsValid, 'N') AS IsValid, 
+COALESCE(C_Debt_Payment_Generate.Generate_Processed, 'N') AS Generate_Processed, 
+COALESCE(C_Debt_Payment_Generate.Isdirectposting, 'N') AS Isdirectposting, 
+ 
+        ? AS LANGUAGE 
+        FROM C_Debt_Payment_Generate left join (select AD_Client_ID, Name from AD_Client) table1 on (C_Debt_Payment_Generate.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_Debt_Payment_Generate.AD_Org_ID = table2.AD_Org_ID) left join (select C_Settlement_ID, DocumentNo, DateTrx from C_Settlement) table3 on (C_Debt_Payment_Generate.C_Settlement_ID = table3.C_Settlement_ID) left join (select C_Settlement_ID, DocumentNo, DateTrx from C_Settlement) table4 on (C_Debt_Payment_Generate.C_Settlement_Cancel_ID = table4.C_Settlement_ID) left join ad_ref_list_v list1 on (C_Debt_Payment_Generate.PaymentRule = list1.value and list1.ad_reference_id = '195' and list1.ad_language = ?)  left join (select C_BPartner_ID, Name from C_BPartner) table5 on (C_Debt_Payment_Generate.C_BPartner_ID = table5.C_BPartner_ID) left join (select C_CashBook_ID, Name from C_CashBook) table6 on (C_Debt_Payment_Generate.C_CashBook_ID = table6.C_CashBook_ID) left join (select C_CashLine_ID, C_Cash_ID, Line, Amount, Description from C_CashLine) table7 on (C_Debt_Payment_Generate.C_CashLine_ID = table7.C_CashLine_ID) left join (select C_Cash_ID, Name from C_Cash) table8 on (table7.C_Cash_ID = table8.C_Cash_ID) left join (select C_BankAccount_ID, C_Bank_ID, DisplayedAccount from C_BankAccount) table9 on (C_Debt_Payment_Generate.C_BankAccount_ID = table9.C_BankAccount_ID) left join (select C_Bank_ID, Name from C_Bank) table10 on (table9.C_Bank_ID = table10.C_Bank_ID) left join (select C_BankStatementLine_ID, Line, StmtAmt, C_BankStatement_ID from C_BankStatementLine) table11 on (C_Debt_Payment_Generate.C_BankStatementLine_ID = table11.C_BankStatementLine_ID) left join (select C_BankStatement_ID, Name from C_BankStatement) table12 on (table11.C_BankStatement_ID = table12.C_BankStatement_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table13 on (C_Debt_Payment_Generate.C_Currency_ID = table13.C_Currency_ID)
+        WHERE 2=2 
+ AND C_Debt_Payment_Generate.ismanual='N'
+        AND 1=1 
+        AND C_Debt_Payment_Generate.C_Debt_Payment_ID = ? 
+        AND C_Debt_Payment_Generate.AD_Client_ID IN ('1') 
+           AND C_Debt_Payment_Generate.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cSettlementId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_Debt_Payment_Generate.C_Settlement_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Debt_Payment_Generate.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Debt_Payment_Generate.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cSettlementId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="dateplanned"></Parameter><Parameter name="ispaid"></Parameter><Parameter name="cDebtPaymentId"></Parameter><Parameter name="cInvoiceId"></Parameter><Parameter name="description"></Parameter><Parameter name="discountamt"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="cBankstatementlineId"></Parameter><Parameter name="isvalid"></Parameter><Parameter name="paymentrule"></Parameter><Parameter name="writeoffamt"></Parameter><Parameter name="cSettlementCancelId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="isreceipt"></Parameter><Parameter name="cCashbookId"></Parameter><Parameter name="ismanual"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="isdirectposting"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="amount"></Parameter><Parameter name="generateProcessed"></Parameter><Parameter name="cBankaccountId"></Parameter><Parameter name="cCashlineId"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="created"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef800377_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800384_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800379_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_Debt_Payment_Generate.C_Settlement_ID AS NAME
+        FROM C_Debt_Payment_Generate
+        WHERE C_Debt_Payment_Generate.C_Debt_Payment_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(table1.DateTrx, 'DD-MM-YYYY')) AS NAME FROM C_Settlement left join (select C_Settlement_ID, DocumentNo, DateTrx from C_Settlement) table1 on (C_Settlement.C_Settlement_ID = table1.C_Settlement_ID) WHERE C_Settlement.C_Settlement_ID = ?  
+    ]]></Sql>
+<Parameter name="cSettlementId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(table1.DateTrx, 'DD-MM-YYYY')) AS NAME FROM C_Settlement left join (select C_Settlement_ID, DocumentNo, DateTrx from C_Settlement) table1 on (C_Settlement.C_Settlement_ID = table1.C_Settlement_ID) WHERE C_Settlement.C_Settlement_ID = ?  
+    ]]></Sql>
+<Parameter name="cSettlementId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_Debt_Payment_Generate
+        SET C_Debt_Payment_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , C_Settlement_ID = (?) , IsActive = (?) , C_Settlement_Cancel_ID = (?) , PaymentRule = (?) , Dateplanned = TO_DATE(?) , C_BPartner_ID = (?) , Description = (?) , C_CashBook_ID = (?) , C_CashLine_ID = (?) , C_BankAccount_ID = (?) , C_BankStatementLine_ID = (?) , C_Invoice_ID = (?) , Amount = TO_NUMBER(?) , C_Currency_ID = (?) , WriteOffAmt = TO_NUMBER(?) , Discountamt = TO_NUMBER(?) , IsReceipt = (?) , IsPaid = (?) , IsManual = (?) , IsValid = (?) , Generate_Processed = (?) , Isdirectposting = (?) , updated = now(), updatedby = ? 
+        WHERE C_Debt_Payment_Generate.C_Debt_Payment_ID = ? 
+                 AND C_Debt_Payment_Generate.C_Settlement_ID = ? 
+        AND C_Debt_Payment_Generate.AD_Client_ID IN ('1') 
+        AND C_Debt_Payment_Generate.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cDebtPaymentId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cSettlementId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cSettlementCancelId"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="dateplanned"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="cCashbookId"></Parameter> <Parameter name="cCashlineId"></Parameter> <Parameter name="cBankaccountId"></Parameter> <Parameter name="cBankstatementlineId"></Parameter> <Parameter name="cInvoiceId"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="writeoffamt"></Parameter> <Parameter name="discountamt"></Parameter> <Parameter name="isreceipt"></Parameter> <Parameter name="ispaid"></Parameter> <Parameter name="ismanual"></Parameter> <Parameter name="isvalid"></Parameter> <Parameter name="generateProcessed"></Parameter> <Parameter name="isdirectposting"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cDebtPaymentId"></Parameter>
+    
+    <Parameter name="cSettlementId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Debt_Payment_Generate.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Debt_Payment_Generate.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_Debt_Payment_Generate 
+        (AD_Client_ID, C_Debt_Payment_ID, AD_Org_ID, C_Settlement_ID, IsActive, C_Settlement_Cancel_ID, PaymentRule, Dateplanned, C_BPartner_ID, Description, C_CashBook_ID, C_CashLine_ID, C_BankAccount_ID, C_Invoice_ID, C_BankStatementLine_ID, Amount, C_Currency_ID, WriteOffAmt, Discountamt, IsReceipt, IsPaid, IsManual, IsValid, Generate_Processed, Isdirectposting, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="cDebtPaymentId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cSettlementId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cSettlementCancelId"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="dateplanned"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="cCashbookId"></Parameter> <Parameter name="cCashlineId"></Parameter> <Parameter name="cBankaccountId"></Parameter> <Parameter name="cInvoiceId"></Parameter> <Parameter name="cBankstatementlineId"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="writeoffamt"></Parameter> <Parameter name="discountamt"></Parameter> <Parameter name="isreceipt"></Parameter> <Parameter name="ispaid"></Parameter> <Parameter name="ismanual"></Parameter> <Parameter name="isvalid"></Parameter> <Parameter name="generateProcessed"></Parameter> <Parameter name="isdirectposting"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Debt_Payment_Generate
+        WHERE C_Debt_Payment_Generate.C_Debt_Payment_ID = ? 
+                 AND C_Debt_Payment_Generate.C_Settlement_ID = ? 
+        AND C_Debt_Payment_Generate.AD_Client_ID IN ('1') 
+        AND C_Debt_Payment_Generate.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cSettlementId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Debt_Payment_Generate.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Debt_Payment_Generate.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Debt_Payment_Generate
+        WHERE C_Debt_Payment_Generate.C_Debt_Payment_ID = ? 
+                 AND C_Debt_Payment_Generate.C_Settlement_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cSettlementId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_Debt_Payment_Generate
+         WHERE C_Debt_Payment_Generate.C_Debt_Payment_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_Debt_Payment_Generate
+         WHERE C_Debt_Payment_Generate.C_Debt_Payment_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

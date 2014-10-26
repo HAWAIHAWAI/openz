@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resourceplan" columnCount="7" pageWidth="1191" pageHeight="842" orientation="Landscape" columnWidth="170" leftMargin="0" rightMargin="0" topMargin="10" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.one.page.per.sheet" value="false"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Monospaced" pdfFontName="Times-Roman" pdfEncoding="Cp1252"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="dateFrom" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateTo" class="java.util.Date"/>
+	<parameter name="Language" class="java.lang.String">
+		<defaultValueExpression><![CDATA["de_DE"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select
+zssi_getElementTextByColumname('Resourceplan',$P{Language}) as Headline,
+zssi_getElementTextByColumname('From',$P{Language}) as fromh,
+zssi_getElementTextByColumname('To',$P{Language}) as toh,
+zssi_resourceplan_report($P{dateFrom},$P{dateTo}) as tabledata,
+ad_image.binarydata as img
+from
+AD_ORGINFO LEFT JOIN ad_image on AD_ORGINFO.your_company_document_image=ad_image.ad_image_id]]>
+	</queryString>
+	<field name="headline" class="java.lang.String"/>
+	<field name="fromh" class="java.lang.String"/>
+	<field name="toh" class="java.lang.String"/>
+	<field name="tabledata" class="java.lang.String">
+		<property name="net.sf.jasperreports.export.pdf.tag.table" value="full"/>
+	</field>
+	<field name="img" class="java.io.InputStream"/>
+	<title>
+		<band height="822" splitType="Stretch">
+			<elementGroup>
+				<textField>
+					<reportElement x="10" y="49" width="11890" height="773" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true">
+						<property name="net.sf.jasperreports.export.pdf.tag.tr" value="full"/>
+						<property name="net.sf.jasperreports.export.pdf.tag.table" value="full"/>
+					</reportElement>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="DejaVu Sans Mono" size="7" pdfFontName="Courier" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{tabledata}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<textField>
+				<reportElement x="10" y="0" width="187" height="49"/>
+				<textElement>
+					<font size="16" isBold="true" pdfFontName="Courier"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{headline}+" "+$F{fromh}+": "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd.MM.yyyy">
+				<reportElement x="197" y="0" width="109" height="49"/>
+				<textElement>
+					<font size="16" isBold="true" pdfFontName="Courier"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{dateFrom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="306" y="0" width="33" height="49"/>
+				<textElement>
+					<font size="16" isBold="true" pdfFontName="Courier"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{toh}+": "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd.MM.yyyy">
+				<reportElement x="339" y="0" width="109" height="49"/>
+				<textElement>
+					<font size="16" isBold="true" pdfFontName="Courier"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{dateTo}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Right" vAlign="Top" isUsingCache="true" isLazy="true" onErrorType="Blank">
+				<reportElement key="image-1" x="670" y="0" width="515" height="49"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$F{img}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="TeamTranslationE1F0728FBFEB4333B831433770914ADBData" package="org.openbravo.erpWindows.org.zsoft.jmm.Teams">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(juwimm_team_trl.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_team_trl.CreatedBy) as CreatedByR, 
+        to_char(juwimm_team_trl.Updated, ?) as updated, 
+        to_char(juwimm_team_trl.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        juwimm_team_trl.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_team_trl.UpdatedBy) as UpdatedByR,
+        juwimm_team_trl.Juwimm_Team_Trl_ID, 
+juwimm_team_trl.AD_Client_ID, 
+(CASE WHEN juwimm_team_trl.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+juwimm_team_trl.AD_Org_ID, 
+(CASE WHEN juwimm_team_trl.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+juwimm_team_trl.Juwimm_Team_ID, 
+(CASE WHEN juwimm_team_trl.Juwimm_Team_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS Juwimm_Team_IDR, 
+juwimm_team_trl.AD_Language, 
+(CASE WHEN juwimm_team_trl.AD_Language IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_LanguageR, 
+juwimm_team_trl.Name, 
+COALESCE(juwimm_team_trl.Istranslated, 'N') AS Istranslated, 
+COALESCE(juwimm_team_trl.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM juwimm_team_trl left join (select AD_Client_ID, Name from AD_Client) table1 on (juwimm_team_trl.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (juwimm_team_trl.AD_Org_ID = table2.AD_Org_ID) left join (select Juwimm_Team_ID, Name from Juwimm_Team) table3 on (juwimm_team_trl.Juwimm_Team_ID = table3.Juwimm_Team_ID) left join (select Juwimm_Team_ID,AD_Language, Name from juwimm_team_TRL) tableTRL3 on (table3.Juwimm_Team_ID = tableTRL3.Juwimm_Team_ID and tableTRL3.AD_Language = ?)  left join (select AD_Language, Name from AD_Language) table4 on (juwimm_team_trl.AD_Language =  table4.AD_Language)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND juwimm_team_trl.Juwimm_Team_Trl_ID = ? 
+        AND juwimm_team_trl.AD_Client_ID IN ('1') 
+           AND juwimm_team_trl.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="juwimmTeamId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND juwimm_team_trl.Juwimm_Team_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_team_trl.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_team_trl.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="juwimmTeamId" id="paramKeyParent"></Parameter>
+<Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="istranslated"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="juwimmTeamTrlId"></Parameter><Parameter name="name"></Parameter><Parameter name="adLanguage"></Parameter><Parameter name="isactive"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1B9D6FE592894355815DE864ABEC451F_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5DB40466B81D42839F1C1DF921ED57A4_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT juwimm_team_trl.Juwimm_Team_ID AS NAME
+        FROM juwimm_team_trl
+        WHERE juwimm_team_trl.Juwimm_Team_Trl_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM juwimm_team left join (select Juwimm_Team_ID, Name from Juwimm_Team) table1 on (juwimm_team.Juwimm_Team_ID = table1.Juwimm_Team_ID) left join (select Juwimm_Team_ID,AD_Language, Name from juwimm_team_TRL) tableTRL1 on (table1.Juwimm_Team_ID = tableTRL1.Juwimm_Team_ID and tableTRL1.AD_Language = ?)  WHERE juwimm_team.Juwimm_Team_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="juwimmTeamId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM juwimm_team left join (select Juwimm_Team_ID, Name from Juwimm_Team) table1 on (juwimm_team.Juwimm_Team_ID = table1.Juwimm_Team_ID) left join (select Juwimm_Team_ID,AD_Language, Name from juwimm_team_TRL) tableTRL1 on (table1.Juwimm_Team_ID = tableTRL1.Juwimm_Team_ID and tableTRL1.AD_Language = ?)  WHERE juwimm_team.Juwimm_Team_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="juwimmTeamId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE juwimm_team_trl
+        SET Juwimm_Team_Trl_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Juwimm_Team_ID = (?) , AD_Language = (?) , Name = (?) , Istranslated = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE juwimm_team_trl.Juwimm_Team_Trl_ID = ? 
+                 AND juwimm_team_trl.Juwimm_Team_ID = ? 
+        AND juwimm_team_trl.AD_Client_ID IN ('1') 
+        AND juwimm_team_trl.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="juwimmTeamTrlId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="name"></Parameter> <Parameter name="istranslated"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="juwimmTeamTrlId"></Parameter>
+    
+    <Parameter name="juwimmTeamId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_team_trl.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_team_trl.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO juwimm_team_trl 
+        (Juwimm_Team_Trl_ID, AD_Client_ID, AD_Org_ID, Juwimm_Team_ID, AD_Language, Name, Istranslated, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="juwimmTeamTrlId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="name"></Parameter> <Parameter name="istranslated"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_team_trl
+        WHERE juwimm_team_trl.Juwimm_Team_Trl_ID = ? 
+                 AND juwimm_team_trl.Juwimm_Team_ID = ? 
+        AND juwimm_team_trl.AD_Client_ID IN ('1') 
+        AND juwimm_team_trl.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="juwimmTeamId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_team_trl.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_team_trl.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_team_trl
+        WHERE juwimm_team_trl.Juwimm_Team_Trl_ID = ? 
+                 AND juwimm_team_trl.Juwimm_Team_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="juwimmTeamId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM juwimm_team_trl
+         WHERE juwimm_team_trl.Juwimm_Team_Trl_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM juwimm_team_trl
+         WHERE juwimm_team_trl.Juwimm_Team_Trl_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

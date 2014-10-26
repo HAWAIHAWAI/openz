@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="PrintoutConfigurationData" package="org.openbravo.erpWindows.Organization">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zspr_printinfo.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspr_printinfo.CreatedBy) as CreatedByR, 
+        to_char(zspr_printinfo.Updated, ?) as updated, 
+        to_char(zspr_printinfo.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zspr_printinfo.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspr_printinfo.UpdatedBy) as UpdatedByR,
+        COALESCE(zspr_printinfo.Printordernumberoninvoice, 'N') AS Printordernumberoninvoice, 
+COALESCE(zspr_printinfo.Printordernumberoninvoicenewline, 'N') AS Printordernumberoninvoicenewline, 
+COALESCE(zspr_printinfo.Printordernumberoninvoicebold, 'N') AS Printordernumberoninvoicebold, 
+zspr_printinfo.Pordnoinv_Ordernum, 
+COALESCE(zspr_printinfo.Printordernumberonshipment, 'N') AS Printordernumberonshipment, 
+COALESCE(zspr_printinfo.Printordernumberonshipmentnewline, 'N') AS Printordernumberonshipmentnewline, 
+COALESCE(zspr_printinfo.Printordernumberonshipmentbold, 'N') AS Printordernumberonshipmentbold, 
+zspr_printinfo.Pordnoship_Ordernum, 
+COALESCE(zspr_printinfo.Printshipmentnumberoninvoice, 'N') AS Printshipmentnumberoninvoice, 
+COALESCE(zspr_printinfo.Printshipmentnumberoninvoicenewline, 'N') AS Printshipmentnumberoninvoicenewline, 
+COALESCE(zspr_printinfo.Printshipmentnumberoninvoicebold, 'N') AS Printshipmentnumberoninvoicebold, 
+zspr_printinfo.Pshipnoinv_Ordernum, 
+COALESCE(zspr_printinfo.Printshipmentdateoninvoice, 'N') AS Printshipmentdateoninvoice, 
+COALESCE(zspr_printinfo.Printshipmentdateoninvoicenewline, 'N') AS Printshipmentdateoninvoicenewline, 
+COALESCE(zspr_printinfo.Printshipmentdateoninvoicebold, 'N') AS Printshipmentdateoninvoicebold, 
+zspr_printinfo.Pshipdateinv_Ordernum, 
+COALESCE(zspr_printinfo.Printserialnumberondocs, 'N') AS Printserialnumberondocs, 
+COALESCE(zspr_printinfo.Printsetproductwithbom, 'N') AS Printsetproductwithbom, 
+COALESCE(zspr_printinfo.Printopenshipments, 'N') AS Printopenshipments, 
+COALESCE(zspr_printinfo.printcashdiscountinfo, 'N') AS printcashdiscountinfo, 
+COALESCE(zspr_printinfo.Printpnameondocs, 'N') AS Printpnameondocs, 
+zspr_printinfo.Pname_Ordernum, 
+COALESCE(zspr_printinfo.Printpnamenewline, 'N') AS Printpnamenewline, 
+COALESCE(zspr_printinfo.Printpnamebold, 'N') AS Printpnamebold, 
+COALESCE(zspr_printinfo.Printpnumberondocs, 'N') AS Printpnumberondocs, 
+zspr_printinfo.Pnumber_Ordernum, 
+COALESCE(zspr_printinfo.Printpnumbernewline, 'N') AS Printpnumbernewline, 
+COALESCE(zspr_printinfo.Printpnumberbold, 'N') AS Printpnumberbold, 
+COALESCE(zspr_printinfo.Printattrsondocs, 'N') AS Printattrsondocs, 
+zspr_printinfo.Attrs_Ordernum, 
+COALESCE(zspr_printinfo.Printattrsnewline, 'N') AS Printattrsnewline, 
+COALESCE(zspr_printinfo.Printattrsbold, 'N') AS Printattrsbold, 
+COALESCE(zspr_printinfo.Printvpnumberondocs, 'N') AS Printvpnumberondocs, 
+zspr_printinfo.Vpnumber_Ordernum, 
+COALESCE(zspr_printinfo.Printvpnumbernewline, 'N') AS Printvpnumbernewline, 
+COALESCE(zspr_printinfo.Printvpnumberbold, 'N') AS Printvpnumberbold, 
+COALESCE(zspr_printinfo.Printpdescondocs, 'N') AS Printpdescondocs, 
+zspr_printinfo.Pdesc_Ordernum, 
+COALESCE(zspr_printinfo.Printpdescnewline, 'N') AS Printpdescnewline, 
+COALESCE(zspr_printinfo.Printpdescbold, 'N') AS Printpdescbold, 
+COALESCE(zspr_printinfo.Printdocnoteondocs, 'N') AS Printdocnoteondocs, 
+zspr_printinfo.Docnote_Ordernum, 
+COALESCE(zspr_printinfo.Printdocnotenewline, 'N') AS Printdocnotenewline, 
+COALESCE(zspr_printinfo.Printdocnotebold, 'N') AS Printdocnotebold, 
+COALESCE(zspr_printinfo.CPY_Proddocnote2docnote, 'N') AS CPY_Proddocnote2docnote, 
+zspr_printinfo.Proddocnote_Ordernum, 
+COALESCE(zspr_printinfo.CPY_Proddesc2docnote, 'N') AS CPY_Proddesc2docnote, 
+zspr_printinfo.Proddesc_Ordernum, 
+COALESCE(zspr_printinfo.CPY_Vendpnumber2docnote, 'N') AS CPY_Vendpnumber2docnote, 
+zspr_printinfo.Vendpnumberdn_Ordernum, 
+COALESCE(zspr_printinfo.performacedateoninvoice, 'N') AS performacedateoninvoice, 
+COALESCE(zspr_printinfo.Isactive, 'N') AS Isactive, 
+zspr_printinfo.Address5, 
+zspr_printinfo.Footer1, 
+zspr_printinfo.Onelineadr, 
+zspr_printinfo.Address1, 
+zspr_printinfo.Footer2, 
+zspr_printinfo.Footer3, 
+zspr_printinfo.Zspr_Printinfo_ID, 
+zspr_printinfo.AD_Client_ID, 
+zspr_printinfo.Addressheader, 
+zspr_printinfo.Footer5, 
+zspr_printinfo.Address7, 
+zspr_printinfo.Address8, 
+zspr_printinfo.Address6, 
+zspr_printinfo.Address3, 
+zspr_printinfo.AD_Org_ID, 
+zspr_printinfo.Address9, 
+zspr_printinfo.Address4, 
+zspr_printinfo.Address2, 
+zspr_printinfo.Footer4, 
+COALESCE(zspr_printinfo.Isfootergroupstyle, 'N') AS Isfootergroupstyle, 
+ 
+        ? AS LANGUAGE 
+        FROM zspr_printinfo
+        WHERE 2=2 
+ AND zspr_printinfo.ad_org_id=?
+        AND 1=1 
+        AND zspr_printinfo.Zspr_Printinfo_ID = ? 
+        AND zspr_printinfo.AD_Client_ID IN ('1') 
+           AND zspr_printinfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="ad_org_id"/>
+
+    <Parameter name="adOrgId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zspr_printinfo.AD_Org_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspr_printinfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspr_printinfo.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+<Parameter name="pnumberOrdernum"></Parameter><Parameter name="isactive"></Parameter><Parameter name="attrsOrdernum"></Parameter><Parameter name="printopenshipments"></Parameter><Parameter name="proddocnoteOrdernum"></Parameter><Parameter name="printpnumberondocs"></Parameter><Parameter name="zsprPrintinfoId"></Parameter><Parameter name="printordernumberonshipmentbold"></Parameter><Parameter name="printpnumbernewline"></Parameter><Parameter name="pordnoinvOrdernum"></Parameter><Parameter name="address6"></Parameter><Parameter name="vendpnumberdnOrdernum"></Parameter><Parameter name="printshipmentdateoninvoicebold"></Parameter><Parameter name="address4"></Parameter><Parameter name="printordernumberonshipmentnewline"></Parameter><Parameter name="printordernumberonshipment"></Parameter><Parameter name="printsetproductwithbom"></Parameter><Parameter name="printshipmentnumberoninvoicenewline"></Parameter><Parameter name="printshipmentnumberoninvoice"></Parameter><Parameter name="pshipnoinvOrdernum"></Parameter><Parameter name="printpnamebold"></Parameter><Parameter name="footer2"></Parameter><Parameter name="address5"></Parameter><Parameter name="printpnamenewline"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="address7"></Parameter><Parameter name="footer4"></Parameter><Parameter name="pshipdateinvOrdernum"></Parameter><Parameter name="isfootergroupstyle"></Parameter><Parameter name="pordnoshipOrdernum"></Parameter><Parameter name="onelineadr"></Parameter><Parameter name="printordernumberoninvoicenewline"></Parameter><Parameter name="address2"></Parameter><Parameter name="pdescOrdernum"></Parameter><Parameter name="printvpnumbernewline"></Parameter><Parameter name="pnameOrdernum"></Parameter><Parameter name="printshipmentnumberoninvoicebold"></Parameter><Parameter name="footer3"></Parameter><Parameter name="printdocnotenewline"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="printdocnotebold"></Parameter><Parameter name="proddescOrdernum"></Parameter><Parameter name="printserialnumberondocs"></Parameter><Parameter name="docnoteOrdernum"></Parameter><Parameter name="printordernumberoninvoicebold"></Parameter><Parameter name="footer5"></Parameter><Parameter name="printattrsbold"></Parameter><Parameter name="printpdescondocs"></Parameter><Parameter name="printpnameondocs"></Parameter><Parameter name="address8"></Parameter><Parameter name="cpyProddocnote2docnote"></Parameter><Parameter name="printdocnoteondocs"></Parameter><Parameter name="cpyProddesc2docnote"></Parameter><Parameter name="footer1"></Parameter><Parameter name="printshipmentdateoninvoicenewline"></Parameter><Parameter name="vpnumberOrdernum"></Parameter><Parameter name="printcashdiscountinfo"></Parameter><Parameter name="performacedateoninvoice"></Parameter><Parameter name="addressheader"></Parameter><Parameter name="printpnumberbold"></Parameter><Parameter name="printvpnumberbold"></Parameter><Parameter name="printvpnumberondocs"></Parameter><Parameter name="address9"></Parameter><Parameter name="printattrsnewline"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="printpdescnewline"></Parameter><Parameter name="cpyVendpnumber2docnote"></Parameter><Parameter name="printordernumberoninvoice"></Parameter><Parameter name="printpdescbold"></Parameter><Parameter name="printattrsondocs"></Parameter><Parameter name="printshipmentdateoninvoice"></Parameter><Parameter name="address3"></Parameter><Parameter name="address1"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef0B4283540BB5418C96C64D3C5267880F_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefC6E91D721EF847E2BCEE9A2CD6253DED_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zspr_printinfo.AD_Org_ID AS NAME
+        FROM zspr_printinfo
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zspr_printinfo
+        SET Printordernumberoninvoice = (?) , Printordernumberoninvoicenewline = (?) , Printordernumberoninvoicebold = (?) , Pordnoinv_Ordernum = TO_NUMBER(?) , Printordernumberonshipment = (?) , Printordernumberonshipmentnewline = (?) , Printordernumberonshipmentbold = (?) , Pordnoship_Ordernum = TO_NUMBER(?) , Printshipmentnumberoninvoice = (?) , Printshipmentnumberoninvoicenewline = (?) , Printshipmentnumberoninvoicebold = (?) , Pshipnoinv_Ordernum = TO_NUMBER(?) , Printshipmentdateoninvoice = (?) , Printshipmentdateoninvoicenewline = (?) , Printshipmentdateoninvoicebold = (?) , Pshipdateinv_Ordernum = TO_NUMBER(?) , Printserialnumberondocs = (?) , Printsetproductwithbom = (?) , Printopenshipments = (?) , printcashdiscountinfo = (?) , Printpnameondocs = (?) , Pname_Ordernum = TO_NUMBER(?) , Printpnamenewline = (?) , Printpnamebold = (?) , Printpnumberondocs = (?) , Pnumber_Ordernum = TO_NUMBER(?) , Printpnumbernewline = (?) , Printpnumberbold = (?) , Printattrsondocs = (?) , Attrs_Ordernum = TO_NUMBER(?) , Printattrsnewline = (?) , Printattrsbold = (?) , Printvpnumberondocs = (?) , Vpnumber_Ordernum = TO_NUMBER(?) , Printvpnumbernewline = (?) , Printvpnumberbold = (?) , Printpdescondocs = (?) , Pdesc_Ordernum = TO_NUMBER(?) , Printpdescnewline = (?) , Printpdescbold = (?) , Printdocnoteondocs = (?) , Docnote_Ordernum = TO_NUMBER(?) , Printdocnotenewline = (?) , Printdocnotebold = (?) , CPY_Proddocnote2docnote = (?) , Proddocnote_Ordernum = TO_NUMBER(?) , CPY_Proddesc2docnote = (?) , Proddesc_Ordernum = TO_NUMBER(?) , CPY_Vendpnumber2docnote = (?) , Vendpnumberdn_Ordernum = TO_NUMBER(?) , performacedateoninvoice = (?) , Isactive = (?) , Address5 = (?) , Footer1 = (?) , Onelineadr = (?) , Address1 = (?) , Footer2 = (?) , Footer3 = (?) , Zspr_Printinfo_ID = (?) , AD_Client_ID = (?) , Addressheader = (?) , Footer5 = (?) , Address7 = (?) , Address8 = (?) , Address6 = (?) , Address3 = (?) , AD_Org_ID = (?) , Address9 = (?) , Address4 = (?) , Address2 = (?) , Footer4 = (?) , Isfootergroupstyle = (?) , updated = now(), updatedby = ? 
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+                 AND zspr_printinfo.AD_Org_ID = ? 
+        AND zspr_printinfo.AD_Client_ID IN ('1') 
+        AND zspr_printinfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="printordernumberoninvoice"></Parameter> <Parameter name="printordernumberoninvoicenewline"></Parameter> <Parameter name="printordernumberoninvoicebold"></Parameter> <Parameter name="pordnoinvOrdernum"></Parameter> <Parameter name="printordernumberonshipment"></Parameter> <Parameter name="printordernumberonshipmentnewline"></Parameter> <Parameter name="printordernumberonshipmentbold"></Parameter> <Parameter name="pordnoshipOrdernum"></Parameter> <Parameter name="printshipmentnumberoninvoice"></Parameter> <Parameter name="printshipmentnumberoninvoicenewline"></Parameter> <Parameter name="printshipmentnumberoninvoicebold"></Parameter> <Parameter name="pshipnoinvOrdernum"></Parameter> <Parameter name="printshipmentdateoninvoice"></Parameter> <Parameter name="printshipmentdateoninvoicenewline"></Parameter> <Parameter name="printshipmentdateoninvoicebold"></Parameter> <Parameter name="pshipdateinvOrdernum"></Parameter> <Parameter name="printserialnumberondocs"></Parameter> <Parameter name="printsetproductwithbom"></Parameter> <Parameter name="printopenshipments"></Parameter> <Parameter name="printcashdiscountinfo"></Parameter> <Parameter name="printpnameondocs"></Parameter> <Parameter name="pnameOrdernum"></Parameter> <Parameter name="printpnamenewline"></Parameter> <Parameter name="printpnamebold"></Parameter> <Parameter name="printpnumberondocs"></Parameter> <Parameter name="pnumberOrdernum"></Parameter> <Parameter name="printpnumbernewline"></Parameter> <Parameter name="printpnumberbold"></Parameter> <Parameter name="printattrsondocs"></Parameter> <Parameter name="attrsOrdernum"></Parameter> <Parameter name="printattrsnewline"></Parameter> <Parameter name="printattrsbold"></Parameter> <Parameter name="printvpnumberondocs"></Parameter> <Parameter name="vpnumberOrdernum"></Parameter> <Parameter name="printvpnumbernewline"></Parameter> <Parameter name="printvpnumberbold"></Parameter> <Parameter name="printpdescondocs"></Parameter> <Parameter name="pdescOrdernum"></Parameter> <Parameter name="printpdescnewline"></Parameter> <Parameter name="printpdescbold"></Parameter> <Parameter name="printdocnoteondocs"></Parameter> <Parameter name="docnoteOrdernum"></Parameter> <Parameter name="printdocnotenewline"></Parameter> <Parameter name="printdocnotebold"></Parameter> <Parameter name="cpyProddocnote2docnote"></Parameter> <Parameter name="proddocnoteOrdernum"></Parameter> <Parameter name="cpyProddesc2docnote"></Parameter> <Parameter name="proddescOrdernum"></Parameter> <Parameter name="cpyVendpnumber2docnote"></Parameter> <Parameter name="vendpnumberdnOrdernum"></Parameter> <Parameter name="performacedateoninvoice"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="address5"></Parameter> <Parameter name="footer1"></Parameter> <Parameter name="onelineadr"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="footer2"></Parameter> <Parameter name="footer3"></Parameter> <Parameter name="zsprPrintinfoId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="addressheader"></Parameter> <Parameter name="footer5"></Parameter> <Parameter name="address7"></Parameter> <Parameter name="address8"></Parameter> <Parameter name="address6"></Parameter> <Parameter name="address3"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="address9"></Parameter> <Parameter name="address4"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="footer4"></Parameter> <Parameter name="isfootergroupstyle"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zsprPrintinfoId"></Parameter>
+    
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspr_printinfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspr_printinfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zspr_printinfo 
+        (Printordernumberoninvoice, Printordernumberoninvoicenewline, Printordernumberoninvoicebold, Pordnoinv_Ordernum, Printordernumberonshipment, Printordernumberonshipmentnewline, Printordernumberonshipmentbold, Pordnoship_Ordernum, Printshipmentnumberoninvoice, Printshipmentnumberoninvoicenewline, Printshipmentnumberoninvoicebold, Pshipnoinv_Ordernum, Printshipmentdateoninvoice, Printshipmentdateoninvoicenewline, Printshipmentdateoninvoicebold, Pshipdateinv_Ordernum, Printserialnumberondocs, Printsetproductwithbom, Printopenshipments, printcashdiscountinfo, Printpnameondocs, Pname_Ordernum, Printpnamenewline, Printpnamebold, Printpnumberondocs, Pnumber_Ordernum, Printpnumbernewline, Printpnumberbold, Printattrsondocs, Attrs_Ordernum, Printattrsnewline, Printattrsbold, Printvpnumberondocs, Vpnumber_Ordernum, Printvpnumbernewline, Printvpnumberbold, Printpdescondocs, Pdesc_Ordernum, Printpdescnewline, Printpdescbold, Printdocnoteondocs, Docnote_Ordernum, Printdocnotenewline, Printdocnotebold, CPY_Proddocnote2docnote, Proddocnote_Ordernum, CPY_Proddesc2docnote, Proddesc_Ordernum, CPY_Vendpnumber2docnote, Vendpnumberdn_Ordernum, performacedateoninvoice, Isactive, Address5, Footer1, Onelineadr, Address1, Footer2, Footer3, Zspr_Printinfo_ID, AD_Client_ID, Addressheader, Footer5, Address7, Address8, Address6, Address3, AD_Org_ID, Address9, Address4, Address2, Footer4, Isfootergroupstyle, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="printordernumberoninvoice"></Parameter> <Parameter name="printordernumberoninvoicenewline"></Parameter> <Parameter name="printordernumberoninvoicebold"></Parameter> <Parameter name="pordnoinvOrdernum"></Parameter> <Parameter name="printordernumberonshipment"></Parameter> <Parameter name="printordernumberonshipmentnewline"></Parameter> <Parameter name="printordernumberonshipmentbold"></Parameter> <Parameter name="pordnoshipOrdernum"></Parameter> <Parameter name="printshipmentnumberoninvoice"></Parameter> <Parameter name="printshipmentnumberoninvoicenewline"></Parameter> <Parameter name="printshipmentnumberoninvoicebold"></Parameter> <Parameter name="pshipnoinvOrdernum"></Parameter> <Parameter name="printshipmentdateoninvoice"></Parameter> <Parameter name="printshipmentdateoninvoicenewline"></Parameter> <Parameter name="printshipmentdateoninvoicebold"></Parameter> <Parameter name="pshipdateinvOrdernum"></Parameter> <Parameter name="printserialnumberondocs"></Parameter> <Parameter name="printsetproductwithbom"></Parameter> <Parameter name="printopenshipments"></Parameter> <Parameter name="printcashdiscountinfo"></Parameter> <Parameter name="printpnameondocs"></Parameter> <Parameter name="pnameOrdernum"></Parameter> <Parameter name="printpnamenewline"></Parameter> <Parameter name="printpnamebold"></Parameter> <Parameter name="printpnumberondocs"></Parameter> <Parameter name="pnumberOrdernum"></Parameter> <Parameter name="printpnumbernewline"></Parameter> <Parameter name="printpnumberbold"></Parameter> <Parameter name="printattrsondocs"></Parameter> <Parameter name="attrsOrdernum"></Parameter> <Parameter name="printattrsnewline"></Parameter> <Parameter name="printattrsbold"></Parameter> <Parameter name="printvpnumberondocs"></Parameter> <Parameter name="vpnumberOrdernum"></Parameter> <Parameter name="printvpnumbernewline"></Parameter> <Parameter name="printvpnumberbold"></Parameter> <Parameter name="printpdescondocs"></Parameter> <Parameter name="pdescOrdernum"></Parameter> <Parameter name="printpdescnewline"></Parameter> <Parameter name="printpdescbold"></Parameter> <Parameter name="printdocnoteondocs"></Parameter> <Parameter name="docnoteOrdernum"></Parameter> <Parameter name="printdocnotenewline"></Parameter> <Parameter name="printdocnotebold"></Parameter> <Parameter name="cpyProddocnote2docnote"></Parameter> <Parameter name="proddocnoteOrdernum"></Parameter> <Parameter name="cpyProddesc2docnote"></Parameter> <Parameter name="proddescOrdernum"></Parameter> <Parameter name="cpyVendpnumber2docnote"></Parameter> <Parameter name="vendpnumberdnOrdernum"></Parameter> <Parameter name="performacedateoninvoice"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="address5"></Parameter> <Parameter name="footer1"></Parameter> <Parameter name="onelineadr"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="footer2"></Parameter> <Parameter name="footer3"></Parameter> <Parameter name="zsprPrintinfoId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="addressheader"></Parameter> <Parameter name="footer5"></Parameter> <Parameter name="address7"></Parameter> <Parameter name="address8"></Parameter> <Parameter name="address6"></Parameter> <Parameter name="address3"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="address9"></Parameter> <Parameter name="address4"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="footer4"></Parameter> <Parameter name="isfootergroupstyle"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspr_printinfo
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+                 AND zspr_printinfo.AD_Org_ID = ? 
+        AND zspr_printinfo.AD_Client_ID IN ('1') 
+        AND zspr_printinfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspr_printinfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspr_printinfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspr_printinfo
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+                 AND zspr_printinfo.AD_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zspr_printinfo
+         WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zspr_printinfo
+         WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

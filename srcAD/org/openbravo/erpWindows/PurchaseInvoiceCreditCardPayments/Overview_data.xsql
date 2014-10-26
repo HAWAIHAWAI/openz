@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="OverviewData" package="org.openbravo.erpWindows.PurchaseInvoiceCreditCardPayments">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_Invoice_Creditcard_Line_V.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Invoice_Creditcard_Line_V.CreatedBy) as CreatedByR, 
+        to_char(C_Invoice_Creditcard_Line_V.Updated, ?) as updated, 
+        to_char(C_Invoice_Creditcard_Line_V.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_Invoice_Creditcard_Line_V.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Invoice_Creditcard_Line_V.UpdatedBy) as UpdatedByR,
+        C_Invoice_Creditcard_Line_V.InvoiceDocumentNo, 
+C_Invoice_Creditcard_Line_V.C_Doctype_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Doctype_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS C_Doctype_IDR, 
+C_Invoice_Creditcard_Line_V.M_Pricelist_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.M_Pricelist_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS M_Pricelist_IDR, 
+COALESCE(C_Invoice_Creditcard_Line_V.IsGrossInvoice, 'N') AS IsGrossInvoice, 
+COALESCE(C_Invoice_Creditcard_Line_V.IsActive, 'N') AS IsActive, 
+C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_V_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateInvoiced, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.GrandTotal), ''))),'') ) END) AS C_Invoice_Creditcard_V_IDR, 
+C_Invoice_Creditcard_Line_V.C_BPartner_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_BPartner_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+C_Invoice_Creditcard_Line_V.AD_User_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.AD_User_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_User_IDR, 
+C_Invoice_Creditcard_Line_V.C_Currency_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+C_Invoice_Creditcard_Line_V.DateAcct, 
+C_Invoice_Creditcard_Line_V.Description, 
+C_Invoice_Creditcard_Line_V.InternalNote, 
+C_Invoice_Creditcard_Line_V.GrandTotal, 
+C_Invoice_Creditcard_Line_V.DocStatus, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.DocStatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DocStatusR, 
+COALESCE(C_Invoice_Creditcard_Line_V.LineIsActive, 'N') AS LineIsActive, 
+C_Invoice_Creditcard_Line_V.LineAdUser, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.LineAdUser IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS LineAdUserR, 
+C_Invoice_Creditcard_Line_V.C_Invoiceline_Creditcard_V_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Invoiceline_Creditcard_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table9.DateInvoiced, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.GrandTotal), ''))),'') ) END) AS C_Invoiceline_Creditcard_V_IDR, 
+C_Invoice_Creditcard_Line_V.Line, 
+COALESCE(C_Invoice_Creditcard_Line_V.HasVoucher, 'N') AS HasVoucher, 
+C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_Line_V_ID, 
+C_Invoice_Creditcard_Line_V.VoucherDate, 
+C_Invoice_Creditcard_Line_V.M_Product_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL10.Name IS NULL THEN TO_CHAR(table10.Name) ELSE TO_CHAR(tableTRL10.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+C_Invoice_Creditcard_Line_V.AD_Client_ID, 
+C_Invoice_Creditcard_Line_V.C_Tax_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Tax_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL11.Name IS NULL THEN TO_CHAR(table11.Name) ELSE TO_CHAR(tableTRL11.Name) END)), ''))),'') ) END) AS C_Tax_IDR, 
+C_Invoice_Creditcard_Line_V.AD_Org_ID, 
+C_Invoice_Creditcard_Line_V.LineDescription, 
+C_Invoice_Creditcard_Line_V.PriceActual, 
+C_Invoice_Creditcard_Line_V.A_Asset_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.A_Asset_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Name), ''))),'') ) END) AS A_Asset_IDR, 
+C_Invoice_Creditcard_Line_V.C_Project_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Name), ''))),'') ) END) AS C_Project_IDR, 
+C_Invoice_Creditcard_Line_V.C_Orderline_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Orderline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table15.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.GrandTotal), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.LineNetAmt), ''))),'') ) END) AS C_Orderline_IDR, 
+C_Invoice_Creditcard_Line_V.C_Cashline_ID, 
+(CASE WHEN C_Invoice_Creditcard_Line_V.C_Cashline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Amount), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Description), ''))),'') ) END) AS C_Cashline_IDR, 
+COALESCE(C_Invoice_Creditcard_Line_V.IsSOTrx, 'N') AS IsSOTrx, 
+C_Invoice_Creditcard_Line_V.LineGrossAmt, 
+C_Invoice_Creditcard_Line_V.DocAction, 
+C_Invoice_Creditcard_Line_V.C_Bpartner_Location_ID, 
+C_Invoice_Creditcard_Line_V.PaymentRule, 
+C_Invoice_Creditcard_Line_V.C_PaymentTerm_ID, 
+C_Invoice_Creditcard_Line_V.TotalLines, 
+C_Invoice_Creditcard_Line_V.LineCreated, 
+C_Invoice_Creditcard_Line_V.LineCreatedBy, 
+C_Invoice_Creditcard_Line_V.LineUpdated, 
+C_Invoice_Creditcard_Line_V.LineUpdatedBy, 
+C_Invoice_Creditcard_Line_V.QtyInvoiced, 
+C_Invoice_Creditcard_Line_V.LineNetAmt, 
+C_Invoice_Creditcard_Line_V.C_Uom_ID, 
+COALESCE(C_Invoice_Creditcard_Line_V.Processed, 'N') AS Processed, 
+ 
+        ? AS LANGUAGE 
+        FROM C_Invoice_Creditcard_Line_V left join (select C_Doctype_ID, Name from C_Doctype) table1 on (C_Invoice_Creditcard_Line_V.C_Doctype_ID = table1.C_Doctype_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL1 on (table1.C_DocType_ID = tableTRL1.C_DocType_ID and tableTRL1.AD_Language = ?)  left join (select M_Pricelist_ID, Name from M_Pricelist) table2 on (C_Invoice_Creditcard_Line_V.M_Pricelist_ID = table2.M_Pricelist_ID) left join (select C_Invoice_Creditcard_V_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice_Creditcard_V) table3 on (C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_V_ID = table3.C_Invoice_Creditcard_V_ID) left join (select C_BPartner_ID, value, Name from C_BPartner) table4 on (C_Invoice_Creditcard_Line_V.C_BPartner_ID =  table4.C_BPartner_ID) left join (select AD_User_ID, Name from AD_User) table5 on (C_Invoice_Creditcard_Line_V.AD_User_ID =  table5.AD_User_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table6 on (C_Invoice_Creditcard_Line_V.C_Currency_ID = table6.C_Currency_ID) left join ad_ref_list_v list1 on (C_Invoice_Creditcard_Line_V.DocStatus = list1.value and list1.ad_reference_id = '131' and list1.ad_language = ?)  left join (select AD_User_ID, Name from AD_User) table7 on (C_Invoice_Creditcard_Line_V.LineAdUser =  table7.AD_User_ID) left join (select C_Invoiceline_Creditcard_V_ID, Line, C_Invoice_Creditcard_V_ID from C_Invoiceline_Creditcard_V) table8 on (C_Invoice_Creditcard_Line_V.C_Invoiceline_Creditcard_V_ID = table8.C_Invoiceline_Creditcard_V_ID) left join (select C_Invoice_Creditcard_V_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice_Creditcard_V) table9 on (table8.C_Invoice_Creditcard_V_ID = table9.C_Invoice_Creditcard_V_ID) left join (select M_Product_ID, Value, Name from M_Product) table10 on (C_Invoice_Creditcard_Line_V.M_Product_ID = table10.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL10 on (table10.M_Product_ID = tableTRL10.M_Product_ID and tableTRL10.AD_Language = ?)  left join (select C_Tax_ID, Name from C_Tax) table11 on (C_Invoice_Creditcard_Line_V.C_Tax_ID = table11.C_Tax_ID) left join (select C_Tax_ID,AD_Language, Name from C_Tax_TRL) tableTRL11 on (table11.C_Tax_ID = tableTRL11.C_Tax_ID and tableTRL11.AD_Language = ?)  left join (select A_Asset_ID, Name from A_Asset) table12 on (C_Invoice_Creditcard_Line_V.A_Asset_ID = table12.A_Asset_ID) left join (select C_Project_ID, Value, Name from C_Project) table13 on (C_Invoice_Creditcard_Line_V.C_Project_ID = table13.C_Project_ID) left join (select C_Orderline_ID, C_Order_ID, Line, LineNetAmt from C_Orderline) table14 on (C_Invoice_Creditcard_Line_V.C_Orderline_ID = table14.C_Orderline_ID) left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table15 on (table14.C_Order_ID = table15.C_Order_ID) left join (select C_Cashline_ID, C_Cash_ID, Line, Amount, Description from C_Cashline) table16 on (C_Invoice_Creditcard_Line_V.C_Cashline_ID = table16.C_Cashline_ID) left join (select C_Cash_ID, Name from C_Cash) table17 on (table16.C_Cash_ID = table17.C_Cash_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_Line_V_ID = ? 
+        AND C_Invoice_Creditcard_Line_V.AD_Client_ID IN ('1') 
+           AND C_Invoice_Creditcard_Line_V.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Invoice_Creditcard_Line_V.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Invoice_Creditcard_Line_V.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="cBpartnerId"></Parameter><Parameter name="totallines"></Parameter><Parameter name="processed"></Parameter><Parameter name="docaction"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="internalnote"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="priceactual"></Parameter><Parameter name="cOrderlineId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="cInvoiceCreditcardLineVId"></Parameter><Parameter name="hasvoucher"></Parameter><Parameter name="qtyinvoiced"></Parameter><Parameter name="cDoctypeId"></Parameter><Parameter name="lineaduser"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cTaxId"></Parameter><Parameter name="linegrossamt"></Parameter><Parameter name="lineupdatedby"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="dateacct"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="lineupdated"></Parameter><Parameter name="linecreated"></Parameter><Parameter name="description"></Parameter><Parameter name="linedescription"></Parameter><Parameter name="isgrossinvoice"></Parameter><Parameter name="voucherdate"></Parameter><Parameter name="grandtotal"></Parameter><Parameter name="docstatus"></Parameter><Parameter name="lineisactive"></Parameter><Parameter name="cInvoiceCreditcardVId"></Parameter><Parameter name="line"></Parameter><Parameter name="linenetamt"></Parameter><Parameter name="issotrx"></Parameter><Parameter name="cInvoicelineCreditcardVId"></Parameter><Parameter name="cCashlineId"></Parameter><Parameter name="cPaymenttermId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="paymentrule"></Parameter><Parameter name="linecreatedby"></Parameter><Parameter name="invoicedocumentno"></Parameter><Parameter name="cCurrencyId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef84FF2259D5C64940A764744DB5207547_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8ED8A2136BDB4786B490496683BA9F4C_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_Invoice_Creditcard_Line_V
+        SET InvoiceDocumentNo = (?) , C_Doctype_ID = (?) , M_Pricelist_ID = (?) , IsGrossInvoice = (?) , IsActive = (?) , C_Invoice_Creditcard_V_ID = (?) , C_BPartner_ID = (?) , AD_User_ID = (?) , C_Currency_ID = (?) , DateAcct = TO_DATE(?) , Description = (?) , InternalNote = (?) , GrandTotal = TO_NUMBER(?) , DocStatus = (?) , LineIsActive = (?) , LineAdUser = (?) , C_Invoiceline_Creditcard_V_ID = (?) , Line = TO_NUMBER(?) , HasVoucher = (?) , C_Invoice_Creditcard_Line_V_ID = (?) , VoucherDate = TO_DATE(?) , M_Product_ID = (?) , AD_Client_ID = (?) , C_Tax_ID = (?) , AD_Org_ID = (?) , LineDescription = (?) , PriceActual = TO_NUMBER(?) , A_Asset_ID = (?) , C_Project_ID = (?) , C_Orderline_ID = (?) , C_Cashline_ID = (?) , IsSOTrx = (?) , LineGrossAmt = TO_NUMBER(?) , DocAction = (?) , C_Bpartner_Location_ID = (?) , PaymentRule = (?) , C_PaymentTerm_ID = (?) , TotalLines = TO_NUMBER(?) , LineCreated = TO_DATE(?) , LineCreatedBy = (?) , LineUpdated = TO_DATE(?) , LineUpdatedBy = (?) , QtyInvoiced = TO_NUMBER(?) , LineNetAmt = TO_NUMBER(?) , C_Uom_ID = (?) , Processed = (?) , updated = now(), updatedby = ? 
+        WHERE C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_Line_V_ID = ? 
+        
+        AND C_Invoice_Creditcard_Line_V.AD_Client_ID IN ('1') 
+        AND C_Invoice_Creditcard_Line_V.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="invoicedocumentno"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="isgrossinvoice"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cInvoiceCreditcardVId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="description"></Parameter> <Parameter name="internalnote"></Parameter> <Parameter name="grandtotal"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="lineisactive"></Parameter> <Parameter name="lineaduser"></Parameter> <Parameter name="cInvoicelineCreditcardVId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="hasvoucher"></Parameter> <Parameter name="cInvoiceCreditcardLineVId"></Parameter> <Parameter name="voucherdate"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="linedescription"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="cCashlineId"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="linegrossamt"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="linecreated"></Parameter> <Parameter name="linecreatedby"></Parameter> <Parameter name="lineupdated"></Parameter> <Parameter name="lineupdatedby"></Parameter> <Parameter name="qtyinvoiced"></Parameter> <Parameter name="linenetamt"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cInvoiceCreditcardLineVId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Invoice_Creditcard_Line_V.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Invoice_Creditcard_Line_V.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_Invoice_Creditcard_Line_V 
+        (InvoiceDocumentNo, C_Doctype_ID, M_Pricelist_ID, IsGrossInvoice, IsActive, C_Invoice_Creditcard_V_ID, C_BPartner_ID, AD_User_ID, C_Currency_ID, DateAcct, Description, InternalNote, GrandTotal, DocStatus, LineIsActive, LineAdUser, C_Invoiceline_Creditcard_V_ID, Line, HasVoucher, C_Invoice_Creditcard_Line_V_ID, VoucherDate, M_Product_ID, AD_Client_ID, C_Tax_ID, AD_Org_ID, LineDescription, PriceActual, A_Asset_ID, C_Project_ID, C_Orderline_ID, C_Cashline_ID, IsSOTrx, LineGrossAmt, DocAction, C_Bpartner_Location_ID, PaymentRule, C_PaymentTerm_ID, TotalLines, LineCreated, LineCreatedBy, LineUpdated, LineUpdatedBy, QtyInvoiced, LineNetAmt, C_Uom_ID, Processed, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), TO_DATE(?), (?), TO_DATE(?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="invoicedocumentno"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="isgrossinvoice"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cInvoiceCreditcardVId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="description"></Parameter> <Parameter name="internalnote"></Parameter> <Parameter name="grandtotal"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="lineisactive"></Parameter> <Parameter name="lineaduser"></Parameter> <Parameter name="cInvoicelineCreditcardVId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="hasvoucher"></Parameter> <Parameter name="cInvoiceCreditcardLineVId"></Parameter> <Parameter name="voucherdate"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="linedescription"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="cCashlineId"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="linegrossamt"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="linecreated"></Parameter> <Parameter name="linecreatedby"></Parameter> <Parameter name="lineupdated"></Parameter> <Parameter name="lineupdatedby"></Parameter> <Parameter name="qtyinvoiced"></Parameter> <Parameter name="linenetamt"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Invoice_Creditcard_Line_V
+        WHERE C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_Line_V_ID = ? 
+        
+        AND C_Invoice_Creditcard_Line_V.AD_Client_ID IN ('1') 
+        AND C_Invoice_Creditcard_Line_V.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Invoice_Creditcard_Line_V.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Invoice_Creditcard_Line_V.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Invoice_Creditcard_Line_V
+        WHERE C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_Line_V_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_Invoice_Creditcard_Line_V
+         WHERE C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_Line_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_Invoice_Creditcard_Line_V
+         WHERE C_Invoice_Creditcard_Line_V.C_Invoice_Creditcard_Line_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

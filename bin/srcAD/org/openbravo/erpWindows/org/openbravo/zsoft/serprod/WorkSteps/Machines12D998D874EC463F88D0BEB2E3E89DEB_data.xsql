@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Machines12D998D874EC463F88D0BEB2E3E89DEBData" package="org.openbravo.erpWindows.org.openbravo.zsoft.serprod.WorkSteps">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssm_workstepmachines_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_workstepmachines_v.CreatedBy) as CreatedByR, 
+        to_char(zssm_workstepmachines_v.Updated, ?) as updated, 
+        to_char(zssm_workstepmachines_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssm_workstepmachines_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_workstepmachines_v.UpdatedBy) as UpdatedByR,
+        zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID, 
+(CASE WHEN zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.IsActive), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))),'') ) END) AS Zssm_Workstep_Prp_V_IDR, 
+zssm_workstepmachines_v.Zspm_PTaskMachineplan_ID, 
+COALESCE(zssm_workstepmachines_v.IsActive, 'N') AS IsActive, 
+zssm_workstepmachines_v.AD_Client_ID, 
+zssm_workstepmachines_v.AD_Org_ID, 
+zssm_workstepmachines_v.MA_Machine_ID, 
+(CASE WHEN zssm_workstepmachines_v.MA_Machine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS MA_Machine_IDR, 
+zssm_workstepmachines_v.Averageduration, 
+zssm_workstepmachines_v.Durationunit, 
+(CASE WHEN zssm_workstepmachines_v.Durationunit IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DurationunitR, 
+zssm_workstepmachines_v.Quantity, 
+zssm_workstepmachines_v.Costuom, 
+zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID, 
+zssm_workstepmachines_v.zssm_section_id, 
+ 
+        ? AS LANGUAGE 
+        FROM zssm_workstepmachines_v left join (select Zssm_Workstep_Prp_V_ID, IsActive, Name, M_Product_ID from Zssm_Workstep_Prp_V) table1 on (zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID = table1.Zssm_Workstep_Prp_V_ID) left join (select M_Product_ID, Value, Name from M_Product) table2 on (table1.M_Product_ID = table2.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL2 on (table2.M_Product_ID = tableTRL2.M_Product_ID and tableTRL2.AD_Language = ?)  left join (select MA_Machine_ID, Value, Name from MA_Machine) table3 on (zssm_workstepmachines_v.MA_Machine_ID = table3.MA_Machine_ID) left join ad_ref_list_v list1 on (zssm_workstepmachines_v.Durationunit = list1.value and list1.ad_reference_id = 'E05D7AF076184420BE4F7A0CF8CCF806' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID = ? 
+        AND zssm_workstepmachines_v.AD_Client_ID IN ('1') 
+           AND zssm_workstepmachines_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="zssmWorkstepPrpVId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_workstepmachines_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_workstepmachines_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="zssmWorkstepmachinesVId"></Parameter><Parameter name="zssmSectionId"></Parameter><Parameter name="durationunit"></Parameter><Parameter name="quantity"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="zspmPtaskmachineplanId"></Parameter><Parameter name="maMachineId"></Parameter><Parameter name="averageduration"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="costuom"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1D57B6EC9F064BE2A6E3ECDA5203393C_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef903367F0D7AE44939A90667F509981E3_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID AS NAME
+        FROM zssm_workstepmachines_v
+        WHERE zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.IsActive), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))) AS NAME FROM zssm_workstep_prp_v left join (select Zssm_Workstep_Prp_V_ID, IsActive, Name, M_Product_ID from Zssm_Workstep_Prp_V) table1 on (zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = table1.Zssm_Workstep_Prp_V_ID) left join (select M_Product_ID, Value, Name from M_Product) table2 on (table1.M_Product_ID = table2.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL2 on (table2.M_Product_ID = tableTRL2.M_Product_ID and tableTRL2.AD_Language = ?)  WHERE zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="zssmWorkstepPrpVId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.IsActive), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))) AS NAME FROM zssm_workstep_prp_v left join (select Zssm_Workstep_Prp_V_ID, IsActive, Name, M_Product_ID from Zssm_Workstep_Prp_V) table1 on (zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = table1.Zssm_Workstep_Prp_V_ID) left join (select M_Product_ID, Value, Name from M_Product) table2 on (table1.M_Product_ID = table2.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL2 on (table2.M_Product_ID = tableTRL2.M_Product_ID and tableTRL2.AD_Language = ?)  WHERE zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="zssmWorkstepPrpVId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssm_workstepmachines_v
+        SET Zssm_Workstep_Prp_V_ID = (?) , Zspm_PTaskMachineplan_ID = (?) , IsActive = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , MA_Machine_ID = (?) , Averageduration = TO_NUMBER(?) , Durationunit = (?) , Quantity = TO_NUMBER(?) , Costuom = (?) , Zssm_WorkstepMachines_V_ID = (?) , zssm_section_id = (?) , updated = now(), updatedby = ? 
+        WHERE zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID = ? 
+                 AND zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID = ? 
+        AND zssm_workstepmachines_v.AD_Client_ID IN ('1') 
+        AND zssm_workstepmachines_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="zssmWorkstepPrpVId"></Parameter> <Parameter name="zspmPtaskmachineplanId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="averageduration"></Parameter> <Parameter name="durationunit"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="costuom"></Parameter> <Parameter name="zssmWorkstepmachinesVId"></Parameter> <Parameter name="zssmSectionId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssmWorkstepmachinesVId"></Parameter>
+    
+    <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_workstepmachines_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_workstepmachines_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssm_workstepmachines_v 
+        (Zssm_Workstep_Prp_V_ID, Zspm_PTaskMachineplan_ID, IsActive, AD_Client_ID, AD_Org_ID, MA_Machine_ID, Averageduration, Durationunit, Quantity, Costuom, Zssm_WorkstepMachines_V_ID, zssm_section_id, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="zssmWorkstepPrpVId"></Parameter> <Parameter name="zspmPtaskmachineplanId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="averageduration"></Parameter> <Parameter name="durationunit"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="costuom"></Parameter> <Parameter name="zssmWorkstepmachinesVId"></Parameter> <Parameter name="zssmSectionId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_workstepmachines_v
+        WHERE zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID = ? 
+                 AND zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID = ? 
+        AND zssm_workstepmachines_v.AD_Client_ID IN ('1') 
+        AND zssm_workstepmachines_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_workstepmachines_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_workstepmachines_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_workstepmachines_v
+        WHERE zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID = ? 
+                 AND zssm_workstepmachines_v.Zssm_Workstep_Prp_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssm_workstepmachines_v
+         WHERE zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssm_workstepmachines_v
+         WHERE zssm_workstepmachines_v.Zssm_WorkstepMachines_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

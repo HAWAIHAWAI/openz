@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ColumnData" package="org.openbravo.erpWindows.TablesandColumns">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ad_column_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_column_v.CreatedBy) as CreatedByR, 
+        to_char(ad_column_v.Updated, ?) as updated, 
+        to_char(ad_column_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ad_column_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_column_v.UpdatedBy) as UpdatedByR,
+        ad_column_v.AD_Client_ID, 
+(CASE WHEN ad_column_v.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+ad_column_v.AD_Org_ID, 
+(CASE WHEN ad_column_v.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+ad_column_v.AD_Table_ID, 
+(CASE WHEN ad_column_v.AD_Table_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.TableName), ''))),'') ) END) AS AD_Table_IDR, 
+ad_column_v.AD_Module_ID, 
+(CASE WHEN ad_column_v.AD_Module_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Version), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Module_IDR, 
+ad_column_v.Columnname, 
+ad_column_v.AD_Element_ID, 
+(CASE WHEN ad_column_v.AD_Element_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.ColumnName), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS AD_Element_IDR, 
+ad_column_v.Description, 
+ad_column_v.Help, 
+COALESCE(ad_column_v.Isactive, 'N') AS Isactive, 
+ad_column_v.Fieldlength, 
+ad_column_v.AD_Reference_ID, 
+(CASE WHEN ad_column_v.AD_Reference_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL7.Name IS NULL THEN TO_CHAR(table7.Name) ELSE TO_CHAR(tableTRL7.Name) END)), ''))),'') ) END) AS AD_Reference_IDR, 
+ad_column_v.AD_Val_Rule_ID, 
+(CASE WHEN ad_column_v.AD_Val_Rule_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS AD_Val_Rule_IDR, 
+ad_column_v.AD_Process_ID, 
+(CASE WHEN ad_column_v.AD_Process_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL9.Name IS NULL THEN TO_CHAR(table9.Name) ELSE TO_CHAR(tableTRL9.Name) END)), ''))),'') ) END) AS AD_Process_IDR, 
+ad_column_v.AD_Reference_Value_ID, 
+(CASE WHEN ad_column_v.AD_Reference_Value_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL10.Name IS NULL THEN TO_CHAR(table10.Name) ELSE TO_CHAR(tableTRL10.Name) END)), ''))),'') ) END) AS AD_Reference_Value_IDR, 
+ad_column_v.Defaultvalue, 
+COALESCE(ad_column_v.Iskey, 'N') AS Iskey, 
+COALESCE(ad_column_v.Isparent, 'N') AS Isparent, 
+ad_column_v.Readonlylogic, 
+COALESCE(ad_column_v.Isidentifier, 'N') AS Isidentifier, 
+ad_column_v.Seqno, 
+ad_column_v.AD_Callout_ID, 
+(CASE WHEN ad_column_v.AD_Callout_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Name), ''))),'') ) END) AS AD_Callout_IDR, 
+COALESCE(ad_column_v.Issessionattr, 'N') AS Issessionattr, 
+COALESCE(ad_column_v.Isencrypted, 'N') AS Isencrypted, 
+COALESCE(ad_column_v.Istranslated, 'N') AS Istranslated, 
+ad_column_v.Developmentstatus, 
+(CASE WHEN ad_column_v.Developmentstatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DevelopmentstatusR, 
+ad_column_v.AD_Column_V_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM ad_column_v left join (select AD_Client_ID, Name from AD_Client) table1 on (ad_column_v.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (ad_column_v.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Table_ID, TableName from AD_Table) table3 on (ad_column_v.AD_Table_ID = table3.AD_Table_ID) left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table4 on (ad_column_v.AD_Module_ID = table4.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table5 on (table4.AD_Language =  table5.AD_Language) left join (select AD_Element_ID, ColumnName, Name from AD_Element) table6 on (ad_column_v.AD_Element_ID = table6.AD_Element_ID) left join (select AD_Reference_ID, Name from AD_Reference) table7 on (ad_column_v.AD_Reference_ID =  table7.AD_Reference_ID) left join (select AD_Reference_ID,AD_Language, Name from AD_Reference_TRL) tableTRL7 on (table7.AD_Reference_ID = tableTRL7.AD_Reference_ID and tableTRL7.AD_Language = ?)  left join (select AD_Val_Rule_ID, Name from AD_Val_Rule) table8 on (ad_column_v.AD_Val_Rule_ID = table8.AD_Val_Rule_ID) left join (select AD_Process_ID, Name from AD_Process) table9 on (ad_column_v.AD_Process_ID = table9.AD_Process_ID) left join (select AD_Process_ID,AD_Language, Name from AD_Process_TRL) tableTRL9 on (table9.AD_Process_ID = tableTRL9.AD_Process_ID and tableTRL9.AD_Language = ?)  left join (select AD_Reference_ID, Name from AD_Reference) table10 on (ad_column_v.AD_Reference_Value_ID =  table10.AD_Reference_ID) left join (select AD_Reference_ID,AD_Language, Name from AD_Reference_TRL) tableTRL10 on (table10.AD_Reference_ID = tableTRL10.AD_Reference_ID and tableTRL10.AD_Language = ?)  left join (select AD_Callout_ID, Name from AD_Callout) table11 on (ad_column_v.AD_Callout_ID = table11.AD_Callout_ID) left join ad_ref_list_v list1 on (ad_column_v.Developmentstatus = list1.value and list1.ad_reference_id = '800103' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ad_column_v.AD_Column_V_ID = ? 
+        AND ad_column_v.AD_Client_ID IN ('1') 
+           AND ad_column_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adTableId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ad_column_v.AD_Table_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_column_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_column_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+<Parameter name="help"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="columnname"></Parameter><Parameter name="isactive"></Parameter><Parameter name="developmentstatus"></Parameter><Parameter name="fieldlength"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="readonlylogic"></Parameter><Parameter name="adReferenceValueId"></Parameter><Parameter name="iskey"></Parameter><Parameter name="istranslated"></Parameter><Parameter name="adProcessId"></Parameter><Parameter name="isparent"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="adModuleId"></Parameter><Parameter name="isencrypted"></Parameter><Parameter name="isidentifier"></Parameter><Parameter name="adCalloutId"></Parameter><Parameter name="adReferenceId"></Parameter><Parameter name="adValRuleId"></Parameter><Parameter name="seqno"></Parameter><Parameter name="issessionattr"></Parameter><Parameter name="defaultvalue"></Parameter><Parameter name="adElementId"></Parameter><Parameter name="adColumnVId"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef54CC6B15716A4B44AC6D54895C12F0BE_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefEE6C0FB6408A4FE3B5E8C84C3253A5F0_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef53353617840E4B04BE043A222D8ED463" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT P.AD_MODULE_ID FROM AD_PACKAGE P, AD_TABLE T WHERE AD_TABLE_ID = ? AND P.AD_PACKAGE_ID = T.AD_PACKAGE_ID 
+    ]]></Sql>
+
+<Parameter name="AD_Table_ID"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_column_v.AD_Table_ID AS NAME
+        FROM ad_column_v
+        WHERE ad_column_v.AD_Column_V_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.TableName), ''))) AS NAME FROM AD_Table left join (select AD_Table_ID, TableName from AD_Table) table1 on (AD_Table.AD_Table_ID = table1.AD_Table_ID) WHERE AD_Table.AD_Table_ID = ?  
+    ]]></Sql>
+<Parameter name="adTableId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.TableName), ''))) AS NAME FROM AD_Table left join (select AD_Table_ID, TableName from AD_Table) table1 on (AD_Table.AD_Table_ID = table1.AD_Table_ID) WHERE AD_Table.AD_Table_ID = ?  
+    ]]></Sql>
+<Parameter name="adTableId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ad_column_v
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , AD_Table_ID = (?) , AD_Module_ID = (?) , Columnname = (?) , AD_Element_ID = (?) , Description = (?) , Help = (?) , Isactive = (?) , Fieldlength = TO_NUMBER(?) , AD_Reference_ID = (?) , AD_Val_Rule_ID = (?) , AD_Process_ID = (?) , AD_Reference_Value_ID = (?) , Defaultvalue = (?) , Iskey = (?) , Isparent = (?) , Readonlylogic = (?) , Isidentifier = (?) , Seqno = TO_NUMBER(?) , AD_Callout_ID = (?) , Issessionattr = (?) , Isencrypted = (?) , Istranslated = (?) , Developmentstatus = (?) , AD_Column_V_ID = (?) , updated = now(), updatedby = ? 
+        WHERE ad_column_v.AD_Column_V_ID = ? 
+                 AND ad_column_v.AD_Table_ID = ? 
+        AND ad_column_v.AD_Client_ID IN ('1') 
+        AND ad_column_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="columnname"></Parameter> <Parameter name="adElementId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="fieldlength"></Parameter> <Parameter name="adReferenceId"></Parameter> <Parameter name="adValRuleId"></Parameter> <Parameter name="adProcessId"></Parameter> <Parameter name="adReferenceValueId"></Parameter> <Parameter name="defaultvalue"></Parameter> <Parameter name="iskey"></Parameter> <Parameter name="isparent"></Parameter> <Parameter name="readonlylogic"></Parameter> <Parameter name="isidentifier"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="adCalloutId"></Parameter> <Parameter name="issessionattr"></Parameter> <Parameter name="isencrypted"></Parameter> <Parameter name="istranslated"></Parameter> <Parameter name="developmentstatus"></Parameter> <Parameter name="adColumnVId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adColumnVId"></Parameter>
+    
+    <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_column_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_column_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ad_column_v 
+        (AD_Client_ID, AD_Org_ID, AD_Table_ID, AD_Module_ID, Columnname, AD_Element_ID, Description, Help, Isactive, Fieldlength, AD_Reference_ID, AD_Val_Rule_ID, AD_Process_ID, AD_Reference_Value_ID, Defaultvalue, Iskey, Isparent, Readonlylogic, Isidentifier, Seqno, AD_Callout_ID, Issessionattr, Isencrypted, Istranslated, Developmentstatus, AD_Column_V_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="columnname"></Parameter> <Parameter name="adElementId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="fieldlength"></Parameter> <Parameter name="adReferenceId"></Parameter> <Parameter name="adValRuleId"></Parameter> <Parameter name="adProcessId"></Parameter> <Parameter name="adReferenceValueId"></Parameter> <Parameter name="defaultvalue"></Parameter> <Parameter name="iskey"></Parameter> <Parameter name="isparent"></Parameter> <Parameter name="readonlylogic"></Parameter> <Parameter name="isidentifier"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="adCalloutId"></Parameter> <Parameter name="issessionattr"></Parameter> <Parameter name="isencrypted"></Parameter> <Parameter name="istranslated"></Parameter> <Parameter name="developmentstatus"></Parameter> <Parameter name="adColumnVId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_column_v
+        WHERE ad_column_v.AD_Column_V_ID = ? 
+                 AND ad_column_v.AD_Table_ID = ? 
+        AND ad_column_v.AD_Client_ID IN ('1') 
+        AND ad_column_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_column_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_column_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_column_v
+        WHERE ad_column_v.AD_Column_V_ID = ? 
+                 AND ad_column_v.AD_Table_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ad_column_v
+         WHERE ad_column_v.AD_Column_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ad_column_v
+         WHERE ad_column_v.AD_Column_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

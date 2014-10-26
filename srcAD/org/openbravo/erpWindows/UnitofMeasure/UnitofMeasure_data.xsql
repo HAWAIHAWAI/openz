@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="UnitofMeasureData" package="org.openbravo.erpWindows.UnitofMeasure">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_UOM.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_UOM.CreatedBy) as CreatedByR, 
+        to_char(C_UOM.Updated, ?) as updated, 
+        to_char(C_UOM.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_UOM.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_UOM.UpdatedBy) as UpdatedByR,
+        COALESCE(C_UOM.Breakdown, 'N') AS Breakdown, 
+C_UOM.AD_Client_ID, 
+(CASE WHEN C_UOM.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_UOM.AD_Org_ID, 
+(CASE WHEN C_UOM.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_UOM.X12DE355, 
+C_UOM.UOMSymbol, 
+C_UOM.Name, 
+C_UOM.Description, 
+COALESCE(C_UOM.IsActive, 'N') AS IsActive, 
+COALESCE(C_UOM.IsDefault, 'N') AS IsDefault, 
+C_UOM.StdPrecision, 
+C_UOM.CostingPrecision, 
+C_UOM.C_UOM_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM C_UOM left join (select AD_Client_ID, Name from AD_Client) table1 on (C_UOM.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_UOM.AD_Org_ID = table2.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_UOM.C_UOM_ID = ? 
+        AND C_UOM.AD_Client_ID IN ('1') 
+           AND C_UOM.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_UOM.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_UOM.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="name"></Parameter><Parameter name="description"></Parameter><Parameter name="stdprecision"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="uomsymbol"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="breakdown"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="x12de355"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="costingprecision"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef854_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef852_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_UOM
+        SET Breakdown = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , X12DE355 = (?) , UOMSymbol = (?) , Name = (?) , Description = (?) , IsActive = (?) , IsDefault = (?) , StdPrecision = TO_NUMBER(?) , CostingPrecision = TO_NUMBER(?) , C_UOM_ID = (?) , updated = now(), updatedby = ? 
+        WHERE C_UOM.C_UOM_ID = ? 
+        
+        AND C_UOM.AD_Client_ID IN ('1') 
+        AND C_UOM.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="breakdown"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="x12de355"></Parameter> <Parameter name="uomsymbol"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="stdprecision"></Parameter> <Parameter name="costingprecision"></Parameter> <Parameter name="cUomId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cUomId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_UOM.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_UOM.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_UOM 
+        (Breakdown, AD_Client_ID, AD_Org_ID, X12DE355, UOMSymbol, Name, Description, IsActive, IsDefault, StdPrecision, CostingPrecision, C_UOM_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="breakdown"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="x12de355"></Parameter> <Parameter name="uomsymbol"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="stdprecision"></Parameter> <Parameter name="costingprecision"></Parameter> <Parameter name="cUomId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_UOM
+        WHERE C_UOM.C_UOM_ID = ? 
+        
+        AND C_UOM.AD_Client_ID IN ('1') 
+        AND C_UOM.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_UOM.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_UOM.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_UOM
+        WHERE C_UOM.C_UOM_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_UOM
+         WHERE C_UOM.C_UOM_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_UOM
+         WHERE C_UOM.C_UOM_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

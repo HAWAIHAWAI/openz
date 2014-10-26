@@ -1,0 +1,9 @@
+/.keep
+/build.xml
+/buildAD.xml
+/deploy.wsdd
+/ehcache.xml
+/log4j.properties
+/org/
+/quartz.properties
+/undeploy.wsdd

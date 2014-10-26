@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Lines800253Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.mrp.PlanningMethod">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(MRP_PlanningMethodLine.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MRP_PlanningMethodLine.CreatedBy) as CreatedByR, 
+        to_char(MRP_PlanningMethodLine.Updated, ?) as updated, 
+        to_char(MRP_PlanningMethodLine.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        MRP_PlanningMethodLine.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MRP_PlanningMethodLine.UpdatedBy) as UpdatedByR,
+        MRP_PlanningMethodLine.AD_Client_ID, 
+(CASE WHEN MRP_PlanningMethodLine.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+MRP_PlanningMethodLine.MRP_Planningmethodline_ID, 
+MRP_PlanningMethodLine.AD_Org_ID, 
+(CASE WHEN MRP_PlanningMethodLine.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+MRP_PlanningMethodLine.MRP_Planningmethod_ID, 
+(CASE WHEN MRP_PlanningMethodLine.MRP_Planningmethod_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS MRP_Planningmethod_IDR, 
+MRP_PlanningMethodLine.Line, 
+COALESCE(MRP_PlanningMethodLine.IsActive, 'N') AS IsActive, 
+MRP_PlanningMethodLine.Inouttrxtype, 
+(CASE WHEN MRP_PlanningMethodLine.Inouttrxtype IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS InouttrxtypeR, 
+MRP_PlanningMethodLine.Weighting, 
+MRP_PlanningMethodLine.Daysfrom, 
+MRP_PlanningMethodLine.Daysto, 
+ 
+        ? AS LANGUAGE 
+        FROM MRP_PlanningMethodLine left join (select AD_Client_ID, Name from AD_Client) table1 on (MRP_PlanningMethodLine.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (MRP_PlanningMethodLine.AD_Org_ID = table2.AD_Org_ID) left join (select MRP_Planningmethod_ID, Name from MRP_Planningmethod) table3 on (MRP_PlanningMethodLine.MRP_Planningmethod_ID = table3.MRP_Planningmethod_ID) left join ad_ref_list_v list1 on (MRP_PlanningMethodLine.Inouttrxtype = list1.value and list1.ad_reference_id = '800098' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND MRP_PlanningMethodLine.MRP_Planningmethodline_ID = ? 
+        AND MRP_PlanningMethodLine.AD_Client_ID IN ('1') 
+           AND MRP_PlanningMethodLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mrpPlanningmethodId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND MRP_PlanningMethodLine.MRP_Planningmethod_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MRP_PlanningMethodLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MRP_PlanningMethodLine.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mrpPlanningmethodId" id="paramKeyParent"></Parameter>
+<Parameter name="mrpPlanningmethodlineId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="daysto"></Parameter><Parameter name="inouttrxtype"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="weighting"></Parameter><Parameter name="line"></Parameter><Parameter name="isactive"></Parameter><Parameter name="daysfrom"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef803574_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803576_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803578" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(LINE),0)+10 AS DefaultValue FROM MRP_PLANNINGMETHODLINE WHERE MRP_Planningmethodline.MRP_Planningmethodline_ID=? 
+    ]]></Sql>
+
+<Parameter name="MRP_Planningmethodline_ID"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MRP_PlanningMethodLine.MRP_Planningmethod_ID AS NAME
+        FROM MRP_PlanningMethodLine
+        WHERE MRP_PlanningMethodLine.MRP_Planningmethodline_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MRP_PlanningMethod left join (select MRP_Planningmethod_ID, Name from MRP_Planningmethod) table1 on (MRP_PlanningMethod.MRP_Planningmethod_ID = table1.MRP_Planningmethod_ID) WHERE MRP_PlanningMethod.MRP_Planningmethod_ID = ?  
+    ]]></Sql>
+<Parameter name="mrpPlanningmethodId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MRP_PlanningMethod left join (select MRP_Planningmethod_ID, Name from MRP_Planningmethod) table1 on (MRP_PlanningMethod.MRP_Planningmethod_ID = table1.MRP_Planningmethod_ID) WHERE MRP_PlanningMethod.MRP_Planningmethod_ID = ?  
+    ]]></Sql>
+<Parameter name="mrpPlanningmethodId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE MRP_PlanningMethodLine
+        SET AD_Client_ID = (?) , MRP_Planningmethodline_ID = (?) , AD_Org_ID = (?) , MRP_Planningmethod_ID = (?) , Line = TO_NUMBER(?) , IsActive = (?) , Inouttrxtype = (?) , Weighting = TO_NUMBER(?) , Daysfrom = TO_NUMBER(?) , Daysto = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE MRP_PlanningMethodLine.MRP_Planningmethodline_ID = ? 
+                 AND MRP_PlanningMethodLine.MRP_Planningmethod_ID = ? 
+        AND MRP_PlanningMethodLine.AD_Client_ID IN ('1') 
+        AND MRP_PlanningMethodLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="mrpPlanningmethodlineId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mrpPlanningmethodId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="inouttrxtype"></Parameter> <Parameter name="weighting"></Parameter> <Parameter name="daysfrom"></Parameter> <Parameter name="daysto"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mrpPlanningmethodlineId"></Parameter>
+    
+    <Parameter name="mrpPlanningmethodId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MRP_PlanningMethodLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MRP_PlanningMethodLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO MRP_PlanningMethodLine 
+        (AD_Client_ID, MRP_Planningmethodline_ID, AD_Org_ID, MRP_Planningmethod_ID, Line, IsActive, Inouttrxtype, Weighting, Daysfrom, Daysto, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="mrpPlanningmethodlineId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mrpPlanningmethodId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="inouttrxtype"></Parameter> <Parameter name="weighting"></Parameter> <Parameter name="daysfrom"></Parameter> <Parameter name="daysto"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MRP_PlanningMethodLine
+        WHERE MRP_PlanningMethodLine.MRP_Planningmethodline_ID = ? 
+                 AND MRP_PlanningMethodLine.MRP_Planningmethod_ID = ? 
+        AND MRP_PlanningMethodLine.AD_Client_ID IN ('1') 
+        AND MRP_PlanningMethodLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mrpPlanningmethodId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MRP_PlanningMethodLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MRP_PlanningMethodLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MRP_PlanningMethodLine
+        WHERE MRP_PlanningMethodLine.MRP_Planningmethodline_ID = ? 
+                 AND MRP_PlanningMethodLine.MRP_Planningmethod_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mrpPlanningmethodId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM MRP_PlanningMethodLine
+         WHERE MRP_PlanningMethodLine.MRP_Planningmethodline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM MRP_PlanningMethodLine
+         WHERE MRP_PlanningMethodLine.MRP_Planningmethodline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Files1AE43FA2AC3049DE94230EB71D5CBD65Data" package="org.openbravo.erpWindows.org.openz.dms.DocumentFiling">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(dms_documentfiling.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = dms_documentfiling.CreatedBy) as CreatedByR, 
+        to_char(dms_documentfiling.Updated, ?) as updated, 
+        to_char(dms_documentfiling.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        dms_documentfiling.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = dms_documentfiling.UpdatedBy) as UpdatedByR,
+        dms_documentfiling.DMS_Documentfiling_ID, 
+dms_documentfiling.AD_Org_ID, 
+(CASE WHEN dms_documentfiling.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+dms_documentfiling.Name, 
+dms_documentfiling.Description, 
+dms_documentfiling.AD_Client_ID, 
+COALESCE(dms_documentfiling.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM dms_documentfiling left join (select AD_Org_ID, Name from AD_Org) table1 on (dms_documentfiling.AD_Org_ID = table1.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND dms_documentfiling.DMS_Documentfiling_ID = ? 
+        AND dms_documentfiling.AD_Client_ID IN ('1') 
+           AND dms_documentfiling.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="dms_documentfiling.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="dms_documentfiling.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="name"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="dmsDocumentfilingId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="description"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef5DB2E516121F41EF834EA3C8DCD08BA5_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef368CEAB688A14FB59D10C9F021CE41D7_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE dms_documentfiling
+        SET DMS_Documentfiling_ID = (?) , AD_Org_ID = (?) , Name = (?) , Description = (?) , AD_Client_ID = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE dms_documentfiling.DMS_Documentfiling_ID = ? 
+        
+        AND dms_documentfiling.AD_Client_ID IN ('1') 
+        AND dms_documentfiling.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dmsDocumentfilingId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="dmsDocumentfilingId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="dms_documentfiling.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="dms_documentfiling.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO dms_documentfiling 
+        (DMS_Documentfiling_ID, AD_Org_ID, Name, Description, AD_Client_ID, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="dmsDocumentfilingId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM dms_documentfiling
+        WHERE dms_documentfiling.DMS_Documentfiling_ID = ? 
+        
+        AND dms_documentfiling.AD_Client_ID IN ('1') 
+        AND dms_documentfiling.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="dms_documentfiling.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="dms_documentfiling.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM dms_documentfiling
+        WHERE dms_documentfiling.DMS_Documentfiling_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM dms_documentfiling
+         WHERE dms_documentfiling.DMS_Documentfiling_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM dms_documentfiling
+         WHERE dms_documentfiling.DMS_Documentfiling_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

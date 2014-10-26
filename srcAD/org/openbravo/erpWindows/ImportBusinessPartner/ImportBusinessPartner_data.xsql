@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ImportBusinessPartnerData" package="org.openbravo.erpWindows.ImportBusinessPartner">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(I_BPartner.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_BPartner.CreatedBy) as CreatedByR, 
+        to_char(I_BPartner.Updated, ?) as updated, 
+        to_char(I_BPartner.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        I_BPartner.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_BPartner.UpdatedBy) as UpdatedByR,
+        COALESCE(I_BPartner.IsActive, 'N') AS IsActive, 
+I_BPartner.I_BPartner_ID, 
+COALESCE(I_BPartner.I_IsImported, 'N') AS I_IsImported, 
+I_BPartner.C_BPartner_ID, 
+(CASE WHEN I_BPartner.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+I_BPartner.I_ErrorMsg, 
+I_BPartner.AD_Client_ID, 
+(CASE WHEN I_BPartner.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Client_IDR, 
+I_BPartner.AD_Org_ID, 
+(CASE WHEN I_BPartner.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_Org_IDR, 
+I_BPartner.Value, 
+I_BPartner.Name, 
+I_BPartner.Name2, 
+I_BPartner.Description, 
+I_BPartner.Externalsynccode, 
+COALESCE(I_BPartner.Issaleslead, 'N') AS Issaleslead, 
+COALESCE(I_BPartner.Iscustomer, 'N') AS Iscustomer, 
+I_BPartner.Customerpaymentterms, 
+COALESCE(I_BPartner.Isvendor, 'N') AS Isvendor, 
+I_BPartner.DUNS, 
+I_BPartner.NAICS, 
+I_BPartner.TaxID, 
+I_BPartner.GroupValue, 
+I_BPartner.C_BP_Group_ID, 
+(CASE WHEN I_BPartner.C_BP_Group_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_BP_Group_IDR, 
+I_BPartner.C_BPartner_Location_ID, 
+(CASE WHEN I_BPartner.C_BPartner_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_BPartner_Location_IDR, 
+I_BPartner.Address1, 
+I_BPartner.Address2, 
+I_BPartner.Postal, 
+I_BPartner.Postal_Add, 
+I_BPartner.City, 
+I_BPartner.RegionName, 
+I_BPartner.C_Region_ID, 
+(CASE WHEN I_BPartner.C_Region_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS C_Region_IDR, 
+I_BPartner.CountryCode, 
+I_BPartner.C_Country_ID, 
+(CASE WHEN I_BPartner.C_Country_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL7.Name IS NULL THEN TO_CHAR(table7.Name) ELSE TO_CHAR(tableTRL7.Name) END)), ''))),'') ) END) AS C_Country_IDR, 
+COALESCE(I_BPartner.Isheadquarter, 'N') AS Isheadquarter, 
+I_BPartner.Taxataddress, 
+I_BPartner.AD_User_ID, 
+(CASE WHEN I_BPartner.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS AD_User_IDR, 
+I_BPartner.Title, 
+I_BPartner.ContactName, 
+I_BPartner.ContactDescription, 
+I_BPartner.Comments, 
+I_BPartner.Phone, 
+I_BPartner.Phone2, 
+I_BPartner.Fax, 
+I_BPartner.Email, 
+I_BPartner.Password, 
+I_BPartner.Birthday, 
+I_BPartner.BPContactGreeting, 
+I_BPartner.C_Greeting_ID, 
+(CASE WHEN I_BPartner.C_Greeting_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL9.Name IS NULL THEN TO_CHAR(table9.Name) ELSE TO_CHAR(tableTRL9.Name) END)), ''))),'') ) END) AS C_Greeting_IDR, 
+I_BPartner.Processing, 
+COALESCE(I_BPartner.Processed, 'N') AS Processed, 
+ 
+        ? AS LANGUAGE 
+        FROM I_BPartner left join (select C_BPartner_ID, Name from C_BPartner) table1 on (I_BPartner.C_BPartner_ID = table1.C_BPartner_ID) left join (select AD_Client_ID, Name from AD_Client) table2 on (I_BPartner.AD_Client_ID = table2.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table3 on (I_BPartner.AD_Org_ID = table3.AD_Org_ID) left join (select C_BP_Group_ID, Name from C_BP_Group) table4 on (I_BPartner.C_BP_Group_ID = table4.C_BP_Group_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table5 on (I_BPartner.C_BPartner_Location_ID = table5.C_BPartner_Location_ID) left join (select C_Region_ID, Name from C_Region) table6 on (I_BPartner.C_Region_ID = table6.C_Region_ID) left join (select C_Country_ID, Name from C_Country) table7 on (I_BPartner.C_Country_ID = table7.C_Country_ID) left join (select C_Country_ID,AD_Language, Name from C_Country_TRL) tableTRL7 on (table7.C_Country_ID = tableTRL7.C_Country_ID and tableTRL7.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table8 on (I_BPartner.AD_User_ID = table8.AD_User_ID) left join (select C_Greeting_ID, Name from C_Greeting) table9 on (I_BPartner.C_Greeting_ID = table9.C_Greeting_ID) left join (select C_Greeting_ID,AD_Language, Name from C_Greeting_TRL) tableTRL9 on (table9.C_Greeting_ID = tableTRL9.C_Greeting_ID and tableTRL9.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND I_BPartner.I_BPartner_ID = ? 
+        AND I_BPartner.AD_Client_ID IN ('1') 
+           AND I_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_BPartner.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="phone2"></Parameter><Parameter name="issaleslead"></Parameter><Parameter name="email"></Parameter><Parameter name="contactdescription"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="password"></Parameter><Parameter name="iscustomer"></Parameter><Parameter name="title"></Parameter><Parameter name="birthday"></Parameter><Parameter name="naics"></Parameter><Parameter name="taxid"></Parameter><Parameter name="externalsynccode"></Parameter><Parameter name="value"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="phone"></Parameter><Parameter name="isheadquarter"></Parameter><Parameter name="cGreetingId"></Parameter><Parameter name="taxataddress"></Parameter><Parameter name="comments"></Parameter><Parameter name="regionname"></Parameter><Parameter name="iBpartnerId"></Parameter><Parameter name="postal"></Parameter><Parameter name="iErrormsg"></Parameter><Parameter name="processing"></Parameter><Parameter name="bpcontactgreeting"></Parameter><Parameter name="city"></Parameter><Parameter name="cBpGroupId"></Parameter><Parameter name="contactname"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="name"></Parameter><Parameter name="iIsimported"></Parameter><Parameter name="cRegionId"></Parameter><Parameter name="address2"></Parameter><Parameter name="countrycode"></Parameter><Parameter name="groupvalue"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="description"></Parameter><Parameter name="postalAdd"></Parameter><Parameter name="fax"></Parameter><Parameter name="isvendor"></Parameter><Parameter name="processed"></Parameter><Parameter name="duns"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="customerpaymentterms"></Parameter><Parameter name="cCountryId"></Parameter><Parameter name="address1"></Parameter><Parameter name="name2"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef7879_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef7906_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef7880_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE I_BPartner
+        SET IsActive = (?) , I_BPartner_ID = (?) , I_IsImported = (?) , C_BPartner_ID = (?) , I_ErrorMsg = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Value = (?) , Name = (?) , Name2 = (?) , Description = (?) , Externalsynccode = (?) , Issaleslead = (?) , Iscustomer = (?) , Customerpaymentterms = (?) , Isvendor = (?) , DUNS = (?) , NAICS = (?) , TaxID = (?) , GroupValue = (?) , C_BP_Group_ID = (?) , C_BPartner_Location_ID = (?) , Address1 = (?) , Address2 = (?) , Postal = (?) , Postal_Add = (?) , City = (?) , RegionName = (?) , C_Region_ID = (?) , CountryCode = (?) , C_Country_ID = (?) , Isheadquarter = (?) , Taxataddress = (?) , AD_User_ID = (?) , Title = (?) , ContactName = (?) , ContactDescription = (?) , Comments = (?) , Phone = (?) , Phone2 = (?) , Fax = (?) , Email = (?) , Password = (?) , Birthday = TO_DATE(?) , BPContactGreeting = (?) , C_Greeting_ID = (?) , Processing = (?) , Processed = (?) , updated = now(), updatedby = ? 
+        WHERE I_BPartner.I_BPartner_ID = ? 
+        
+        AND I_BPartner.AD_Client_ID IN ('1') 
+        AND I_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="isactive"></Parameter> <Parameter name="iBpartnerId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="name2"></Parameter> <Parameter name="description"></Parameter> <Parameter name="externalsynccode"></Parameter> <Parameter name="issaleslead"></Parameter> <Parameter name="iscustomer"></Parameter> <Parameter name="customerpaymentterms"></Parameter> <Parameter name="isvendor"></Parameter> <Parameter name="duns"></Parameter> <Parameter name="naics"></Parameter> <Parameter name="taxid"></Parameter> <Parameter name="groupvalue"></Parameter> <Parameter name="cBpGroupId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="postal"></Parameter> <Parameter name="postalAdd"></Parameter> <Parameter name="city"></Parameter> <Parameter name="regionname"></Parameter> <Parameter name="cRegionId"></Parameter> <Parameter name="countrycode"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="isheadquarter"></Parameter> <Parameter name="taxataddress"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="title"></Parameter> <Parameter name="contactname"></Parameter> <Parameter name="contactdescription"></Parameter> <Parameter name="comments"></Parameter> <Parameter name="phone"></Parameter> <Parameter name="phone2"></Parameter> <Parameter name="fax"></Parameter> <Parameter name="email"></Parameter> <Parameter name="password"></Parameter> <Parameter name="birthday"></Parameter> <Parameter name="bpcontactgreeting"></Parameter> <Parameter name="cGreetingId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="iBpartnerId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_BPartner.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO I_BPartner 
+        (IsActive, I_BPartner_ID, I_IsImported, C_BPartner_ID, I_ErrorMsg, AD_Client_ID, AD_Org_ID, Value, Name, Name2, Description, Externalsynccode, Issaleslead, Iscustomer, Customerpaymentterms, Isvendor, DUNS, NAICS, TaxID, GroupValue, C_BP_Group_ID, C_BPartner_Location_ID, Address1, Address2, Postal, Postal_Add, City, RegionName, C_Region_ID, CountryCode, C_Country_ID, Isheadquarter, Taxataddress, AD_User_ID, Title, ContactName, ContactDescription, Comments, Phone, Phone2, Fax, Email, Password, Birthday, BPContactGreeting, C_Greeting_ID, Processing, Processed, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="isactive"></Parameter> <Parameter name="iBpartnerId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="name2"></Parameter> <Parameter name="description"></Parameter> <Parameter name="externalsynccode"></Parameter> <Parameter name="issaleslead"></Parameter> <Parameter name="iscustomer"></Parameter> <Parameter name="customerpaymentterms"></Parameter> <Parameter name="isvendor"></Parameter> <Parameter name="duns"></Parameter> <Parameter name="naics"></Parameter> <Parameter name="taxid"></Parameter> <Parameter name="groupvalue"></Parameter> <Parameter name="cBpGroupId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="postal"></Parameter> <Parameter name="postalAdd"></Parameter> <Parameter name="city"></Parameter> <Parameter name="regionname"></Parameter> <Parameter name="cRegionId"></Parameter> <Parameter name="countrycode"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="isheadquarter"></Parameter> <Parameter name="taxataddress"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="title"></Parameter> <Parameter name="contactname"></Parameter> <Parameter name="contactdescription"></Parameter> <Parameter name="comments"></Parameter> <Parameter name="phone"></Parameter> <Parameter name="phone2"></Parameter> <Parameter name="fax"></Parameter> <Parameter name="email"></Parameter> <Parameter name="password"></Parameter> <Parameter name="birthday"></Parameter> <Parameter name="bpcontactgreeting"></Parameter> <Parameter name="cGreetingId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_BPartner
+        WHERE I_BPartner.I_BPartner_ID = ? 
+        
+        AND I_BPartner.AD_Client_ID IN ('1') 
+        AND I_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_BPartner.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_BPartner
+        WHERE I_BPartner.I_BPartner_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM I_BPartner
+         WHERE I_BPartner.I_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM I_BPartner
+         WHERE I_BPartner.I_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

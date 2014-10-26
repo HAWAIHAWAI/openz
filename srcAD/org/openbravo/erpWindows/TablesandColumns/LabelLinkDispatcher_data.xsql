@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="LabelLinkDispatcherData" package="org.openbravo.erpWindows.TablesandColumns">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ad_labellinkdispatcher.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_labellinkdispatcher.CreatedBy) as CreatedByR, 
+        to_char(ad_labellinkdispatcher.Updated, ?) as updated, 
+        to_char(ad_labellinkdispatcher.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ad_labellinkdispatcher.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_labellinkdispatcher.UpdatedBy) as UpdatedByR,
+        ad_labellinkdispatcher.AD_Column_V_ID, 
+(CASE WHEN ad_labellinkdispatcher.AD_Column_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Columnname), ''))),'') ) END) AS AD_Column_V_IDR, 
+ad_labellinkdispatcher.AD_Labellinkdispatcher_ID, 
+ad_labellinkdispatcher.Linkcondition, 
+ad_labellinkdispatcher.AD_Tab_ID, 
+(CASE WHEN ad_labellinkdispatcher.AD_Tab_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS AD_Tab_IDR, 
+ad_labellinkdispatcher.AD_Client_ID, 
+COALESCE(ad_labellinkdispatcher.Isdefault, 'N') AS Isdefault, 
+ad_labellinkdispatcher.AD_Org_ID, 
+COALESCE(ad_labellinkdispatcher.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM ad_labellinkdispatcher left join (select AD_Column_V_ID, Columnname from AD_Column_V) table1 on (ad_labellinkdispatcher.AD_Column_V_ID = table1.AD_Column_V_ID) left join (select AD_Tab_ID, Name, AD_Window_ID from AD_Tab) table2 on (ad_labellinkdispatcher.AD_Tab_ID = table2.AD_Tab_ID) left join (select AD_Tab_ID,AD_Language, Name from AD_Tab_TRL) tableTRL2 on (table2.AD_Tab_ID = tableTRL2.AD_Tab_ID and tableTRL2.AD_Language = ?)  left join (select AD_Window_ID, Name from AD_Window) table3 on (table2.AD_Window_ID = table3.AD_Window_ID) left join (select AD_Window_ID,AD_Language, Name from AD_Window_TRL) tableTRL3 on (table3.AD_Window_ID = tableTRL3.AD_Window_ID and tableTRL3.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ad_labellinkdispatcher.AD_Labellinkdispatcher_ID = ? 
+        AND ad_labellinkdispatcher.AD_Client_ID IN ('1') 
+           AND ad_labellinkdispatcher.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adColumnVId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ad_labellinkdispatcher.AD_Column_V_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_labellinkdispatcher.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_labellinkdispatcher.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adColumnVId" id="paramKeyParent"></Parameter>
+<Parameter name="adTabId"></Parameter><Parameter name="adLabellinkdispatcherId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="isactive"></Parameter><Parameter name="linkcondition"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef9C85A235C6034DE8A538F79E11A7B60F_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef495DD18861AB4DB8ACD020417EA9D9EB_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_labellinkdispatcher.AD_Column_V_ID AS NAME
+        FROM ad_labellinkdispatcher
+        WHERE ad_labellinkdispatcher.AD_Labellinkdispatcher_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Columnname), ''))) AS NAME FROM ad_column_v left join (select AD_Column_V_ID, Columnname from AD_Column_V) table1 on (ad_column_v.AD_Column_V_ID = table1.AD_Column_V_ID) WHERE ad_column_v.AD_Column_V_ID = ?  
+    ]]></Sql>
+<Parameter name="adColumnVId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Columnname), ''))) AS NAME FROM ad_column_v left join (select AD_Column_V_ID, Columnname from AD_Column_V) table1 on (ad_column_v.AD_Column_V_ID = table1.AD_Column_V_ID) WHERE ad_column_v.AD_Column_V_ID = ?  
+    ]]></Sql>
+<Parameter name="adColumnVId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ad_labellinkdispatcher
+        SET AD_Column_V_ID = (?) , AD_Labellinkdispatcher_ID = (?) , Linkcondition = (?) , AD_Tab_ID = (?) , AD_Client_ID = (?) , Isdefault = (?) , AD_Org_ID = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE ad_labellinkdispatcher.AD_Labellinkdispatcher_ID = ? 
+                 AND ad_labellinkdispatcher.AD_Column_V_ID = ? 
+        AND ad_labellinkdispatcher.AD_Client_ID IN ('1') 
+        AND ad_labellinkdispatcher.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adColumnVId"></Parameter> <Parameter name="adLabellinkdispatcherId"></Parameter> <Parameter name="linkcondition"></Parameter> <Parameter name="adTabId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adLabellinkdispatcherId"></Parameter>
+    
+    <Parameter name="adColumnVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_labellinkdispatcher.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_labellinkdispatcher.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ad_labellinkdispatcher 
+        (AD_Column_V_ID, AD_Labellinkdispatcher_ID, Linkcondition, AD_Tab_ID, AD_Client_ID, Isdefault, AD_Org_ID, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adColumnVId"></Parameter> <Parameter name="adLabellinkdispatcherId"></Parameter> <Parameter name="linkcondition"></Parameter> <Parameter name="adTabId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_labellinkdispatcher
+        WHERE ad_labellinkdispatcher.AD_Labellinkdispatcher_ID = ? 
+                 AND ad_labellinkdispatcher.AD_Column_V_ID = ? 
+        AND ad_labellinkdispatcher.AD_Client_ID IN ('1') 
+        AND ad_labellinkdispatcher.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adColumnVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_labellinkdispatcher.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_labellinkdispatcher.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_labellinkdispatcher
+        WHERE ad_labellinkdispatcher.AD_Labellinkdispatcher_ID = ? 
+                 AND ad_labellinkdispatcher.AD_Column_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adColumnVId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ad_labellinkdispatcher
+         WHERE ad_labellinkdispatcher.AD_Labellinkdispatcher_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ad_labellinkdispatcher
+         WHERE ad_labellinkdispatcher.AD_Labellinkdispatcher_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

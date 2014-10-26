@@ -1,0 +1,28 @@
+<td id="@FIELDNAME@tdx" class="@CONTENTCELLCLASS@" colspan="@NUMCOLS@">
+  <table cellspacing="0" cellpadding="0" id="@FIELDNAME@td">
+    <tbody><tr>
+      <td class="TextBox_ContentCell">
+      <table style="border:0px;border-collapse:collapse;">
+        <tbody><tr>
+          <td style="padding-top: 0px; width: @CONTENTWIDTH@;">
+            <input type="text" @REQUIREDTAG@ @InpJSSETTINGS@ name="inp@FIELDNAME@" style="vertical-align: middle;" value="@CURRENTVALUE@" maxlength="@MAXLENGTH@" class="dojoValidateValid @REQUIRED@ @CLASS@" id="@FIELDNAME@" >
+          </td>
+        </tr>
+      </tbody></table>
+  <span onmouseover="this.style.display='none'; return false;" id="@FIELDNAME@invalidSpan" style="display: none;" class="TextBox_MsgContainer_span">
+    <table class="TextBox_MsgContainer_table">
+      <tbody><tr class="TextBox_MsgContainer_tr">
+        <td class="TextBox_MsgContainer_td"><div class="TextBox_MsgContainer_div"></div></td><td></td>
+      </tr>
+      <tr>
+        <td class="invalid" colspan="2"><div name="invalidText" id="@FIELDNAME@invalidSpanText" class="TextBox_MsgContainer_div2">@INVALIDMESSAGE@</div></td>
+      </tr>
+    </tbody></table>
+  </span>
+  
+      </td>
+@BUTTON@
+    </tr>
+  </tbody></table>
+
+</td>

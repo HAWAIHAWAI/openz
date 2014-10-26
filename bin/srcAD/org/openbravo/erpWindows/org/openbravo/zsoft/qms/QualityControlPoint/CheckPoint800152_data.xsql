@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="CheckPoint800152Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.qms.QualityControlPoint">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(MA_CCP.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_CCP.CreatedBy) as CreatedByR, 
+        to_char(MA_CCP.Updated, ?) as updated, 
+        to_char(MA_CCP.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        MA_CCP.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_CCP.UpdatedBy) as UpdatedByR,
+        MA_CCP.MA_Ccp_ID, 
+MA_CCP.AD_Client_ID, 
+(CASE WHEN MA_CCP.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+MA_CCP.AD_Org_ID, 
+(CASE WHEN MA_CCP.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+MA_CCP.MA_CCP_Group_ID, 
+(CASE WHEN MA_CCP.MA_CCP_Group_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS MA_CCP_Group_IDR, 
+COALESCE(MA_CCP.IsActive, 'N') AS IsActive, 
+MA_CCP.Name, 
+MA_CCP.Description, 
+MA_CCP.Valuetype, 
+(CASE WHEN MA_CCP.Valuetype IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS ValuetypeR, 
+COALESCE(MA_CCP.Critical, 'N') AS Critical, 
+MA_CCP.Valuenumber, 
+MA_CCP.SeqNo, 
+ 
+        ? AS LANGUAGE 
+        FROM MA_CCP left join (select AD_Client_ID, Name from AD_Client) table1 on (MA_CCP.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (MA_CCP.AD_Org_ID = table2.AD_Org_ID) left join (select MA_CCP_Group_ID, Name from MA_CCP_Group) table3 on (MA_CCP.MA_CCP_Group_ID = table3.MA_CCP_Group_ID) left join ad_ref_list_v list1 on (MA_CCP.Valuetype = list1.value and list1.ad_reference_id = '800039' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND MA_CCP.MA_Ccp_ID = ? 
+        AND MA_CCP.AD_Client_ID IN ('1') 
+           AND MA_CCP.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="maCcpGroupId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND MA_CCP.MA_CCP_Group_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_CCP.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_CCP.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="maCcpGroupId" id="paramKeyParent"></Parameter>
+<Parameter name="name"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="isactive"></Parameter><Parameter name="valuenumber"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="seqno"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="maCcpId"></Parameter><Parameter name="critical"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="valuetype"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef802223_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802225_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802315" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(SEQNO),0)+10 AS DefaultValue FROM MA_CCP WHERE MA_CCP_GROUP_ID=? 
+    ]]></Sql>
+
+<Parameter name="MA_CCP_GROUP_ID"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MA_CCP.MA_CCP_Group_ID AS NAME
+        FROM MA_CCP
+        WHERE MA_CCP.MA_Ccp_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_CCP_Group left join (select MA_CCP_Group_ID, Name from MA_CCP_Group) table1 on (MA_CCP_Group.MA_CCP_Group_ID = table1.MA_CCP_Group_ID) WHERE MA_CCP_Group.MA_CCP_Group_ID = ?  
+    ]]></Sql>
+<Parameter name="maCcpGroupId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_CCP_Group left join (select MA_CCP_Group_ID, Name from MA_CCP_Group) table1 on (MA_CCP_Group.MA_CCP_Group_ID = table1.MA_CCP_Group_ID) WHERE MA_CCP_Group.MA_CCP_Group_ID = ?  
+    ]]></Sql>
+<Parameter name="maCcpGroupId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE MA_CCP
+        SET MA_Ccp_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , MA_CCP_Group_ID = (?) , IsActive = (?) , Name = (?) , Description = (?) , Valuetype = (?) , Critical = (?) , Valuenumber = TO_NUMBER(?) , SeqNo = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE MA_CCP.MA_Ccp_ID = ? 
+                 AND MA_CCP.MA_CCP_Group_ID = ? 
+        AND MA_CCP.AD_Client_ID IN ('1') 
+        AND MA_CCP.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="maCcpId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maCcpGroupId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="valuetype"></Parameter> <Parameter name="critical"></Parameter> <Parameter name="valuenumber"></Parameter> <Parameter name="seqno"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="maCcpId"></Parameter>
+    
+    <Parameter name="maCcpGroupId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_CCP.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_CCP.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO MA_CCP 
+        (MA_Ccp_ID, AD_Client_ID, AD_Org_ID, MA_CCP_Group_ID, IsActive, Name, Description, Valuetype, Critical, Valuenumber, SeqNo, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="maCcpId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maCcpGroupId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="valuetype"></Parameter> <Parameter name="critical"></Parameter> <Parameter name="valuenumber"></Parameter> <Parameter name="seqno"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_CCP
+        WHERE MA_CCP.MA_Ccp_ID = ? 
+                 AND MA_CCP.MA_CCP_Group_ID = ? 
+        AND MA_CCP.AD_Client_ID IN ('1') 
+        AND MA_CCP.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maCcpGroupId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_CCP.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_CCP.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_CCP
+        WHERE MA_CCP.MA_Ccp_ID = ? 
+                 AND MA_CCP.MA_CCP_Group_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maCcpGroupId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM MA_CCP
+         WHERE MA_CCP.MA_Ccp_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM MA_CCP
+         WHERE MA_CCP.MA_Ccp_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

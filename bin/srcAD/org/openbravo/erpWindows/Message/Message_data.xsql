@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="MessageData" package="org.openbravo.erpWindows.Message">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Message.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Message.CreatedBy) as CreatedByR, 
+        to_char(AD_Message.Updated, ?) as updated, 
+        to_char(AD_Message.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Message.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Message.UpdatedBy) as UpdatedByR,
+        AD_Message.AD_Message_ID, 
+AD_Message.AD_Client_ID, 
+(CASE WHEN AD_Message.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Message.AD_Org_ID, 
+(CASE WHEN AD_Message.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_Message.AD_Module_ID, 
+(CASE WHEN AD_Message.AD_Module_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Version), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Module_IDR, 
+AD_Message.Value, 
+COALESCE(AD_Message.IsActive, 'N') AS IsActive, 
+AD_Message.MsgType, 
+(CASE WHEN AD_Message.MsgType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS MsgTypeR, 
+AD_Message.MsgText, 
+AD_Message.MsgTip, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Message left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_Message.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_Message.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table3 on (AD_Message.AD_Module_ID = table3.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table4 on (table3.AD_Language =  table4.AD_Language) left join ad_ref_list_v list1 on (AD_Message.MsgType = list1.value and list1.ad_reference_id = '103' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_Message.AD_Message_ID = ? 
+        AND AD_Message.AD_Client_ID IN ('1') 
+           AND AD_Message.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Message.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Message.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="adMessageId"></Parameter><Parameter name="adModuleId"></Parameter><Parameter name="msgtype"></Parameter><Parameter name="msgtip"></Parameter><Parameter name="isactive"></Parameter><Parameter name="value"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="msgtext"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef5673D6C867390BBCE040007F01001CC2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MAX(AD_MODULE_ID) FROM AD_MODULE WHERE ISDEFAULT='Y' 
+    ]]></Sql>
+
+  </SqlMethod>
+
+   <SqlMethod name="selectDef592_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef590_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Message
+        SET AD_Message_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , AD_Module_ID = (?) , Value = (?) , IsActive = (?) , MsgType = (?) , MsgText = (?) , MsgTip = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Message.AD_Message_ID = ? 
+        
+        AND AD_Message.AD_Client_ID IN ('1') 
+        AND AD_Message.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adMessageId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="msgtype"></Parameter> <Parameter name="msgtext"></Parameter> <Parameter name="msgtip"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adMessageId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Message.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Message.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Message 
+        (AD_Message_ID, AD_Client_ID, AD_Org_ID, AD_Module_ID, Value, IsActive, MsgType, MsgText, MsgTip, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adMessageId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="msgtype"></Parameter> <Parameter name="msgtext"></Parameter> <Parameter name="msgtip"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Message
+        WHERE AD_Message.AD_Message_ID = ? 
+        
+        AND AD_Message.AD_Client_ID IN ('1') 
+        AND AD_Message.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Message.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Message.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Message
+        WHERE AD_Message.AD_Message_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Message
+         WHERE AD_Message.AD_Message_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Message
+         WHERE AD_Message.AD_Message_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

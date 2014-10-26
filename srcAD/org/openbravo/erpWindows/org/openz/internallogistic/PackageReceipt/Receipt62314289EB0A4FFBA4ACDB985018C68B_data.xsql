@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Receipt62314289EB0A4FFBA4ACDB985018C68BData" package="org.openbravo.erpWindows.org.openz.internallogistic.PackageReceipt">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ils_inoutpackage_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ils_inoutpackage_v.CreatedBy) as CreatedByR, 
+        to_char(ils_inoutpackage_v.Updated, ?) as updated, 
+        to_char(ils_inoutpackage_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ils_inoutpackage_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ils_inoutpackage_v.UpdatedBy) as UpdatedByR,
+        ils_inoutpackage_v.ILS_Inoutpackage_V_ID, 
+ils_inoutpackage_v.DocumentNo, 
+ils_inoutpackage_v.Docstatus, 
+(CASE WHEN ils_inoutpackage_v.Docstatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DocstatusR, 
+ils_inoutpackage_v.AD_Client_ID, 
+ils_inoutpackage_v.Serialnumber, 
+ils_inoutpackage_v.AD_Org_ID, 
+ils_inoutpackage_v.Employee, 
+COALESCE(ils_inoutpackage_v.Isactive, 'N') AS Isactive, 
+ils_inoutpackage_v.AD_User_ID, 
+(CASE WHEN ils_inoutpackage_v.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_User_IDR, 
+ils_inoutpackage_v.Movementdate, 
+ils_inoutpackage_v.M_Shipper_ID, 
+(CASE WHEN ils_inoutpackage_v.M_Shipper_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS M_Shipper_IDR, 
+ils_inoutpackage_v.M_Warehouse_ID, 
+(CASE WHEN ils_inoutpackage_v.M_Warehouse_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS M_Warehouse_IDR, 
+COALESCE(ils_inoutpackage_v.Issotrx, 'N') AS Issotrx, 
+ils_inoutpackage_v.M_Locator_ID, 
+(CASE WHEN ils_inoutpackage_v.M_Locator_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'') ) END) AS M_Locator_IDR, 
+ils_inoutpackage_v.M_Product_ID, 
+(CASE WHEN ils_inoutpackage_v.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL5.Name IS NULL THEN TO_CHAR(table5.Name) ELSE TO_CHAR(tableTRL5.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+ils_inoutpackage_v.C_Uom_ID, 
+(CASE WHEN ils_inoutpackage_v.C_Uom_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL6.Name IS NULL THEN TO_CHAR(table6.Name) ELSE TO_CHAR(tableTRL6.Name) END)), ''))),'') ) END) AS C_Uom_IDR, 
+ils_inoutpackage_v.Movementqty, 
+ils_inoutpackage_v.C_Order_ID, 
+ils_inoutpackage_v.partner, 
+(CASE WHEN ils_inoutpackage_v.partner IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS partnerR, 
+ils_inoutpackage_v.Description, 
+ils_inoutpackage_v.Shipmentcontent, 
+ils_inoutpackage_v.Sigmano, 
+COALESCE(ils_inoutpackage_v.Directmail, 'N') AS Directmail, 
+COALESCE(ils_inoutpackage_v.Processing, 'N') AS Processing, 
+ils_inoutpackage_v.Snremployee, 
+ils_inoutpackage_v.Movementtype, 
+(CASE WHEN ils_inoutpackage_v.Movementtype IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS MovementtypeR, 
+COALESCE(ils_inoutpackage_v.Processed, 'N') AS Processed, 
+ils_inoutpackage_v.C_Doctype_ID, 
+(CASE WHEN ils_inoutpackage_v.C_Doctype_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL8.Name IS NULL THEN TO_CHAR(table8.Name) ELSE TO_CHAR(tableTRL8.Name) END)), ''))),'') ) END) AS C_Doctype_IDR, 
+ils_inoutpackage_v.DocAction, 
+list3.name as DocAction_BTN, 
+ils_inoutpackage_v.Processbutton, 
+COALESCE(ils_inoutpackage_v.Islogistic, 'N') AS Islogistic, 
+ils_inoutpackage_v.C_Project_ID, 
+ils_inoutpackage_v.A_Asset_ID, 
+ils_inoutpackage_v.C_Projecttask_ID, 
+ils_inoutpackage_v.C_Orderline_ID, 
+COALESCE(ils_inoutpackage_v.Isinvoiced, 'N') AS Isinvoiced, 
+ils_inoutpackage_v.M_Inout_ID, 
+ils_inoutpackage_v.M_Inoutline_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM ils_inoutpackage_v left join ad_ref_list_v list1 on (ils_inoutpackage_v.Docstatus = list1.value and list1.ad_reference_id = '131' and list1.ad_language = ?)  left join (select AD_User_ID, Name from AD_User) table1 on (ils_inoutpackage_v.AD_User_ID = table1.AD_User_ID) left join (select M_Shipper_ID, Name from M_Shipper) table2 on (ils_inoutpackage_v.M_Shipper_ID = table2.M_Shipper_ID) left join (select M_Warehouse_ID, Name from M_Warehouse) table3 on (ils_inoutpackage_v.M_Warehouse_ID = table3.M_Warehouse_ID) left join (select M_Locator_ID, Value from M_Locator) table4 on (ils_inoutpackage_v.M_Locator_ID =  table4.M_Locator_ID) left join (select M_Product_ID, Value, Name from M_Product) table5 on (ils_inoutpackage_v.M_Product_ID = table5.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL5 on (table5.M_Product_ID = tableTRL5.M_Product_ID and tableTRL5.AD_Language = ?)  left join (select C_Uom_ID, Name from C_Uom) table6 on (ils_inoutpackage_v.C_Uom_ID = table6.C_Uom_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL6 on (table6.C_UOM_ID = tableTRL6.C_UOM_ID and tableTRL6.AD_Language = ?)  left join (select C_BPartner_ID, Name from C_BPartner) table7 on (ils_inoutpackage_v.partner = table7.C_BPartner_ID) left join ad_ref_list_v list2 on (ils_inoutpackage_v.Movementtype = list2.value and list2.ad_reference_id = '189' and list2.ad_language = ?)  left join (select C_DocType_ID, Name from C_DocType) table8 on (ils_inoutpackage_v.C_Doctype_ID =  table8.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL8 on (table8.C_DocType_ID = tableTRL8.C_DocType_ID and tableTRL8.AD_Language = ?)  left join ad_ref_list_v list3 on (list3.ad_reference_id = '135' and list3.ad_language = ?  AND (CASE ils_inoutpackage_v.DocAction WHEN '--' THEN 'CL' ELSE TO_CHAR(ils_inoutpackage_v.DocAction) END) = list3.value)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ils_inoutpackage_v.ILS_Inoutpackage_V_ID = ? 
+        AND ils_inoutpackage_v.AD_Client_ID IN ('1') 
+           AND ils_inoutpackage_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_inoutpackage_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_inoutpackage_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="movementqty"></Parameter><Parameter name="shipmentcontent"></Parameter><Parameter name="cOrderId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="issotrx"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="processed"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mInoutlineId"></Parameter><Parameter name="docstatus"></Parameter><Parameter name="cDoctypeId"></Parameter><Parameter name="processing"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="employee"></Parameter><Parameter name="description"></Parameter><Parameter name="cOrderlineId"></Parameter><Parameter name="directmail"></Parameter><Parameter name="documentno"></Parameter><Parameter name="serialnumber"></Parameter><Parameter name="isactive"></Parameter><Parameter name="ilsInoutpackageVId"></Parameter><Parameter name="docaction"></Parameter><Parameter name="docactionBtn"></Parameter><Parameter name="snremployee"></Parameter><Parameter name="movementtype"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="mInoutId"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="mShipperId"></Parameter><Parameter name="sigmano"></Parameter><Parameter name="isinvoiced"></Parameter><Parameter name="partner"></Parameter><Parameter name="partnerr"></Parameter><Parameter name="islogistic"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="processbutton"></Parameter><Parameter name="mWarehouseId"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="movementdate"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefB092402FC9B54A73ADF4BD714F92B307_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef15CF5E12B6FF45FEB42C56322F623397" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT value AS DefaultValue FROM AD_PREFERENCE WHERE ATTRIBUTE='DEFAULTINTERNALLOGISTICPRODUCT' 
+    ]]></Sql>
+
+  </SqlMethod>
+
+   <SqlMethod name="selectDef15CF5E12B6FF45FEB42C56322F623397_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefFB1B36D4EAAE4DE798EC6CA54884BC40_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as partner FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="partnerR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5DFFED3DEDBC4351906A9EA15F262461_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+  <SqlMethod name="updateDocAction" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        UPDATE ils_inoutpackage_v
+        SET docaction = ? 
+        WHERE ils_inoutpackage_v.ILS_Inoutpackage_V_ID = ?
+    ]]></Sql>
+    <Parameter name="docaction"></Parameter>
+    <Parameter id="paramKey" name="ilsInoutpackageVId"></Parameter>
+  </SqlMethod>
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ils_inoutpackage_v
+        SET ILS_Inoutpackage_V_ID = (?) , DocumentNo = (?) , Docstatus = (?) , AD_Client_ID = (?) , Serialnumber = (?) , AD_Org_ID = (?) , Employee = (?) , Isactive = (?) , AD_User_ID = (?) , Movementdate = TO_DATE(?) , M_Shipper_ID = (?) , M_Warehouse_ID = (?) , Issotrx = (?) , M_Locator_ID = (?) , M_Product_ID = (?) , C_Uom_ID = (?) , Movementqty = TO_NUMBER(?) , C_Order_ID = (?) , partner = (?) , Description = (?) , Shipmentcontent = (?) , Sigmano = (?) , Directmail = (?) , Processing = (?) , Snremployee = (?) , Movementtype = (?) , Processed = (?) , C_Doctype_ID = (?) , DocAction = (?) , Processbutton = (?) , Islogistic = (?) , C_Project_ID = (?) , A_Asset_ID = (?) , C_Projecttask_ID = (?) , C_Orderline_ID = (?) , Isinvoiced = (?) , M_Inout_ID = (?) , M_Inoutline_ID = (?) , updated = now(), updatedby = ? 
+        WHERE ils_inoutpackage_v.ILS_Inoutpackage_V_ID = ? 
+        
+        AND ils_inoutpackage_v.AD_Client_ID IN ('1') 
+        AND ils_inoutpackage_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="ilsInoutpackageVId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="serialnumber"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="employee"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="movementdate"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="partner"></Parameter> <Parameter name="description"></Parameter> <Parameter name="shipmentcontent"></Parameter> <Parameter name="sigmano"></Parameter> <Parameter name="directmail"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="snremployee"></Parameter> <Parameter name="movementtype"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="processbutton"></Parameter> <Parameter name="islogistic"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="mInoutId"></Parameter> <Parameter name="mInoutlineId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="ilsInoutpackageVId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_inoutpackage_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_inoutpackage_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ils_inoutpackage_v 
+        (ILS_Inoutpackage_V_ID, DocumentNo, Docstatus, AD_Client_ID, Serialnumber, AD_Org_ID, Employee, Isactive, AD_User_ID, Movementdate, M_Shipper_ID, M_Warehouse_ID, Issotrx, M_Locator_ID, M_Product_ID, C_Uom_ID, Movementqty, C_Order_ID, partner, Description, Shipmentcontent, Sigmano, Directmail, Processing, Snremployee, Movementtype, Processed, C_Doctype_ID, DocAction, Processbutton, Islogistic, C_Project_ID, A_Asset_ID, C_Projecttask_ID, C_Orderline_ID, Isinvoiced, M_Inout_ID, M_Inoutline_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="ilsInoutpackageVId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="serialnumber"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="employee"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="movementdate"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="partner"></Parameter> <Parameter name="description"></Parameter> <Parameter name="shipmentcontent"></Parameter> <Parameter name="sigmano"></Parameter> <Parameter name="directmail"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="snremployee"></Parameter> <Parameter name="movementtype"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="processbutton"></Parameter> <Parameter name="islogistic"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="mInoutId"></Parameter> <Parameter name="mInoutlineId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ils_inoutpackage_v
+        WHERE ils_inoutpackage_v.ILS_Inoutpackage_V_ID = ? 
+        
+        AND ils_inoutpackage_v.AD_Client_ID IN ('1') 
+        AND ils_inoutpackage_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_inoutpackage_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_inoutpackage_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ils_inoutpackage_v
+        WHERE ils_inoutpackage_v.ILS_Inoutpackage_V_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ils_inoutpackage_v
+         WHERE ils_inoutpackage_v.ILS_Inoutpackage_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ils_inoutpackage_v
+         WHERE ils_inoutpackage_v.ILS_Inoutpackage_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

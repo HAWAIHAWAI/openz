@@ -1,0 +1,67 @@
+﻿This is OpenZ - Development Trunc
+
+It was Forked from Openbravo ERP , Version 2.50.15979 MP11
+
+
+* Installation
+
+Install Postgres, Version 9.1, Tomcat Version  7.x, be shure you have OpenJDK java 1.7 and ant installed. Be shure to set environment, CATALINA_HOME, ANT_HOME, JAVA_HOME ... etc.
+
+Make shure, you have enough memory in Tomcat
+
+Options in  /etc/environment: CATALINA_OPTS=-Xms384M -Xmx512M -XX:MaxPermSize=256M
+
+On DEBIAN-Linux Systems the environment is set in /etc/environment CATALINA_HOME, ANT_HOME, JAVA_HOME 
+
+
+
+Create a database e.g. openz
+Modify /config/Openbravo.properties , give your credentials and settings.
+
+Be shure that a database user tad exists - create tad in psql, if necessary:
+CREATE ROLE tad; 
+alter role tad with password 'new_password'; 
+alter role tad login; 
+alter role tad SUPERUSER; 
+
+
+Import the dump (Database) into your new created database as postgres (openz.sql schould be in Working-Ditrectory)
+ psql openz < openz.sql
+
+
+Then, in ~/openz - Directory
+  ant core.lib
+  ant wad.lib
+  ant trl.lib
+  ant compile.complete
+
+  ant build.deploy
+
+Start Tomcat. Login with openz/openz for Development - Role or service/service for User - Role 
+You're done!
+
+
+* Development
+
+If you want to develop with eclipse, do the following setup:
+
+Use at least indigo version
+
+copy ~/classpath to ~/.classpath - This way you have the required files in your project
+
+Import Projects: openz  (Import / Existing Projects into Workspace)
+
+Create a User-Library: In Window/Preferences/Java/BuildPath/User Librarys: OPenZLib,. Import all jars from ~/lib/runtime
+Add this user-Lib to the Project  openz under Project - Properties - Java Build Path 
+
+Create a (Tomcat) Server in Window / preferences / Runtime Environments
+
+In the tray: Tab Server New Server
+
+Add openz Project To the server:
+
+In run / Run Configurations add  the following to Tomcat (x) - arguments / VM-Arguments : 
+
+-Djava.awt.headless=true -Xms384M -Xmx1024M -XX:MaxPermSize=256M
+
+(Also Dcatalina.home, Dcatalina.base, Dlog4j.configuration,  Djava.endorsed.dirs may be necessary here to start the server - These Arguments Depends on your environment)

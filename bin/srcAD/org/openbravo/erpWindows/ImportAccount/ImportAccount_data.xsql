@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ImportAccountData" package="org.openbravo.erpWindows.ImportAccount">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(I_ElementValue.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_ElementValue.CreatedBy) as CreatedByR, 
+        to_char(I_ElementValue.Updated, ?) as updated, 
+        to_char(I_ElementValue.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        I_ElementValue.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_ElementValue.UpdatedBy) as UpdatedByR,
+        COALESCE(I_ElementValue.IsActive, 'N') AS IsActive, 
+I_ElementValue.I_ElementValue_ID, 
+COALESCE(I_ElementValue.I_IsImported, 'N') AS I_IsImported, 
+I_ElementValue.C_ElementValue_ID, 
+(CASE WHEN I_ElementValue.C_ElementValue_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS C_ElementValue_IDR, 
+I_ElementValue.I_ErrorMsg, 
+I_ElementValue.AD_Client_ID, 
+(CASE WHEN I_ElementValue.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Client_IDR, 
+I_ElementValue.AD_Org_ID, 
+(CASE WHEN I_ElementValue.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_Org_IDR, 
+I_ElementValue.ElementName, 
+I_ElementValue.C_Element_ID, 
+(CASE WHEN I_ElementValue.C_Element_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_Element_IDR, 
+I_ElementValue.Value, 
+I_ElementValue.Name, 
+I_ElementValue.Description, 
+I_ElementValue.AccountType, 
+I_ElementValue.AccountSign, 
+COALESCE(I_ElementValue.IsSummary, 'N') AS IsSummary, 
+I_ElementValue.ParentValue, 
+I_ElementValue.ParentElementValue_ID, 
+(CASE WHEN I_ElementValue.ParentElementValue_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL5.Name IS NULL THEN TO_CHAR(table5.Name) ELSE TO_CHAR(tableTRL5.Name) END)), ''))),'') ) END) AS ParentElementValue_IDR, 
+COALESCE(I_ElementValue.PostActual, 'N') AS PostActual, 
+COALESCE(I_ElementValue.PostBudget, 'N') AS PostBudget, 
+COALESCE(I_ElementValue.PostStatistical, 'N') AS PostStatistical, 
+COALESCE(I_ElementValue.PostEncumbrance, 'N') AS PostEncumbrance, 
+COALESCE(I_ElementValue.IsDocControlled, 'N') AS IsDocControlled, 
+I_ElementValue.Default_Account, 
+I_ElementValue.AD_Column_ID, 
+(CASE WHEN I_ElementValue.AD_Column_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.ColumnName), ''))),'') ) END) AS AD_Column_IDR, 
+I_ElementValue.Elementlevel, 
+I_ElementValue.Processing, 
+COALESCE(I_ElementValue.Processed, 'N') AS Processed, 
+ 
+        ? AS LANGUAGE 
+        FROM I_ElementValue left join (select C_ElementValue_ID, Value, Name from C_ElementValue) table1 on (I_ElementValue.C_ElementValue_ID = table1.C_ElementValue_ID) left join (select C_ElementValue_ID,AD_Language, Name from C_ElementValue_TRL) tableTRL1 on (table1.C_ElementValue_ID = tableTRL1.C_ElementValue_ID and tableTRL1.AD_Language = ?)  left join (select AD_Client_ID, Name from AD_Client) table2 on (I_ElementValue.AD_Client_ID = table2.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table3 on (I_ElementValue.AD_Org_ID = table3.AD_Org_ID) left join (select C_Element_ID, Name from C_Element) table4 on (I_ElementValue.C_Element_ID = table4.C_Element_ID) left join (select C_ElementValue_ID, value, Name from C_ElementValue) table5 on (I_ElementValue.ParentElementValue_ID =  table5.C_ElementValue_ID) left join (select C_ElementValue_ID,AD_Language, Name from C_ElementValue_TRL) tableTRL5 on (table5.C_ElementValue_ID = tableTRL5.C_ElementValue_ID and tableTRL5.AD_Language = ?)  left join (select AD_Column_ID, ColumnName from AD_Column) table6 on (I_ElementValue.AD_Column_ID =  table6.AD_Column_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND I_ElementValue.I_ElementValue_ID = ? 
+        AND I_ElementValue.AD_Client_ID IN ('1') 
+           AND I_ElementValue.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_ElementValue.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_ElementValue.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="created"></Parameter><Parameter name="poststatistical"></Parameter><Parameter name="description"></Parameter><Parameter name="iErrormsg"></Parameter><Parameter name="value"></Parameter><Parameter name="accountsign"></Parameter><Parameter name="parentelementvalueId"></Parameter><Parameter name="name"></Parameter><Parameter name="processed"></Parameter><Parameter name="postbudget"></Parameter><Parameter name="isactive"></Parameter><Parameter name="accounttype"></Parameter><Parameter name="postactual"></Parameter><Parameter name="iIsimported"></Parameter><Parameter name="defaultAccount"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cElementId"></Parameter><Parameter name="iElementvalueId"></Parameter><Parameter name="processing"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adColumnId"></Parameter><Parameter name="issummary"></Parameter><Parameter name="elementname"></Parameter><Parameter name="isdoccontrolled"></Parameter><Parameter name="elementlevel"></Parameter><Parameter name="parentvalue"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="postencumbrance"></Parameter><Parameter name="cElementvalueId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef7908_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef7928_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE I_ElementValue
+        SET IsActive = (?) , I_ElementValue_ID = (?) , I_IsImported = (?) , C_ElementValue_ID = (?) , I_ErrorMsg = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , ElementName = (?) , C_Element_ID = (?) , Value = (?) , Name = (?) , Description = (?) , AccountType = (?) , AccountSign = (?) , IsSummary = (?) , ParentValue = (?) , ParentElementValue_ID = (?) , PostActual = (?) , PostBudget = (?) , PostStatistical = (?) , PostEncumbrance = (?) , IsDocControlled = (?) , Default_Account = (?) , AD_Column_ID = (?) , Elementlevel = (?) , Processing = (?) , Processed = (?) , updated = now(), updatedby = ? 
+        WHERE I_ElementValue.I_ElementValue_ID = ? 
+        
+        AND I_ElementValue.AD_Client_ID IN ('1') 
+        AND I_ElementValue.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="isactive"></Parameter> <Parameter name="iElementvalueId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cElementvalueId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="elementname"></Parameter> <Parameter name="cElementId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="accounttype"></Parameter> <Parameter name="accountsign"></Parameter> <Parameter name="issummary"></Parameter> <Parameter name="parentvalue"></Parameter> <Parameter name="parentelementvalueId"></Parameter> <Parameter name="postactual"></Parameter> <Parameter name="postbudget"></Parameter> <Parameter name="poststatistical"></Parameter> <Parameter name="postencumbrance"></Parameter> <Parameter name="isdoccontrolled"></Parameter> <Parameter name="defaultAccount"></Parameter> <Parameter name="adColumnId"></Parameter> <Parameter name="elementlevel"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="iElementvalueId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_ElementValue.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_ElementValue.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO I_ElementValue 
+        (IsActive, I_ElementValue_ID, I_IsImported, C_ElementValue_ID, I_ErrorMsg, AD_Client_ID, AD_Org_ID, ElementName, C_Element_ID, Value, Name, Description, AccountType, AccountSign, IsSummary, ParentValue, ParentElementValue_ID, PostActual, PostBudget, PostStatistical, PostEncumbrance, IsDocControlled, Default_Account, AD_Column_ID, Elementlevel, Processing, Processed, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="isactive"></Parameter> <Parameter name="iElementvalueId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cElementvalueId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="elementname"></Parameter> <Parameter name="cElementId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="accounttype"></Parameter> <Parameter name="accountsign"></Parameter> <Parameter name="issummary"></Parameter> <Parameter name="parentvalue"></Parameter> <Parameter name="parentelementvalueId"></Parameter> <Parameter name="postactual"></Parameter> <Parameter name="postbudget"></Parameter> <Parameter name="poststatistical"></Parameter> <Parameter name="postencumbrance"></Parameter> <Parameter name="isdoccontrolled"></Parameter> <Parameter name="defaultAccount"></Parameter> <Parameter name="adColumnId"></Parameter> <Parameter name="elementlevel"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_ElementValue
+        WHERE I_ElementValue.I_ElementValue_ID = ? 
+        
+        AND I_ElementValue.AD_Client_ID IN ('1') 
+        AND I_ElementValue.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_ElementValue.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_ElementValue.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_ElementValue
+        WHERE I_ElementValue.I_ElementValue_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM I_ElementValue
+         WHERE I_ElementValue.I_ElementValue_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM I_ElementValue
+         WHERE I_ElementValue.I_ElementValue_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ModuleData" package="org.openbravo.erpWindows.Module">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Module.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Module.CreatedBy) as CreatedByR, 
+        to_char(AD_Module.Updated, ?) as updated, 
+        to_char(AD_Module.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Module.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Module.UpdatedBy) as UpdatedByR,
+        AD_Module.AD_Module_ID, 
+AD_Module.AD_Client_ID, 
+(CASE WHEN AD_Module.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Module.AD_Org_ID, 
+(CASE WHEN AD_Module.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(AD_Module.IsActive, 'N') AS IsActive, 
+AD_Module.Name, 
+AD_Module.JavaPackage, 
+AD_Module.Version, 
+AD_Module.Version_Label, 
+AD_Module.Seqno, 
+AD_Module.Ordernumber, 
+AD_Module.Type, 
+(CASE WHEN AD_Module.Type IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS TypeR, 
+COALESCE(AD_Module.IsInDevelopment, 'N') AS IsInDevelopment, 
+COALESCE(AD_Module.IsDefault, 'N') AS IsDefault, 
+AD_Module.Description, 
+AD_Module.Help, 
+COALESCE(AD_Module.IsTranslationRequired, 'N') AS IsTranslationRequired, 
+COALESCE(AD_Module.IsTranslationModule, 'N') AS IsTranslationModule, 
+AD_Module.AD_Language, 
+(CASE WHEN AD_Module.AD_Language IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_LanguageR, 
+AD_Module.LicenseType, 
+(CASE WHEN AD_Module.LicenseType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS LicenseTypeR, 
+COALESCE(AD_Module.IsCommercial, 'N') AS IsCommercial, 
+COALESCE(AD_Module.Ispartofdistribution, 'N') AS Ispartofdistribution, 
+AD_Module.License, 
+AD_Module.Author, 
+AD_Module.URL, 
+AD_Module.Status, 
+(CASE WHEN AD_Module.Status IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS StatusR, 
+AD_Module.UpdateInfo, 
+AD_Module.Update_Available, 
+COALESCE(AD_Module.HasChartOfAccounts, 'N') AS HasChartOfAccounts, 
+COALESCE(AD_Module.HasReferenceData, 'N') AS HasReferenceData, 
+AD_Module.Update_Ver_ID, 
+AD_Module.ReferenceDataInfo, 
+AD_Module.Version_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Module left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_Module.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_Module.AD_Org_ID = table2.AD_Org_ID) left join ad_ref_list_v list1 on (AD_Module.Type = list1.value and list1.ad_reference_id = '3F854F4DC7284CE4857A5EA941BE032C' and list1.ad_language = ?)  left join (select AD_Language, Name from AD_Language) table3 on (AD_Module.AD_Language =  table3.AD_Language) left join ad_ref_list_v list2 on (AD_Module.LicenseType = list2.value and list2.ad_reference_id = '5D4B2983E0254AA1B60A82A7B92DB67D' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (AD_Module.Status = list3.value and list3.ad_reference_id = '725CD8C6882C40AFB4D1C27B1AEF8BB4' and list3.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_Module.AD_Module_ID = ? 
+        AND AD_Module.AD_Client_ID IN ('1') 
+           AND AD_Module.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Module.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Module.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="adOrgId"></Parameter><Parameter name="ordernumber"></Parameter><Parameter name="help"></Parameter><Parameter name="haschartofaccounts"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adModuleId"></Parameter><Parameter name="versionId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="author"></Parameter><Parameter name="updateVerId"></Parameter><Parameter name="iscommercial"></Parameter><Parameter name="license"></Parameter><Parameter name="licensetype"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adLanguage"></Parameter><Parameter name="name"></Parameter><Parameter name="description"></Parameter><Parameter name="ispartofdistribution"></Parameter><Parameter name="referencedatainfo"></Parameter><Parameter name="updateinfo"></Parameter><Parameter name="versionLabel"></Parameter><Parameter name="type"></Parameter><Parameter name="url"></Parameter><Parameter name="status"></Parameter><Parameter name="istranslationrequired"></Parameter><Parameter name="isindevelopment"></Parameter><Parameter name="seqno"></Parameter><Parameter name="javapackage"></Parameter><Parameter name="version"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="updateAvailable"></Parameter><Parameter name="hasreferencedata"></Parameter><Parameter name="istranslationmodule"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef565E56DF64DE9042E040007F01002829_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef565E56DF64E09042E040007F01002829_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Module
+        SET AD_Module_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , IsActive = (?) , Name = (?) , JavaPackage = (?) , Version = (?) , Version_Label = (?) , Seqno = TO_NUMBER(?) , Ordernumber = TO_NUMBER(?) , Type = (?) , IsInDevelopment = (?) , IsDefault = (?) , Description = (?) , Help = (?) , IsTranslationRequired = (?) , IsTranslationModule = (?) , AD_Language = (?) , LicenseType = (?) , IsCommercial = (?) , Ispartofdistribution = (?) , License = (?) , Author = (?) , URL = (?) , Status = (?) , UpdateInfo = (?) , Update_Available = (?) , HasChartOfAccounts = (?) , HasReferenceData = (?) , Update_Ver_ID = (?) , ReferenceDataInfo = (?) , Version_ID = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Module.AD_Module_ID = ? 
+        
+        AND AD_Module.AD_Client_ID IN ('1') 
+        AND AD_Module.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adModuleId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="javapackage"></Parameter> <Parameter name="version"></Parameter> <Parameter name="versionLabel"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="ordernumber"></Parameter> <Parameter name="type"></Parameter> <Parameter name="isindevelopment"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="istranslationrequired"></Parameter> <Parameter name="istranslationmodule"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="licensetype"></Parameter> <Parameter name="iscommercial"></Parameter> <Parameter name="ispartofdistribution"></Parameter> <Parameter name="license"></Parameter> <Parameter name="author"></Parameter> <Parameter name="url"></Parameter> <Parameter name="status"></Parameter> <Parameter name="updateinfo"></Parameter> <Parameter name="updateAvailable"></Parameter> <Parameter name="haschartofaccounts"></Parameter> <Parameter name="hasreferencedata"></Parameter> <Parameter name="updateVerId"></Parameter> <Parameter name="referencedatainfo"></Parameter> <Parameter name="versionId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adModuleId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Module.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Module.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Module 
+        (AD_Module_ID, AD_Client_ID, AD_Org_ID, IsActive, Name, JavaPackage, Version, Version_Label, Seqno, Ordernumber, Type, IsInDevelopment, IsDefault, Description, Help, IsTranslationRequired, IsTranslationModule, AD_Language, LicenseType, IsCommercial, Ispartofdistribution, License, Author, URL, Status, UpdateInfo, Update_Available, HasChartOfAccounts, HasReferenceData, Update_Ver_ID, ReferenceDataInfo, Version_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adModuleId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="javapackage"></Parameter> <Parameter name="version"></Parameter> <Parameter name="versionLabel"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="ordernumber"></Parameter> <Parameter name="type"></Parameter> <Parameter name="isindevelopment"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="istranslationrequired"></Parameter> <Parameter name="istranslationmodule"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="licensetype"></Parameter> <Parameter name="iscommercial"></Parameter> <Parameter name="ispartofdistribution"></Parameter> <Parameter name="license"></Parameter> <Parameter name="author"></Parameter> <Parameter name="url"></Parameter> <Parameter name="status"></Parameter> <Parameter name="updateinfo"></Parameter> <Parameter name="updateAvailable"></Parameter> <Parameter name="haschartofaccounts"></Parameter> <Parameter name="hasreferencedata"></Parameter> <Parameter name="updateVerId"></Parameter> <Parameter name="referencedatainfo"></Parameter> <Parameter name="versionId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Module
+        WHERE AD_Module.AD_Module_ID = ? 
+        
+        AND AD_Module.AD_Client_ID IN ('1') 
+        AND AD_Module.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Module.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Module.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Module
+        WHERE AD_Module.AD_Module_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Module
+         WHERE AD_Module.AD_Module_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Module
+         WHERE AD_Module.AD_Module_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

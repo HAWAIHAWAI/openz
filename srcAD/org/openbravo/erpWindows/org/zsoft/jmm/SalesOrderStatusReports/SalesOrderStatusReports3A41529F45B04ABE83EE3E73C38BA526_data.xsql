@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="SalesOrderStatusReports3A41529F45B04ABE83EE3E73C38BA526Data" package="org.openbravo.erpWindows.org.zsoft.jmm.SalesOrderStatusReports">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(juwimm_orderstatus_controlling_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_orderstatus_controlling_v.CreatedBy) as CreatedByR, 
+        to_char(juwimm_orderstatus_controlling_v.Updated, ?) as updated, 
+        to_char(juwimm_orderstatus_controlling_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        juwimm_orderstatus_controlling_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_orderstatus_controlling_v.UpdatedBy) as UpdatedByR,
+        juwimm_orderstatus_controlling_v.Juwimm_Orderstatus_Controlling_V_ID, 
+juwimm_orderstatus_controlling_v.Name, 
+juwimm_orderstatus_controlling_v.Documentno, 
+juwimm_orderstatus_controlling_v.C_Order_ID, 
+juwimm_orderstatus_controlling_v.Project_Name, 
+juwimm_orderstatus_controlling_v.Project_Value, 
+juwimm_orderstatus_controlling_v.Salesrep_ID, 
+(CASE WHEN juwimm_orderstatus_controlling_v.Salesrep_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS Salesrep_IDR, 
+juwimm_orderstatus_controlling_v.AD_Org_ID, 
+COALESCE(juwimm_orderstatus_controlling_v.Isactive, 'N') AS Isactive, 
+juwimm_orderstatus_controlling_v.C_Bpartner_ID, 
+(CASE WHEN juwimm_orderstatus_controlling_v.C_Bpartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS C_Bpartner_IDR, 
+juwimm_orderstatus_controlling_v.Totallines, 
+juwimm_orderstatus_controlling_v.AD_User_ID, 
+(CASE WHEN juwimm_orderstatus_controlling_v.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_User_IDR, 
+juwimm_orderstatus_controlling_v.Juwimm_Completion, 
+(CASE WHEN juwimm_orderstatus_controlling_v.Juwimm_Completion IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS Juwimm_CompletionR, 
+juwimm_orderstatus_controlling_v.Juwimm_Time, 
+(CASE WHEN juwimm_orderstatus_controlling_v.Juwimm_Time IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS Juwimm_TimeR, 
+juwimm_orderstatus_controlling_v.Juwimm_Resources, 
+(CASE WHEN juwimm_orderstatus_controlling_v.Juwimm_Resources IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS Juwimm_ResourcesR, 
+COALESCE(juwimm_orderstatus_controlling_v.IsSOTrx, 'N') AS IsSOTrx, 
+juwimm_orderstatus_controlling_v.Juwimm_Budget, 
+(CASE WHEN juwimm_orderstatus_controlling_v.Juwimm_Budget IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS Juwimm_BudgetR, 
+juwimm_orderstatus_controlling_v.Juwimm_Team_ID, 
+(CASE WHEN juwimm_orderstatus_controlling_v.Juwimm_Team_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS Juwimm_Team_IDR, 
+juwimm_orderstatus_controlling_v.Docstatus, 
+juwimm_orderstatus_controlling_v.Juwimm_Plannedgolive, 
+juwimm_orderstatus_controlling_v.Docaction, 
+juwimm_orderstatus_controlling_v.Juwimm_Estgolive, 
+juwimm_orderstatus_controlling_v.AD_Client_ID, 
+juwimm_orderstatus_controlling_v.C_Project_ID, 
+juwimm_orderstatus_controlling_v.Juwimm_Nextimpdate, 
+juwimm_orderstatus_controlling_v.Juwimm_Plannedstart, 
+juwimm_orderstatus_controlling_v.Juwimm_Eststart, 
+juwimm_orderstatus_controlling_v.Juwimm_Plannedend, 
+juwimm_orderstatus_controlling_v.Juwimm_Estend, 
+juwimm_orderstatus_controlling_v.Juwimm_Ouputremarks, 
+juwimm_orderstatus_controlling_v.Juwimm_Lastaction, 
+juwimm_orderstatus_controlling_v.Juwimm_Nextaction, 
+juwimm_orderstatus_controlling_v.Juwimm_Issues, 
+juwimm_orderstatus_controlling_v.Juwimm_Decisions, 
+COALESCE(juwimm_orderstatus_controlling_v.Iscompletelyinvoiced, 'N') AS Iscompletelyinvoiced, 
+ 
+        ? AS LANGUAGE 
+        FROM juwimm_orderstatus_controlling_v left join (select AD_User_ID, Name from AD_User) table1 on (juwimm_orderstatus_controlling_v.Salesrep_ID =  table1.AD_User_ID) left join (select C_BPartner_ID, Name from C_BPartner) table2 on (juwimm_orderstatus_controlling_v.C_Bpartner_ID = table2.C_BPartner_ID) left join (select AD_User_ID, Name from AD_User) table3 on (juwimm_orderstatus_controlling_v.AD_User_ID = table3.AD_User_ID) left join ad_ref_list_v list1 on (juwimm_orderstatus_controlling_v.Juwimm_Completion = list1.value and list1.ad_reference_id = 'DFB97A7B6DE848EEAA271F95215E316E' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (juwimm_orderstatus_controlling_v.Juwimm_Time = list2.value and list2.ad_reference_id = 'BBFB55FDBAA64C0EB46F026460AE8285' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (juwimm_orderstatus_controlling_v.Juwimm_Resources = list3.value and list3.ad_reference_id = '7C374D10EA044BE3B252D6654A7AA5E1' and list3.ad_language = ?)  left join ad_ref_list_v list4 on (juwimm_orderstatus_controlling_v.Juwimm_Budget = list4.value and list4.ad_reference_id = '76CDE2B245D44726AE30457453FF622E' and list4.ad_language = ?)  left join (select Juwimm_Team_ID, Name from Juwimm_Team) table4 on (juwimm_orderstatus_controlling_v.Juwimm_Team_ID = table4.Juwimm_Team_ID) left join (select Juwimm_Team_ID,AD_Language, Name from juwimm_team_TRL) tableTRL4 on (table4.Juwimm_Team_ID = tableTRL4.Juwimm_Team_ID and tableTRL4.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND juwimm_orderstatus_controlling_v.Juwimm_Orderstatus_Controlling_V_ID = ? 
+        AND juwimm_orderstatus_controlling_v.AD_Client_ID IN ('1') 
+           AND juwimm_orderstatus_controlling_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatus_controlling_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatus_controlling_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="name"></Parameter><Parameter name="juwimmOrderstatusControllingVId"></Parameter><Parameter name="issotrx"></Parameter><Parameter name="juwimmEstend"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="juwimmPlannedstart"></Parameter><Parameter name="juwimmTime"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="juwimmBudget"></Parameter><Parameter name="juwimmIssues"></Parameter><Parameter name="documentno"></Parameter><Parameter name="cOrderId"></Parameter><Parameter name="projectValue"></Parameter><Parameter name="docstatus"></Parameter><Parameter name="juwimmPlannedgolive"></Parameter><Parameter name="juwimmOuputremarks"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="juwimmResources"></Parameter><Parameter name="iscompletelyinvoiced"></Parameter><Parameter name="juwimmEststart"></Parameter><Parameter name="juwimmCompletion"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="juwimmTeamId"></Parameter><Parameter name="juwimmPlannedend"></Parameter><Parameter name="juwimmDecisions"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="juwimmLastaction"></Parameter><Parameter name="juwimmNextaction"></Parameter><Parameter name="juwimmNextimpdate"></Parameter><Parameter name="juwimmEstgolive"></Parameter><Parameter name="projectName"></Parameter><Parameter name="isactive"></Parameter><Parameter name="docaction"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="totallines"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefFA0BF18F735E458EAD1F6AC24D76D38E_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8836A70361064B9AB1E7587CF6B6C247_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefE7CAFB519FC94B64B02D7C3B3A6801EE_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_Bpartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Bpartner_IDR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE juwimm_orderstatus_controlling_v
+        SET Juwimm_Orderstatus_Controlling_V_ID = (?) , Name = (?) , Documentno = (?) , C_Order_ID = (?) , Project_Name = (?) , Project_Value = (?) , Salesrep_ID = (?) , AD_Org_ID = (?) , Isactive = (?) , C_Bpartner_ID = (?) , Totallines = TO_NUMBER(?) , AD_User_ID = (?) , Juwimm_Completion = (?) , Juwimm_Time = (?) , Juwimm_Resources = (?) , IsSOTrx = (?) , Juwimm_Budget = (?) , Juwimm_Team_ID = (?) , Docstatus = (?) , Juwimm_Plannedgolive = TO_DATE(?) , Docaction = (?) , Juwimm_Estgolive = TO_DATE(?) , AD_Client_ID = (?) , C_Project_ID = (?) , Juwimm_Nextimpdate = TO_DATE(?) , Juwimm_Plannedstart = TO_DATE(?) , Juwimm_Eststart = TO_DATE(?) , Juwimm_Plannedend = TO_DATE(?) , Juwimm_Estend = TO_DATE(?) , Juwimm_Ouputremarks = (?) , Juwimm_Lastaction = (?) , Juwimm_Nextaction = (?) , Juwimm_Issues = (?) , Juwimm_Decisions = (?) , Iscompletelyinvoiced = (?) , updated = now(), updatedby = ? 
+        WHERE juwimm_orderstatus_controlling_v.Juwimm_Orderstatus_Controlling_V_ID = ? 
+        
+        AND juwimm_orderstatus_controlling_v.AD_Client_ID IN ('1') 
+        AND juwimm_orderstatus_controlling_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="juwimmOrderstatusControllingVId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="projectName"></Parameter> <Parameter name="projectValue"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="juwimmCompletion"></Parameter> <Parameter name="juwimmTime"></Parameter> <Parameter name="juwimmResources"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="juwimmBudget"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="juwimmPlannedgolive"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="juwimmEstgolive"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="juwimmNextimpdate"></Parameter> <Parameter name="juwimmPlannedstart"></Parameter> <Parameter name="juwimmEststart"></Parameter> <Parameter name="juwimmPlannedend"></Parameter> <Parameter name="juwimmEstend"></Parameter> <Parameter name="juwimmOuputremarks"></Parameter> <Parameter name="juwimmLastaction"></Parameter> <Parameter name="juwimmNextaction"></Parameter> <Parameter name="juwimmIssues"></Parameter> <Parameter name="juwimmDecisions"></Parameter> <Parameter name="iscompletelyinvoiced"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="juwimmOrderstatusControllingVId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatus_controlling_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatus_controlling_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO juwimm_orderstatus_controlling_v 
+        (Juwimm_Orderstatus_Controlling_V_ID, Name, Documentno, C_Order_ID, Project_Name, Project_Value, Salesrep_ID, AD_Org_ID, Isactive, C_Bpartner_ID, Totallines, AD_User_ID, Juwimm_Completion, Juwimm_Time, Juwimm_Resources, IsSOTrx, Juwimm_Budget, Juwimm_Team_ID, Docstatus, Juwimm_Plannedgolive, Docaction, Juwimm_Estgolive, AD_Client_ID, C_Project_ID, Juwimm_Nextimpdate, Juwimm_Plannedstart, Juwimm_Eststart, Juwimm_Plannedend, Juwimm_Estend, Juwimm_Ouputremarks, Juwimm_Lastaction, Juwimm_Nextaction, Juwimm_Issues, Juwimm_Decisions, Iscompletelyinvoiced, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), TO_DATE(?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="juwimmOrderstatusControllingVId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="projectName"></Parameter> <Parameter name="projectValue"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="juwimmCompletion"></Parameter> <Parameter name="juwimmTime"></Parameter> <Parameter name="juwimmResources"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="juwimmBudget"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="juwimmPlannedgolive"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="juwimmEstgolive"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="juwimmNextimpdate"></Parameter> <Parameter name="juwimmPlannedstart"></Parameter> <Parameter name="juwimmEststart"></Parameter> <Parameter name="juwimmPlannedend"></Parameter> <Parameter name="juwimmEstend"></Parameter> <Parameter name="juwimmOuputremarks"></Parameter> <Parameter name="juwimmLastaction"></Parameter> <Parameter name="juwimmNextaction"></Parameter> <Parameter name="juwimmIssues"></Parameter> <Parameter name="juwimmDecisions"></Parameter> <Parameter name="iscompletelyinvoiced"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_orderstatus_controlling_v
+        WHERE juwimm_orderstatus_controlling_v.Juwimm_Orderstatus_Controlling_V_ID = ? 
+        
+        AND juwimm_orderstatus_controlling_v.AD_Client_ID IN ('1') 
+        AND juwimm_orderstatus_controlling_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatus_controlling_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatus_controlling_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_orderstatus_controlling_v
+        WHERE juwimm_orderstatus_controlling_v.Juwimm_Orderstatus_Controlling_V_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM juwimm_orderstatus_controlling_v
+         WHERE juwimm_orderstatus_controlling_v.Juwimm_Orderstatus_Controlling_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM juwimm_orderstatus_controlling_v
+         WHERE juwimm_orderstatus_controlling_v.Juwimm_Orderstatus_Controlling_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

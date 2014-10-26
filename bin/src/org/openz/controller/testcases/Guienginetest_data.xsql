@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/***************************************************************************************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html. Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific  language  governing  rights  and  limitations
+* under the License. The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SL. Parts created by Openbravo are Copyright (C) 2001-2009 Openbravo SL
+* All Rights Reserved.
+* Contributor(s): Stefan Zimmermann, 2011, sz@zimmermann-software.de (SZ) Contributions are Copyright (C) 2011 Stefan Zimmermann
+*                 
+* 
+****************************************************************************************************************************************************/
+-->
+
+
+
+
+
+<SqlClass name="GuienginetestData" package="org.openz.controller.testcases">
+ <SqlMethod name="initialize" type="preparedStatement" return="multiple">
+<SqlMethodComment></SqlMethodComment>
+    <Sql>
+        select 
+            '' as textbox,
+            '' as datebox,
+            '' as checkbox,
+            '' as decbox, 
+            '' as euro,
+            '' as intbox,
+            '' as listsorter,
+            '' as multiselector,
+            '' as popupsearch,
+            '' as price,
+            '' as refcombo,
+            '' as noedittextbox,
+            '' as image,
+            '' as url,
+            '' as textareasimple,
+            '' as textareaadv,
+            '' as listsortersim,         
+            '' as test_guiengine_id,
+            '' as ad_org_id,
+            '' as ad_client_id,
+            '' as isactive,
+            '' as updated,
+            '' as created,
+            '' as createdby,
+            '' as updatedby
+
+    </Sql>
+</SqlMethod>
+  
+<SqlMethod name="selectupper" type="preparedStatement" return="multiple">
+<SqlMethodComment></SqlMethodComment>
+    <Sql>
+        select
+		textbox,
+		datebox,
+		checkbox,
+		decbox,
+		euro,
+		intbox,
+		listsorter,
+		multiselector,
+		zssi_getproductname(popupsearch, ?) as popupsearch,
+		price,
+		zssi_getusername(refcombo) as refcombo,
+		noedittextbox,
+		image,
+		url,
+		textareasimple,
+		textareaadv,
+		listsortersim,
+		test_guiengine_id
+        from
+            test_guiengine
+        where test_guiengine_id='58CDBD0FE1F7448EB159BC0D935A22C1'
+    </Sql>
+    <Parameter name="language"/>
+</SqlMethod>
+  
+    
+<SqlMethod name="updateTestdata" type="preparedStatement" return="rowCount">
+<SqlMethodComment></SqlMethodComment>
+    <Sql>
+        update test_guiengine
+        	set textbox = ?,
+             datebox = to_date(?),
+             checkbox = ?,
+             decbox = to_number(?),
+             euro = to_number(?),
+             intbox = to_number(?),
+             listsorter = ?,
+             multiselector = ?,
+             popupsearch = ?,
+             price = to_number(?),
+             refcombo = ?,
+             noedittextbox = ?,
+             image = ?,
+             url = ?,
+             textareasimple = ?,
+             textareaadv = zssi_2html(?),
+             listsortersim = ?,
+             updated= now(),
+             created= now()
+       	where test_guiengine_id='58CDBD0FE1F7448EB159BC0D935A22C1'
+    </Sql>
+    <Parameter name="textbox"/>
+    <Parameter name="datebox"/>
+    <Parameter name="checkbox"/>
+    <Parameter name="d"/>
+    <Parameter name="euro"/>
+    <Parameter name="i"/>
+    <Parameter name="listsorter"/>
+    <Parameter name="multiselector"/>
+    <Parameter name="popupsearch"/>
+    <Parameter name="price"/>
+    <Parameter name="refcombo"/>
+    <Parameter name="noedittextbox"/>
+    <Parameter name="image"/>
+    <Parameter name="url"/>
+    <Parameter name="textareasimple"/>
+    <Parameter name="textareaadv"/>
+    <Parameter name="listsortersim"/> 
+</SqlMethod>
+  </SqlClass>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="PersonalDataC9B028F8723040C8A2BE9C26E125FA22Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.smartui.Employee">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_User.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_User.CreatedBy) as CreatedByR, 
+        to_char(AD_User.Updated, ?) as updated, 
+        to_char(AD_User.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_User.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_User.UpdatedBy) as UpdatedByR,
+        AD_User.C_BPartner_Location_ID, 
+AD_User.LastContact, 
+AD_User.EmailUserPW, 
+AD_User.Processing, 
+AD_User.EmailUser, 
+AD_User.LastResult, 
+AD_User.AD_OrgTrx_ID, 
+AD_User.C_BPartner_ID, 
+(CASE WHEN AD_User.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+AD_User.Firstname, 
+AD_User.C_Greeting_ID, 
+(CASE WHEN AD_User.C_Greeting_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))),'') ) END) AS C_Greeting_IDR, 
+AD_User.Lastname, 
+AD_User.Title, 
+AD_User.UserName, 
+AD_User.Name, 
+AD_User.Default_Ad_Client_ID, 
+AD_User.Enumber, 
+AD_User.Default_Ad_Org_ID, 
+AD_User.Birthday, 
+AD_User.Default_Ad_Language, 
+AD_User.Email, 
+AD_User.Default_Ad_Role_ID, 
+AD_User.Fax, 
+AD_User.Default_M_Warehouse_ID, 
+AD_User.Phone, 
+AD_User.Phone2, 
+AD_User.Description, 
+AD_User.Comments, 
+AD_User.Supervisor_ID, 
+(CASE WHEN AD_User.Supervisor_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS Supervisor_IDR, 
+AD_User.C_Color_ID, 
+(CASE WHEN AD_User.C_Color_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_Color_IDR, 
+COALESCE(AD_User.IsActive, 'N') AS IsActive, 
+AD_User.Mailingzielgruppe, 
+AD_User.Persoenlicherkontakt2010, 
+AD_User.Date1, 
+AD_User.Einkauf, 
+AD_User.Persoenlicherkontakt2009, 
+AD_User.Marktforschung, 
+AD_User.Date4, 
+AD_User.Communityzugehoerigkeit, 
+AD_User.Kooperation, 
+AD_User.Prominenter, 
+AD_User.Emarketing, 
+AD_User.Number5, 
+AD_User.It, 
+AD_User.Blockbuster, 
+AD_User.Unternehmenskommunikation, 
+AD_User.Number4, 
+AD_User.Nis, 
+AD_User.Number3, 
+AD_User.Number2, 
+AD_User.Training, 
+AD_User.Marketing, 
+AD_User.Aussendienst, 
+AD_User.Medwissen, 
+AD_User.Klinikkunde, 
+AD_User.Kunde, 
+AD_User.Kol, 
+AD_User.Persoenlicherkontakt2008, 
+AD_User.Sachgebiet, 
+AD_User.Presse, 
+AD_User.Number1, 
+AD_User.Stippvisitenkunde, 
+AD_User.Branche, 
+AD_User.Persoenlicherkontakt2011, 
+AD_User.Geschaeftsentwicklung, 
+AD_User.Hobby, 
+AD_User.Veranstaltungsmanagement, 
+AD_User.Schluesselkontakt, 
+AD_User.Planung, 
+AD_User.Land, 
+AD_User.Positionfunktion, 
+AD_User.Klinik, 
+AD_User.Abteilungbereich, 
+AD_User.Geschaeftsfuehrer, 
+AD_User.Medicaleducation, 
+AD_User.Humanresources, 
+AD_User.Auxtext1, 
+AD_User.Salesrep_ID, 
+AD_User.Auxtext2, 
+AD_User.C_User_Position_ID, 
+AD_User.Auxtext3, 
+AD_User.C_User_Department_ID, 
+AD_User.Date2, 
+AD_User.Date3, 
+AD_User.Date5, 
+AD_User.AD_User_ID, 
+AD_User.AD_Client_ID, 
+AD_User.Password, 
+AD_User.AD_Org_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_User left join (select C_BPartner_ID, Name from C_BPartner) table1 on (AD_User.C_BPartner_ID = table1.C_BPartner_ID) left join (select C_Greeting_ID, Name from C_Greeting) table2 on (AD_User.C_Greeting_ID = table2.C_Greeting_ID) left join (select C_Greeting_ID,AD_Language, Name from C_Greeting_TRL) tableTRL2 on (table2.C_Greeting_ID = tableTRL2.C_Greeting_ID and tableTRL2.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table3 on (AD_User.Supervisor_ID =  table3.AD_User_ID) left join (select C_Color_ID, Name from C_Color) table4 on (AD_User.C_Color_ID = table4.C_Color_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_User.AD_User_ID = ? 
+        AND AD_User.AD_Client_ID IN ('1') 
+           AND AD_User.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cBpartnerId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND AD_User.C_BPartner_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_User.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_User.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+<Parameter name="stippvisitenkunde"></Parameter><Parameter name="kol"></Parameter><Parameter name="date1"></Parameter><Parameter name="adOrgtrxId"></Parameter><Parameter name="number2"></Parameter><Parameter name="number3"></Parameter><Parameter name="phone"></Parameter><Parameter name="emailuser"></Parameter><Parameter name="emailuserpw"></Parameter><Parameter name="humanresources"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="emarketing"></Parameter><Parameter name="lastcontact"></Parameter><Parameter name="medwissen"></Parameter><Parameter name="positionfunktion"></Parameter><Parameter name="klinikkunde"></Parameter><Parameter name="veranstaltungsmanagement"></Parameter><Parameter name="schluesselkontakt"></Parameter><Parameter name="cUserDepartmentId"></Parameter><Parameter name="fax"></Parameter><Parameter name="name"></Parameter><Parameter name="defaultMWarehouseId"></Parameter><Parameter name="communityzugehoerigkeit"></Parameter><Parameter name="sachgebiet"></Parameter><Parameter name="cGreetingId"></Parameter><Parameter name="persoenlicherkontakt2010"></Parameter><Parameter name="hobby"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="birthday"></Parameter><Parameter name="number5"></Parameter><Parameter name="auxtext3"></Parameter><Parameter name="kunde"></Parameter><Parameter name="defaultAdClientId"></Parameter><Parameter name="einkauf"></Parameter><Parameter name="blockbuster"></Parameter><Parameter name="geschaeftsentwicklung"></Parameter><Parameter name="nis"></Parameter><Parameter name="branche"></Parameter><Parameter name="auxtext2"></Parameter><Parameter name="defaultAdOrgId"></Parameter><Parameter name="description"></Parameter><Parameter name="supervisorId"></Parameter><Parameter name="lastresult"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="number4"></Parameter><Parameter name="klinik"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="presse"></Parameter><Parameter name="unternehmenskommunikation"></Parameter><Parameter name="persoenlicherkontakt2008"></Parameter><Parameter name="medicaleducation"></Parameter><Parameter name="date2"></Parameter><Parameter name="isactive"></Parameter><Parameter name="phone2"></Parameter><Parameter name="it"></Parameter><Parameter name="firstname"></Parameter><Parameter name="username"></Parameter><Parameter name="persoenlicherkontakt2009"></Parameter><Parameter name="aussendienst"></Parameter><Parameter name="email"></Parameter><Parameter name="processing"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="date3"></Parameter><Parameter name="password"></Parameter><Parameter name="title"></Parameter><Parameter name="persoenlicherkontakt2011"></Parameter><Parameter name="mailingzielgruppe"></Parameter><Parameter name="enumber"></Parameter><Parameter name="prominenter"></Parameter><Parameter name="abteilungbereich"></Parameter><Parameter name="auxtext1"></Parameter><Parameter name="defaultAdLanguage"></Parameter><Parameter name="defaultAdRoleId"></Parameter><Parameter name="cUserPositionId"></Parameter><Parameter name="training"></Parameter><Parameter name="geschaeftsfuehrer"></Parameter><Parameter name="land"></Parameter><Parameter name="date4"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="date5"></Parameter><Parameter name="comments"></Parameter><Parameter name="lastname"></Parameter><Parameter name="marketing"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="planung"></Parameter><Parameter name="kooperation"></Parameter><Parameter name="cColorId"></Parameter><Parameter name="number1"></Parameter><Parameter name="marktforschung"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef624_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef626_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT AD_User.C_BPartner_ID AS NAME
+        FROM AD_User
+        WHERE AD_User.AD_User_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM c_bpartneremployee_view left join (select C_BPartner_ID, Name from C_BPartner) table1 on (c_bpartneremployee_view.C_BPartner_ID = table1.C_BPartner_ID) WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM c_bpartneremployee_view left join (select C_BPartner_ID, Name from C_BPartner) table1 on (c_bpartneremployee_view.C_BPartner_ID = table1.C_BPartner_ID) WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_User
+        SET Processing = (?) , LastResult = (?) , AD_OrgTrx_ID = (?) , LastContact = TO_DATE(?) , EmailUser = (?) , C_BPartner_Location_ID = (?) , C_BPartner_ID = (?) , Firstname = (?) , C_Greeting_ID = (?) , Lastname = (?) , Title = (?) , UserName = (?) , Name = (?) , Default_Ad_Client_ID = (?) , Enumber = (?) , Default_Ad_Org_ID = (?) , Birthday = TO_DATE(?) , Default_Ad_Language = (?) , Email = (?) , Default_Ad_Role_ID = (?) , Fax = (?) , Default_M_Warehouse_ID = (?) , Phone = (?) , Phone2 = (?) , Description = (?) , Comments = (?) , Supervisor_ID = (?) , C_Color_ID = (?) , IsActive = (?) , Mailingzielgruppe = (?) , Persoenlicherkontakt2010 = (?) , Date1 = TO_DATE(?) , Einkauf = (?) , Persoenlicherkontakt2009 = (?) , Marktforschung = (?) , Date4 = TO_DATE(?) , Communityzugehoerigkeit = (?) , Kooperation = (?) , Prominenter = (?) , Emarketing = (?) , Number5 = TO_NUMBER(?) , It = (?) , Blockbuster = (?) , Unternehmenskommunikation = (?) , Number4 = TO_NUMBER(?) , Nis = (?) , Number3 = TO_NUMBER(?) , Number2 = TO_NUMBER(?) , Training = (?) , Marketing = (?) , Aussendienst = (?) , Medwissen = (?) , Klinikkunde = (?) , Kunde = (?) , Kol = (?) , Persoenlicherkontakt2008 = (?) , Sachgebiet = (?) , Presse = (?) , Number1 = TO_NUMBER(?) , Stippvisitenkunde = (?) , Branche = (?) , Persoenlicherkontakt2011 = (?) , Geschaeftsentwicklung = (?) , Hobby = (?) , Veranstaltungsmanagement = (?) , Schluesselkontakt = (?) , Planung = (?) , Land = (?) , Positionfunktion = (?) , Klinik = (?) , Abteilungbereich = (?) , Geschaeftsfuehrer = (?) , Medicaleducation = (?) , Humanresources = (?) , Auxtext1 = (?) , Salesrep_ID = (?) , Auxtext2 = (?) , C_User_Position_ID = (?) , Auxtext3 = (?) , C_User_Department_ID = (?) , Date2 = TO_DATE(?) , Date3 = TO_DATE(?) , Date5 = TO_DATE(?) , AD_Client_ID = (?) , AD_User_ID = (?) , AD_Org_ID = (?) , updated = now(), updatedby = ? 
+        WHERE AD_User.AD_User_ID = ? 
+                 AND AD_User.C_BPartner_ID = ? 
+        AND AD_User.AD_Client_ID IN ('1') 
+        AND AD_User.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="processing"></Parameter> <Parameter name="lastresult"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="lastcontact"></Parameter> <Parameter name="emailuser"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="firstname"></Parameter> <Parameter name="cGreetingId"></Parameter> <Parameter name="lastname"></Parameter> <Parameter name="title"></Parameter> <Parameter name="username"></Parameter> <Parameter name="name"></Parameter> <Parameter name="defaultAdClientId"></Parameter> <Parameter name="enumber"></Parameter> <Parameter name="defaultAdOrgId"></Parameter> <Parameter name="birthday"></Parameter> <Parameter name="defaultAdLanguage"></Parameter> <Parameter name="email"></Parameter> <Parameter name="defaultAdRoleId"></Parameter> <Parameter name="fax"></Parameter> <Parameter name="defaultMWarehouseId"></Parameter> <Parameter name="phone"></Parameter> <Parameter name="phone2"></Parameter> <Parameter name="description"></Parameter> <Parameter name="comments"></Parameter> <Parameter name="supervisorId"></Parameter> <Parameter name="cColorId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mailingzielgruppe"></Parameter> <Parameter name="persoenlicherkontakt2010"></Parameter> <Parameter name="date1"></Parameter> <Parameter name="einkauf"></Parameter> <Parameter name="persoenlicherkontakt2009"></Parameter> <Parameter name="marktforschung"></Parameter> <Parameter name="date4"></Parameter> <Parameter name="communityzugehoerigkeit"></Parameter> <Parameter name="kooperation"></Parameter> <Parameter name="prominenter"></Parameter> <Parameter name="emarketing"></Parameter> <Parameter name="number5"></Parameter> <Parameter name="it"></Parameter> <Parameter name="blockbuster"></Parameter> <Parameter name="unternehmenskommunikation"></Parameter> <Parameter name="number4"></Parameter> <Parameter name="nis"></Parameter> <Parameter name="number3"></Parameter> <Parameter name="number2"></Parameter> <Parameter name="training"></Parameter> <Parameter name="marketing"></Parameter> <Parameter name="aussendienst"></Parameter> <Parameter name="medwissen"></Parameter> <Parameter name="klinikkunde"></Parameter> <Parameter name="kunde"></Parameter> <Parameter name="kol"></Parameter> <Parameter name="persoenlicherkontakt2008"></Parameter> <Parameter name="sachgebiet"></Parameter> <Parameter name="presse"></Parameter> <Parameter name="number1"></Parameter> <Parameter name="stippvisitenkunde"></Parameter> <Parameter name="branche"></Parameter> <Parameter name="persoenlicherkontakt2011"></Parameter> <Parameter name="geschaeftsentwicklung"></Parameter> <Parameter name="hobby"></Parameter> <Parameter name="veranstaltungsmanagement"></Parameter> <Parameter name="schluesselkontakt"></Parameter> <Parameter name="planung"></Parameter> <Parameter name="land"></Parameter> <Parameter name="positionfunktion"></Parameter> <Parameter name="klinik"></Parameter> <Parameter name="abteilungbereich"></Parameter> <Parameter name="geschaeftsfuehrer"></Parameter> <Parameter name="medicaleducation"></Parameter> <Parameter name="humanresources"></Parameter> <Parameter name="auxtext1"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="auxtext2"></Parameter> <Parameter name="cUserPositionId"></Parameter> <Parameter name="auxtext3"></Parameter> <Parameter name="cUserDepartmentId"></Parameter> <Parameter name="date2"></Parameter> <Parameter name="date3"></Parameter> <Parameter name="date5"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adUserId"></Parameter>
+    
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_User.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_User.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_User 
+        (C_BPartner_Location_ID, LastContact, EmailUserPW, Processing, EmailUser, LastResult, AD_OrgTrx_ID, C_BPartner_ID, Firstname, C_Greeting_ID, Lastname, Title, UserName, Name, Default_Ad_Client_ID, Enumber, Default_Ad_Org_ID, Birthday, Default_Ad_Language, Email, Default_Ad_Role_ID, Fax, Default_M_Warehouse_ID, Phone, Phone2, Description, Comments, Supervisor_ID, C_Color_ID, IsActive, Mailingzielgruppe, Persoenlicherkontakt2010, Date1, Einkauf, Persoenlicherkontakt2009, Marktforschung, Date4, Communityzugehoerigkeit, Kooperation, Prominenter, Emarketing, Number5, It, Blockbuster, Unternehmenskommunikation, Number4, Nis, Number3, Number2, Training, Marketing, Aussendienst, Medwissen, Klinikkunde, Kunde, Kol, Persoenlicherkontakt2008, Sachgebiet, Presse, Number1, Stippvisitenkunde, Branche, Persoenlicherkontakt2011, Geschaeftsentwicklung, Hobby, Veranstaltungsmanagement, Schluesselkontakt, Planung, Land, Positionfunktion, Klinik, Abteilungbereich, Geschaeftsfuehrer, Medicaleducation, Humanresources, Auxtext1, Salesrep_ID, Auxtext2, C_User_Position_ID, Auxtext3, C_User_Department_ID, Date2, Date3, Date5, AD_User_ID, AD_Client_ID, Password, AD_Org_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="lastcontact"></Parameter> <Parameter name="emailuserpw"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="emailuser"></Parameter> <Parameter name="lastresult"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="firstname"></Parameter> <Parameter name="cGreetingId"></Parameter> <Parameter name="lastname"></Parameter> <Parameter name="title"></Parameter> <Parameter name="username"></Parameter> <Parameter name="name"></Parameter> <Parameter name="defaultAdClientId"></Parameter> <Parameter name="enumber"></Parameter> <Parameter name="defaultAdOrgId"></Parameter> <Parameter name="birthday"></Parameter> <Parameter name="defaultAdLanguage"></Parameter> <Parameter name="email"></Parameter> <Parameter name="defaultAdRoleId"></Parameter> <Parameter name="fax"></Parameter> <Parameter name="defaultMWarehouseId"></Parameter> <Parameter name="phone"></Parameter> <Parameter name="phone2"></Parameter> <Parameter name="description"></Parameter> <Parameter name="comments"></Parameter> <Parameter name="supervisorId"></Parameter> <Parameter name="cColorId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mailingzielgruppe"></Parameter> <Parameter name="persoenlicherkontakt2010"></Parameter> <Parameter name="date1"></Parameter> <Parameter name="einkauf"></Parameter> <Parameter name="persoenlicherkontakt2009"></Parameter> <Parameter name="marktforschung"></Parameter> <Parameter name="date4"></Parameter> <Parameter name="communityzugehoerigkeit"></Parameter> <Parameter name="kooperation"></Parameter> <Parameter name="prominenter"></Parameter> <Parameter name="emarketing"></Parameter> <Parameter name="number5"></Parameter> <Parameter name="it"></Parameter> <Parameter name="blockbuster"></Parameter> <Parameter name="unternehmenskommunikation"></Parameter> <Parameter name="number4"></Parameter> <Parameter name="nis"></Parameter> <Parameter name="number3"></Parameter> <Parameter name="number2"></Parameter> <Parameter name="training"></Parameter> <Parameter name="marketing"></Parameter> <Parameter name="aussendienst"></Parameter> <Parameter name="medwissen"></Parameter> <Parameter name="klinikkunde"></Parameter> <Parameter name="kunde"></Parameter> <Parameter name="kol"></Parameter> <Parameter name="persoenlicherkontakt2008"></Parameter> <Parameter name="sachgebiet"></Parameter> <Parameter name="presse"></Parameter> <Parameter name="number1"></Parameter> <Parameter name="stippvisitenkunde"></Parameter> <Parameter name="branche"></Parameter> <Parameter name="persoenlicherkontakt2011"></Parameter> <Parameter name="geschaeftsentwicklung"></Parameter> <Parameter name="hobby"></Parameter> <Parameter name="veranstaltungsmanagement"></Parameter> <Parameter name="schluesselkontakt"></Parameter> <Parameter name="planung"></Parameter> <Parameter name="land"></Parameter> <Parameter name="positionfunktion"></Parameter> <Parameter name="klinik"></Parameter> <Parameter name="abteilungbereich"></Parameter> <Parameter name="geschaeftsfuehrer"></Parameter> <Parameter name="medicaleducation"></Parameter> <Parameter name="humanresources"></Parameter> <Parameter name="auxtext1"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="auxtext2"></Parameter> <Parameter name="cUserPositionId"></Parameter> <Parameter name="auxtext3"></Parameter> <Parameter name="cUserDepartmentId"></Parameter> <Parameter name="date2"></Parameter> <Parameter name="date3"></Parameter> <Parameter name="date5"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="password"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_User
+        WHERE AD_User.AD_User_ID = ? 
+                 AND AD_User.C_BPartner_ID = ? 
+        AND AD_User.AD_Client_ID IN ('1') 
+        AND AD_User.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_User.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_User.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_User
+        WHERE AD_User.AD_User_ID = ? 
+                 AND AD_User.C_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_User
+         WHERE AD_User.AD_User_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_User
+         WHERE AD_User.AD_User_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

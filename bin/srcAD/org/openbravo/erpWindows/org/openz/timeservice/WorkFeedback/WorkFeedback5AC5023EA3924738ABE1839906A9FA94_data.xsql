@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="WorkFeedback5AC5023EA3924738ABE1839906A9FA94Data" package="org.openbravo.erpWindows.org.openz.timeservice.WorkFeedback">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(tsrv_feedback_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = tsrv_feedback_v.CreatedBy) as CreatedByR, 
+        to_char(tsrv_feedback_v.Updated, ?) as updated, 
+        to_char(tsrv_feedback_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        tsrv_feedback_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = tsrv_feedback_v.UpdatedBy) as UpdatedByR,
+        tsrv_feedback_v.AD_Org_ID, 
+(CASE WHEN tsrv_feedback_v.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+tsrv_feedback_v.Tsrv_Feedback_V_ID, 
+tsrv_feedback_v.AD_Client_ID, 
+tsrv_feedback_v.c_project_id, 
+(CASE WHEN tsrv_feedback_v.c_project_id IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS c_project_idR, 
+tsrv_feedback_v.c_projecttask_id, 
+(CASE WHEN tsrv_feedback_v.c_projecttask_id IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS c_projecttask_idR, 
+COALESCE(tsrv_feedback_v.Isactive, 'N') AS Isactive, 
+tsrv_feedback_v.employee_id, 
+(CASE WHEN tsrv_feedback_v.employee_id IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS employee_idR, 
+tsrv_feedback_v.C_Salary_Category_ID, 
+(CASE WHEN tsrv_feedback_v.C_Salary_Category_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS C_Salary_Category_IDR, 
+tsrv_feedback_v.Workdate, 
+TO_CHAR(tsrv_feedback_v.Hour_From, 'HH24:MI:SS') AS Hour_From, 
+TO_CHAR(tsrv_feedback_v.Hour_To, 'HH24:MI:SS') AS Hour_To, 
+tsrv_feedback_v.Breaktime, 
+tsrv_feedback_v.Traveltime, 
+tsrv_feedback_v.Timeunderhelmet, 
+tsrv_feedback_v.Timeunderhelmet2, 
+tsrv_feedback_v.Triggeramt, 
+tsrv_feedback_v.C_Calendarevent_ID, 
+(CASE WHEN tsrv_feedback_v.C_Calendarevent_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS C_Calendarevent_IDR, 
+tsrv_feedback_v.Description, 
+tsrv_feedback_v.Hours, 
+tsrv_feedback_v.Actualcostamount, 
+COALESCE(tsrv_feedback_v.Issaturday, 'N') AS Issaturday, 
+COALESCE(tsrv_feedback_v.Issunday, 'N') AS Issunday, 
+COALESCE(tsrv_feedback_v.Isholiday, 'N') AS Isholiday, 
+tsrv_feedback_v.Overtimehours, 
+tsrv_feedback_v.Nighthours, 
+tsrv_feedback_v.MA_Machine_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM tsrv_feedback_v left join (select AD_Org_ID, Name from AD_Org) table1 on (tsrv_feedback_v.AD_Org_ID = table1.AD_Org_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (tsrv_feedback_v.c_project_id = table2.C_Project_ID) left join (select c_projecttask_id, Name, C_Project_ID from c_projecttask) table3 on (tsrv_feedback_v.c_projecttask_id = table3.c_projecttask_id) left join (select C_Project_ID, Value, Name from C_Project) table4 on (table3.C_Project_ID = table4.C_Project_ID) left join (select AD_User_ID, Name from AD_User) table5 on (tsrv_feedback_v.employee_id =  table5.AD_User_ID) left join (select C_Salary_Category_ID, Name from C_Salary_Category) table6 on (tsrv_feedback_v.C_Salary_Category_ID = table6.C_Salary_Category_ID) left join (select C_Calendarevent_ID, Name from C_CALENDAREVENT) table7 on (tsrv_feedback_v.C_Calendarevent_ID =  table7.C_Calendarevent_ID)
+        WHERE 2=2 
+ AND employee_id is not null
+        AND 1=1 
+        AND tsrv_feedback_v.Tsrv_Feedback_V_ID = ? 
+        AND tsrv_feedback_v.AD_Client_ID IN ('1') 
+           AND tsrv_feedback_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="tsrv_feedback_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="tsrv_feedback_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="tsrvFeedbackVId"></Parameter><Parameter name="hourFrom"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="triggeramt"></Parameter><Parameter name="description"></Parameter><Parameter name="nighthours"></Parameter><Parameter name="actualcostamount"></Parameter><Parameter name="isholiday"></Parameter><Parameter name="issaturday"></Parameter><Parameter name="isactive"></Parameter><Parameter name="overtimehours"></Parameter><Parameter name="maMachineId"></Parameter><Parameter name="workdate"></Parameter><Parameter name="issunday"></Parameter><Parameter name="breaktime"></Parameter><Parameter name="cCalendareventId"></Parameter><Parameter name="timeunderhelmet"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cProjectIdr"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="timeunderhelmet2"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="hourTo"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="traveltime"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="employeeId"></Parameter><Parameter name="cSalaryCategoryId"></Parameter><Parameter name="hours"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefD9982ED00D794A11A00DA0C095BB82A7_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as c_project_id FROM C_Project table1 WHERE table1.isActive='Y' AND table1.C_Project_ID = ?  
+    ]]></Sql>
+<Parameter name="c_project_idR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef995FEA97D55B4F6795734CA0820FB547_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef979476B70FBB4159A7BCD7644A835106_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE tsrv_feedback_v
+        SET AD_Org_ID = (?) , Tsrv_Feedback_V_ID = (?) , AD_Client_ID = (?) , c_project_id = (?) , c_projecttask_id = (?) , Isactive = (?) , employee_id = (?) , C_Salary_Category_ID = (?) , Workdate = TO_DATE(?) , Hour_From = TO_TIMESTAMP(?,'HH24:MI:SS') , Hour_To = TO_TIMESTAMP(?,'HH24:MI:SS') , Breaktime = TO_NUMBER(?) , Traveltime = TO_NUMBER(?) , Timeunderhelmet = TO_NUMBER(?) , Timeunderhelmet2 = TO_NUMBER(?) , Triggeramt = TO_NUMBER(?) , C_Calendarevent_ID = (?) , Description = (?) , Hours = TO_NUMBER(?) , Actualcostamount = TO_NUMBER(?) , Issaturday = (?) , Issunday = (?) , Isholiday = (?) , Overtimehours = TO_NUMBER(?) , Nighthours = TO_NUMBER(?) , MA_Machine_ID = (?) , updated = now(), updatedby = ? 
+        WHERE tsrv_feedback_v.Tsrv_Feedback_V_ID = ? 
+        
+        AND tsrv_feedback_v.AD_Client_ID IN ('1') 
+        AND tsrv_feedback_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="tsrvFeedbackVId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="employeeId"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="workdate"></Parameter> <Parameter name="hourFrom"></Parameter> <Parameter name="hourTo"></Parameter> <Parameter name="breaktime"></Parameter> <Parameter name="traveltime"></Parameter> <Parameter name="timeunderhelmet"></Parameter> <Parameter name="timeunderhelmet2"></Parameter> <Parameter name="triggeramt"></Parameter> <Parameter name="cCalendareventId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="hours"></Parameter> <Parameter name="actualcostamount"></Parameter> <Parameter name="issaturday"></Parameter> <Parameter name="issunday"></Parameter> <Parameter name="isholiday"></Parameter> <Parameter name="overtimehours"></Parameter> <Parameter name="nighthours"></Parameter> <Parameter name="maMachineId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="tsrvFeedbackVId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="tsrv_feedback_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="tsrv_feedback_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO tsrv_feedback_v 
+        (AD_Org_ID, Tsrv_Feedback_V_ID, AD_Client_ID, c_project_id, c_projecttask_id, Isactive, employee_id, C_Salary_Category_ID, Workdate, Hour_From, Hour_To, Breaktime, Traveltime, Timeunderhelmet, Timeunderhelmet2, Triggeramt, C_Calendarevent_ID, Description, Hours, Actualcostamount, Issaturday, Issunday, Isholiday, Overtimehours, Nighthours, MA_Machine_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="tsrvFeedbackVId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="employeeId"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="workdate"></Parameter> <Parameter name="hourFrom"></Parameter> <Parameter name="hourTo"></Parameter> <Parameter name="breaktime"></Parameter> <Parameter name="traveltime"></Parameter> <Parameter name="timeunderhelmet"></Parameter> <Parameter name="timeunderhelmet2"></Parameter> <Parameter name="triggeramt"></Parameter> <Parameter name="cCalendareventId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="hours"></Parameter> <Parameter name="actualcostamount"></Parameter> <Parameter name="issaturday"></Parameter> <Parameter name="issunday"></Parameter> <Parameter name="isholiday"></Parameter> <Parameter name="overtimehours"></Parameter> <Parameter name="nighthours"></Parameter> <Parameter name="maMachineId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM tsrv_feedback_v
+        WHERE tsrv_feedback_v.Tsrv_Feedback_V_ID = ? 
+        
+        AND tsrv_feedback_v.AD_Client_ID IN ('1') 
+        AND tsrv_feedback_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="tsrv_feedback_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="tsrv_feedback_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM tsrv_feedback_v
+        WHERE tsrv_feedback_v.Tsrv_Feedback_V_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM tsrv_feedback_v
+         WHERE tsrv_feedback_v.Tsrv_Feedback_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM tsrv_feedback_v
+         WHERE tsrv_feedback_v.Tsrv_Feedback_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

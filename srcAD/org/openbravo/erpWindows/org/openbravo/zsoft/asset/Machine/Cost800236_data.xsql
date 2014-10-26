@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Cost800236Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.asset.Machine">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(MA_Machine_Cost.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Machine_Cost.CreatedBy) as CreatedByR, 
+        to_char(MA_Machine_Cost.Updated, ?) as updated, 
+        to_char(MA_Machine_Cost.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        MA_Machine_Cost.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Machine_Cost.UpdatedBy) as UpdatedByR,
+        MA_Machine_Cost.AD_Client_ID, 
+(CASE WHEN MA_Machine_Cost.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+MA_Machine_Cost.MA_Machine_Cost_ID, 
+MA_Machine_Cost.AD_Org_ID, 
+(CASE WHEN MA_Machine_Cost.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+MA_Machine_Cost.MA_Machine_ID, 
+(CASE WHEN MA_Machine_Cost.MA_Machine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS MA_Machine_IDR, 
+COALESCE(MA_Machine_Cost.IsActive, 'N') AS IsActive, 
+MA_Machine_Cost.ValidFrom, 
+MA_Machine_Cost.Cost, 
+MA_Machine_Cost.Costuom, 
+(CASE WHEN MA_Machine_Cost.Costuom IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS CostuomR, 
+MA_Machine_Cost.Purchaseamt, 
+MA_Machine_Cost.Toolsetamt, 
+MA_Machine_Cost.Amortization, 
+MA_Machine_Cost.Yearvalue, 
+MA_Machine_Cost.Daysyear, 
+MA_Machine_Cost.Dayhours, 
+MA_Machine_Cost.Improductivehoursyear, 
+MA_Machine_Cost.Consume, 
+MA_Machine_Cost.Costuomyear, 
+ 
+        ? AS LANGUAGE 
+        FROM MA_Machine_Cost left join (select AD_Client_ID, Name from AD_Client) table1 on (MA_Machine_Cost.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (MA_Machine_Cost.AD_Org_ID = table2.AD_Org_ID) left join (select MA_Machine_ID, Value, Name from MA_Machine) table3 on (MA_Machine_Cost.MA_Machine_ID = table3.MA_Machine_ID) left join ad_ref_list_v list1 on (MA_Machine_Cost.Costuom = list1.value and list1.ad_reference_id = 'DE781226949D4A9F8782BA610C3621C6' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND MA_Machine_Cost.MA_Machine_Cost_ID = ? 
+        AND MA_Machine_Cost.AD_Client_ID IN ('1') 
+           AND MA_Machine_Cost.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="maMachineId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND MA_Machine_Cost.MA_Machine_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Machine_Cost.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Machine_Cost.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+<Parameter name="purchaseamt"></Parameter><Parameter name="toolsetamt"></Parameter><Parameter name="yearvalue"></Parameter><Parameter name="costuomyear"></Parameter><Parameter name="improductivehoursyear"></Parameter><Parameter name="dayhours"></Parameter><Parameter name="consume"></Parameter><Parameter name="maMachineCostId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="costuom"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cost"></Parameter><Parameter name="validfrom"></Parameter><Parameter name="amortization"></Parameter><Parameter name="daysyear"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef803320_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803322_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MA_Machine_Cost.MA_Machine_ID AS NAME
+        FROM MA_Machine_Cost
+        WHERE MA_Machine_Cost.MA_Machine_Cost_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_Machine left join (select MA_Machine_ID, Value, Name from MA_Machine) table1 on (MA_Machine.MA_Machine_ID = table1.MA_Machine_ID) WHERE MA_Machine.MA_Machine_ID = ?  
+    ]]></Sql>
+<Parameter name="maMachineId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_Machine left join (select MA_Machine_ID, Value, Name from MA_Machine) table1 on (MA_Machine.MA_Machine_ID = table1.MA_Machine_ID) WHERE MA_Machine.MA_Machine_ID = ?  
+    ]]></Sql>
+<Parameter name="maMachineId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE MA_Machine_Cost
+        SET AD_Client_ID = (?) , MA_Machine_Cost_ID = (?) , AD_Org_ID = (?) , MA_Machine_ID = (?) , IsActive = (?) , ValidFrom = TO_DATE(?) , Cost = TO_NUMBER(?) , Costuom = (?) , Purchaseamt = TO_NUMBER(?) , Toolsetamt = TO_NUMBER(?) , Amortization = TO_NUMBER(?) , Yearvalue = TO_NUMBER(?) , Daysyear = TO_NUMBER(?) , Dayhours = TO_NUMBER(?) , Improductivehoursyear = TO_NUMBER(?) , Consume = TO_NUMBER(?) , Costuomyear = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE MA_Machine_Cost.MA_Machine_Cost_ID = ? 
+                 AND MA_Machine_Cost.MA_Machine_ID = ? 
+        AND MA_Machine_Cost.AD_Client_ID IN ('1') 
+        AND MA_Machine_Cost.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="maMachineCostId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="validfrom"></Parameter> <Parameter name="cost"></Parameter> <Parameter name="costuom"></Parameter> <Parameter name="purchaseamt"></Parameter> <Parameter name="toolsetamt"></Parameter> <Parameter name="amortization"></Parameter> <Parameter name="yearvalue"></Parameter> <Parameter name="daysyear"></Parameter> <Parameter name="dayhours"></Parameter> <Parameter name="improductivehoursyear"></Parameter> <Parameter name="consume"></Parameter> <Parameter name="costuomyear"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="maMachineCostId"></Parameter>
+    
+    <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Machine_Cost.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Machine_Cost.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO MA_Machine_Cost 
+        (AD_Client_ID, MA_Machine_Cost_ID, AD_Org_ID, MA_Machine_ID, IsActive, ValidFrom, Cost, Costuom, Purchaseamt, Toolsetamt, Amortization, Yearvalue, Daysyear, Dayhours, Improductivehoursyear, Consume, Costuomyear, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), TO_DATE(?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="maMachineCostId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="validfrom"></Parameter> <Parameter name="cost"></Parameter> <Parameter name="costuom"></Parameter> <Parameter name="purchaseamt"></Parameter> <Parameter name="toolsetamt"></Parameter> <Parameter name="amortization"></Parameter> <Parameter name="yearvalue"></Parameter> <Parameter name="daysyear"></Parameter> <Parameter name="dayhours"></Parameter> <Parameter name="improductivehoursyear"></Parameter> <Parameter name="consume"></Parameter> <Parameter name="costuomyear"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Machine_Cost
+        WHERE MA_Machine_Cost.MA_Machine_Cost_ID = ? 
+                 AND MA_Machine_Cost.MA_Machine_ID = ? 
+        AND MA_Machine_Cost.AD_Client_ID IN ('1') 
+        AND MA_Machine_Cost.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Machine_Cost.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Machine_Cost.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Machine_Cost
+        WHERE MA_Machine_Cost.MA_Machine_Cost_ID = ? 
+                 AND MA_Machine_Cost.MA_Machine_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM MA_Machine_Cost
+         WHERE MA_Machine_Cost.MA_Machine_Cost_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM MA_Machine_Cost
+         WHERE MA_Machine_Cost.MA_Machine_Cost_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

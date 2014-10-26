@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ReportTemplatesData" package="org.openbravo.erpWindows.DocumentType">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_POC_DOCTYPE_TEMPLATE.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_POC_DOCTYPE_TEMPLATE.CreatedBy) as CreatedByR, 
+        to_char(C_POC_DOCTYPE_TEMPLATE.Updated, ?) as updated, 
+        to_char(C_POC_DOCTYPE_TEMPLATE.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_POC_DOCTYPE_TEMPLATE.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_POC_DOCTYPE_TEMPLATE.UpdatedBy) as UpdatedByR,
+        C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID, 
+C_POC_DOCTYPE_TEMPLATE.AD_Client_ID, 
+(CASE WHEN C_POC_DOCTYPE_TEMPLATE.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_POC_DOCTYPE_TEMPLATE.AD_Org_ID, 
+(CASE WHEN C_POC_DOCTYPE_TEMPLATE.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_POC_DOCTYPE_TEMPLATE.Name, 
+COALESCE(C_POC_DOCTYPE_TEMPLATE.Isactive, 'N') AS Isactive, 
+COALESCE(C_POC_DOCTYPE_TEMPLATE.Isdefault, 'N') AS Isdefault, 
+C_POC_DOCTYPE_TEMPLATE.Templatelocation, 
+C_POC_DOCTYPE_TEMPLATE.Templatefilename, 
+C_POC_DOCTYPE_TEMPLATE.Reportfilename, 
+C_POC_DOCTYPE_TEMPLATE.C_Doctype_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM C_POC_DOCTYPE_TEMPLATE left join (select AD_Client_ID, Name from AD_Client) table1 on (C_POC_DOCTYPE_TEMPLATE.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_POC_DOCTYPE_TEMPLATE.AD_Org_ID = table2.AD_Org_ID)
+        WHERE 2=2 
+ AND C_POC_DOCTYPE_TEMPLATE.C_DocType_ID = ?
+        AND 1=1 
+        AND C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID = ? 
+        AND C_POC_DOCTYPE_TEMPLATE.AD_Client_ID IN ('1') 
+           AND C_POC_DOCTYPE_TEMPLATE.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="C_DocType_ID"/>
+
+    <Parameter name="cDoctypeId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_POC_DOCTYPE_TEMPLATE.C_Doctype_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_POC_DOCTYPE_TEMPLATE.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_POC_DOCTYPE_TEMPLATE.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cDoctypeId" id="paramKeyParent"></Parameter>
+<Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="templatelocation"></Parameter><Parameter name="name"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="templatefilename"></Parameter><Parameter name="reportfilename"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cPocDoctypeTemplateId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1000500021_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1000500023_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_POC_DOCTYPE_TEMPLATE.C_Doctype_ID AS NAME
+        FROM C_POC_DOCTYPE_TEMPLATE
+        WHERE C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM C_DocType left join (select C_Doctype_ID, Name from C_Doctype) table1 on (C_DocType.C_Doctype_ID = table1.C_Doctype_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL1 on (table1.C_DocType_ID = tableTRL1.C_DocType_ID and tableTRL1.AD_Language = ?)  WHERE C_DocType.C_Doctype_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="cDoctypeId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM C_DocType left join (select C_Doctype_ID, Name from C_Doctype) table1 on (C_DocType.C_Doctype_ID = table1.C_Doctype_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL1 on (table1.C_DocType_ID = tableTRL1.C_DocType_ID and tableTRL1.AD_Language = ?)  WHERE C_DocType.C_Doctype_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="cDoctypeId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_POC_DOCTYPE_TEMPLATE
+        SET C_Poc_Doctype_Template_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Name = (?) , Isactive = (?) , Isdefault = (?) , Templatelocation = (?) , Templatefilename = (?) , Reportfilename = (?) , C_Doctype_ID = (?) , updated = now(), updatedby = ? 
+        WHERE C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID = ? 
+                 AND C_POC_DOCTYPE_TEMPLATE.C_Doctype_ID = ? 
+        AND C_POC_DOCTYPE_TEMPLATE.AD_Client_ID IN ('1') 
+        AND C_POC_DOCTYPE_TEMPLATE.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cPocDoctypeTemplateId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="templatelocation"></Parameter> <Parameter name="templatefilename"></Parameter> <Parameter name="reportfilename"></Parameter> <Parameter name="cDoctypeId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cPocDoctypeTemplateId"></Parameter>
+    
+    <Parameter name="cDoctypeId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_POC_DOCTYPE_TEMPLATE.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_POC_DOCTYPE_TEMPLATE.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_POC_DOCTYPE_TEMPLATE 
+        (C_Poc_Doctype_Template_ID, AD_Client_ID, AD_Org_ID, Name, Isactive, Isdefault, Templatelocation, Templatefilename, Reportfilename, C_Doctype_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cPocDoctypeTemplateId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="templatelocation"></Parameter> <Parameter name="templatefilename"></Parameter> <Parameter name="reportfilename"></Parameter> <Parameter name="cDoctypeId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_POC_DOCTYPE_TEMPLATE
+        WHERE C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID = ? 
+                 AND C_POC_DOCTYPE_TEMPLATE.C_Doctype_ID = ? 
+        AND C_POC_DOCTYPE_TEMPLATE.AD_Client_ID IN ('1') 
+        AND C_POC_DOCTYPE_TEMPLATE.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cDoctypeId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_POC_DOCTYPE_TEMPLATE.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_POC_DOCTYPE_TEMPLATE.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_POC_DOCTYPE_TEMPLATE
+        WHERE C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID = ? 
+                 AND C_POC_DOCTYPE_TEMPLATE.C_Doctype_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cDoctypeId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_POC_DOCTYPE_TEMPLATE
+         WHERE C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_POC_DOCTYPE_TEMPLATE
+         WHERE C_POC_DOCTYPE_TEMPLATE.C_Poc_Doctype_Template_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

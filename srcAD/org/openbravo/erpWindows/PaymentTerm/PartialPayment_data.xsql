@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="PartialPaymentData" package="org.openbravo.erpWindows.PaymentTerm">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_Paymenttermline.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Paymenttermline.CreatedBy) as CreatedByR, 
+        to_char(C_Paymenttermline.Updated, ?) as updated, 
+        to_char(C_Paymenttermline.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_Paymenttermline.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Paymenttermline.UpdatedBy) as UpdatedByR,
+        C_Paymenttermline.C_Paymenttermline_ID, 
+C_Paymenttermline.AD_Client_ID, 
+(CASE WHEN C_Paymenttermline.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_Paymenttermline.AD_Org_ID, 
+(CASE WHEN C_Paymenttermline.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_Paymenttermline.C_PaymentTerm_ID, 
+(CASE WHEN C_Paymenttermline.C_PaymentTerm_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS C_PaymentTerm_IDR, 
+COALESCE(C_Paymenttermline.IsActive, 'N') AS IsActive, 
+C_Paymenttermline.Line, 
+C_Paymenttermline.Percentage, 
+COALESCE(C_Paymenttermline.Excludetax, 'N') AS Excludetax, 
+C_Paymenttermline.FixMonthCutoff, 
+C_Paymenttermline.FixMonthOffset, 
+C_Paymenttermline.NetDays, 
+C_Paymenttermline.NetDay, 
+(CASE WHEN C_Paymenttermline.NetDay IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS NetDayR, 
+COALESCE(C_Paymenttermline.IsNextBusinessDay, 'N') AS IsNextBusinessDay, 
+C_Paymenttermline.PaymentRule, 
+(CASE WHEN C_Paymenttermline.PaymentRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS PaymentRuleR, 
+COALESCE(C_Paymenttermline.IsDueFixed, 'N') AS IsDueFixed, 
+C_Paymenttermline.FixMonthDay, 
+C_Paymenttermline.FixMonthDay2, 
+C_Paymenttermline.Fixmonthday3, 
+COALESCE(C_Paymenttermline.Onremainder, 'N') AS Onremainder, 
+ 
+        ? AS LANGUAGE 
+        FROM C_Paymenttermline left join (select AD_Client_ID, Name from AD_Client) table1 on (C_Paymenttermline.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_Paymenttermline.AD_Org_ID = table2.AD_Org_ID) left join (select C_PaymentTerm_ID, Name from C_PaymentTerm) table3 on (C_Paymenttermline.C_PaymentTerm_ID = table3.C_PaymentTerm_ID) left join (select C_PaymentTerm_ID,AD_Language, Name from C_PaymentTerm_TRL) tableTRL3 on (table3.C_PaymentTerm_ID = tableTRL3.C_PaymentTerm_ID and tableTRL3.AD_Language = ?)  left join ad_ref_list_v list1 on (C_Paymenttermline.NetDay = list1.value and list1.ad_reference_id = '167' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (C_Paymenttermline.PaymentRule = list2.value and list2.ad_reference_id = '195' and list2.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_Paymenttermline.C_Paymenttermline_ID = ? 
+        AND C_Paymenttermline.AD_Client_ID IN ('1') 
+           AND C_Paymenttermline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cPaymenttermId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_Paymenttermline.C_PaymentTerm_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Paymenttermline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Paymenttermline.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cPaymenttermId" id="paramKeyParent"></Parameter>
+<Parameter name="cPaymenttermlineId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="fixmonthoffset"></Parameter><Parameter name="paymentrule"></Parameter><Parameter name="fixmonthcutoff"></Parameter><Parameter name="fixmonthday3"></Parameter><Parameter name="netday"></Parameter><Parameter name="excludetax"></Parameter><Parameter name="fixmonthday2"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isnextbusinessday"></Parameter><Parameter name="isduefixed"></Parameter><Parameter name="line"></Parameter><Parameter name="onremainder"></Parameter><Parameter name="netdays"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="percentage"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="fixmonthday"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef801024_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef801028" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(LINE),0)+10 AS DefaultValue FROM C_PAYMENTTERMLINE WHERE C_PAYMENTTERM_ID=? 
+    ]]></Sql>
+
+<Parameter name="C_PAYMENTTERM_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef801026_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_Paymenttermline.C_PaymentTerm_ID AS NAME
+        FROM C_Paymenttermline
+        WHERE C_Paymenttermline.C_Paymenttermline_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM C_PaymentTerm left join (select C_PaymentTerm_ID, Name from C_PaymentTerm) table1 on (C_PaymentTerm.C_PaymentTerm_ID = table1.C_PaymentTerm_ID) left join (select C_PaymentTerm_ID,AD_Language, Name from C_PaymentTerm_TRL) tableTRL1 on (table1.C_PaymentTerm_ID = tableTRL1.C_PaymentTerm_ID and tableTRL1.AD_Language = ?)  WHERE C_PaymentTerm.C_PaymentTerm_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="cPaymenttermId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM C_PaymentTerm left join (select C_PaymentTerm_ID, Name from C_PaymentTerm) table1 on (C_PaymentTerm.C_PaymentTerm_ID = table1.C_PaymentTerm_ID) left join (select C_PaymentTerm_ID,AD_Language, Name from C_PaymentTerm_TRL) tableTRL1 on (table1.C_PaymentTerm_ID = tableTRL1.C_PaymentTerm_ID and tableTRL1.AD_Language = ?)  WHERE C_PaymentTerm.C_PaymentTerm_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="cPaymenttermId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_Paymenttermline
+        SET C_Paymenttermline_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , C_PaymentTerm_ID = (?) , IsActive = (?) , Line = TO_NUMBER(?) , Percentage = TO_NUMBER(?) , Excludetax = (?) , FixMonthCutoff = TO_NUMBER(?) , FixMonthOffset = TO_NUMBER(?) , NetDays = TO_NUMBER(?) , NetDay = (?) , IsNextBusinessDay = (?) , PaymentRule = (?) , IsDueFixed = (?) , FixMonthDay = TO_NUMBER(?) , FixMonthDay2 = TO_NUMBER(?) , Fixmonthday3 = TO_NUMBER(?) , Onremainder = (?) , updated = now(), updatedby = ? 
+        WHERE C_Paymenttermline.C_Paymenttermline_ID = ? 
+                 AND C_Paymenttermline.C_PaymentTerm_ID = ? 
+        AND C_Paymenttermline.AD_Client_ID IN ('1') 
+        AND C_Paymenttermline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cPaymenttermlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="line"></Parameter> <Parameter name="percentage"></Parameter> <Parameter name="excludetax"></Parameter> <Parameter name="fixmonthcutoff"></Parameter> <Parameter name="fixmonthoffset"></Parameter> <Parameter name="netdays"></Parameter> <Parameter name="netday"></Parameter> <Parameter name="isnextbusinessday"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="isduefixed"></Parameter> <Parameter name="fixmonthday"></Parameter> <Parameter name="fixmonthday2"></Parameter> <Parameter name="fixmonthday3"></Parameter> <Parameter name="onremainder"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cPaymenttermlineId"></Parameter>
+    
+    <Parameter name="cPaymenttermId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Paymenttermline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Paymenttermline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_Paymenttermline 
+        (C_Paymenttermline_ID, AD_Client_ID, AD_Org_ID, C_PaymentTerm_ID, IsActive, Line, Percentage, Excludetax, FixMonthCutoff, FixMonthOffset, NetDays, NetDay, IsNextBusinessDay, PaymentRule, IsDueFixed, FixMonthDay, FixMonthDay2, Fixmonthday3, Onremainder, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cPaymenttermlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="line"></Parameter> <Parameter name="percentage"></Parameter> <Parameter name="excludetax"></Parameter> <Parameter name="fixmonthcutoff"></Parameter> <Parameter name="fixmonthoffset"></Parameter> <Parameter name="netdays"></Parameter> <Parameter name="netday"></Parameter> <Parameter name="isnextbusinessday"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="isduefixed"></Parameter> <Parameter name="fixmonthday"></Parameter> <Parameter name="fixmonthday2"></Parameter> <Parameter name="fixmonthday3"></Parameter> <Parameter name="onremainder"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Paymenttermline
+        WHERE C_Paymenttermline.C_Paymenttermline_ID = ? 
+                 AND C_Paymenttermline.C_PaymentTerm_ID = ? 
+        AND C_Paymenttermline.AD_Client_ID IN ('1') 
+        AND C_Paymenttermline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cPaymenttermId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Paymenttermline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Paymenttermline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Paymenttermline
+        WHERE C_Paymenttermline.C_Paymenttermline_ID = ? 
+                 AND C_Paymenttermline.C_PaymentTerm_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cPaymenttermId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_Paymenttermline
+         WHERE C_Paymenttermline.C_Paymenttermline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_Paymenttermline
+         WHERE C_Paymenttermline.C_Paymenttermline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

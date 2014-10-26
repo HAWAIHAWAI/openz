@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="TaxData" package="org.openbravo.erpWindows.OrderTemplates">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_OrderTax.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_OrderTax.CreatedBy) as CreatedByR, 
+        to_char(C_OrderTax.Updated, ?) as updated, 
+        to_char(C_OrderTax.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_OrderTax.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_OrderTax.UpdatedBy) as UpdatedByR,
+        C_OrderTax.AD_Client_ID, 
+(CASE WHEN C_OrderTax.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_OrderTax.Line, 
+C_OrderTax.AD_Org_ID, 
+(CASE WHEN C_OrderTax.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_OrderTax.C_Order_ID, 
+(CASE WHEN C_OrderTax.C_Order_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.GrandTotal), ''))),'') ) END) AS C_Order_IDR, 
+C_OrderTax.C_Tax_ID, 
+(CASE WHEN C_OrderTax.C_Tax_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS C_Tax_IDR, 
+C_OrderTax.TaxAmt, 
+C_OrderTax.TaxBaseAmt, 
+C_OrderTax.Reversetaxamt, 
+COALESCE(C_OrderTax.Isonetimeposition, 'N') AS Isonetimeposition, 
+C_OrderTax.C_OrderTax_ID, 
+COALESCE(C_OrderTax.IsActive, 'N') AS IsActive, 
+ 
+        ? AS LANGUAGE 
+        FROM C_OrderTax left join (select AD_Client_ID, Name from AD_Client) table1 on (C_OrderTax.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_OrderTax.AD_Org_ID = table2.AD_Org_ID) left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table3 on (C_OrderTax.C_Order_ID = table3.C_Order_ID) left join (select C_Tax_ID, Name from C_Tax) table4 on (C_OrderTax.C_Tax_ID = table4.C_Tax_ID) left join (select C_Tax_ID,AD_Language, Name from C_Tax_TRL) tableTRL4 on (table4.C_Tax_ID = tableTRL4.C_Tax_ID and tableTRL4.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_OrderTax.C_OrderTax_ID = ? 
+        AND C_OrderTax.AD_Client_ID IN ('1') 
+           AND C_OrderTax.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cOrderId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_OrderTax.C_Order_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_OrderTax.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_OrderTax.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+<Parameter name="taxbaseamt"></Parameter><Parameter name="cTaxId"></Parameter><Parameter name="line"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="reversetaxamt"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="taxamt"></Parameter><Parameter name="cOrderIdr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="cOrdertaxId"></Parameter><Parameter name="isonetimeposition"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef803239" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(LINE),0)+10 AS DefaultValue FROM C_ORDERTAX WHERE C_Order_ID=? 
+    ]]></Sql>
+
+<Parameter name="C_Order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3355_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '')  || ' - ' || COALESCE(TO_CHAR(table1.DateOrdered), '')  || ' - ' || COALESCE(TO_CHAR(table1.GrandTotal), '') ) as C_Order_ID FROM C_Order table1 WHERE table1.isActive='Y' AND table1.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Order_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3352_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3354_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_OrderTax.C_Order_ID AS NAME
+        FROM C_OrderTax
+        WHERE C_OrderTax.C_OrderTax_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_OrderTax
+        SET AD_Client_ID = (?) , Line = TO_NUMBER(?) , AD_Org_ID = (?) , C_Order_ID = (?) , C_Tax_ID = (?) , TaxAmt = TO_NUMBER(?) , TaxBaseAmt = TO_NUMBER(?) , Reversetaxamt = TO_NUMBER(?) , Isonetimeposition = (?) , C_OrderTax_ID = (?) , IsActive = (?) , updated = now(), updatedby = ? 
+        WHERE C_OrderTax.C_OrderTax_ID = ? 
+                 AND C_OrderTax.C_Order_ID = ? 
+        AND C_OrderTax.AD_Client_ID IN ('1') 
+        AND C_OrderTax.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="taxamt"></Parameter> <Parameter name="taxbaseamt"></Parameter> <Parameter name="reversetaxamt"></Parameter> <Parameter name="isonetimeposition"></Parameter> <Parameter name="cOrdertaxId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cOrdertaxId"></Parameter>
+    
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_OrderTax.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_OrderTax.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_OrderTax 
+        (AD_Client_ID, Line, AD_Org_ID, C_Order_ID, C_Tax_ID, TaxAmt, TaxBaseAmt, Reversetaxamt, Isonetimeposition, C_OrderTax_ID, IsActive, created, createdby, updated, updatedBy)
+        VALUES ((?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="taxamt"></Parameter> <Parameter name="taxbaseamt"></Parameter> <Parameter name="reversetaxamt"></Parameter> <Parameter name="isonetimeposition"></Parameter> <Parameter name="cOrdertaxId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_OrderTax
+        WHERE C_OrderTax.C_OrderTax_ID = ? 
+                 AND C_OrderTax.C_Order_ID = ? 
+        AND C_OrderTax.AD_Client_ID IN ('1') 
+        AND C_OrderTax.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_OrderTax.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_OrderTax.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_OrderTax
+        WHERE C_OrderTax.C_OrderTax_ID = ? 
+                 AND C_OrderTax.C_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_OrderTax
+         WHERE C_OrderTax.C_OrderTax_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_OrderTax
+         WHERE C_OrderTax.C_OrderTax_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

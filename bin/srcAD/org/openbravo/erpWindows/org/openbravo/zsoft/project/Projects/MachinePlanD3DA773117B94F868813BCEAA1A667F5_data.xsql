@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="MachinePlanD3DA773117B94F868813BCEAA1A667F5Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.project.Projects">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zspm_ptaskmachineplan.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspm_ptaskmachineplan.CreatedBy) as CreatedByR, 
+        to_char(zspm_ptaskmachineplan.Updated, ?) as updated, 
+        to_char(zspm_ptaskmachineplan.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zspm_ptaskmachineplan.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspm_ptaskmachineplan.UpdatedBy) as UpdatedByR,
+        zspm_ptaskmachineplan.C_Projecttask_ID, 
+(CASE WHEN zspm_ptaskmachineplan.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID, 
+zspm_ptaskmachineplan.AD_Client_ID, 
+COALESCE(zspm_ptaskmachineplan.Isactive, 'N') AS Isactive, 
+zspm_ptaskmachineplan.AD_Org_ID, 
+zspm_ptaskmachineplan.MA_Machine_ID, 
+(CASE WHEN zspm_ptaskmachineplan.MA_Machine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS MA_Machine_IDR, 
+zspm_ptaskmachineplan.Quantity, 
+zspm_ptaskmachineplan.Costuom, 
+(CASE WHEN zspm_ptaskmachineplan.Costuom IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS CostuomR, 
+zspm_ptaskmachineplan.Datefrom, 
+zspm_ptaskmachineplan.Dateto, 
+zspm_ptaskmachineplan.Plannedamt, 
+zspm_ptaskmachineplan.Planndedpercent, 
+ 
+        ? AS LANGUAGE 
+        FROM zspm_ptaskmachineplan left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table1 on (zspm_ptaskmachineplan.C_Projecttask_ID = table1.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) left join (select MA_Machine_ID, Value, Name from MA_Machine) table3 on (zspm_ptaskmachineplan.MA_Machine_ID = table3.MA_Machine_ID) left join ad_ref_list_v list1 on (zspm_ptaskmachineplan.Costuom = list1.value and list1.ad_reference_id = 'DE781226949D4A9F8782BA610C3621C6' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID = ? 
+        AND zspm_ptaskmachineplan.AD_Client_ID IN ('1') 
+           AND zspm_ptaskmachineplan.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cProjecttaskId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zspm_ptaskmachineplan.C_Projecttask_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspm_ptaskmachineplan.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspm_ptaskmachineplan.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="datefrom"></Parameter><Parameter name="dateto"></Parameter><Parameter name="maMachineId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="zspmPtaskmachineplanId"></Parameter><Parameter name="plannedamt"></Parameter><Parameter name="quantity"></Parameter><Parameter name="costuom"></Parameter><Parameter name="planndedpercent"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef7040A3DED26F4DDBBC5B0790E3AA76DC_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8BE5FB2E250B493E9B44754507C2E6E4_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zspm_ptaskmachineplan.C_Projecttask_ID AS NAME
+        FROM zspm_ptaskmachineplan
+        WHERE zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))) AS NAME FROM C_ProjectTask left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table1 on (C_ProjectTask.C_Projecttask_ID = table1.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) WHERE C_ProjectTask.C_Projecttask_ID = ?  
+    ]]></Sql>
+<Parameter name="cProjecttaskId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))) AS NAME FROM C_ProjectTask left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table1 on (C_ProjectTask.C_Projecttask_ID = table1.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) WHERE C_ProjectTask.C_Projecttask_ID = ?  
+    ]]></Sql>
+<Parameter name="cProjecttaskId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zspm_ptaskmachineplan
+        SET C_Projecttask_ID = (?) , Zspm_Ptaskmachineplan_ID = (?) , AD_Client_ID = (?) , Isactive = (?) , AD_Org_ID = (?) , MA_Machine_ID = (?) , Quantity = TO_NUMBER(?) , Costuom = (?) , Datefrom = TO_DATE(?) , Dateto = TO_DATE(?) , Plannedamt = TO_NUMBER(?) , Planndedpercent = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID = ? 
+                 AND zspm_ptaskmachineplan.C_Projecttask_ID = ? 
+        AND zspm_ptaskmachineplan.AD_Client_ID IN ('1') 
+        AND zspm_ptaskmachineplan.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cProjecttaskId"></Parameter> <Parameter name="zspmPtaskmachineplanId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="costuom"></Parameter> <Parameter name="datefrom"></Parameter> <Parameter name="dateto"></Parameter> <Parameter name="plannedamt"></Parameter> <Parameter name="planndedpercent"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zspmPtaskmachineplanId"></Parameter>
+    
+    <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspm_ptaskmachineplan.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspm_ptaskmachineplan.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zspm_ptaskmachineplan 
+        (C_Projecttask_ID, Zspm_Ptaskmachineplan_ID, AD_Client_ID, Isactive, AD_Org_ID, MA_Machine_ID, Quantity, Costuom, Datefrom, Dateto, Plannedamt, Planndedpercent, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_DATE(?), TO_DATE(?), TO_NUMBER(?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cProjecttaskId"></Parameter> <Parameter name="zspmPtaskmachineplanId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="costuom"></Parameter> <Parameter name="datefrom"></Parameter> <Parameter name="dateto"></Parameter> <Parameter name="plannedamt"></Parameter> <Parameter name="planndedpercent"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspm_ptaskmachineplan
+        WHERE zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID = ? 
+                 AND zspm_ptaskmachineplan.C_Projecttask_ID = ? 
+        AND zspm_ptaskmachineplan.AD_Client_ID IN ('1') 
+        AND zspm_ptaskmachineplan.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspm_ptaskmachineplan.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspm_ptaskmachineplan.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspm_ptaskmachineplan
+        WHERE zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID = ? 
+                 AND zspm_ptaskmachineplan.C_Projecttask_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zspm_ptaskmachineplan
+         WHERE zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zspm_ptaskmachineplan
+         WHERE zspm_ptaskmachineplan.Zspm_Ptaskmachineplan_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

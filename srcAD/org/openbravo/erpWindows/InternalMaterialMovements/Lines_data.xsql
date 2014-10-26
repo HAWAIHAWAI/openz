@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="LinesData" package="org.openbravo.erpWindows.InternalMaterialMovements">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_Internal_ConsumptionLine.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Internal_ConsumptionLine.CreatedBy) as CreatedByR, 
+        to_char(M_Internal_ConsumptionLine.Updated, ?) as updated, 
+        to_char(M_Internal_ConsumptionLine.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_Internal_ConsumptionLine.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Internal_ConsumptionLine.UpdatedBy) as UpdatedByR,
+        M_Internal_ConsumptionLine.AD_Client_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID, 
+M_Internal_ConsumptionLine.AD_Org_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_Internal_ConsumptionLine.M_Internal_Consumption_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.M_Internal_Consumption_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS M_Internal_Consumption_IDR, 
+COALESCE(M_Internal_ConsumptionLine.IsActive, 'N') AS IsActive, 
+M_Internal_ConsumptionLine.Line, 
+M_Internal_ConsumptionLine.Description, 
+M_Internal_ConsumptionLine.M_Product_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+M_Internal_ConsumptionLine.M_AttributeSetInstance_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.M_AttributeSetInstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Description), ''))),'') ) END) AS M_AttributeSetInstance_IDR, 
+M_Internal_ConsumptionLine.M_Locator_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Value), ''))),'') ) END) AS M_Locator_IDR, 
+M_Internal_ConsumptionLine.QuantityOrder, 
+M_Internal_ConsumptionLine.M_Product_Uom_Id, 
+(CASE WHEN M_Internal_ConsumptionLine.M_Product_Uom_Id IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL8.Name IS NULL THEN TO_CHAR(table8.Name) ELSE TO_CHAR(tableTRL8.Name) END)), ''))),'') ) END) AS M_Product_Uom_IdR, 
+M_Internal_ConsumptionLine.MovementQty, 
+M_Internal_ConsumptionLine.C_UOM_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL9.Name IS NULL THEN TO_CHAR(table9.Name) ELSE TO_CHAR(tableTRL9.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+M_Internal_ConsumptionLine.A_Asset_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.A_Asset_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'') ) END) AS A_Asset_IDR, 
+M_Internal_ConsumptionLine.C_Project_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Name), ''))),'') ) END) AS C_Project_IDR, 
+M_Internal_ConsumptionLine.C_Projectphase_ID, 
+M_Internal_ConsumptionLine.C_Projecttask_ID, 
+(CASE WHEN M_Internal_ConsumptionLine.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+COALESCE(M_Internal_ConsumptionLine.Cost2project, 'N') AS Cost2project, 
+M_Internal_ConsumptionLine.Reinvoicedby_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM M_Internal_ConsumptionLine left join (select AD_Client_ID, Name from AD_Client) table1 on (M_Internal_ConsumptionLine.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_Internal_ConsumptionLine.AD_Org_ID = table2.AD_Org_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table3 on (M_Internal_ConsumptionLine.M_Internal_Consumption_ID = table3.M_Internal_Consumption_ID) left join (select M_Product_ID, Value, Name from M_Product) table4 on (M_Internal_ConsumptionLine.M_Product_ID = table4.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL4 on (table4.M_Product_ID = tableTRL4.M_Product_ID and tableTRL4.AD_Language = ?)  left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table5 on (M_Internal_ConsumptionLine.M_AttributeSetInstance_ID = table5.M_AttributeSetInstance_ID) left join (select M_Locator_ID, Value from M_Locator) table6 on (M_Internal_ConsumptionLine.M_Locator_ID = table6.M_Locator_ID) left join (select M_Product_Uom_Id, C_UOM_ID from M_Product_Uom) table7 on (M_Internal_ConsumptionLine.M_Product_Uom_Id = table7.M_Product_Uom_Id) left join (select C_UOM_ID, Name from C_UOM) table8 on (table7.C_UOM_ID = table8.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL8 on (table8.C_UOM_ID = tableTRL8.C_UOM_ID and tableTRL8.AD_Language = ?)  left join (select C_UOM_ID, Name from C_UOM) table9 on (M_Internal_ConsumptionLine.C_UOM_ID = table9.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL9 on (table9.C_UOM_ID = tableTRL9.C_UOM_ID and tableTRL9.AD_Language = ?)  left join (select A_Asset_ID, Name from A_Asset) table10 on (M_Internal_ConsumptionLine.A_Asset_ID = table10.A_Asset_ID) left join (select C_Project_ID, Value, Name from C_Project) table11 on (M_Internal_ConsumptionLine.C_Project_ID = table11.C_Project_ID) left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table12 on (M_Internal_ConsumptionLine.C_Projecttask_ID = table12.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table13 on (table12.C_Project_ID = table13.C_Project_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ? 
+        AND M_Internal_ConsumptionLine.AD_Client_ID IN ('1') 
+           AND M_Internal_ConsumptionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mInternalConsumptionId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_Internal_ConsumptionLine.M_Internal_Consumption_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Internal_ConsumptionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Internal_ConsumptionLine.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mInternalConsumptionId" id="paramKeyParent"></Parameter>
+<Parameter name="cProjecttaskId"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cProjectIdr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="description"></Parameter><Parameter name="quantityorder"></Parameter><Parameter name="mInternalConsumptionlineId"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="mLocatorIdr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="reinvoicedbyId"></Parameter><Parameter name="cost2project"></Parameter><Parameter name="line"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="movementqty"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="cProjectphaseId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mProductUomId"></Parameter>
+   </SqlMethod>
+
+
+   <SqlMethod name="selectAux800041" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) AS TOTAL FROM M_PRODUCT_UOM WHERE M_PRODUCT_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Product_ID"/>
+  </SqlMethod>
+
+
+
+
+
+   <SqlMethod name="selectDefBD0D98D74E5A44EAB5B794DB76785D9F" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_projecttask_id AS DefaultValue FROM m_internal_consumption WHERE m_internal_consumption_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_internal_consumption_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802772_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef19E6E8A97CDB4AACAD8AAFDF4FA52CD2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_project_id AS DefaultValue FROM m_internal_consumption WHERE m_internal_consumption_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_internal_consumption_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef19E6E8A97CDB4AACAD8AAFDF4FA52CD2_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as C_Project_ID FROM C_Project table1 WHERE table1.isActive='Y' AND table1.C_Project_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Project_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802771_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Locator_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802773" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(LINE),0)+10 AS DefaultValue FROM M_INTERNAL_CONSUMPTIONLINE WHERE M_INTERNAL_CONSUMPTION_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_INTERNAL_CONSUMPTION_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802776_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_AttributeSetInstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_AttributeSetInstance_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1F897DC686584B32B24637DD8F413044" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT a_asset_id AS DefaultValue FROM m_internal_consumption WHERE m_internal_consumption_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_internal_consumption_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802767_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefBA9F789056C049A3871D9CFADB95A331" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_projectphase_id AS DefaultValue FROM m_internal_consumption WHERE m_internal_consumption_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_internal_consumption_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802769_5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_Internal_ConsumptionLine.M_Internal_Consumption_ID AS NAME
+        FROM M_Internal_ConsumptionLine
+        WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Internal_Consumption left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table1 on (M_Internal_Consumption.M_Internal_Consumption_ID = table1.M_Internal_Consumption_ID) WHERE M_Internal_Consumption.M_Internal_Consumption_ID = ?  
+    ]]></Sql>
+<Parameter name="mInternalConsumptionId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Internal_Consumption left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table1 on (M_Internal_Consumption.M_Internal_Consumption_ID = table1.M_Internal_Consumption_ID) WHERE M_Internal_Consumption.M_Internal_Consumption_ID = ?  
+    ]]></Sql>
+<Parameter name="mInternalConsumptionId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_Internal_ConsumptionLine
+        SET AD_Client_ID = (?) , M_Internal_Consumptionline_ID = (?) , AD_Org_ID = (?) , M_Internal_Consumption_ID = (?) , IsActive = (?) , Line = TO_NUMBER(?) , Description = (?) , M_Product_ID = (?) , M_AttributeSetInstance_ID = (?) , M_Locator_ID = (?) , QuantityOrder = TO_NUMBER(?) , M_Product_Uom_Id = (?) , MovementQty = TO_NUMBER(?) , C_UOM_ID = (?) , A_Asset_ID = (?) , C_Project_ID = (?) , C_Projectphase_ID = (?) , C_Projecttask_ID = (?) , Cost2project = (?) , Reinvoicedby_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ? 
+                 AND M_Internal_ConsumptionLine.M_Internal_Consumption_ID = ? 
+        AND M_Internal_ConsumptionLine.AD_Client_ID IN ('1') 
+        AND M_Internal_ConsumptionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mInternalConsumptionId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="line"></Parameter> <Parameter name="description"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="cost2project"></Parameter> <Parameter name="reinvoicedbyId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mInternalConsumptionlineId"></Parameter>
+    
+    <Parameter name="mInternalConsumptionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Internal_ConsumptionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Internal_ConsumptionLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_Internal_ConsumptionLine 
+        (AD_Client_ID, M_Internal_Consumptionline_ID, AD_Org_ID, M_Internal_Consumption_ID, IsActive, Line, Description, M_Product_ID, M_AttributeSetInstance_ID, M_Locator_ID, QuantityOrder, M_Product_Uom_Id, MovementQty, C_UOM_ID, A_Asset_ID, C_Project_ID, C_Projectphase_ID, C_Projecttask_ID, Cost2project, Reinvoicedby_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mInternalConsumptionId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="line"></Parameter> <Parameter name="description"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="cost2project"></Parameter> <Parameter name="reinvoicedbyId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Internal_ConsumptionLine
+        WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ? 
+                 AND M_Internal_ConsumptionLine.M_Internal_Consumption_ID = ? 
+        AND M_Internal_ConsumptionLine.AD_Client_ID IN ('1') 
+        AND M_Internal_ConsumptionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mInternalConsumptionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Internal_ConsumptionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Internal_ConsumptionLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Internal_ConsumptionLine
+        WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ? 
+                 AND M_Internal_ConsumptionLine.M_Internal_Consumption_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mInternalConsumptionId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_Internal_ConsumptionLine
+         WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_Internal_ConsumptionLine
+         WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

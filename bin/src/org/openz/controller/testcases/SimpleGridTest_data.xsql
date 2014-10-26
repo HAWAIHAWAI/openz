@@ -1,0 +1,39 @@
+<SqlClass name="SimpleGridTestData" package="org.openz.controller.testcases">
+  <SqlClassComment></SqlClassComment> 
+<SqlMethod name="select" type="preparedStatement" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql> <![CDATA[
+        SELECT p.M_Product_ID, p.Discontinued, p.Value, 
+        coalesce(ptrl.name,p.Name) as name, 
+        '0' AS PriceList,
+       '0' AS PriceStd, 
+       '0' AS PriceLimit,
+       '0' AS QtyOnHand, 
+       '0' AS QtyReserved, 
+        '0' AS QtyOrdered,
+        '0' AS QtyAvailable, 
+        '0' as C_UOM_ID, '0' as C_Currency_ID
+        FROM M_Product p left join m_product_trl ptrl on ptrl.m_product_id=p.m_product_id and ptrl.ad_language=?
+        AND 4=4
+        ORDER BY Value
+      ]]></Sql>
+        <Field name="position" value="count"/>
+        <Field name="rowKey" value="void" />
+        <Parameter name="language"/>
+        <Parameter name="pgLimit" type="argument" optional="true" after="AND 4=4"><![CDATA[ LIMIT ]]></Parameter>
+        <Parameter name="orderBy" type="replace" optional="true" after="A ORDER BY " text="Value" />
+   </SqlMethod>
+
+   <SqlMethod name="countRows" type="preparedStatement" return="String">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql> <![CDATA[
+      SELECT count(*) AS value FROM M_Product p left join m_product_trl ptrl on ptrl.m_product_id=p.m_product_id and ptrl.ad_language=?
+      AND 4=4
+      ]]></Sql>
+        <Field name="position" value="count"/>
+        <Field name="rowKey" value="void" />
+        <Parameter name="language"/>
+        <Parameter name="pgLimit" type="argument" optional="true" after="AND 4=4"><![CDATA[ LIMIT ]]></Parameter>
+   </SqlMethod>
+   
+    </SqlClass>

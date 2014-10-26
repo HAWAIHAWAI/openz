@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="PricelistImportData" package="org.openbravo.erpWindows.ImportPricelist">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(I_pricelist.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_pricelist.CreatedBy) as CreatedByR, 
+        to_char(I_pricelist.Updated, ?) as updated, 
+        to_char(I_pricelist.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        I_pricelist.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_pricelist.UpdatedBy) as UpdatedByR,
+        I_pricelist.Plistname, 
+I_pricelist.I_Pricelist_ID, 
+I_pricelist.Plistversionname, 
+I_pricelist.AD_Client_ID, 
+I_pricelist.Productvalue, 
+I_pricelist.AD_Org_ID, 
+I_pricelist.Pricelist, 
+I_pricelist.Pricestd, 
+I_pricelist.Pricelimit, 
+COALESCE(I_pricelist.Isactive, 'N') AS Isactive, 
+COALESCE(I_pricelist.Isimported, 'N') AS Isimported, 
+I_pricelist.Btnprocess, 
+ 
+        ? AS LANGUAGE 
+        FROM I_pricelist
+        WHERE 2=2 
+
+        AND 1=1 
+        AND I_pricelist.I_Pricelist_ID = ? 
+        AND I_pricelist.AD_Client_ID IN ('1') 
+           AND I_pricelist.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_pricelist.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_pricelist.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="productvalue"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="pricelist"></Parameter><Parameter name="plistversionname"></Parameter><Parameter name="pricestd"></Parameter><Parameter name="plistname"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isimported"></Parameter><Parameter name="btnprocess"></Parameter><Parameter name="iPricelistId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="pricelimit"></Parameter><Parameter name="adClientId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef3CBB14D0B8AD43FC8082540C9DCB2C08_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef79ADCD5E407A45FB93C7C8ECB65FF040_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE I_pricelist
+        SET Plistname = (?) , I_Pricelist_ID = (?) , Plistversionname = (?) , AD_Client_ID = (?) , Productvalue = (?) , AD_Org_ID = (?) , Pricelist = TO_NUMBER(?) , Pricestd = TO_NUMBER(?) , Pricelimit = TO_NUMBER(?) , Isactive = (?) , Isimported = (?) , Btnprocess = (?) , updated = now(), updatedby = ? 
+        WHERE I_pricelist.I_Pricelist_ID = ? 
+        
+        AND I_pricelist.AD_Client_ID IN ('1') 
+        AND I_pricelist.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="plistname"></Parameter> <Parameter name="iPricelistId"></Parameter> <Parameter name="plistversionname"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="productvalue"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="pricelist"></Parameter> <Parameter name="pricestd"></Parameter> <Parameter name="pricelimit"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isimported"></Parameter> <Parameter name="btnprocess"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="iPricelistId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_pricelist.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_pricelist.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO I_pricelist 
+        (Plistname, I_Pricelist_ID, Plistversionname, AD_Client_ID, Productvalue, AD_Org_ID, Pricelist, Pricestd, Pricelimit, Isactive, Isimported, Btnprocess, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="plistname"></Parameter> <Parameter name="iPricelistId"></Parameter> <Parameter name="plistversionname"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="productvalue"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="pricelist"></Parameter> <Parameter name="pricestd"></Parameter> <Parameter name="pricelimit"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isimported"></Parameter> <Parameter name="btnprocess"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_pricelist
+        WHERE I_pricelist.I_Pricelist_ID = ? 
+        
+        AND I_pricelist.AD_Client_ID IN ('1') 
+        AND I_pricelist.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_pricelist.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_pricelist.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_pricelist
+        WHERE I_pricelist.I_Pricelist_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM I_pricelist
+         WHERE I_pricelist.I_Pricelist_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM I_pricelist
+         WHERE I_pricelist.I_Pricelist_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

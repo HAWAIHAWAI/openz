@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *************************************************************************
+ * The contents of this file are subject to the Openbravo  Public  License
+ * Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+ * Version 1.1  with a permitted attribution clause; you may not  use this
+ * file except in compliance with the License. You  may  obtain  a copy of
+ * the License at http://www.openbravo.com/legal/license.html 
+ * Software distributed under the License  is  distributed  on  an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific  language  governing  rights  and  limitations
+ * under the License. 
+ * The Original Code is Openbravo ERP. 
+ * The Initial Developer of the Original Code is Openbravo SL 
+ * All portions are Copyright (C) 2001-2006 Openbravo SL 
+ * All Rights Reserved. 
+ * Contributor(s):  ______________________________________.
+ ************************************************************************
+-->
+
+
+
+
+
+<SqlClass name="RptCBpartnerData" package="org.openbravo.erpReports">
+  <SqlClassComment></SqlClassComment>
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+   <![CDATA[
+        SELECT BP.C_BPARTNER_ID, BP.VALUE, AD_MESSAGE_GET2(BP.ISACTIVE, ?) AS ISACTIVE, TO_DATE(BP.CREATED) AS CREATED, TO_DATE(BP.UPDATED) AS UPDATED, 
+        BP.NAME, BP.NAME2, G.NAME AS GROUPNAME, BP.TAXID, '' AS ACCOUNTNO, AD_MESSAGE_GET2(BP.ISEMPLOYEE, ?) AS ISEMPLOYEE, AD_MESSAGE_GET2(BP.ISSALESREP, ?) AS ISSALESREP, 
+        ISCUSTOMER, ISVENDOR, '' AS SEQNO, '' AS CASCADE, '' AS DISCOUNT, '' AS QTY, '' AS CLASS_TREE
+        FROM C_BPARTNER BP, C_BP_GROUP G
+        WHERE BP.C_BP_GROUP_ID = G.C_BP_GROUP_ID
+     ]]></Sql>
+    <Field name="position" value="count"/>
+    <Parameter name="adLanguage"/>
+    <Parameter name="adLanguage"/>
+    <Parameter name="adLanguage"/>
+    <Parameter name="cBpartnerId" optional="true" type="argument" after="WHERE BP.C_BP_GROUP_ID = G.C_BP_GROUP_ID">
+        <![CDATA[ AND BP.C_BPARTNER_ID IN ]]>
+        </Parameter>        
+  </SqlMethod>
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql></Sql>
+  </SqlMethod>
+  <SqlMethod name="selectAccount" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    <![CDATA[
+        SELECT A.ACCOUNTNO, A.BANK_NAME AS NAME
+        FROM C_BP_BANKACCOUNT A
+     ]]></Sql>
+    <Field name="position" value="count"/>
+    <Parameter name="cBpartnerId" optional="true" type="argument" after="FROM C_BP_BANKACCOUNT A">
+        <![CDATA[ WHERE C_BPARTNER_ID IN ]]>
+        </Parameter>
+  </SqlMethod>
+  <SqlMethod name="selectShipper" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    <![CDATA[
+        SELECT W.NAME, WS.SEQNO
+        FROM M_WAREHOUSE_SHIPPER WS, M_WAREHOUSE W
+        WHERE WS.M_WAREHOUSE_ID = W.M_WAREHOUSE_ID
+     ]]></Sql>
+    <Field name="position" value="count"/>
+    <Parameter name="cBpartnerId" optional="true" type="argument" after="WHERE WS.M_WAREHOUSE_ID = W.M_WAREHOUSE_ID">
+        <![CDATA[ AND WS.C_BPARTNER_ID IN ]]>
+        </Parameter>
+  </SqlMethod>
+  
+  
+</SqlClass>

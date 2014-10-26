@@ -1,0 +1,31 @@
+<td id="@FIELDNAME@tdx" class="@CONTENTCELLCLASS@" colspan="@NUMCOLS@"><div id="editDiscard">
+<div id="@FIELDNAME@td">
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tbody><tr>
+      <td>
+      <table style="border:0px;border-collapse:collapse;">
+        <tbody><tr>
+          <td style="padding-top: 0px;">
+          <form method="post" action="somepage">
+          <textarea value="@CURRENTVALUE@" style="@STYLE@" name="inp@FIELDNAME@" maxlength="@MAXLENGTH@" @REQUIREDTAG@ class="@CLASS@" id="@FIELDNAME@" @JSSETTINGS@>@CURRENTVALUE@</textarea>
+          </form>
+          </td>
+          <!-- <div><a onclick="tinymce.execCommand('mceToggleEditor',false,'inp@FIELDNAME@');" href="javascript:;" class="btn"><span>Editor</span></a></div>-->
+        </tr>
+      </tbody></table>
+  <span onmouseover="this.style.display='none'; return false;" id="@FIELDNAME@missingSpan" style="display: none;" class="TextBox_MsgContainer_span">
+    <table class="TextBox_MsgContainer_table">
+      <tbody><tr class="TextBox_MsgContainer_tr">
+        <td class="TextBox_MsgContainer_td"><div class="TextBox_MsgContainer_div"></div></td><td></td>
+      </tr>
+      <tr>
+        <td class="missing" colspan="2"><div name="missingText" id="@FIELDNAME@missingSpanText" class="TextBox_MsgContainer_div2">@REQUIREDMESSAGE@</div></td>
+      </tr>
+    </tbody></table>
+  </span>
+      </td>
+    </tr>
+  </tbody></table>
+</div>
+
+</div></td>

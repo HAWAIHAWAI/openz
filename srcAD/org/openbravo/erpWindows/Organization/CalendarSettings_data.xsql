@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="CalendarSettingsData" package="org.openbravo.erpWindows.Organization">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_WORKCALENDARSETTINGS.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_WORKCALENDARSETTINGS.CreatedBy) as CreatedByR, 
+        to_char(C_WORKCALENDARSETTINGS.Updated, ?) as updated, 
+        to_char(C_WORKCALENDARSETTINGS.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_WORKCALENDARSETTINGS.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_WORKCALENDARSETTINGS.UpdatedBy) as UpdatedByR,
+        C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID, 
+C_WORKCALENDARSETTINGS.Validfrom, 
+COALESCE(C_WORKCALENDARSETTINGS.Isactive, 'N') AS Isactive, 
+C_WORKCALENDARSETTINGS.Worktimemonday, 
+TO_CHAR(C_WORKCALENDARSETTINGS.Workbegintimemonday, 'HH24:MI:SS') AS Workbegintimemonday, 
+C_WORKCALENDARSETTINGS.Worktimetuesday, 
+TO_CHAR(C_WORKCALENDARSETTINGS.Workbegintimetuesday, 'HH24:MI:SS') AS Workbegintimetuesday, 
+C_WORKCALENDARSETTINGS.Worktimewednesday, 
+TO_CHAR(C_WORKCALENDARSETTINGS.Workbegintimewednesday, 'HH24:MI:SS') AS Workbegintimewednesday, 
+C_WORKCALENDARSETTINGS.Worktimethursday, 
+TO_CHAR(C_WORKCALENDARSETTINGS.Workbegintimethursday, 'HH24:MI:SS') AS Workbegintimethursday, 
+C_WORKCALENDARSETTINGS.Worktimefriday, 
+TO_CHAR(C_WORKCALENDARSETTINGS.Workbegintimefriday, 'HH24:MI:SS') AS Workbegintimefriday, 
+C_WORKCALENDARSETTINGS.Worktimesaturday, 
+TO_CHAR(C_WORKCALENDARSETTINGS.Workbegintimesaturday, 'HH24:MI:SS') AS Workbegintimesaturday, 
+C_WORKCALENDARSETTINGS.Worktimesunday, 
+TO_CHAR(C_WORKCALENDARSETTINGS.Workbegintimesunday, 'HH24:MI:SS') AS Workbegintimesunday, 
+C_WORKCALENDARSETTINGS.AD_Client_ID, 
+C_WORKCALENDARSETTINGS.AD_Org_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM C_WORKCALENDARSETTINGS
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID = ? 
+        AND C_WORKCALENDARSETTINGS.AD_Client_ID IN ('1') 
+           AND C_WORKCALENDARSETTINGS.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="adOrgId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_WORKCALENDARSETTINGS.AD_Org_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_WORKCALENDARSETTINGS.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_WORKCALENDARSETTINGS.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+<Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="workbegintimesaturday"></Parameter><Parameter name="worktimewednesday"></Parameter><Parameter name="worktimemonday"></Parameter><Parameter name="workbegintimethursday"></Parameter><Parameter name="worktimetuesday"></Parameter><Parameter name="validfrom"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="workbegintimesunday"></Parameter><Parameter name="worktimefriday"></Parameter><Parameter name="workbegintimewednesday"></Parameter><Parameter name="cWorkcalendarsettingsId"></Parameter><Parameter name="workbegintimefriday"></Parameter><Parameter name="worktimesaturday"></Parameter><Parameter name="worktimethursday"></Parameter><Parameter name="worktimesunday"></Parameter><Parameter name="workbegintimemonday"></Parameter><Parameter name="workbegintimetuesday"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef50AE782B0ACB4EDFB29D44B544BFCBF8_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8D9D62329EC24703AC22005A8A86C4CF_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_WORKCALENDARSETTINGS.AD_Org_ID AS NAME
+        FROM C_WORKCALENDARSETTINGS
+        WHERE C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_WORKCALENDARSETTINGS
+        SET C_Workcalendarsettings_ID = (?) , Validfrom = TO_DATE(?) , Isactive = (?) , Worktimemonday = TO_NUMBER(?) , Workbegintimemonday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimetuesday = TO_NUMBER(?) , Workbegintimetuesday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimewednesday = TO_NUMBER(?) , Workbegintimewednesday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimethursday = TO_NUMBER(?) , Workbegintimethursday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimefriday = TO_NUMBER(?) , Workbegintimefriday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimesaturday = TO_NUMBER(?) , Workbegintimesaturday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimesunday = TO_NUMBER(?) , Workbegintimesunday = TO_TIMESTAMP(?,'HH24:MI:SS') , AD_Client_ID = (?) , AD_Org_ID = (?) , updated = now(), updatedby = ? 
+        WHERE C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID = ? 
+                 AND C_WORKCALENDARSETTINGS.AD_Org_ID = ? 
+        AND C_WORKCALENDARSETTINGS.AD_Client_ID IN ('1') 
+        AND C_WORKCALENDARSETTINGS.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cWorkcalendarsettingsId"></Parameter> <Parameter name="validfrom"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="worktimemonday"></Parameter> <Parameter name="workbegintimemonday"></Parameter> <Parameter name="worktimetuesday"></Parameter> <Parameter name="workbegintimetuesday"></Parameter> <Parameter name="worktimewednesday"></Parameter> <Parameter name="workbegintimewednesday"></Parameter> <Parameter name="worktimethursday"></Parameter> <Parameter name="workbegintimethursday"></Parameter> <Parameter name="worktimefriday"></Parameter> <Parameter name="workbegintimefriday"></Parameter> <Parameter name="worktimesaturday"></Parameter> <Parameter name="workbegintimesaturday"></Parameter> <Parameter name="worktimesunday"></Parameter> <Parameter name="workbegintimesunday"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cWorkcalendarsettingsId"></Parameter>
+    
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_WORKCALENDARSETTINGS.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_WORKCALENDARSETTINGS.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_WORKCALENDARSETTINGS 
+        (C_Workcalendarsettings_ID, Validfrom, Isactive, Worktimemonday, Workbegintimemonday, Worktimetuesday, Workbegintimetuesday, Worktimewednesday, Workbegintimewednesday, Worktimethursday, Workbegintimethursday, Worktimefriday, Workbegintimefriday, Worktimesaturday, Workbegintimesaturday, Worktimesunday, Workbegintimesunday, AD_Client_ID, AD_Org_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), TO_DATE(?), (?), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cWorkcalendarsettingsId"></Parameter> <Parameter name="validfrom"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="worktimemonday"></Parameter> <Parameter name="workbegintimemonday"></Parameter> <Parameter name="worktimetuesday"></Parameter> <Parameter name="workbegintimetuesday"></Parameter> <Parameter name="worktimewednesday"></Parameter> <Parameter name="workbegintimewednesday"></Parameter> <Parameter name="worktimethursday"></Parameter> <Parameter name="workbegintimethursday"></Parameter> <Parameter name="worktimefriday"></Parameter> <Parameter name="workbegintimefriday"></Parameter> <Parameter name="worktimesaturday"></Parameter> <Parameter name="workbegintimesaturday"></Parameter> <Parameter name="worktimesunday"></Parameter> <Parameter name="workbegintimesunday"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_WORKCALENDARSETTINGS
+        WHERE C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID = ? 
+                 AND C_WORKCALENDARSETTINGS.AD_Org_ID = ? 
+        AND C_WORKCALENDARSETTINGS.AD_Client_ID IN ('1') 
+        AND C_WORKCALENDARSETTINGS.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_WORKCALENDARSETTINGS.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_WORKCALENDARSETTINGS.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_WORKCALENDARSETTINGS
+        WHERE C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID = ? 
+                 AND C_WORKCALENDARSETTINGS.AD_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_WORKCALENDARSETTINGS
+         WHERE C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_WORKCALENDARSETTINGS
+         WHERE C_WORKCALENDARSETTINGS.C_Workcalendarsettings_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

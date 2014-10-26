@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ColorsData" package="org.openbravo.erpWindows.ColorDefinition">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(c_color.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_color.CreatedBy) as CreatedByR, 
+        to_char(c_color.Updated, ?) as updated, 
+        to_char(c_color.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        c_color.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_color.UpdatedBy) as UpdatedByR,
+        c_color.AD_Org_ID, 
+(CASE WHEN c_color.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+c_color.C_Color_ID, 
+COALESCE(c_color.Isactive, 'N') AS Isactive, 
+c_color.Name, 
+c_color.Htmlnotation, 
+COALESCE(c_color.Istextwhite, 'N') AS Istextwhite, 
+c_color.AD_Client_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM c_color left join (select AD_Org_ID, Name from AD_Org) table1 on (c_color.AD_Org_ID = table1.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND c_color.C_Color_ID = ? 
+        AND c_color.AD_Client_ID IN ('1') 
+           AND c_color.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_color.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_color.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="istextwhite"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="htmlnotation"></Parameter><Parameter name="name"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cColorId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefE41BFE89C2D343BD9A47C5F20947750A_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef70260058975C47148F0342652C2E3ED7_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE c_color
+        SET AD_Org_ID = (?) , C_Color_ID = (?) , Isactive = (?) , Name = (?) , Htmlnotation = (?) , Istextwhite = (?) , AD_Client_ID = (?) , updated = now(), updatedby = ? 
+        WHERE c_color.C_Color_ID = ? 
+        
+        AND c_color.AD_Client_ID IN ('1') 
+        AND c_color.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="cColorId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="htmlnotation"></Parameter> <Parameter name="istextwhite"></Parameter> <Parameter name="adClientId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cColorId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_color.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_color.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO c_color 
+        (AD_Org_ID, C_Color_ID, Isactive, Name, Htmlnotation, Istextwhite, AD_Client_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="cColorId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="htmlnotation"></Parameter> <Parameter name="istextwhite"></Parameter> <Parameter name="adClientId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_color
+        WHERE c_color.C_Color_ID = ? 
+        
+        AND c_color.AD_Client_ID IN ('1') 
+        AND c_color.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_color.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_color.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_color
+        WHERE c_color.C_Color_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM c_color
+         WHERE c_color.C_Color_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM c_color
+         WHERE c_color.C_Color_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

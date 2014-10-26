@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="PaymentSchedulingData" package="org.openbravo.erpWindows.SalesOrder">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(c_order_paymentschedule.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_order_paymentschedule.CreatedBy) as CreatedByR, 
+        to_char(c_order_paymentschedule.Updated, ?) as updated, 
+        to_char(c_order_paymentschedule.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        c_order_paymentschedule.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_order_paymentschedule.UpdatedBy) as UpdatedByR,
+        c_order_paymentschedule.C_Order_ID, 
+(CASE WHEN c_order_paymentschedule.C_Order_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))),'') ) END) AS C_Order_IDR, 
+c_order_paymentschedule.C_Order_Paymentschedule_ID, 
+COALESCE(c_order_paymentschedule.Isactive, 'N') AS Isactive, 
+c_order_paymentschedule.Invoicedate, 
+c_order_paymentschedule.AD_Client_ID, 
+c_order_paymentschedule.Amount, 
+c_order_paymentschedule.AD_Org_ID, 
+c_order_paymentschedule.Description, 
+c_order_paymentschedule.C_Invoice_ID, 
+(CASE WHEN c_order_paymentschedule.C_Invoice_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table2.DateInvoiced, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.GrandTotal), ''))),'') ) END) AS C_Invoice_IDR, 
+ 
+        ? AS LANGUAGE 
+        FROM c_order_paymentschedule left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (c_order_paymentschedule.C_Order_ID = table1.C_Order_ID) left join (select C_Invoice_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice) table2 on (c_order_paymentschedule.C_Invoice_ID = table2.C_Invoice_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND c_order_paymentschedule.C_Order_Paymentschedule_ID = ? 
+        AND c_order_paymentschedule.AD_Client_ID IN ('1') 
+           AND c_order_paymentschedule.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="cOrderId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND c_order_paymentschedule.C_Order_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_order_paymentschedule.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_order_paymentschedule.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+<Parameter name="amount"></Parameter><Parameter name="cOrderPaymentscheduleId"></Parameter><Parameter name="invoicedate"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cInvoiceId"></Parameter><Parameter name="isactive"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefD842F7425A1A4DF8B86252F70781CAB9" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_order.totallines - sum(coalesce(c_order_paymentschedule.amount,0)) AS amount FROM c_order left join c_order_paymentschedule on c_order.c_order_ID=c_order_paymentschedule.c_order_id where c_order.c_order_id=? group by c_order.c_order_id,c_order.totallines 
+    ]]></Sql>
+
+<Parameter name="c_order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefCBC785B4759944508A15A58C61ACC81B_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef525F00C910FF412992AF18AB78BFE806_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_order_paymentschedule.C_Order_ID AS NAME
+        FROM c_order_paymentschedule
+        WHERE c_order_paymentschedule.C_Order_Paymentschedule_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE c_order_paymentschedule
+        SET C_Order_ID = (?) , C_Order_Paymentschedule_ID = (?) , Isactive = (?) , Invoicedate = TO_DATE(?) , AD_Client_ID = (?) , Amount = TO_NUMBER(?) , AD_Org_ID = (?) , Description = (?) , C_Invoice_ID = (?) , updated = now(), updatedby = ? 
+        WHERE c_order_paymentschedule.C_Order_Paymentschedule_ID = ? 
+                 AND c_order_paymentschedule.C_Order_ID = ? 
+        AND c_order_paymentschedule.AD_Client_ID IN ('1') 
+        AND c_order_paymentschedule.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cOrderId"></Parameter> <Parameter name="cOrderPaymentscheduleId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="invoicedate"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="cInvoiceId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cOrderPaymentscheduleId"></Parameter>
+    
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_order_paymentschedule.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_order_paymentschedule.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO c_order_paymentschedule 
+        (C_Order_ID, C_Order_Paymentschedule_ID, Isactive, Invoicedate, AD_Client_ID, Amount, AD_Org_ID, Description, C_Invoice_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), TO_DATE(?), (?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cOrderId"></Parameter> <Parameter name="cOrderPaymentscheduleId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="invoicedate"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="cInvoiceId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_order_paymentschedule
+        WHERE c_order_paymentschedule.C_Order_Paymentschedule_ID = ? 
+                 AND c_order_paymentschedule.C_Order_ID = ? 
+        AND c_order_paymentschedule.AD_Client_ID IN ('1') 
+        AND c_order_paymentschedule.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_order_paymentschedule.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_order_paymentschedule.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_order_paymentschedule
+        WHERE c_order_paymentschedule.C_Order_Paymentschedule_ID = ? 
+                 AND c_order_paymentschedule.C_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM c_order_paymentschedule
+         WHERE c_order_paymentschedule.C_Order_Paymentschedule_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM c_order_paymentschedule
+         WHERE c_order_paymentschedule.C_Order_Paymentschedule_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

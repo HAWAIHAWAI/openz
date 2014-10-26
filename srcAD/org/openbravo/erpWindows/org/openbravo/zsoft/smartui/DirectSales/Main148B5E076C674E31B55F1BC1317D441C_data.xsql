@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Main148B5E076C674E31B55F1BC1317D441CData" package="org.openbravo.erpWindows.org.openbravo.zsoft.smartui.DirectSales">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssi_directsales.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_directsales.CreatedBy) as CreatedByR, 
+        to_char(zssi_directsales.Updated, ?) as updated, 
+        to_char(zssi_directsales.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssi_directsales.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_directsales.UpdatedBy) as UpdatedByR,
+        zssi_directsales.Zssi_Directsales_ID, 
+zssi_directsales.Textlines, 
+zssi_directsales.AD_Client_ID, 
+zssi_directsales.Dateofsale, 
+zssi_directsales.M_Product_ID, 
+(CASE WHEN zssi_directsales.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+zssi_directsales.Qty, 
+zssi_directsales.Priceactual, 
+zssi_directsales.C_Bpartner_ID, 
+(CASE WHEN zssi_directsales.C_Bpartner_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS C_Bpartner_IDR, 
+zssi_directsales.C_Bpartner_Location_ID, 
+(CASE WHEN zssi_directsales.C_Bpartner_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS C_Bpartner_Location_IDR, 
+zssi_directsales.C_Uom_ID, 
+(CASE WHEN zssi_directsales.C_Uom_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS C_Uom_IDR, 
+zssi_directsales.C_Currency_ID, 
+(CASE WHEN zssi_directsales.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+zssi_directsales.M_Warehouse_ID, 
+(CASE WHEN zssi_directsales.M_Warehouse_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS M_Warehouse_IDR, 
+zssi_directsales.M_Attributesetinstance_ID, 
+(CASE WHEN zssi_directsales.M_Attributesetinstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Description), ''))),'') ) END) AS M_Attributesetinstance_IDR, 
+zssi_directsales.C_Order_ID, 
+(CASE WHEN zssi_directsales.C_Order_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table8.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.GrandTotal), ''))),'') ) END) AS C_Order_IDR, 
+zssi_directsales.C_Invoice_ID, 
+(CASE WHEN zssi_directsales.C_Invoice_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table9.DateInvoiced, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.GrandTotal), ''))),'') ) END) AS C_Invoice_IDR, 
+zssi_directsales.Action, 
+COALESCE(zssi_directsales.Processed, 'N') AS Processed, 
+COALESCE(zssi_directsales.Isposted, 'N') AS Isposted, 
+COALESCE(zssi_directsales.Isactive, 'N') AS Isactive, 
+zssi_directsales.AD_Org_ID, 
+(CASE WHEN zssi_directsales.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'') ) END) AS AD_Org_IDR, 
+ 
+        ? AS LANGUAGE 
+        FROM zssi_directsales left join (select M_Product_ID, Value, Name from M_Product) table1 on (zssi_directsales.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  left join (select C_BPartner_ID, Name from C_BPartner) table2 on (zssi_directsales.C_Bpartner_ID =  table2.C_BPartner_ID) left join (select C_Bpartner_Location_ID, Name from C_Bpartner_Location) table3 on (zssi_directsales.C_Bpartner_Location_ID = table3.C_Bpartner_Location_ID) left join (select C_Uom_ID, Name from C_Uom) table4 on (zssi_directsales.C_Uom_ID = table4.C_Uom_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL4 on (table4.C_UOM_ID = tableTRL4.C_UOM_ID and tableTRL4.AD_Language = ?)  left join (select C_Currency_ID, ISO_Code from C_Currency) table5 on (zssi_directsales.C_Currency_ID = table5.C_Currency_ID) left join (select M_Warehouse_ID, Name from M_Warehouse) table6 on (zssi_directsales.M_Warehouse_ID = table6.M_Warehouse_ID) left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table7 on (zssi_directsales.M_Attributesetinstance_ID = table7.M_AttributeSetInstance_ID) left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table8 on (zssi_directsales.C_Order_ID = table8.C_Order_ID) left join (select C_Invoice_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice) table9 on (zssi_directsales.C_Invoice_ID = table9.C_Invoice_ID) left join (select AD_Org_ID, Name from AD_Org) table10 on (zssi_directsales.AD_Org_ID = table10.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssi_directsales.Zssi_Directsales_ID = ? 
+        AND zssi_directsales.AD_Client_ID IN ('1') 
+           AND zssi_directsales.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_directsales.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_directsales.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="qty"></Parameter><Parameter name="cOrderId"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="textlines"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="priceactual"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="cInvoiceId"></Parameter><Parameter name="zssiDirectsalesId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="action"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isposted"></Parameter><Parameter name="dateofsale"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="processed"></Parameter><Parameter name="mWarehouseId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef336CBA1BA7F64B5D8B3762929B153D3D_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_Attributesetinstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Attributesetinstance_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef87A706B233E1446385AEF5E9700B1042" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT textlines from zssi_directsales where processed='N' and length(textlines)=(select max(length(textlines)) from  zssi_directsales where processed='N' ) 
+    ]]></Sql>
+
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5F96903D7A8B46ADA085FA8FBB32905F_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef22336F8DC0464153B97044ED323A1E4D_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3F60381C78C543D49E16347196C577B6_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefBB7F0D28BC144EDBBDA729BD762BA9D7" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(COALESCE(max(dateofsale),now()),'DD-MM-YYYY') AS DefaultValue from zssi_directsales where isposted='N' 
+    ]]></Sql>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssi_directsales
+        SET Zssi_Directsales_ID = (?) , Textlines = (?) , AD_Client_ID = (?) , Dateofsale = TO_DATE(?) , M_Product_ID = (?) , Qty = TO_NUMBER(?) , Priceactual = TO_NUMBER(?) , C_Bpartner_ID = (?) , C_Bpartner_Location_ID = (?) , C_Uom_ID = (?) , C_Currency_ID = (?) , M_Warehouse_ID = (?) , M_Attributesetinstance_ID = (?) , C_Order_ID = (?) , C_Invoice_ID = (?) , Action = (?) , Processed = (?) , Isposted = (?) , Isactive = (?) , AD_Org_ID = (?) , updated = now(), updatedby = ? 
+        WHERE zssi_directsales.Zssi_Directsales_ID = ? 
+        
+        AND zssi_directsales.AD_Client_ID IN ('1') 
+        AND zssi_directsales.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="zssiDirectsalesId"></Parameter> <Parameter name="textlines"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="dateofsale"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="cInvoiceId"></Parameter> <Parameter name="action"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="isposted"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssiDirectsalesId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_directsales.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_directsales.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssi_directsales 
+        (Zssi_Directsales_ID, Textlines, AD_Client_ID, Dateofsale, M_Product_ID, Qty, Priceactual, C_Bpartner_ID, C_Bpartner_Location_ID, C_Uom_ID, C_Currency_ID, M_Warehouse_ID, M_Attributesetinstance_ID, C_Order_ID, C_Invoice_ID, Action, Processed, Isposted, Isactive, AD_Org_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), TO_DATE(?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="zssiDirectsalesId"></Parameter> <Parameter name="textlines"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="dateofsale"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="cInvoiceId"></Parameter> <Parameter name="action"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="isposted"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_directsales
+        WHERE zssi_directsales.Zssi_Directsales_ID = ? 
+        
+        AND zssi_directsales.AD_Client_ID IN ('1') 
+        AND zssi_directsales.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_directsales.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_directsales.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_directsales
+        WHERE zssi_directsales.Zssi_Directsales_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssi_directsales
+         WHERE zssi_directsales.Zssi_Directsales_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssi_directsales
+         WHERE zssi_directsales.Zssi_Directsales_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Serialnumbers1BD46C67B6A54A8AB55EFF9A36B4D3B1Data" package="org.openbravo.erpWindows.InternalMaterialMovements">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(snr_internal_consumptionline.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = snr_internal_consumptionline.CreatedBy) as CreatedByR, 
+        to_char(snr_internal_consumptionline.Updated, ?) as updated, 
+        to_char(snr_internal_consumptionline.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        snr_internal_consumptionline.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = snr_internal_consumptionline.UpdatedBy) as UpdatedByR,
+        snr_internal_consumptionline.M_Internal_Consumptionline_ID, 
+(CASE WHEN snr_internal_consumptionline.M_Internal_Consumptionline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.MovementQty), ''))),'') ) END) AS M_Internal_Consumptionline_IDR, 
+snr_internal_consumptionline.SNR_Internal_Consumptionline_ID, 
+snr_internal_consumptionline.AD_Client_ID, 
+snr_internal_consumptionline.Serialnumber, 
+snr_internal_consumptionline.AD_Org_ID, 
+COALESCE(snr_internal_consumptionline.Isunavailable, 'N') AS Isunavailable, 
+snr_internal_consumptionline.Lotnumber, 
+COALESCE(snr_internal_consumptionline.Isactive, 'N') AS Isactive, 
+snr_internal_consumptionline.Quantity, 
+snr_internal_consumptionline.Guaranteedays, 
+snr_internal_consumptionline.Guaranteedate, 
+snr_internal_consumptionline.Rfidnumber, 
+snr_internal_consumptionline.Description, 
+ 
+        ? AS LANGUAGE 
+        FROM snr_internal_consumptionline left join (select M_Internal_Consumptionline_ID, M_Internal_Consumption_ID, M_Product_ID, MovementQty from M_Internal_Consumptionline) table1 on (snr_internal_consumptionline.M_Internal_Consumptionline_ID = table1.M_Internal_Consumptionline_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table2 on (table1.M_Internal_Consumption_ID = table2.M_Internal_Consumption_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (table1.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND snr_internal_consumptionline.SNR_Internal_Consumptionline_ID = ? 
+        AND snr_internal_consumptionline.AD_Client_ID IN ('1') 
+           AND snr_internal_consumptionline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mInternalConsumptionlineId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND snr_internal_consumptionline.M_Internal_Consumptionline_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_internal_consumptionline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_internal_consumptionline.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mInternalConsumptionlineId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="guaranteedays"></Parameter><Parameter name="description"></Parameter><Parameter name="rfidnumber"></Parameter><Parameter name="guaranteedate"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="serialnumber"></Parameter><Parameter name="quantity"></Parameter><Parameter name="lotnumber"></Parameter><Parameter name="isunavailable"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="snrInternalConsumptionlineId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef394CD14BE0DC425AAF61F8F612EDA7E4_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefB4C9569891BF47D0A25F791501B91DE9_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT snr_internal_consumptionline.M_Internal_Consumptionline_ID AS NAME
+        FROM snr_internal_consumptionline
+        WHERE snr_internal_consumptionline.SNR_Internal_Consumptionline_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table3.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.MovementQty), ''))) AS NAME FROM M_Internal_ConsumptionLine left join (select M_Internal_Consumptionline_ID, M_Internal_Consumption_ID, M_Product_ID, MovementQty from M_Internal_Consumptionline) table1 on (M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = table1.M_Internal_Consumptionline_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table2 on (table1.M_Internal_Consumption_ID = table2.M_Internal_Consumption_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (table1.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mInternalConsumptionlineId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table3.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.MovementQty), ''))) AS NAME FROM M_Internal_ConsumptionLine left join (select M_Internal_Consumptionline_ID, M_Internal_Consumption_ID, M_Product_ID, MovementQty from M_Internal_Consumptionline) table1 on (M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = table1.M_Internal_Consumptionline_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table2 on (table1.M_Internal_Consumption_ID = table2.M_Internal_Consumption_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (table1.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  WHERE M_Internal_ConsumptionLine.M_Internal_Consumptionline_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mInternalConsumptionlineId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE snr_internal_consumptionline
+        SET M_Internal_Consumptionline_ID = (?) , SNR_Internal_Consumptionline_ID = (?) , AD_Client_ID = (?) , Serialnumber = (?) , AD_Org_ID = (?) , Isunavailable = (?) , Lotnumber = (?) , Isactive = (?) , Quantity = TO_NUMBER(?) , Guaranteedays = TO_NUMBER(?) , Guaranteedate = TO_DATE(?) , Rfidnumber = (?) , Description = (?) , updated = now(), updatedby = ? 
+        WHERE snr_internal_consumptionline.SNR_Internal_Consumptionline_ID = ? 
+                 AND snr_internal_consumptionline.M_Internal_Consumptionline_ID = ? 
+        AND snr_internal_consumptionline.AD_Client_ID IN ('1') 
+        AND snr_internal_consumptionline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="snrInternalConsumptionlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="serialnumber"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isunavailable"></Parameter> <Parameter name="lotnumber"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="guaranteedays"></Parameter> <Parameter name="guaranteedate"></Parameter> <Parameter name="rfidnumber"></Parameter> <Parameter name="description"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="snrInternalConsumptionlineId"></Parameter>
+    
+    <Parameter name="mInternalConsumptionlineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_internal_consumptionline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_internal_consumptionline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO snr_internal_consumptionline 
+        (M_Internal_Consumptionline_ID, SNR_Internal_Consumptionline_ID, AD_Client_ID, Serialnumber, AD_Org_ID, Isunavailable, Lotnumber, Isactive, Quantity, Guaranteedays, Guaranteedate, Rfidnumber, Description, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_DATE(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="snrInternalConsumptionlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="serialnumber"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isunavailable"></Parameter> <Parameter name="lotnumber"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="guaranteedays"></Parameter> <Parameter name="guaranteedate"></Parameter> <Parameter name="rfidnumber"></Parameter> <Parameter name="description"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM snr_internal_consumptionline
+        WHERE snr_internal_consumptionline.SNR_Internal_Consumptionline_ID = ? 
+                 AND snr_internal_consumptionline.M_Internal_Consumptionline_ID = ? 
+        AND snr_internal_consumptionline.AD_Client_ID IN ('1') 
+        AND snr_internal_consumptionline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mInternalConsumptionlineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_internal_consumptionline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_internal_consumptionline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM snr_internal_consumptionline
+        WHERE snr_internal_consumptionline.SNR_Internal_Consumptionline_ID = ? 
+                 AND snr_internal_consumptionline.M_Internal_Consumptionline_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mInternalConsumptionlineId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM snr_internal_consumptionline
+         WHERE snr_internal_consumptionline.SNR_Internal_Consumptionline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM snr_internal_consumptionline
+         WHERE snr_internal_consumptionline.SNR_Internal_Consumptionline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BWAReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="CLIENT_ID" class="java.lang.String"/>
+	<parameter name="DATE_FROM" class="java.util.Date"/>
+	<parameter name="DATE_TO" class="java.util.Date"/>
+	<parameter name="BWAHEADERID" class="java.lang.String"/>
+	<parameter name="BASE_DESIGN" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/stefan/OpenZ/OpenSourceTrunc/openz"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BASE_WEB" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="AD_ORG_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select orderno, name, headertext,subheadertext,footertext,zspr_get_bwastatus($P{DATE_FROM},$P{DATE_TO},$P{AD_ORG_ID}) as status,
+      CASE when $P{AD_ORG_ID}='0' then 'Konsolidierte Auswertung' else '' end as form,
+      CASE when $P{AD_ORG_ID}='0' then (select name from ad_client where ad_client_id=$P{CLIENT_ID}) else (select name from ad_org where ad_org_id=$P{AD_ORG_ID}) end as company,
+      isparent, bwaprefs_id,
+      zsfi_getfooterbwasum(bwaprefs_id,$P{DATE_FROM},$P{DATE_TO},$P{AD_ORG_ID},'N') as total,
+      zsfi_getfooterbwasum(bwaprefs_id,$P{DATE_FROM},$P{DATE_TO},$P{AD_ORG_ID},'Y') as totalVJ
+ from
+(
+   select bwaprefs.orderno as orderno, bwaprefs.name as name, bwaheader.headertext as headertext,bwaheader.subheadertext as subheadertext,bwaheader.footertext as footertext,
+       bwaprefs.isparent as isparent, bwaprefs.zspr_bwaprefs_id as bwaprefs_id
+       from zspr_bwaprefs bwaprefs,  zspr_bwaheader bwaheader,fact_acct_view, zspr_bwaprefacct bwaprefacct
+       where
+         bwaheader.ad_client_id=$P{CLIENT_ID}
+         and bwaheader.zspr_bwaheader_id = $P{BWAHEADERID}
+         and bwaprefs.zspr_bwaheader_id=bwaheader.zspr_bwaheader_id
+         and bwaprefs.parentpref is null
+         and bwaprefacct.zspr_bwaprefs_id=bwaprefs.zspr_bwaprefs_id
+         and bwaprefs.isactive='Y'
+         and fact_acct_view.ACCTVALUE like replace(bwaprefacct.acctmatch,'*','%')
+         and case when instr(bwaprefacct.acctmatch,'*')>0 then length(fact_acct_view.ACCTVALUE)=5 else length(fact_acct_view.ACCTVALUE)=4 end
+         and fact_acct_view.c_acctschema_id=(select distinct c_acctschema_id from ad_org_acctschema where CASE when $P{AD_ORG_ID}!='0' then ad_org_id=$P{AD_ORG_ID} else 1=1 END)
+         and bwaprefacct.c_acctschema_id=fact_acct_view.c_acctschema_id
+       GROUP BY  bwaprefs.orderno, bwaprefs.name, bwaheader.headertext,bwaheader.subheadertext,bwaheader.footertext, bwaprefs.isasset,bwaprefs.orderno,
+                 bwaprefs.isparent, bwaprefs_id,bwaprefs.allwowonlynegative,bwaprefs.allwowonlypositive
+) body
+GROUP BY  orderno, name, headertext,subheadertext,footertext,orderno,
+                 isparent, bwaprefs_id
+ORDER by orderno;]]>
+	</queryString>
+	<field name="orderno" class="java.math.BigDecimal"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="headertext" class="java.lang.String"/>
+	<field name="subheadertext" class="java.lang.String"/>
+	<field name="footertext" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="form" class="java.lang.String"/>
+	<field name="company" class="java.lang.String"/>
+	<field name="isparent" class="java.lang.String"/>
+	<field name="bwaprefs_id" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="totalvj" class="java.math.BigDecimal"/>
+	<variable name="SUBSUM" class="java.math.BigDecimal" calculation="Sum">
+		<initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression>
+	</variable>
+	<variable name="SUBSumVJ" class="java.math.BigDecimal" calculation="Sum">
+		<initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression>
+	</variable>
+	<variable name="TOTAL" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{total} == null ? new java.math.BigDecimal(0) : $F{total})]]></variableExpression>
+	</variable>
+	<variable name="TOTALVJ" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{totalvj} == null ? new java.math.BigDecimal(0) : $F{totalvj})]]></variableExpression>
+	</variable>
+	<group name="bwa_prefs_SUB">
+		<groupExpression><![CDATA[$F{bwaprefs_id}]]></groupExpression>
+		<groupHeader>
+			<band height="35" splitType="Stretch">
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-3" mode="Opaque" x="0" y="5" width="535" height="30" forecolor="#000000" backcolor="#999999"/>
+					<box leftPadding="3">
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="35" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText-2" mode="Opaque" x="183" y="1" width="93" height="30" forecolor="#000000" backcolor="#999999"/>
+					<box leftPadding="3" rightPadding="2">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Summe]]></text>
+				</staticText>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-4" mode="Opaque" x="0" y="1" width="185" height="30" forecolor="#000000" backcolor="#999999"/>
+					<box leftPadding="2" rightPadding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-5" mode="Opaque" x="272" y="1" width="123" height="30" forecolor="#000000" backcolor="#999999"/>
+					<box rightPadding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUBSUM}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-22" mode="Opaque" x="442" y="1" width="88" height="30" forecolor="#000000" backcolor="#999999"/>
+					<box rightPadding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{SUBSumVJ}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-9" mode="Opaque" x="393" y="1" width="62" height="30" forecolor="#000000" backcolor="#999999"/>
+					<box rightPadding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[(Vorjahr:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-10" mode="Opaque" x="528" y="1" width="6" height="30" forecolor="#000000" backcolor="#999999"/>
+					<box rightPadding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[)]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="75" splitType="Stretch">
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-10" x="115" y="59" width="79" height="16"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATE_FROM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-12" x="223" y="58" width="99" height="16"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATE_TO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="0" y="59" width="110" height="16"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
+				<text><![CDATA[Datumsbereich von:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="198" y="58" width="21" height="16"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[bis]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-20" x="0" y="3" width="282" height="24"/>
+				<textElement textAlignment="Left">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{headertext}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-16" x="292" y="3" width="44" height="18"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Status:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-17" x="0" y="36" width="81" height="14"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Unternehmen:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" x="81" y="35" width="449" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{company}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="336" y="3" width="199" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="292" y="21" width="243" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{form}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-1" mode="Opaque" x="9" y="3" width="461" height="24"/>
+				<subreportParameter name="DATE_FROM">
+					<subreportParameterExpression><![CDATA[$P{DATE_FROM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATE_TO">
+					<subreportParameterExpression><![CDATA[$P{DATE_TO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{CLIENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARENT_ID">
+					<subreportParameterExpression><![CDATA[$F{bwaprefs_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BWAHEADERID">
+					<subreportParameterExpression><![CDATA[$P{BWAHEADERID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BASE_DESIGN">
+					<subreportParameterExpression><![CDATA[$P{BASE_DESIGN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BASE_WEB">
+					<subreportParameterExpression><![CDATA[$P{BASE_WEB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AD_ORG_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_ORG_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUBSUM" toVariable="SUBSUM"/>
+				<returnValue subreportVariable="SUBSumVJ" toVariable="SUBSumVJ"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_DESIGN} + "/org/openbravo/zsoft/finance/BWAReportDetail.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-2" x="15" y="3" width="390" height="24">
+					<printWhenExpression><![CDATA[(($F{isparent}.equals("N")) ? Boolean.TRUE : Boolean.FALSE)]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="CLIENT_ID">
+					<subreportParameterExpression><![CDATA[$P{CLIENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATE_FROM">
+					<subreportParameterExpression><![CDATA[$P{DATE_FROM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATE_TO">
+					<subreportParameterExpression><![CDATA[$P{DATE_TO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BWAPREFS_ID">
+					<subreportParameterExpression><![CDATA[$F{bwaprefs_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BWAHEADERID">
+					<subreportParameterExpression><![CDATA[$P{BWAHEADERID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BASE_DESIGN">
+					<subreportParameterExpression><![CDATA[$P{BASE_DESIGN}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="BASE_WEB">
+					<subreportParameterExpression><![CDATA[$P{BASE_WEB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AD_ORG_ID">
+					<subreportParameterExpression><![CDATA[$P{AD_ORG_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUBSUM" toVariable="SUBSUM"/>
+				<returnValue subreportVariable="SUBSumVJ" toVariable="SUBSumVJ"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{BASE_DESIGN} + "/org/openbravo/zsoft/finance/BWAReportAcct.jasper"]]></subreportExpression>
+			</subreport>
+			<line direction="BottomUp">
+				<reportElement key="line-6" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement key="line-8" positionType="Float" stretchType="RelativeToTallestObject" x="534" y="0" width="1" height="30"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="29" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-16" x="502" y="8" width="32" height="16"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-17" x="76" y="8" width="74" height="16"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-8" x="0" y="8" width="75" height="16"/>
+				<textElement/>
+				<text><![CDATA[Druckdatum ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="431" y="7" width="71" height="16"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Seite]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="65" splitType="Stretch">
+			<line>
+				<reportElement key="line-1" x="0" y="5" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-2" x="0" y="38" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-4" x="0" y="5" width="1" height="33"/>
+			</line>
+			<line>
+				<reportElement key="line-5" x="535" y="5" width="1" height="33"/>
+			</line>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="226" y="5" width="116" height="32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="18" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($V{TOTAL}!=null)?$V{TOTAL}:new String(" ")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-7" x="134" y="3" width="1" height="1"/>
+			</line>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-21" x="9" y="6" width="217" height="32"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{footertext}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField-23" x="431" y="5" width="76" height="29"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($V{TOTALVJ}!=null)?$V{TOTALVJ}:new String(" ")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-11" x="363" y="5" width="79" height="29"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[(Vorjahr:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-12" x="513" y="5" width="22" height="29"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[€)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" x="342" y="5" width="21" height="32"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-24" x="502" y="45" width="32" height="16"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-15" x="431" y="45" width="71" height="16"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Seite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-18" x="0" y="45" width="75" height="16"/>
+				<textElement/>
+				<text><![CDATA[Druckdatum]]></text>
+			</staticText>
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-25" x="76" y="45" width="74" height="16"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

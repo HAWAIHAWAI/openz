@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="BankAccount56F5E1D49CFE4DAA9B372DCDD0F2AAC3Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.smartui.Employee">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_BP_BankAccount.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BP_BankAccount.CreatedBy) as CreatedByR, 
+        to_char(C_BP_BankAccount.Updated, ?) as updated, 
+        to_char(C_BP_BankAccount.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_BP_BankAccount.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BP_BankAccount.UpdatedBy) as UpdatedByR,
+        C_BP_BankAccount.A_Country, 
+C_BP_BankAccount.C_BPartner_ID, 
+(CASE WHEN C_BP_BankAccount.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+C_BP_BankAccount.AD_User_ID, 
+(CASE WHEN C_BP_BankAccount.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_User_IDR, 
+COALESCE(C_BP_BankAccount.IsActive, 'N') AS IsActive, 
+C_BP_BankAccount.BankAccountType, 
+(CASE WHEN C_BP_BankAccount.BankAccountType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS BankAccountTypeR, 
+C_BP_BankAccount.RoutingNo, 
+C_BP_BankAccount.AccountNo, 
+COALESCE(C_BP_BankAccount.ShowAccountNo, 'N') AS ShowAccountNo, 
+C_BP_BankAccount.A_Zip, 
+C_BP_BankAccount.Iban, 
+COALESCE(C_BP_BankAccount.Showiban, 'N') AS Showiban, 
+C_BP_BankAccount.SwiftCode, 
+C_BP_BankAccount.C_Country_ID, 
+(CASE WHEN C_BP_BankAccount.C_Country_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS C_Country_IDR, 
+C_BP_BankAccount.Displayedaccount, 
+C_BP_BankAccount.Bank_Name, 
+C_BP_BankAccount.CreditCardType, 
+(CASE WHEN C_BP_BankAccount.CreditCardType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS CreditCardTypeR, 
+C_BP_BankAccount.CreditCardNumber, 
+C_BP_BankAccount.CreditCardExpMM, 
+C_BP_BankAccount.CreditCardExpYY, 
+C_BP_BankAccount.A_Name, 
+C_BP_BankAccount.Text1, 
+C_BP_BankAccount.A_Street, 
+C_BP_BankAccount.A_Ident_SSN, 
+C_BP_BankAccount.A_Ident_DL, 
+C_BP_BankAccount.A_City, 
+C_BP_BankAccount.AD_Client_ID, 
+C_BP_BankAccount.A_State, 
+C_BP_BankAccount.R_AvsZip, 
+C_BP_BankAccount.AD_Org_ID, 
+C_BP_BankAccount.C_BP_BankAccount_ID, 
+C_BP_BankAccount.A_EMail, 
+ 
+        ? AS LANGUAGE 
+        FROM C_BP_BankAccount left join (select C_BPartner_ID, Name from C_BPartner) table1 on (C_BP_BankAccount.C_BPartner_ID = table1.C_BPartner_ID) left join (select AD_User_ID, Name from AD_User) table2 on (C_BP_BankAccount.AD_User_ID = table2.AD_User_ID) left join ad_ref_list_v list1 on (C_BP_BankAccount.BankAccountType = list1.value and list1.ad_reference_id = '216' and list1.ad_language = ?)  left join (select C_Country_ID, Name from C_Country) table3 on (C_BP_BankAccount.C_Country_ID = table3.C_Country_ID) left join (select C_Country_ID,AD_Language, Name from C_Country_TRL) tableTRL3 on (table3.C_Country_ID = tableTRL3.C_Country_ID and tableTRL3.AD_Language = ?)  left join ad_ref_list_v list2 on (C_BP_BankAccount.CreditCardType = list2.value and list2.ad_reference_id = '149' and list2.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_BP_BankAccount.C_BP_BankAccount_ID = ? 
+        AND C_BP_BankAccount.AD_Client_ID IN ('1') 
+           AND C_BP_BankAccount.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cBpartnerId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_BP_BankAccount.C_BPartner_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BP_BankAccount.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BP_BankAccount.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+<Parameter name="aStreet"></Parameter><Parameter name="displayedaccount"></Parameter><Parameter name="aEmail"></Parameter><Parameter name="aZip"></Parameter><Parameter name="bankaccounttype"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="aName"></Parameter><Parameter name="bankName"></Parameter><Parameter name="swiftcode"></Parameter><Parameter name="showiban"></Parameter><Parameter name="accountno"></Parameter><Parameter name="rAvszip"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="aState"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cBpBankaccountId"></Parameter><Parameter name="text1"></Parameter><Parameter name="cCountryId"></Parameter><Parameter name="aCountry"></Parameter><Parameter name="showaccountno"></Parameter><Parameter name="creditcardexpmm"></Parameter><Parameter name="creditcardnumber"></Parameter><Parameter name="iban"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="routingno"></Parameter><Parameter name="aCity"></Parameter><Parameter name="creditcardtype"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="created"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="creditcardexpyy"></Parameter><Parameter name="aIdentDl"></Parameter><Parameter name="aIdentSsn"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef3101_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3100_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3102_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_BP_BankAccount.C_BPartner_ID AS NAME
+        FROM C_BP_BankAccount
+        WHERE C_BP_BankAccount.C_BP_BankAccount_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM c_bpartneremployee_view left join (select C_BPartner_ID, Name from C_BPartner) table1 on (c_bpartneremployee_view.C_BPartner_ID = table1.C_BPartner_ID) WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM c_bpartneremployee_view left join (select C_BPartner_ID, Name from C_BPartner) table1 on (c_bpartneremployee_view.C_BPartner_ID = table1.C_BPartner_ID) WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_BP_BankAccount
+        SET A_Country = (?) , C_BPartner_ID = (?) , AD_User_ID = (?) , IsActive = (?) , BankAccountType = (?) , RoutingNo = (?) , AccountNo = (?) , ShowAccountNo = (?) , A_Zip = (?) , Iban = (?) , Showiban = (?) , SwiftCode = (?) , C_Country_ID = (?) , Displayedaccount = (?) , Bank_Name = (?) , CreditCardType = (?) , CreditCardNumber = (?) , CreditCardExpMM = TO_NUMBER(?) , CreditCardExpYY = TO_NUMBER(?) , A_Name = (?) , Text1 = (?) , A_Ident_SSN = (?) , C_BP_BankAccount_ID = (?) , AD_Client_ID = (?) , A_State = (?) , R_AvsZip = (?) , AD_Org_ID = (?) , A_City = (?) , A_Ident_DL = (?) , A_EMail = (?) , A_Street = (?) , updated = now(), updatedby = ? 
+        WHERE C_BP_BankAccount.C_BP_BankAccount_ID = ? 
+                 AND C_BP_BankAccount.C_BPartner_ID = ? 
+        AND C_BP_BankAccount.AD_Client_ID IN ('1') 
+        AND C_BP_BankAccount.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="aCountry"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="bankaccounttype"></Parameter> <Parameter name="routingno"></Parameter> <Parameter name="accountno"></Parameter> <Parameter name="showaccountno"></Parameter> <Parameter name="aZip"></Parameter> <Parameter name="iban"></Parameter> <Parameter name="showiban"></Parameter> <Parameter name="swiftcode"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="displayedaccount"></Parameter> <Parameter name="bankName"></Parameter> <Parameter name="creditcardtype"></Parameter> <Parameter name="creditcardnumber"></Parameter> <Parameter name="creditcardexpmm"></Parameter> <Parameter name="creditcardexpyy"></Parameter> <Parameter name="aName"></Parameter> <Parameter name="text1"></Parameter> <Parameter name="aIdentSsn"></Parameter> <Parameter name="cBpBankaccountId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="aState"></Parameter> <Parameter name="rAvszip"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="aCity"></Parameter> <Parameter name="aIdentDl"></Parameter> <Parameter name="aEmail"></Parameter> <Parameter name="aStreet"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cBpBankaccountId"></Parameter>
+    
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BP_BankAccount.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BP_BankAccount.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_BP_BankAccount 
+        (A_Country, C_BPartner_ID, AD_User_ID, IsActive, BankAccountType, RoutingNo, AccountNo, ShowAccountNo, A_Zip, Iban, Showiban, SwiftCode, C_Country_ID, Displayedaccount, Bank_Name, CreditCardType, CreditCardNumber, CreditCardExpMM, CreditCardExpYY, A_Name, Text1, A_Street, A_Ident_SSN, A_Ident_DL, A_City, AD_Client_ID, A_State, R_AvsZip, AD_Org_ID, C_BP_BankAccount_ID, A_EMail, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="aCountry"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="bankaccounttype"></Parameter> <Parameter name="routingno"></Parameter> <Parameter name="accountno"></Parameter> <Parameter name="showaccountno"></Parameter> <Parameter name="aZip"></Parameter> <Parameter name="iban"></Parameter> <Parameter name="showiban"></Parameter> <Parameter name="swiftcode"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="displayedaccount"></Parameter> <Parameter name="bankName"></Parameter> <Parameter name="creditcardtype"></Parameter> <Parameter name="creditcardnumber"></Parameter> <Parameter name="creditcardexpmm"></Parameter> <Parameter name="creditcardexpyy"></Parameter> <Parameter name="aName"></Parameter> <Parameter name="text1"></Parameter> <Parameter name="aStreet"></Parameter> <Parameter name="aIdentSsn"></Parameter> <Parameter name="aIdentDl"></Parameter> <Parameter name="aCity"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="aState"></Parameter> <Parameter name="rAvszip"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cBpBankaccountId"></Parameter> <Parameter name="aEmail"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BP_BankAccount
+        WHERE C_BP_BankAccount.C_BP_BankAccount_ID = ? 
+                 AND C_BP_BankAccount.C_BPartner_ID = ? 
+        AND C_BP_BankAccount.AD_Client_ID IN ('1') 
+        AND C_BP_BankAccount.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BP_BankAccount.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BP_BankAccount.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BP_BankAccount
+        WHERE C_BP_BankAccount.C_BP_BankAccount_ID = ? 
+                 AND C_BP_BankAccount.C_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_BP_BankAccount
+         WHERE C_BP_BankAccount.C_BP_BankAccount_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_BP_BankAccount
+         WHERE C_BP_BankAccount.C_BP_BankAccount_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="HeaderData" package="org.openbravo.erpWindows.OrderTemplates">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_Order.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Order.CreatedBy) as CreatedByR, 
+        to_char(C_Order.Updated, ?) as updated, 
+        to_char(C_Order.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_Order.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Order.UpdatedBy) as UpdatedByR,
+        C_Order.AD_OrgTrx_ID, 
+C_Order.DropShip_BPartner_ID, 
+COALESCE(C_Order.IsSelfService, 'N') AS IsSelfService, 
+C_Order.DropShip_User_ID, 
+C_Order.DropShip_Location_ID, 
+C_Order.User2_ID, 
+C_Order.User1_ID, 
+C_Order.AD_Client_ID, 
+(CASE WHEN C_Order.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_Order.AD_Org_ID, 
+(CASE WHEN C_Order.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_Order.DocumentNo, 
+C_Order.Incotermsdescription, 
+C_Order.POReference, 
+C_Order.DateOrdered, 
+C_Order.C_DocTypeTarget_ID, 
+(CASE WHEN C_Order.C_DocTypeTarget_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS C_DocTypeTarget_IDR, 
+C_Order.Name, 
+C_Order.A_Asset_ID, 
+C_Order.C_DocType_ID, 
+(CASE WHEN C_Order.C_DocType_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS C_DocType_IDR, 
+C_Order.DocStatus, 
+(CASE WHEN C_Order.DocStatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DocStatusR, 
+C_Order.Description, 
+C_Order.Deliverynotes, 
+C_Order.Internalnote, 
+C_Order.C_BPartner_ID, 
+(CASE WHEN C_Order.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+C_Order.bpzipcode, 
+C_Order.BillTo_ID, 
+(CASE WHEN C_Order.BillTo_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS BillTo_IDR, 
+C_Order.C_BPartner_Location_ID, 
+(CASE WHEN C_Order.C_BPartner_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS C_BPartner_Location_IDR, 
+C_Order.AD_User_ID, 
+(CASE WHEN C_Order.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS AD_User_IDR, 
+C_Order.SalesRep_ID, 
+(CASE WHEN C_Order.SalesRep_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Name), ''))),'') ) END) AS SalesRep_IDR, 
+C_Order.M_PriceList_ID, 
+(CASE WHEN C_Order.M_PriceList_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'') ) END) AS M_PriceList_IDR, 
+COALESCE(C_Order.IsDiscountPrinted, 'N') AS IsDiscountPrinted, 
+C_Order.InvoiceRule, 
+(CASE WHEN C_Order.InvoiceRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS InvoiceRuleR, 
+C_Order.Estpropability, 
+(CASE WHEN C_Order.Estpropability IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS EstpropabilityR, 
+C_Order.M_Warehouse_ID, 
+(CASE WHEN C_Order.M_Warehouse_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Name), ''))),'') ) END) AS M_Warehouse_IDR, 
+C_Order.C_Currency_ID, 
+(CASE WHEN C_Order.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+C_Order.DeliveryRule, 
+(CASE WHEN C_Order.DeliveryRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS DeliveryRuleR, 
+C_Order.PriorityRule, 
+(CASE WHEN C_Order.PriorityRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list5.name),'') ) END) AS PriorityRuleR, 
+C_Order.PaymentRule, 
+(CASE WHEN C_Order.PaymentRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list6.name),'') ) END) AS PaymentRuleR, 
+C_Order.C_PaymentTerm_ID, 
+(CASE WHEN C_Order.C_PaymentTerm_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL13.Name IS NULL THEN TO_CHAR(table13.Name) ELSE TO_CHAR(tableTRL13.Name) END)), ''))),'') ) END) AS C_PaymentTerm_IDR, 
+C_Order.C_Incoterms_ID, 
+(CASE WHEN C_Order.C_Incoterms_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Name), ''))),'') ) END) AS C_Incoterms_IDR, 
+C_Order.Delivery_Location_ID, 
+(CASE WHEN C_Order.Delivery_Location_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Name), ''))),'') ) END) AS Delivery_Location_IDR, 
+C_Order.DeliveryViaRule, 
+(CASE WHEN C_Order.DeliveryViaRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list7.name),'') ) END) AS DeliveryViaRuleR, 
+C_Order.M_Shipper_ID, 
+(CASE WHEN C_Order.M_Shipper_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Name), ''))),'') ) END) AS M_Shipper_IDR, 
+C_Order.Weight, 
+C_Order.Weight_Uom, 
+(CASE WHEN C_Order.Weight_Uom IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL17.Name IS NULL THEN TO_CHAR(table17.Name) ELSE TO_CHAR(tableTRL17.Name) END)), ''))),'') ) END) AS Weight_UomR, 
+C_Order.FreightCostRule, 
+(CASE WHEN C_Order.FreightCostRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list8.name),'') ) END) AS FreightCostRuleR, 
+C_Order.M_Product_ID, 
+(CASE WHEN C_Order.M_Product_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL18.Name IS NULL THEN TO_CHAR(table18.Name) ELSE TO_CHAR(tableTRL18.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+C_Order.Qty, 
+C_Order.FreightAmt, 
+C_Order.C_Project_ID, 
+(CASE WHEN C_Order.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Name), ''))),'') ) END) AS C_Project_IDR, 
+C_Order.C_Projecttask_ID, 
+(CASE WHEN C_Order.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table20.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+C_Order.Orderselfjoin, 
+C_Order.Firstschedinvoicedate, 
+C_Order.DatePromised, 
+C_Order.Scheddeliverydate, 
+C_Order.Schedtransactiondate, 
+C_Order.Transactiondate, 
+C_Order.Contractdate, 
+C_Order.Enddate, 
+C_Order.Invoicefrequence, 
+(CASE WHEN C_Order.Invoicefrequence IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list9.name),'') ) END) AS InvoicefrequenceR, 
+COALESCE(C_Order.Isinvoiceafterfirstcycle, 'N') AS Isinvoiceafterfirstcycle, 
+C_Order.Quarterly_Month, 
+(CASE WHEN C_Order.Quarterly_Month IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list10.name),'') ) END) AS Quarterly_MonthR, 
+C_Order.C_Projectphase_ID, 
+C_Order.Yearly_Month, 
+(CASE WHEN C_Order.Yearly_Month IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list11.name),'') ) END) AS Yearly_MonthR, 
+C_Order.Weekly_Day, 
+(CASE WHEN C_Order.Weekly_Day IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list12.name),'') ) END) AS Weekly_DayR, 
+C_Order.Monthly_Day, 
+C_Order.C_Bidproject_ID, 
+C_Order.Proposalstatus, 
+(CASE WHEN C_Order.Proposalstatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list13.name),'') ) END) AS ProposalstatusR, 
+C_Order.Lostproposalfixedreason, 
+(CASE WHEN C_Order.Lostproposalfixedreason IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list14.name),'') ) END) AS LostproposalfixedreasonR, 
+C_Order.Lostproposalreason, 
+C_Order.Totallinesonetime, 
+C_Order.Grandtotalonetime, 
+C_Order.TotalLines, 
+C_Order.GrandTotal, 
+C_Order.Invoicedamt, 
+C_Order.Totalpaid, 
+C_Order.Completeordervalue, 
+C_Order.DocAction, 
+C_Order.BtnCopyTemplate, 
+C_Order.CopyFrom, 
+C_Order.Generatetemplate, 
+C_Order.CopyFromPO, 
+C_Order.Generateproject, 
+C_Order.Closeproject, 
+COALESCE(C_Order.Iscompletelyinvoiced, 'N') AS Iscompletelyinvoiced, 
+COALESCE(C_Order.Ispaid, 'N') AS Ispaid, 
+COALESCE(C_Order.Isrecharge, 'N') AS Isrecharge, 
+COALESCE(C_Order.IsSOTrx, 'N') AS IsSOTrx, 
+COALESCE(C_Order.IsSelected, 'N') AS IsSelected, 
+C_Order.C_Activity_ID, 
+COALESCE(C_Order.IsDelivered, 'N') AS IsDelivered, 
+C_Order.DateAcct, 
+COALESCE(C_Order.Processed, 'N') AS Processed, 
+C_Order.C_Charge_ID, 
+C_Order.C_Campaign_ID, 
+C_Order.Processing, 
+COALESCE(C_Order.IsInvoiced, 'N') AS IsInvoiced, 
+COALESCE(C_Order.IsActive, 'N') AS IsActive, 
+C_Order.DatePrinted, 
+COALESCE(C_Order.IsTaxIncluded, 'N') AS IsTaxIncluded, 
+C_Order.Posted, 
+COALESCE(C_Order.IsPrinted, 'N') AS IsPrinted, 
+C_Order.C_Order_ID, 
+C_Order.ChargeAmt, 
+ 
+        ? AS LANGUAGE 
+        FROM C_Order left join (select AD_Client_ID, Name from AD_Client) table1 on (C_Order.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_Order.AD_Org_ID = table2.AD_Org_ID) left join (select C_DocType_ID, Name from C_DocType) table3 on (C_Order.C_DocTypeTarget_ID =  table3.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL3 on (table3.C_DocType_ID = tableTRL3.C_DocType_ID and tableTRL3.AD_Language = ?)  left join (select C_DocType_ID, Name from C_DocType) table4 on (C_Order.C_DocType_ID = table4.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL4 on (table4.C_DocType_ID = tableTRL4.C_DocType_ID and tableTRL4.AD_Language = ?)  left join ad_ref_list_v list1 on (C_Order.DocStatus = list1.value and list1.ad_reference_id = '131' and list1.ad_language = ?)  left join (select C_BPartner_ID, Name from C_BPartner) table5 on (C_Order.C_BPartner_ID = table5.C_BPartner_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table6 on (C_Order.BillTo_ID =  table6.C_BPartner_Location_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table7 on (C_Order.C_BPartner_Location_ID = table7.C_BPartner_Location_ID) left join (select AD_User_ID, Name from AD_User) table8 on (C_Order.AD_User_ID = table8.AD_User_ID) left join (select AD_User_ID, Name from AD_User) table9 on (C_Order.SalesRep_ID =  table9.AD_User_ID) left join (select M_PriceList_ID, Name from M_PriceList) table10 on (C_Order.M_PriceList_ID = table10.M_PriceList_ID) left join ad_ref_list_v list2 on (C_Order.InvoiceRule = list2.value and list2.ad_reference_id = '150' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (C_Order.Estpropability = list3.value and list3.ad_reference_id = 'DD6AA16AB1DD4DF5AD11A2665AE665BC' and list3.ad_language = ?)  left join (select M_Warehouse_ID, Name from M_Warehouse) table11 on (C_Order.M_Warehouse_ID =  table11.M_Warehouse_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table12 on (C_Order.C_Currency_ID = table12.C_Currency_ID) left join ad_ref_list_v list4 on (C_Order.DeliveryRule = list4.value and list4.ad_reference_id = '151' and list4.ad_language = ?)  left join ad_ref_list_v list5 on (C_Order.PriorityRule = list5.value and list5.ad_reference_id = '154' and list5.ad_language = ?)  left join ad_ref_list_v list6 on (C_Order.PaymentRule = list6.value and list6.ad_reference_id = '195' and list6.ad_language = ?)  left join (select C_PaymentTerm_ID, Name from C_PaymentTerm) table13 on (C_Order.C_PaymentTerm_ID = table13.C_PaymentTerm_ID) left join (select C_PaymentTerm_ID,AD_Language, Name from C_PaymentTerm_TRL) tableTRL13 on (table13.C_PaymentTerm_ID = tableTRL13.C_PaymentTerm_ID and tableTRL13.AD_Language = ?)  left join (select C_Incoterms_ID, Name from C_Incoterms) table14 on (C_Order.C_Incoterms_ID = table14.C_Incoterms_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table15 on (C_Order.Delivery_Location_ID =  table15.C_BPartner_Location_ID) left join ad_ref_list_v list7 on (C_Order.DeliveryViaRule = list7.value and list7.ad_reference_id = '152' and list7.ad_language = ?)  left join (select M_Shipper_ID, Name from M_Shipper) table16 on (C_Order.M_Shipper_ID = table16.M_Shipper_ID) left join (select C_UOM_ID, Name from C_UOM) table17 on (C_Order.Weight_Uom =  table17.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL17 on (table17.C_UOM_ID = tableTRL17.C_UOM_ID and tableTRL17.AD_Language = ?)  left join ad_ref_list_v list8 on (C_Order.FreightCostRule = list8.value and list8.ad_reference_id = '153' and list8.ad_language = ?)  left join (select M_Product_ID, value, Name from M_Product) table18 on (C_Order.M_Product_ID =  table18.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL18 on (table18.M_Product_ID = tableTRL18.M_Product_ID and tableTRL18.AD_Language = ?)  left join (select C_Project_ID, Value, Name from C_Project) table19 on (C_Order.C_Project_ID = table19.C_Project_ID) left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table20 on (C_Order.C_Projecttask_ID = table20.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table21 on (table20.C_Project_ID = table21.C_Project_ID) left join ad_ref_list_v list9 on (C_Order.Invoicefrequence = list9.value and list9.ad_reference_id = 'F17BFE71276743BBB6105EE61D9FD666' and list9.ad_language = ?)  left join ad_ref_list_v list10 on (C_Order.Quarterly_Month = list10.value and list10.ad_reference_id = '99780AA6C1644A329162A8AF74602925' and list10.ad_language = ?)  left join ad_ref_list_v list11 on (C_Order.Yearly_Month = list11.value and list11.ad_reference_id = 'B849337BE90242BEB0B230808EDC0CEE' and list11.ad_language = ?)  left join ad_ref_list_v list12 on (C_Order.Weekly_Day = list12.value and list12.ad_reference_id = '167' and list12.ad_language = ?)  left join ad_ref_list_v list13 on (C_Order.Proposalstatus = list13.value and list13.ad_reference_id = 'B00D78B6B154404A831F25F11ABD867E' and list13.ad_language = ?)  left join ad_ref_list_v list14 on (C_Order.Lostproposalfixedreason = list14.value and list14.ad_reference_id = 'B51F770E9FA84F5B8FC0FFD7B3848317' and list14.ad_language = ?) 
+        WHERE 2=2 
+ AND C_Order.IsSOTrx='Y' AND  C_Order.c_doctype_id = 'C_DOCTYPE_ID_ORDER_TEMPLATE_0001'
+        AND 1=1 
+        AND C_Order.C_Order_ID = ? 
+        AND C_Order.AD_Client_ID IN ('1') 
+           AND C_Order.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Order.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Order.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="priorityrule"></Parameter><Parameter name="dropshipLocationId"></Parameter><Parameter name="billtoId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cIncotermsId"></Parameter><Parameter name="isselected"></Parameter><Parameter name="mShipperId"></Parameter><Parameter name="freightamt"></Parameter><Parameter name="completeordervalue"></Parameter><Parameter name="istaxincluded"></Parameter><Parameter name="qty"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="orderselfjoin"></Parameter><Parameter name="user2Id"></Parameter><Parameter name="cProjectphaseId"></Parameter><Parameter name="cChargeId"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="docaction"></Parameter><Parameter name="totallines"></Parameter><Parameter name="ispaid"></Parameter><Parameter name="enddate"></Parameter><Parameter name="weightUom"></Parameter><Parameter name="proposalstatus"></Parameter><Parameter name="posted"></Parameter><Parameter name="transactiondate"></Parameter><Parameter name="weight"></Parameter><Parameter name="user1Id"></Parameter><Parameter name="name"></Parameter><Parameter name="closeproject"></Parameter><Parameter name="invoicefrequence"></Parameter><Parameter name="chargeamt"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="cCampaignId"></Parameter><Parameter name="totalpaid"></Parameter><Parameter name="internalnote"></Parameter><Parameter name="btncopytemplate"></Parameter><Parameter name="isdiscountprinted"></Parameter><Parameter name="dropshipBpartnerId"></Parameter><Parameter name="isrecharge"></Parameter><Parameter name="totallinesonetime"></Parameter><Parameter name="freightcostrule"></Parameter><Parameter name="cBidprojectId"></Parameter><Parameter name="datepromised"></Parameter><Parameter name="cPaymenttermId"></Parameter><Parameter name="dateordered"></Parameter><Parameter name="contractdate"></Parameter><Parameter name="docstatus"></Parameter><Parameter name="paymentrule"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cProjectIdr"></Parameter><Parameter name="lostproposalfixedreason"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="scheddeliverydate"></Parameter><Parameter name="deliveryLocationId"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="poreference"></Parameter><Parameter name="invoicedamt"></Parameter><Parameter name="mWarehouseId"></Parameter><Parameter name="copyfrompo"></Parameter><Parameter name="copyfrom"></Parameter><Parameter name="cOrderId"></Parameter><Parameter name="isdelivered"></Parameter><Parameter name="issotrx"></Parameter><Parameter name="deliveryrule"></Parameter><Parameter name="isselfservice"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="schedtransactiondate"></Parameter><Parameter name="generatetemplate"></Parameter><Parameter name="cActivityId"></Parameter><Parameter name="monthlyDay"></Parameter><Parameter name="documentno"></Parameter><Parameter name="dropshipUserId"></Parameter><Parameter name="dateacct"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="grandtotalonetime"></Parameter><Parameter name="bpzipcode"></Parameter><Parameter name="cDoctypetargetId"></Parameter><Parameter name="invoicerule"></Parameter><Parameter name="deliverynotes"></Parameter><Parameter name="isinvoiceafterfirstcycle"></Parameter><Parameter name="incotermsdescription"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="processed"></Parameter><Parameter name="estpropability"></Parameter><Parameter name="deliveryviarule"></Parameter><Parameter name="weeklyDay"></Parameter><Parameter name="description"></Parameter><Parameter name="isprinted"></Parameter><Parameter name="dateprinted"></Parameter><Parameter name="grandtotal"></Parameter><Parameter name="isinvoiced"></Parameter><Parameter name="lostproposalreason"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cDoctypeId"></Parameter><Parameter name="adOrgtrxId"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="iscompletelyinvoiced"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="quarterlyMonth"></Parameter><Parameter name="firstschedinvoicedate"></Parameter><Parameter name="generateproject"></Parameter><Parameter name="processing"></Parameter><Parameter name="yearlyMonth"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef2762_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3402_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as C_Project_ID FROM C_Project table1 WHERE table1.isActive='Y' AND table1.C_Project_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Project_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2168_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2166_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_Order
+        SET AD_OrgTrx_ID = (?) , DropShip_BPartner_ID = (?) , IsSelfService = (?) , DropShip_User_ID = (?) , DropShip_Location_ID = (?) , User2_ID = (?) , User1_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , DocumentNo = (?) , Incotermsdescription = (?) , POReference = (?) , DateOrdered = TO_DATE(?) , C_DocTypeTarget_ID = (?) , Name = (?) , A_Asset_ID = (?) , C_DocType_ID = (?) , DocStatus = (?) , Description = (?) , Deliverynotes = (?) , Internalnote = (?) , C_BPartner_ID = (?) , bpzipcode = (?) , BillTo_ID = (?) , C_BPartner_Location_ID = (?) , AD_User_ID = (?) , SalesRep_ID = (?) , M_PriceList_ID = (?) , IsDiscountPrinted = (?) , InvoiceRule = (?) , Estpropability = (?) , M_Warehouse_ID = (?) , C_Currency_ID = (?) , DeliveryRule = (?) , PriorityRule = (?) , PaymentRule = (?) , C_PaymentTerm_ID = (?) , C_Incoterms_ID = (?) , Delivery_Location_ID = (?) , DeliveryViaRule = (?) , M_Shipper_ID = (?) , Weight = TO_NUMBER(?) , Weight_Uom = (?) , FreightCostRule = (?) , M_Product_ID = (?) , Qty = TO_NUMBER(?) , FreightAmt = TO_NUMBER(?) , C_Project_ID = (?) , C_Projecttask_ID = (?) , Orderselfjoin = (?) , Firstschedinvoicedate = TO_DATE(?) , DatePromised = TO_DATE(?) , Scheddeliverydate = TO_DATE(?) , Schedtransactiondate = TO_DATE(?) , Transactiondate = TO_DATE(?) , Contractdate = TO_DATE(?) , Enddate = TO_DATE(?) , Invoicefrequence = (?) , Isinvoiceafterfirstcycle = (?) , Quarterly_Month = (?) , C_Projectphase_ID = (?) , Yearly_Month = (?) , Weekly_Day = (?) , Monthly_Day = TO_NUMBER(?) , C_Bidproject_ID = (?) , Proposalstatus = (?) , Lostproposalfixedreason = (?) , Lostproposalreason = (?) , Totallinesonetime = TO_NUMBER(?) , Grandtotalonetime = TO_NUMBER(?) , TotalLines = TO_NUMBER(?) , GrandTotal = TO_NUMBER(?) , Invoicedamt = TO_NUMBER(?) , Totalpaid = TO_NUMBER(?) , Completeordervalue = TO_NUMBER(?) , DocAction = (?) , BtnCopyTemplate = (?) , CopyFrom = (?) , Generatetemplate = (?) , CopyFromPO = (?) , Generateproject = (?) , Closeproject = (?) , Iscompletelyinvoiced = (?) , Ispaid = (?) , Isrecharge = (?) , IsSOTrx = (?) , IsSelected = (?) , C_Activity_ID = (?) , IsDelivered = (?) , DateAcct = TO_DATE(?) , Processed = (?) , C_Charge_ID = (?) , C_Campaign_ID = (?) , Processing = (?) , IsInvoiced = (?) , IsActive = (?) , DatePrinted = TO_DATE(?) , IsTaxIncluded = (?) , Posted = (?) , IsPrinted = (?) , C_Order_ID = (?) , ChargeAmt = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE C_Order.C_Order_ID = ? 
+        
+        AND C_Order.AD_Client_ID IN ('1') 
+        AND C_Order.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adOrgtrxId"></Parameter> <Parameter name="dropshipBpartnerId"></Parameter> <Parameter name="isselfservice"></Parameter> <Parameter name="dropshipUserId"></Parameter> <Parameter name="dropshipLocationId"></Parameter> <Parameter name="user2Id"></Parameter> <Parameter name="user1Id"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="incotermsdescription"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="cDoctypetargetId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="description"></Parameter> <Parameter name="deliverynotes"></Parameter> <Parameter name="internalnote"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="bpzipcode"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="isdiscountprinted"></Parameter> <Parameter name="invoicerule"></Parameter> <Parameter name="estpropability"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="deliveryrule"></Parameter> <Parameter name="priorityrule"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="cIncotermsId"></Parameter> <Parameter name="deliveryLocationId"></Parameter> <Parameter name="deliveryviarule"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="weight"></Parameter> <Parameter name="weightUom"></Parameter> <Parameter name="freightcostrule"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="freightamt"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="orderselfjoin"></Parameter> <Parameter name="firstschedinvoicedate"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="schedtransactiondate"></Parameter> <Parameter name="transactiondate"></Parameter> <Parameter name="contractdate"></Parameter> <Parameter name="enddate"></Parameter> <Parameter name="invoicefrequence"></Parameter> <Parameter name="isinvoiceafterfirstcycle"></Parameter> <Parameter name="quarterlyMonth"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="yearlyMonth"></Parameter> <Parameter name="weeklyDay"></Parameter> <Parameter name="monthlyDay"></Parameter> <Parameter name="cBidprojectId"></Parameter> <Parameter name="proposalstatus"></Parameter> <Parameter name="lostproposalfixedreason"></Parameter> <Parameter name="lostproposalreason"></Parameter> <Parameter name="totallinesonetime"></Parameter> <Parameter name="grandtotalonetime"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="grandtotal"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="totalpaid"></Parameter> <Parameter name="completeordervalue"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="btncopytemplate"></Parameter> <Parameter name="copyfrom"></Parameter> <Parameter name="generatetemplate"></Parameter> <Parameter name="copyfrompo"></Parameter> <Parameter name="generateproject"></Parameter> <Parameter name="closeproject"></Parameter> <Parameter name="iscompletelyinvoiced"></Parameter> <Parameter name="ispaid"></Parameter> <Parameter name="isrecharge"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="isselected"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="isdelivered"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="cChargeId"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="dateprinted"></Parameter> <Parameter name="istaxincluded"></Parameter> <Parameter name="posted"></Parameter> <Parameter name="isprinted"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="chargeamt"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cOrderId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Order.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Order.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_Order 
+        (AD_OrgTrx_ID, DropShip_BPartner_ID, IsSelfService, DropShip_User_ID, DropShip_Location_ID, User2_ID, User1_ID, AD_Client_ID, AD_Org_ID, DocumentNo, Incotermsdescription, POReference, DateOrdered, C_DocTypeTarget_ID, Name, A_Asset_ID, C_DocType_ID, DocStatus, Description, Deliverynotes, Internalnote, C_BPartner_ID, bpzipcode, BillTo_ID, C_BPartner_Location_ID, AD_User_ID, SalesRep_ID, M_PriceList_ID, IsDiscountPrinted, InvoiceRule, Estpropability, M_Warehouse_ID, C_Currency_ID, DeliveryRule, PriorityRule, PaymentRule, C_PaymentTerm_ID, C_Incoterms_ID, Delivery_Location_ID, DeliveryViaRule, M_Shipper_ID, Weight, Weight_Uom, FreightCostRule, M_Product_ID, Qty, FreightAmt, C_Project_ID, C_Projecttask_ID, Orderselfjoin, Firstschedinvoicedate, DatePromised, Scheddeliverydate, Schedtransactiondate, Transactiondate, Contractdate, Enddate, Invoicefrequence, Isinvoiceafterfirstcycle, Quarterly_Month, C_Projectphase_ID, Yearly_Month, Weekly_Day, Monthly_Day, C_Bidproject_ID, Proposalstatus, Lostproposalfixedreason, Lostproposalreason, Totallinesonetime, Grandtotalonetime, TotalLines, GrandTotal, Invoicedamt, Totalpaid, Completeordervalue, DocAction, BtnCopyTemplate, CopyFrom, Generatetemplate, CopyFromPO, Generateproject, Closeproject, Iscompletelyinvoiced, Ispaid, Isrecharge, IsSOTrx, IsSelected, C_Activity_ID, IsDelivered, DateAcct, Processed, C_Charge_ID, C_Campaign_ID, Processing, IsInvoiced, IsActive, DatePrinted, IsTaxIncluded, Posted, IsPrinted, C_Order_ID, ChargeAmt, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adOrgtrxId"></Parameter> <Parameter name="dropshipBpartnerId"></Parameter> <Parameter name="isselfservice"></Parameter> <Parameter name="dropshipUserId"></Parameter> <Parameter name="dropshipLocationId"></Parameter> <Parameter name="user2Id"></Parameter> <Parameter name="user1Id"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="incotermsdescription"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="cDoctypetargetId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="description"></Parameter> <Parameter name="deliverynotes"></Parameter> <Parameter name="internalnote"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="bpzipcode"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="isdiscountprinted"></Parameter> <Parameter name="invoicerule"></Parameter> <Parameter name="estpropability"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="deliveryrule"></Parameter> <Parameter name="priorityrule"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="cIncotermsId"></Parameter> <Parameter name="deliveryLocationId"></Parameter> <Parameter name="deliveryviarule"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="weight"></Parameter> <Parameter name="weightUom"></Parameter> <Parameter name="freightcostrule"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="freightamt"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="orderselfjoin"></Parameter> <Parameter name="firstschedinvoicedate"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="schedtransactiondate"></Parameter> <Parameter name="transactiondate"></Parameter> <Parameter name="contractdate"></Parameter> <Parameter name="enddate"></Parameter> <Parameter name="invoicefrequence"></Parameter> <Parameter name="isinvoiceafterfirstcycle"></Parameter> <Parameter name="quarterlyMonth"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="yearlyMonth"></Parameter> <Parameter name="weeklyDay"></Parameter> <Parameter name="monthlyDay"></Parameter> <Parameter name="cBidprojectId"></Parameter> <Parameter name="proposalstatus"></Parameter> <Parameter name="lostproposalfixedreason"></Parameter> <Parameter name="lostproposalreason"></Parameter> <Parameter name="totallinesonetime"></Parameter> <Parameter name="grandtotalonetime"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="grandtotal"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="totalpaid"></Parameter> <Parameter name="completeordervalue"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="btncopytemplate"></Parameter> <Parameter name="copyfrom"></Parameter> <Parameter name="generatetemplate"></Parameter> <Parameter name="copyfrompo"></Parameter> <Parameter name="generateproject"></Parameter> <Parameter name="closeproject"></Parameter> <Parameter name="iscompletelyinvoiced"></Parameter> <Parameter name="ispaid"></Parameter> <Parameter name="isrecharge"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="isselected"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="isdelivered"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="cChargeId"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="dateprinted"></Parameter> <Parameter name="istaxincluded"></Parameter> <Parameter name="posted"></Parameter> <Parameter name="isprinted"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="chargeamt"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Order
+        WHERE C_Order.C_Order_ID = ? 
+        
+        AND C_Order.AD_Client_ID IN ('1') 
+        AND C_Order.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Order.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Order.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Order
+        WHERE C_Order.C_Order_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_Order
+         WHERE C_Order.C_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_Order
+         WHERE C_Order.C_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

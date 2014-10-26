@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Label_Shipment_15x10" pageWidth="280" pageHeight="430" columnWidth="240" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="DOCUMENT_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LANGUAGE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select    	$P{DOCUMENT_ID}||m.documentno as id,
+-- Adress Sender
+	CASE WHEN zspr.address1='Ferroxon' then 'Ferroxon-Pigmente' else '' end as Label,
+	zspr.addressheader as sender,
+	zspr.onelineadr,
+	a.name||' '||coalesce(a.description) as compname,
+	zspr.address2,
+	zspr.address3 as street,
+	zspr.address4 as plzcity,
+ 	zssi_getelementtextbycolumname(zspr.address5,$P{LANGUAGE}) as country,
+	zspr.address6 as fon,
+	zspr.address7 as fax,
+	zspr.address8 as mail,
+	zspr.address9 as web,
+-- Shipment Info
+
+	m.documentno as docno,
+	to_char(now(),'DD.MM.YYYY') as lsdate,
+	to_char(m.MovementDate,'DD.MM.YYYY') as deldate,
+	coalesce(m.trackingno,'') as refno,
+	(select rpad(name,3) from c_incoterms where c_incoterms.c_incoterms_id=m.c_incoterms_id) as incoshort,
+(select name from c_incoterms where c_incoterms.c_incoterms_id=m.c_incoterms_id) as inco,
+	coalesce(m.poreference,c_order.documentno) as ordno,
+	to_char(c_order.dateordered,'DD.MM.YYYY') as orddate,
+
+	coalesce(m.weight,0.0) as weight,
+	lower((select x12de355 from c_uom where c_uom.c_uom_id=m.weight_uom)) as wuom,
+	coalesce(m.qtyofpallets,0) as numberpal,
+--bparter info
+cbp.name as sname,
+cl1.address1 as sadd1,
+coalesce(cl1.address2,'') as sadd2,
+cl1.postal as spostal,
+cl1.postal_add as spostaladd,
+cl1.city as scity,
+lk.phone as phonenn,
+(select countrycode from c_country where cl1.c_country_id=c_country.c_country_id) as scountry,
+-- 	Salesrep Info
+m.salesrep_id as contact,
+sr.name,sr.email, sr.phone as phone,
+	sh.name as delservice,
+-- Shipper Ínfo
+coalesce(cl2.address1,'') as shadd1,
+coalesce(cl2.address2,'') as shadd2,
+coalesce(cl2.postal,'') as shpostal,
+coalesce(cl2.postal_add,'') as shpostaladd,
+coalesce(cl2.city,'') as shcity,
+coalesce((select countrycode from c_country where cl2.c_country_id=c_country.c_country_id),'') as shcountry,
+-- Header Lines
+	'Warenversand' as titlehl,
+	zssi_getelementtextbycolumname('Sender',$P{LANGUAGE}) as sendernamehl,
+ 	zssi_getelementtextbycolumname('Adress',$P{LANGUAGE}) as senderadresshl,
+ 	zssi_getelementtextbycolumname('LS-No.',$P{LANGUAGE}) as docnohl,
+	zssi_getelementtextbycolumname('LS-Date',$P{LANGUAGE}) as lsdatehl,
+	zssi_getelementtextbycolumname('Delivery Date',$P{LANGUAGE}) as deldatehl,
+	zssi_getelementtextbycolumname('Delivery Adress',$P{LANGUAGE}) as deladresshl,
+	zssi_getelementtextbycolumname('Contactpartner',$P{LANGUAGE}) as contacthl,
+	zssi_getelementtextbycolumname('Phones',$P{LANGUAGE}) as confonhl,
+	zssi_getelementtextbycolumname('e-mails',$P{LANGUAGE}) as conmailhl,
+	zssi_getelementtextbycolumname('OR-No',$P{LANGUAGE}) as ordernohl,
+	zssi_getelementtextbycolumname('Datebe',$P{LANGUAGE}) as orderdatehl,
+	zssi_getelementtextbycolumname('Delivery Ref',$P{LANGUAGE}) as delrefhl,
+	zssi_getelementtextbycolumname('Incoterms',$P{LANGUAGE}) as incotermshl,
+	zssi_getelementtextbycolumname('Spediteur',$P{LANGUAGE}) as delservicehl,
+	zssi_getelementtextbycolumname('Total Weight',$P{LANGUAGE}) as totalwhl,
+	zssi_getelementtextbycolumname('Palcount',$P{LANGUAGE}) as numberpalhl
+from ad_org a,m_inout m left join m_shipper sh on m.m_shipper_id= sh.m_shipper_id left join c_order on m.c_order_id=c_order.c_order_id ,m_inoutline l,c_bpartner_location lk,c_location cl1,c_location cl2,
+ad_user sr,c_bpartner shbp,c_bpartner_location shbplk, c_bpartner cbp,
+zspr_printinfo zspr where m.m_inout_id in ($P{DOCUMENT_ID}) and
+l.m_inout_id=m.m_inout_id and a.ad_org_id=m.ad_org_id and
+lk.c_bpartner_location_id=m.c_bpartner_location_id and lk.c_location_id=cl1.c_location_id and zspr.ad_org_id=m.ad_org_id
+and sr.ad_user_id=m.ad_user_id
+and sh.c_bpartner_id=shbp.c_bpartner_id and shbp.c_bpartner_id=shbplk.c_bpartner_id and shbplk.c_location_id=cl2.c_location_id and m.c_bpartner_id=cbp.c_bpartner_id]]>
+	</queryString>
+	<field name="id" class="java.lang.String"/>
+	<field name="label" class="java.lang.String"/>
+	<field name="sender" class="java.lang.String"/>
+	<field name="onelineadr" class="java.lang.String"/>
+	<field name="compname" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="street" class="java.lang.String"/>
+	<field name="plzcity" class="java.lang.String"/>
+	<field name="country" class="java.lang.String"/>
+	<field name="fon" class="java.lang.String"/>
+	<field name="fax" class="java.lang.String"/>
+	<field name="mail" class="java.lang.String"/>
+	<field name="web" class="java.lang.String"/>
+	<field name="docno" class="java.lang.String"/>
+	<field name="lsdate" class="java.lang.String"/>
+	<field name="deldate" class="java.lang.String"/>
+	<field name="refno" class="java.lang.String"/>
+	<field name="incoshort" class="java.lang.String"/>
+	<field name="inco" class="java.lang.String"/>
+	<field name="ordno" class="java.lang.String"/>
+	<field name="orddate" class="java.lang.String"/>
+	<field name="weight" class="java.math.BigDecimal"/>
+	<field name="wuom" class="java.lang.String"/>
+	<field name="numberpal" class="java.math.BigDecimal"/>
+	<field name="sname" class="java.lang.String"/>
+	<field name="sadd1" class="java.lang.String"/>
+	<field name="sadd2" class="java.lang.String"/>
+	<field name="spostal" class="java.lang.String"/>
+	<field name="spostaladd" class="java.lang.String"/>
+	<field name="scity" class="java.lang.String"/>
+	<field name="phonenn" class="java.lang.String"/>
+	<field name="scountry" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="phone" class="java.lang.String"/>
+	<field name="delservice" class="java.lang.String"/>
+	<field name="shadd1" class="java.lang.String"/>
+	<field name="shadd2" class="java.lang.String"/>
+	<field name="shpostal" class="java.lang.String"/>
+	<field name="shpostaladd" class="java.lang.String"/>
+	<field name="shcity" class="java.lang.String"/>
+	<field name="shcountry" class="java.lang.String"/>
+	<field name="titlehl" class="java.lang.String"/>
+	<field name="sendernamehl" class="java.lang.String"/>
+	<field name="senderadresshl" class="java.lang.String"/>
+	<field name="docnohl" class="java.lang.String"/>
+	<field name="lsdatehl" class="java.lang.String"/>
+	<field name="deldatehl" class="java.lang.String"/>
+	<field name="deladresshl" class="java.lang.String"/>
+	<field name="contacthl" class="java.lang.String"/>
+	<field name="confonhl" class="java.lang.String"/>
+	<field name="conmailhl" class="java.lang.String"/>
+	<field name="ordernohl" class="java.lang.String"/>
+	<field name="orderdatehl" class="java.lang.String"/>
+	<field name="delrefhl" class="java.lang.String"/>
+	<field name="incotermshl" class="java.lang.String"/>
+	<field name="delservicehl" class="java.lang.String"/>
+	<field name="totalwhl" class="java.lang.String"/>
+	<field name="numberpalhl" class="java.lang.String"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+	</group>
+	<title>
+		<band/>
+	</title>
+	<detail>
+		<band height="390" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="240" height="37"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{label}+$F{titlehl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="350" width="240" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numberpalhl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="331" width="240" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalwhl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="282" width="240" height="49"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{delservicehl}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="253" width="120" height="29"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{incotermshl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="253" width="120" height="29"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{delrefhl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="220" width="240" height="34"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ordernohl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="200" width="240" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{contacthl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="141" width="240" height="59"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{deladresshl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="99" width="120" height="42"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docnohl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="126" width="120" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{deldatehl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="37" width="120" height="62"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sendernamehl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="37" width="120" height="50"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="html">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{senderadresshl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="295" width="240" height="13"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{delservice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="307" width="240" height="12"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{shadd1}+$F{shadd2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="318" width="240" height="12"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{shcountry}+"-"+$F{shpostal}+" "+$F{shcity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="265" width="120" height="17"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{refno}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="121" y="220" width="119" height="17"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ordno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="238" width="119" height="17"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{orderdatehl}+": "]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="120" y="238" width="120" height="17"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{orddate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="200" width="145" height="10"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="186" width="46" height="14"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{confonhl}+" :"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="41" y="210" width="67" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(($F{phone}== null )? "" :$F{phone})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="210" width="29" height="10"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{conmailhl}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="210" width="104" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(($F{email}==null)?"":$F{email})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="151" width="240" height="12"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="163" width="240" height="12"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sadd1}+$F{sadd2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="174" width="240" height="12"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{scountry}+"-"+$F{spostal}+" "+$F{scity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="99" width="73" height="27"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{docno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="126" width="63" height="15"/>
+				<textElement>
+					<font size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lsdatehl}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="126" width="60" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lsdate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="126" width="60" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{deldate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="52" width="122" height="47"/>
+				<textElement>
+					<font size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{compname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="52" width="120" height="12"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{compname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="63" width="120" height="12"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{street}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="120" y="74" width="120" height="12" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="120" y="87" width="120" height="12"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{plzcity}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="46" y="185" width="193" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{phonenn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="265" width="100" height="17"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{incoshort}]]></textFieldExpression>
+			</textField>
+			<textField pattern="0.##">
+				<reportElement x="121" y="331" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{weight}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="331" width="20" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{wuom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="350" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{numberpal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="99" width="120" height="27"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="138" y="101" width="83" height="23"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{docno}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="1" y="210" width="40" height="10"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{confonhl}+" :"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

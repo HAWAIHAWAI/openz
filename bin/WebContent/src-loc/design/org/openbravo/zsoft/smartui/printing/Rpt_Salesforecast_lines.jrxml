@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bom_Lines" pageWidth="802" pageHeight="100" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="67"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="Detail_Line" fontName="OpenZ Sans" fontSize="8">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==1)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CCCCCC"/>
+		</conditionalStyle>
+	</style>
+	<style name="Detail_Header" mode="Opaque" forecolor="#FFFFFF" backcolor="#5D5D5D" vAlign="Middle" fontName="OpenZ Sans" fontSize="10" isBold="true">
+		<box leftPadding="5">
+			<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+			<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<parameter name="LANGUAGE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["de_DE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="c_bpartner_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="c_project_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ad_user_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AD_LANGUAGE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startdate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="enddate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ad_org_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="issparepart" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 	m.description as description,
+	(select c_bpartner.name from c_bpartner where c_bpartner.c_bpartner_id = m.c_bpartner_id)||', '||
+	(zssi_getlocationcity(m.c_bpartner_location_id)||', '||zssi_getlocationcountry(m.c_bpartner_location_id, $P{LANGUAGE})) as bpartner,
+	zssi_getusernamecomplete(m.ad_user_id, $P{LANGUAGE}) as contact,
+	zssi_getprojectorcostcentername(m.c_project_id, $P{LANGUAGE}) as project,
+	zssi_getusernamecomplete(m.salesrep_id, $P{LANGUAGE}) as salesrep,
+	(m.estpropability|| ' %') as propability,
+	zssi_strdate(m.startdate, $P{LANGUAGE}) as startdate,
+	zssi_strdate(m.enddate, $P{LANGUAGE}) as enddate,
+	(zssi_strint(m.linenetamt)|| ' €') as amount,
+	m.linenetamt as numbernettotal,
+	(select m.linenetamt from mrp_salesforecast where
+	m.mrp_salesforecast_id=mrp_salesforecast.mrp_salesforecast_id and
+	case when $P{c_bpartner_id} is not null then m.c_bpartner_id = $P{c_bpartner_id} else 1=1 end and
+	case when $P{c_project_id} is not null then m.c_project_id = $P{c_project_id} else 1=1 end and
+	case when $P{ad_user_id} is not null then m.salesrep_id = $P{ad_user_id} else 1=1 end and
+	m.estpropability = '90' and
+	(case when $P{issparepart} = 'Y' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.startdate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{startdate}, m.startdate, m.enddate) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{enddate}, m.startdate, m.enddate) = 'Y' end))
+	as numbernet90,
+	(select m.linenetamt from mrp_salesforecast where
+	m.mrp_salesforecast_id=mrp_salesforecast.mrp_salesforecast_id and
+	case when $P{c_bpartner_id} is not null then m.c_bpartner_id = $P{c_bpartner_id} else 1=1 end and
+	case when $P{c_project_id} is not null then m.c_project_id = $P{c_project_id} else 1=1 end and
+	case when $P{ad_user_id} is not null then m.salesrep_id = $P{ad_user_id} else 1=1 end and
+	m.estpropability = '75' and
+	(case when $P{issparepart} = 'Y' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.startdate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{startdate}, m.startdate, m.enddate) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{enddate}, m.startdate, m.enddate) = 'Y' end))
+	as numbernet75,
+	(select m.linenetamt from mrp_salesforecast where
+	m.mrp_salesforecast_id=mrp_salesforecast.mrp_salesforecast_id and
+	case when $P{c_bpartner_id} is not null then m.c_bpartner_id = $P{c_bpartner_id} else 1=1 end and
+	case when $P{c_project_id} is not null then m.c_project_id = $P{c_project_id} else 1=1 end and
+	case when $P{ad_user_id} is not null then m.salesrep_id = $P{ad_user_id} else 1=1 end and
+	m.estpropability = '50' and
+	(case when $P{issparepart} = 'Y' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.startdate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{startdate}, m.startdate, m.enddate) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{enddate}, m.startdate, m.enddate) = 'Y' end))
+	as numbernet50
+
+from 	mrp_salesforecast m
+
+
+where	case when $P{c_bpartner_id} is not null then m.c_bpartner_id = $P{c_bpartner_id} else 1=1 end and
+	case when $P{c_project_id} is not null then m.c_project_id = $P{c_project_id} else 1=1 end and
+	case when $P{ad_user_id} is not null then m.salesrep_id = $P{ad_user_id} else 1=1 end and
+	(case when $P{issparepart} = 'Y' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.enddate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange(m.startdate, $P{startdate}, $P{enddate}) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{startdate}, m.startdate, m.enddate) = 'Y' end or
+	case when $P{issparepart} = 'N' then zssi_isdateinrange($P{enddate}, m.startdate, m.enddate) = 'Y' end)
+
+order by m.enddate asc]]>
+	</queryString>
+	<field name="description" class="java.lang.String"/>
+	<field name="bpartner" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String"/>
+	<field name="project" class="java.lang.String"/>
+	<field name="salesrep" class="java.lang.String"/>
+	<field name="propability" class="java.lang.String"/>
+	<field name="startdate" class="java.lang.String"/>
+	<field name="enddate" class="java.lang.String"/>
+	<field name="amount" class="java.lang.String"/>
+	<field name="numbernettotal" class="java.math.BigDecimal"/>
+	<field name="numbernet90" class="java.math.BigDecimal"/>
+	<field name="numbernet75" class="java.math.BigDecimal"/>
+	<field name="numbernet50" class="java.math.BigDecimal"/>
+	<variable name="grandtotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{numbernettotal}]]></variableExpression>
+	</variable>
+	<variable name="total75" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{numbernet75}]]></variableExpression>
+	</variable>
+	<variable name="total90" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{numbernet90}]]></variableExpression>
+	</variable>
+	<variable name="total50" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{numbernet50}]]></variableExpression>
+	</variable>
+	<group name="Sum Footer">
+		<groupFooter>
+			<band splitType="Prevent">
+				<printWhenExpression><![CDATA[]]></printWhenExpression>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-9" style="Detail_Header" x="254" y="0" width="188" height="17"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Project]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" style="Detail_Header" x="0" y="0" width="174" height="17"/>
+				<box leftPadding="5" rightPadding="7">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Business Partner]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-8" style="Detail_Header" x="174" y="0" width="80" height="17"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Contact]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" style="Detail_Header" x="442" y="0" width="80" height="17"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Sales rep.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" style="Detail_Header" x="762" y="0" width="40" height="17"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Propability]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" style="Detail_Header" x="682" y="0" width="80" height="17"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" style="Detail_Header" x="522" y="0" width="80" height="17"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Start date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" style="Detail_Header" x="602" y="0" width="80" height="17"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[End date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="254" y="0" width="188" height="16"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{project}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="174" y="0" width="80" height="16"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{contact}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="174" y="16" width="628" height="16"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="442" y="0" width="80" height="16"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{salesrep}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="522" y="0" width="80" height="16"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{startdate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="602" y="0" width="80" height="16"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{enddate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="682" y="0" width="80" height="16"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="16"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{propability}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="0" y="0" width="174" height="16" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bpartner}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-2" style="Detail_Header" x="0" y="1" width="267" height="17"/>
+				<box leftPadding="5" rightPadding="7">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Summary]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="122" y="18" width="145" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{grandtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="0" y="18" width="122" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total sales forecast amount:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="0" y="34" width="122" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[90% Propability:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="0" y="50" width="122" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[75% Propability:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="0" y="66" width="122" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[50% Propability:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="267" y="18" width="122" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total offer amount:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="267" y="50" width="122" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[75% Propability:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="267" y="66" width="122" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[50% Propability:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="267" y="34" width="122" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[90% Propability:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="534" y="18" width="122" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total order amount:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" style="Detail_Header" x="267" y="1" width="267" height="17"/>
+				<box leftPadding="5" rightPadding="7">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Offers comparison]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" style="Detail_Header" x="534" y="1" width="268" height="17"/>
+				<box leftPadding="5" rightPadding="7">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Orders comparison]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="802" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="122" y="50" width="145" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total75}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="122" y="34" width="145" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total90}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="122" y="66" width="145" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total50}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="389" y="50" width="145" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="389" y="18" width="145" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="389" y="34" width="145" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="389" y="66" width="145" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00 €" isBlankWhenNull="true">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="656" y="18" width="146" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

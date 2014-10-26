@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="BusinessPartnerData" package="org.openbravo.erpWindows.PriceAdjustments">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_Offer_BPartner.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Offer_BPartner.CreatedBy) as CreatedByR, 
+        to_char(M_Offer_BPartner.Updated, ?) as updated, 
+        to_char(M_Offer_BPartner.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_Offer_BPartner.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Offer_BPartner.UpdatedBy) as UpdatedByR,
+        M_Offer_BPartner.M_Offer_Bpartner_ID, 
+M_Offer_BPartner.AD_Client_ID, 
+(CASE WHEN M_Offer_BPartner.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_Offer_BPartner.AD_Org_ID, 
+(CASE WHEN M_Offer_BPartner.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_Offer_BPartner.M_Offer_ID, 
+(CASE WHEN M_Offer_BPartner.M_Offer_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS M_Offer_IDR, 
+COALESCE(M_Offer_BPartner.IsActive, 'N') AS IsActive, 
+M_Offer_BPartner.C_BPartner_ID, 
+(CASE WHEN M_Offer_BPartner.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+ 
+        ? AS LANGUAGE 
+        FROM M_Offer_BPartner left join (select AD_Client_ID, Name from AD_Client) table1 on (M_Offer_BPartner.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_Offer_BPartner.AD_Org_ID = table2.AD_Org_ID) left join (select M_Offer_ID, Name from M_Offer) table3 on (M_Offer_BPartner.M_Offer_ID = table3.M_Offer_ID) left join (select C_BPartner_ID, Name from C_BPartner) table4 on (M_Offer_BPartner.C_BPartner_ID = table4.C_BPartner_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_Offer_BPartner.M_Offer_Bpartner_ID = ? 
+        AND M_Offer_BPartner.AD_Client_ID IN ('1') 
+           AND M_Offer_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="mOfferId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_Offer_BPartner.M_Offer_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Offer_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Offer_BPartner.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mOfferId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mOfferBpartnerId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef801132_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef801128_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef801130_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_Offer_BPartner.M_Offer_ID AS NAME
+        FROM M_Offer_BPartner
+        WHERE M_Offer_BPartner.M_Offer_Bpartner_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Offer left join (select M_Offer_ID, Name from M_Offer) table1 on (M_Offer.M_Offer_ID = table1.M_Offer_ID) WHERE M_Offer.M_Offer_ID = ?  
+    ]]></Sql>
+<Parameter name="mOfferId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Offer left join (select M_Offer_ID, Name from M_Offer) table1 on (M_Offer.M_Offer_ID = table1.M_Offer_ID) WHERE M_Offer.M_Offer_ID = ?  
+    ]]></Sql>
+<Parameter name="mOfferId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_Offer_BPartner
+        SET M_Offer_Bpartner_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , M_Offer_ID = (?) , IsActive = (?) , C_BPartner_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_Offer_BPartner.M_Offer_Bpartner_ID = ? 
+                 AND M_Offer_BPartner.M_Offer_ID = ? 
+        AND M_Offer_BPartner.AD_Client_ID IN ('1') 
+        AND M_Offer_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mOfferBpartnerId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mOfferId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cBpartnerId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mOfferBpartnerId"></Parameter>
+    
+    <Parameter name="mOfferId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Offer_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Offer_BPartner.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_Offer_BPartner 
+        (M_Offer_Bpartner_ID, AD_Client_ID, AD_Org_ID, M_Offer_ID, IsActive, C_BPartner_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mOfferBpartnerId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mOfferId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cBpartnerId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Offer_BPartner
+        WHERE M_Offer_BPartner.M_Offer_Bpartner_ID = ? 
+                 AND M_Offer_BPartner.M_Offer_ID = ? 
+        AND M_Offer_BPartner.AD_Client_ID IN ('1') 
+        AND M_Offer_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mOfferId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Offer_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Offer_BPartner.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Offer_BPartner
+        WHERE M_Offer_BPartner.M_Offer_Bpartner_ID = ? 
+                 AND M_Offer_BPartner.M_Offer_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mOfferId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_Offer_BPartner
+         WHERE M_Offer_BPartner.M_Offer_Bpartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_Offer_BPartner
+         WHERE M_Offer_BPartner.M_Offer_Bpartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

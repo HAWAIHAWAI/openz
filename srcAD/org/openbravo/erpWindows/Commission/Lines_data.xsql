@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="LinesData" package="org.openbravo.erpWindows.Commission">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_CommissionLine.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_CommissionLine.CreatedBy) as CreatedByR, 
+        to_char(C_CommissionLine.Updated, ?) as updated, 
+        to_char(C_CommissionLine.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_CommissionLine.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_CommissionLine.UpdatedBy) as UpdatedByR,
+        C_CommissionLine.C_CommissionLine_ID, 
+C_CommissionLine.AD_Client_ID, 
+(CASE WHEN C_CommissionLine.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_CommissionLine.AD_Org_ID, 
+(CASE WHEN C_CommissionLine.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_CommissionLine.C_Commission_ID, 
+(CASE WHEN C_CommissionLine.C_Commission_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS C_Commission_IDR, 
+C_CommissionLine.Line, 
+C_CommissionLine.Description, 
+COALESCE(C_CommissionLine.IsActive, 'N') AS IsActive, 
+COALESCE(C_CommissionLine.CommissionOrders, 'N') AS CommissionOrders, 
+C_CommissionLine.Org_ID, 
+(CASE WHEN C_CommissionLine.Org_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS Org_IDR, 
+C_CommissionLine.C_BP_Group_ID, 
+(CASE WHEN C_CommissionLine.C_BP_Group_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_BP_Group_IDR, 
+C_CommissionLine.C_BPartner_ID, 
+(CASE WHEN C_CommissionLine.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+C_CommissionLine.M_Product_Category_ID, 
+(CASE WHEN C_CommissionLine.M_Product_Category_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS M_Product_Category_IDR, 
+C_CommissionLine.M_Product_ID, 
+(CASE WHEN C_CommissionLine.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL8.Name IS NULL THEN TO_CHAR(table8.Name) ELSE TO_CHAR(tableTRL8.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+C_CommissionLine.C_SalesRegion_ID, 
+(CASE WHEN C_CommissionLine.C_SalesRegion_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Name), ''))),'') ) END) AS C_SalesRegion_IDR, 
+C_CommissionLine.QtySubtract, 
+C_CommissionLine.QtyMultiplier, 
+C_CommissionLine.AmtSubtract, 
+C_CommissionLine.AmtMultiplier, 
+COALESCE(C_CommissionLine.IsPositiveOnly, 'N') AS IsPositiveOnly, 
+ 
+        ? AS LANGUAGE 
+        FROM C_CommissionLine left join (select AD_Client_ID, Name from AD_Client) table1 on (C_CommissionLine.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_CommissionLine.AD_Org_ID = table2.AD_Org_ID) left join (select C_Commission_ID, Name from C_Commission) table3 on (C_CommissionLine.C_Commission_ID = table3.C_Commission_ID) left join (select AD_Org_ID, value, Name from AD_Org) table4 on (C_CommissionLine.Org_ID =  table4.AD_Org_ID) left join (select C_BP_Group_ID, Name from C_BP_Group) table5 on (C_CommissionLine.C_BP_Group_ID = table5.C_BP_Group_ID) left join (select C_BPartner_ID, Name from C_BPartner) table6 on (C_CommissionLine.C_BPartner_ID = table6.C_BPartner_ID) left join (select M_Product_Category_ID, Name from M_Product_Category) table7 on (C_CommissionLine.M_Product_Category_ID = table7.M_Product_Category_ID) left join (select M_Product_ID, Value, Name from M_Product) table8 on (C_CommissionLine.M_Product_ID = table8.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL8 on (table8.M_Product_ID = tableTRL8.M_Product_ID and tableTRL8.AD_Language = ?)  left join (select C_SalesRegion_ID, Name from C_SalesRegion) table9 on (C_CommissionLine.C_SalesRegion_ID = table9.C_SalesRegion_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_CommissionLine.C_CommissionLine_ID = ? 
+        AND C_CommissionLine.AD_Client_ID IN ('1') 
+           AND C_CommissionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cCommissionId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_CommissionLine.C_Commission_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_CommissionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_CommissionLine.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cCommissionId" id="paramKeyParent"></Parameter>
+<Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cCommissionlineId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="line"></Parameter><Parameter name="amtsubtract"></Parameter><Parameter name="cBpGroupId"></Parameter><Parameter name="cSalesregionId"></Parameter><Parameter name="amtmultiplier"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="mProductCategoryId"></Parameter><Parameter name="ispositiveonly"></Parameter><Parameter name="qtysubtract"></Parameter><Parameter name="commissionorders"></Parameter><Parameter name="orgId"></Parameter><Parameter name="qtymultiplier"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="description"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef5707_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5709" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(Line),0)+10 AS DefaultValue FROM C_CommissionLine WHERE C_Commission_ID=? 
+    ]]></Sql>
+
+<Parameter name="C_Commission_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5719_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5705_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5717_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_CommissionLine.C_Commission_ID AS NAME
+        FROM C_CommissionLine
+        WHERE C_CommissionLine.C_CommissionLine_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM C_Commission left join (select C_Commission_ID, Name from C_Commission) table1 on (C_Commission.C_Commission_ID = table1.C_Commission_ID) WHERE C_Commission.C_Commission_ID = ?  
+    ]]></Sql>
+<Parameter name="cCommissionId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM C_Commission left join (select C_Commission_ID, Name from C_Commission) table1 on (C_Commission.C_Commission_ID = table1.C_Commission_ID) WHERE C_Commission.C_Commission_ID = ?  
+    ]]></Sql>
+<Parameter name="cCommissionId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_CommissionLine
+        SET C_CommissionLine_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , C_Commission_ID = (?) , Line = TO_NUMBER(?) , Description = (?) , IsActive = (?) , CommissionOrders = (?) , Org_ID = (?) , C_BP_Group_ID = (?) , C_BPartner_ID = (?) , M_Product_Category_ID = (?) , M_Product_ID = (?) , C_SalesRegion_ID = (?) , QtySubtract = TO_NUMBER(?) , QtyMultiplier = TO_NUMBER(?) , AmtSubtract = TO_NUMBER(?) , AmtMultiplier = TO_NUMBER(?) , IsPositiveOnly = (?) , updated = now(), updatedby = ? 
+        WHERE C_CommissionLine.C_CommissionLine_ID = ? 
+                 AND C_CommissionLine.C_Commission_ID = ? 
+        AND C_CommissionLine.AD_Client_ID IN ('1') 
+        AND C_CommissionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cCommissionlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cCommissionId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="commissionorders"></Parameter> <Parameter name="orgId"></Parameter> <Parameter name="cBpGroupId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="mProductCategoryId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cSalesregionId"></Parameter> <Parameter name="qtysubtract"></Parameter> <Parameter name="qtymultiplier"></Parameter> <Parameter name="amtsubtract"></Parameter> <Parameter name="amtmultiplier"></Parameter> <Parameter name="ispositiveonly"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cCommissionlineId"></Parameter>
+    
+    <Parameter name="cCommissionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_CommissionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_CommissionLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_CommissionLine 
+        (C_CommissionLine_ID, AD_Client_ID, AD_Org_ID, C_Commission_ID, Line, Description, IsActive, CommissionOrders, Org_ID, C_BP_Group_ID, C_BPartner_ID, M_Product_Category_ID, M_Product_ID, C_SalesRegion_ID, QtySubtract, QtyMultiplier, AmtSubtract, AmtMultiplier, IsPositiveOnly, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cCommissionlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cCommissionId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="commissionorders"></Parameter> <Parameter name="orgId"></Parameter> <Parameter name="cBpGroupId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="mProductCategoryId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cSalesregionId"></Parameter> <Parameter name="qtysubtract"></Parameter> <Parameter name="qtymultiplier"></Parameter> <Parameter name="amtsubtract"></Parameter> <Parameter name="amtmultiplier"></Parameter> <Parameter name="ispositiveonly"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_CommissionLine
+        WHERE C_CommissionLine.C_CommissionLine_ID = ? 
+                 AND C_CommissionLine.C_Commission_ID = ? 
+        AND C_CommissionLine.AD_Client_ID IN ('1') 
+        AND C_CommissionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cCommissionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_CommissionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_CommissionLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_CommissionLine
+        WHERE C_CommissionLine.C_CommissionLine_ID = ? 
+                 AND C_CommissionLine.C_Commission_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cCommissionId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_CommissionLine
+         WHERE C_CommissionLine.C_CommissionLine_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_CommissionLine
+         WHERE C_CommissionLine.C_CommissionLine_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

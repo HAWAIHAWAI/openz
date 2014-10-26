@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Salary37AE3B941E2D4D99939B259B95DDA8C1Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.smartui.Employee">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_BP_SALCATEGORY.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BP_SALCATEGORY.CreatedBy) as CreatedByR, 
+        to_char(C_BP_SALCATEGORY.Updated, ?) as updated, 
+        to_char(C_BP_SALCATEGORY.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_BP_SALCATEGORY.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BP_SALCATEGORY.UpdatedBy) as UpdatedByR,
+        C_BP_SALCATEGORY.C_Bp_Salcategory_ID, 
+C_BP_SALCATEGORY.C_BPartner_ID, 
+(CASE WHEN C_BP_SALCATEGORY.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+C_BP_SALCATEGORY.AD_Client_ID, 
+C_BP_SALCATEGORY.C_Salary_Category_ID, 
+(CASE WHEN C_BP_SALCATEGORY.C_Salary_Category_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS C_Salary_Category_IDR, 
+C_BP_SALCATEGORY.Wage_Monthly, 
+C_BP_SALCATEGORY.AD_Org_ID, 
+C_BP_SALCATEGORY.Wage_Hourly, 
+C_BP_SALCATEGORY.Datefrom, 
+C_BP_SALCATEGORY.Note1, 
+C_BP_SALCATEGORY.Note2, 
+C_BP_SALCATEGORY.Note3, 
+COALESCE(C_BP_SALCATEGORY.IsActive, 'N') AS IsActive, 
+ 
+        ? AS LANGUAGE 
+        FROM C_BP_SALCATEGORY left join (select C_BPartner_ID, Name from C_BPartner) table1 on (C_BP_SALCATEGORY.C_BPartner_ID = table1.C_BPartner_ID) left join (select C_Salary_Category_ID, Name from C_Salary_Category) table2 on (C_BP_SALCATEGORY.C_Salary_Category_ID = table2.C_Salary_Category_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_BP_SALCATEGORY.C_Bp_Salcategory_ID = ? 
+        AND C_BP_SALCATEGORY.AD_Client_ID IN ('1') 
+           AND C_BP_SALCATEGORY.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="cBpartnerId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_BP_SALCATEGORY.C_BPartner_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BP_SALCATEGORY.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BP_SALCATEGORY.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+<Parameter name="cBpSalcategoryId"></Parameter><Parameter name="cSalaryCategoryId"></Parameter><Parameter name="note2"></Parameter><Parameter name="isactive"></Parameter><Parameter name="wageMonthly"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="note3"></Parameter><Parameter name="note1"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="datefrom"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="wageHourly"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1005100008_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1005100005_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1005100007_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_BP_SALCATEGORY.C_BPartner_ID AS NAME
+        FROM C_BP_SALCATEGORY
+        WHERE C_BP_SALCATEGORY.C_Bp_Salcategory_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM c_bpartneremployee_view left join (select C_BPartner_ID, Name from C_BPartner) table1 on (c_bpartneremployee_view.C_BPartner_ID = table1.C_BPartner_ID) WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM c_bpartneremployee_view left join (select C_BPartner_ID, Name from C_BPartner) table1 on (c_bpartneremployee_view.C_BPartner_ID = table1.C_BPartner_ID) WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_BP_SALCATEGORY
+        SET C_Bp_Salcategory_ID = (?) , C_BPartner_ID = (?) , AD_Client_ID = (?) , C_Salary_Category_ID = (?) , Wage_Monthly = TO_NUMBER(?) , AD_Org_ID = (?) , Wage_Hourly = TO_NUMBER(?) , Datefrom = TO_DATE(?) , Note1 = (?) , Note2 = (?) , Note3 = (?) , IsActive = (?) , updated = now(), updatedby = ? 
+        WHERE C_BP_SALCATEGORY.C_Bp_Salcategory_ID = ? 
+                 AND C_BP_SALCATEGORY.C_BPartner_ID = ? 
+        AND C_BP_SALCATEGORY.AD_Client_ID IN ('1') 
+        AND C_BP_SALCATEGORY.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cBpSalcategoryId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="wageMonthly"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="wageHourly"></Parameter> <Parameter name="datefrom"></Parameter> <Parameter name="note1"></Parameter> <Parameter name="note2"></Parameter> <Parameter name="note3"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cBpSalcategoryId"></Parameter>
+    
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BP_SALCATEGORY.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BP_SALCATEGORY.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_BP_SALCATEGORY 
+        (C_Bp_Salcategory_ID, C_BPartner_ID, AD_Client_ID, C_Salary_Category_ID, Wage_Monthly, AD_Org_ID, Wage_Hourly, Datefrom, Note1, Note2, Note3, IsActive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_DATE(?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cBpSalcategoryId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="wageMonthly"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="wageHourly"></Parameter> <Parameter name="datefrom"></Parameter> <Parameter name="note1"></Parameter> <Parameter name="note2"></Parameter> <Parameter name="note3"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BP_SALCATEGORY
+        WHERE C_BP_SALCATEGORY.C_Bp_Salcategory_ID = ? 
+                 AND C_BP_SALCATEGORY.C_BPartner_ID = ? 
+        AND C_BP_SALCATEGORY.AD_Client_ID IN ('1') 
+        AND C_BP_SALCATEGORY.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BP_SALCATEGORY.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BP_SALCATEGORY.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BP_SALCATEGORY
+        WHERE C_BP_SALCATEGORY.C_Bp_Salcategory_ID = ? 
+                 AND C_BP_SALCATEGORY.C_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_BP_SALCATEGORY
+         WHERE C_BP_SALCATEGORY.C_Bp_Salcategory_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_BP_SALCATEGORY
+         WHERE C_BP_SALCATEGORY.C_Bp_Salcategory_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ImportOrderData" package="org.openbravo.erpWindows.ImportOrders">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(I_Order.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_Order.CreatedBy) as CreatedByR, 
+        to_char(I_Order.Updated, ?) as updated, 
+        to_char(I_Order.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        I_Order.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_Order.UpdatedBy) as UpdatedByR,
+        COALESCE(I_Order.IsActive, 'N') AS IsActive, 
+I_Order.I_Order_ID, 
+COALESCE(I_Order.I_IsImported, 'N') AS I_IsImported, 
+I_Order.C_Order_ID, 
+(CASE WHEN I_Order.C_Order_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))),'') ) END) AS C_Order_IDR, 
+I_Order.C_OrderLine_ID, 
+(CASE WHEN I_Order.C_OrderLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.GrandTotal), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.LineNetAmt), ''))),'') ) END) AS C_OrderLine_IDR, 
+I_Order.I_ErrorMsg, 
+I_Order.AD_Client_ID, 
+(CASE WHEN I_Order.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Client_IDR, 
+I_Order.AD_Org_ID, 
+(CASE WHEN I_Order.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Org_IDR, 
+I_Order.DocTypeName, 
+I_Order.C_DocType_ID, 
+(CASE WHEN I_Order.C_DocType_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL6.Name IS NULL THEN TO_CHAR(table6.Name) ELSE TO_CHAR(tableTRL6.Name) END)), ''))),'') ) END) AS C_DocType_IDR, 
+I_Order.DocumentNo, 
+COALESCE(I_Order.IsSOTrx, 'N') AS IsSOTrx, 
+I_Order.Description, 
+I_Order.Vendor_Upc, 
+I_Order.SalesRep_ID, 
+(CASE WHEN I_Order.SalesRep_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS SalesRep_IDR, 
+I_Order.Order_Referenceno, 
+I_Order.C_Currency_ID, 
+(CASE WHEN I_Order.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+I_Order.M_PriceList_ID, 
+(CASE WHEN I_Order.M_PriceList_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Name), ''))),'') ) END) AS M_PriceList_IDR, 
+I_Order.PaymentTermValue, 
+I_Order.C_PaymentTerm_ID, 
+(CASE WHEN I_Order.C_PaymentTerm_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL10.Name IS NULL THEN TO_CHAR(table10.Name) ELSE TO_CHAR(tableTRL10.Name) END)), ''))),'') ) END) AS C_PaymentTerm_IDR, 
+I_Order.M_Warehouse_ID, 
+(CASE WHEN I_Order.M_Warehouse_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Name), ''))),'') ) END) AS M_Warehouse_IDR, 
+I_Order.M_Shipper_ID, 
+(CASE WHEN I_Order.M_Shipper_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Name), ''))),'') ) END) AS M_Shipper_IDR, 
+I_Order.DateOrdered, 
+I_Order.DatePromised, 
+I_Order.C_BPartner_ID, 
+(CASE WHEN I_Order.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+I_Order.Bpartnerupc, 
+I_Order.Name, 
+I_Order.BPartnerValue, 
+I_Order.BillTo_ID, 
+(CASE WHEN I_Order.BillTo_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Name), ''))),'') ) END) AS BillTo_IDR, 
+I_Order.Billto_Upc, 
+I_Order.C_BPartner_Location_ID, 
+(CASE WHEN I_Order.C_BPartner_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Name), ''))),'') ) END) AS C_BPartner_Location_IDR, 
+I_Order.C_Bpartner_Location_Upc, 
+I_Order.C_Location_ID, 
+(CASE WHEN I_Order.C_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Address1), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Address2), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Postal), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.City), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL18.Name IS NULL THEN TO_CHAR(table18.Name) ELSE TO_CHAR(tableTRL18.Name) END)), ''))),'') ) END) AS C_Location_IDR, 
+I_Order.Address1, 
+I_Order.Address2, 
+I_Order.City, 
+I_Order.Postal, 
+I_Order.RegionName, 
+I_Order.C_Region_ID, 
+(CASE WHEN I_Order.C_Region_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Name), ''))),'') ) END) AS C_Region_IDR, 
+I_Order.CountryCode, 
+I_Order.C_Country_ID, 
+(CASE WHEN I_Order.C_Country_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL20.Name IS NULL THEN TO_CHAR(table20.Name) ELSE TO_CHAR(tableTRL20.Name) END)), ''))),'') ) END) AS C_Country_IDR, 
+I_Order.AD_User_ID, 
+(CASE WHEN I_Order.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.Name), ''))),'') ) END) AS AD_User_IDR, 
+I_Order.ContactName, 
+I_Order.Phone, 
+I_Order.Email, 
+I_Order.M_Product_ID, 
+(CASE WHEN I_Order.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table22.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL22.Name IS NULL THEN TO_CHAR(table22.Name) ELSE TO_CHAR(tableTRL22.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+I_Order.UPC, 
+I_Order.ProductValue, 
+I_Order.SKU, 
+I_Order.C_UOM_ID, 
+(CASE WHEN I_Order.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL23.Name IS NULL THEN TO_CHAR(table23.Name) ELSE TO_CHAR(tableTRL23.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+I_Order.QtyOrdered, 
+I_Order.PriceActual, 
+I_Order.LineDescription, 
+I_Order.TaxIndicator, 
+I_Order.C_Tax_ID, 
+(CASE WHEN I_Order.C_Tax_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL24.Name IS NULL THEN TO_CHAR(table24.Name) ELSE TO_CHAR(tableTRL24.Name) END)), ''))),'') ) END) AS C_Tax_IDR, 
+I_Order.TaxAmt, 
+I_Order.C_Project_ID, 
+(CASE WHEN I_Order.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table25.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table25.Name), ''))),'') ) END) AS C_Project_IDR, 
+I_Order.C_Campaign_ID, 
+(CASE WHEN I_Order.C_Campaign_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table26.Name), ''))),'') ) END) AS C_Campaign_IDR, 
+I_Order.C_Activity_ID, 
+(CASE WHEN I_Order.C_Activity_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table27.Name), ''))),'') ) END) AS C_Activity_IDR, 
+I_Order.AD_OrgTrx_ID, 
+(CASE WHEN I_Order.AD_OrgTrx_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table28.Name), ''))),'') ) END) AS AD_OrgTrx_IDR, 
+I_Order.Processing, 
+COALESCE(I_Order.Processed, 'N') AS Processed, 
+ 
+        ? AS LANGUAGE 
+        FROM I_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (I_Order.C_Order_ID = table1.C_Order_ID) left join (select C_OrderLine_ID, C_Order_ID, Line, LineNetAmt from C_OrderLine) table2 on (I_Order.C_OrderLine_ID = table2.C_OrderLine_ID) left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table3 on (table2.C_Order_ID = table3.C_Order_ID) left join (select AD_Client_ID, Name from AD_Client) table4 on (I_Order.AD_Client_ID = table4.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table5 on (I_Order.AD_Org_ID = table5.AD_Org_ID) left join (select C_DocType_ID, Name from C_DocType) table6 on (I_Order.C_DocType_ID = table6.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL6 on (table6.C_DocType_ID = tableTRL6.C_DocType_ID and tableTRL6.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table7 on (I_Order.SalesRep_ID =  table7.AD_User_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table8 on (I_Order.C_Currency_ID = table8.C_Currency_ID) left join (select M_PriceList_ID, Name from M_PriceList) table9 on (I_Order.M_PriceList_ID = table9.M_PriceList_ID) left join (select C_PaymentTerm_ID, Name from C_PaymentTerm) table10 on (I_Order.C_PaymentTerm_ID = table10.C_PaymentTerm_ID) left join (select C_PaymentTerm_ID,AD_Language, Name from C_PaymentTerm_TRL) tableTRL10 on (table10.C_PaymentTerm_ID = tableTRL10.C_PaymentTerm_ID and tableTRL10.AD_Language = ?)  left join (select M_Warehouse_ID, Name from M_Warehouse) table11 on (I_Order.M_Warehouse_ID = table11.M_Warehouse_ID) left join (select M_Shipper_ID, Name from M_Shipper) table12 on (I_Order.M_Shipper_ID = table12.M_Shipper_ID) left join (select C_BPartner_ID, Name from C_BPartner) table13 on (I_Order.C_BPartner_ID = table13.C_BPartner_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table14 on (I_Order.BillTo_ID =  table14.C_BPartner_Location_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table15 on (I_Order.C_BPartner_Location_ID = table15.C_BPartner_Location_ID) left join (select C_Location_ID, Address1, Address2, Postal, City, C_Region_ID, C_Country_ID from C_Location) table16 on (I_Order.C_Location_ID = table16.C_Location_ID) left join (select C_Region_ID, Name from C_Region) table17 on (table16.C_Region_ID = table17.C_Region_ID) left join (select C_Country_ID, Name from C_Country) table18 on (table16.C_Country_ID = table18.C_Country_ID) left join (select C_Country_ID,AD_Language, Name from C_Country_TRL) tableTRL18 on (table18.C_Country_ID = tableTRL18.C_Country_ID and tableTRL18.AD_Language = ?)  left join (select C_Region_ID, Name from C_Region) table19 on (I_Order.C_Region_ID = table19.C_Region_ID) left join (select C_Country_ID, Name from C_Country) table20 on (I_Order.C_Country_ID = table20.C_Country_ID) left join (select C_Country_ID,AD_Language, Name from C_Country_TRL) tableTRL20 on (table20.C_Country_ID = tableTRL20.C_Country_ID and tableTRL20.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table21 on (I_Order.AD_User_ID = table21.AD_User_ID) left join (select M_Product_ID, Value, Name from M_Product) table22 on (I_Order.M_Product_ID = table22.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL22 on (table22.M_Product_ID = tableTRL22.M_Product_ID and tableTRL22.AD_Language = ?)  left join (select C_UOM_ID, Name from C_UOM) table23 on (I_Order.C_UOM_ID = table23.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL23 on (table23.C_UOM_ID = tableTRL23.C_UOM_ID and tableTRL23.AD_Language = ?)  left join (select C_Tax_ID, Name from C_Tax) table24 on (I_Order.C_Tax_ID = table24.C_Tax_ID) left join (select C_Tax_ID,AD_Language, Name from C_Tax_TRL) tableTRL24 on (table24.C_Tax_ID = tableTRL24.C_Tax_ID and tableTRL24.AD_Language = ?)  left join (select C_Project_ID, Value, Name from C_Project) table25 on (I_Order.C_Project_ID = table25.C_Project_ID) left join (select C_Campaign_ID, Name from C_Campaign) table26 on (I_Order.C_Campaign_ID = table26.C_Campaign_ID) left join (select C_Activity_ID, Name from C_Activity) table27 on (I_Order.C_Activity_ID = table27.C_Activity_ID) left join (select AD_Org_ID, value, Name from AD_Org) table28 on (I_Order.AD_OrgTrx_ID =  table28.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND I_Order.I_Order_ID = ? 
+        AND I_Order.AD_Client_ID IN ('1') 
+           AND I_Order.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_Order.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_Order.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="cDoctypeId"></Parameter><Parameter name="taxindicator"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cOrderId"></Parameter><Parameter name="cOrderIdr"></Parameter><Parameter name="iOrderId"></Parameter><Parameter name="cPaymenttermId"></Parameter><Parameter name="linedescription"></Parameter><Parameter name="postal"></Parameter><Parameter name="vendorUpc"></Parameter><Parameter name="paymenttermvalue"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="address1"></Parameter><Parameter name="cRegionId"></Parameter><Parameter name="iIsimported"></Parameter><Parameter name="productvalue"></Parameter><Parameter name="contactname"></Parameter><Parameter name="processed"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="cOrderlineId"></Parameter><Parameter name="cOrderlineIdr"></Parameter><Parameter name="sku"></Parameter><Parameter name="bpartnerupc"></Parameter><Parameter name="mWarehouseId"></Parameter><Parameter name="countrycode"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="issotrx"></Parameter><Parameter name="processing"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="orderReferenceno"></Parameter><Parameter name="cCampaignId"></Parameter><Parameter name="cTaxId"></Parameter><Parameter name="address2"></Parameter><Parameter name="datepromised"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="billtoId"></Parameter><Parameter name="name"></Parameter><Parameter name="adOrgtrxId"></Parameter><Parameter name="billtoUpc"></Parameter><Parameter name="cBpartnerLocationUpc"></Parameter><Parameter name="mShipperId"></Parameter><Parameter name="doctypename"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="email"></Parameter><Parameter name="cLocationId"></Parameter><Parameter name="cLocationIdr"></Parameter><Parameter name="dateordered"></Parameter><Parameter name="cActivityId"></Parameter><Parameter name="documentno"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="cCountryId"></Parameter><Parameter name="taxamt"></Parameter><Parameter name="city"></Parameter><Parameter name="description"></Parameter><Parameter name="iErrormsg"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="regionname"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cProjectIdr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="upc"></Parameter><Parameter name="bpartnervalue"></Parameter><Parameter name="priceactual"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="phone"></Parameter><Parameter name="qtyordered"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef9000_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '')  || ' - ' || COALESCE(TO_CHAR(table1.DateOrdered), '')  || ' - ' || COALESCE(TO_CHAR(table1.GrandTotal), '') ) as C_Order_ID FROM C_Order table1 WHERE table1.isActive='Y' AND table1.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Order_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9008_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9019_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9001_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table2.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table2.Name), '')  || ' - ' || COALESCE(TO_CHAR(table2.DateOrdered), '')  || ' - ' || COALESCE(TO_CHAR(table2.GrandTotal), '')  || ' - ' || COALESCE(TO_CHAR(table1.Line), '')  || ' - ' || COALESCE(TO_CHAR(table1.LineNetAmt), '') ) as C_OrderLine_ID FROM C_OrderLine table1 left join C_Order table2 on (table1.C_Order_ID = table2.C_Order_ID) WHERE table1.isActive='Y' AND table1.C_OrderLine_ID = ?  
+    ]]></Sql>
+<Parameter name="C_OrderLine_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9010_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9408_5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Address1), '')  || ' - ' || COALESCE(TO_CHAR(table1.Address2), '')  || ' - ' || COALESCE(TO_CHAR(table1.Postal), '')  || ' - ' || COALESCE(TO_CHAR(table1.City), '')  || ' - ' || COALESCE(TO_CHAR(table1.C_Region_ID), '')  || ' - ' || COALESCE(TO_CHAR(table1.C_Country_ID), '') ) as C_Location_ID FROM C_Location table1 WHERE table1.isActive='Y' AND table1.C_Location_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Location_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9004_6" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9012_7" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as C_Project_ID FROM C_Project table1 WHERE table1.isActive='Y' AND table1.C_Project_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Project_IDR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE I_Order
+        SET IsActive = (?) , I_Order_ID = (?) , I_IsImported = (?) , C_Order_ID = (?) , C_OrderLine_ID = (?) , I_ErrorMsg = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , DocTypeName = (?) , C_DocType_ID = (?) , DocumentNo = (?) , IsSOTrx = (?) , Description = (?) , Vendor_Upc = (?) , SalesRep_ID = (?) , Order_Referenceno = (?) , C_Currency_ID = (?) , M_PriceList_ID = (?) , PaymentTermValue = (?) , C_PaymentTerm_ID = (?) , M_Warehouse_ID = (?) , M_Shipper_ID = (?) , DateOrdered = TO_DATE(?) , DatePromised = TO_DATE(?) , C_BPartner_ID = (?) , Bpartnerupc = (?) , Name = (?) , BPartnerValue = (?) , BillTo_ID = (?) , Billto_Upc = (?) , C_BPartner_Location_ID = (?) , C_Bpartner_Location_Upc = (?) , C_Location_ID = (?) , Address1 = (?) , Address2 = (?) , City = (?) , Postal = (?) , RegionName = (?) , C_Region_ID = (?) , CountryCode = (?) , C_Country_ID = (?) , AD_User_ID = (?) , ContactName = (?) , Phone = (?) , Email = (?) , M_Product_ID = (?) , UPC = (?) , ProductValue = (?) , SKU = (?) , C_UOM_ID = (?) , QtyOrdered = TO_NUMBER(?) , PriceActual = TO_NUMBER(?) , LineDescription = (?) , TaxIndicator = (?) , C_Tax_ID = (?) , TaxAmt = TO_NUMBER(?) , C_Project_ID = (?) , C_Campaign_ID = (?) , C_Activity_ID = (?) , AD_OrgTrx_ID = (?) , Processing = (?) , Processed = (?) , updated = now(), updatedby = ? 
+        WHERE I_Order.I_Order_ID = ? 
+        
+        AND I_Order.AD_Client_ID IN ('1') 
+        AND I_Order.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="isactive"></Parameter> <Parameter name="iOrderId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="doctypename"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="description"></Parameter> <Parameter name="vendorUpc"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="orderReferenceno"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="paymenttermvalue"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="bpartnerupc"></Parameter> <Parameter name="name"></Parameter> <Parameter name="bpartnervalue"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="billtoUpc"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="cBpartnerLocationUpc"></Parameter> <Parameter name="cLocationId"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="city"></Parameter> <Parameter name="postal"></Parameter> <Parameter name="regionname"></Parameter> <Parameter name="cRegionId"></Parameter> <Parameter name="countrycode"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="contactname"></Parameter> <Parameter name="phone"></Parameter> <Parameter name="email"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="upc"></Parameter> <Parameter name="productvalue"></Parameter> <Parameter name="sku"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="linedescription"></Parameter> <Parameter name="taxindicator"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="taxamt"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="iOrderId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_Order.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_Order.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO I_Order 
+        (IsActive, I_Order_ID, I_IsImported, C_Order_ID, C_OrderLine_ID, I_ErrorMsg, AD_Client_ID, AD_Org_ID, DocTypeName, C_DocType_ID, DocumentNo, IsSOTrx, Description, Vendor_Upc, SalesRep_ID, Order_Referenceno, C_Currency_ID, M_PriceList_ID, PaymentTermValue, C_PaymentTerm_ID, M_Warehouse_ID, M_Shipper_ID, DateOrdered, DatePromised, C_BPartner_ID, Bpartnerupc, Name, BPartnerValue, BillTo_ID, Billto_Upc, C_BPartner_Location_ID, C_Bpartner_Location_Upc, C_Location_ID, Address1, Address2, City, Postal, RegionName, C_Region_ID, CountryCode, C_Country_ID, AD_User_ID, ContactName, Phone, Email, M_Product_ID, UPC, ProductValue, SKU, C_UOM_ID, QtyOrdered, PriceActual, LineDescription, TaxIndicator, C_Tax_ID, TaxAmt, C_Project_ID, C_Campaign_ID, C_Activity_ID, AD_OrgTrx_ID, Processing, Processed, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="isactive"></Parameter> <Parameter name="iOrderId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="cOrderlineId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="doctypename"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="description"></Parameter> <Parameter name="vendorUpc"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="orderReferenceno"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="paymenttermvalue"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="bpartnerupc"></Parameter> <Parameter name="name"></Parameter> <Parameter name="bpartnervalue"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="billtoUpc"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="cBpartnerLocationUpc"></Parameter> <Parameter name="cLocationId"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="city"></Parameter> <Parameter name="postal"></Parameter> <Parameter name="regionname"></Parameter> <Parameter name="cRegionId"></Parameter> <Parameter name="countrycode"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="contactname"></Parameter> <Parameter name="phone"></Parameter> <Parameter name="email"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="upc"></Parameter> <Parameter name="productvalue"></Parameter> <Parameter name="sku"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="linedescription"></Parameter> <Parameter name="taxindicator"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="taxamt"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_Order
+        WHERE I_Order.I_Order_ID = ? 
+        
+        AND I_Order.AD_Client_ID IN ('1') 
+        AND I_Order.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_Order.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_Order.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_Order
+        WHERE I_Order.I_Order_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM I_Order
+         WHERE I_Order.I_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM I_Order
+         WHERE I_Order.I_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

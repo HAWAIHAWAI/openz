@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="LinesData" package="org.openbravo.erpWindows.GoodsTransfer">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_MovementLine.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_MovementLine.CreatedBy) as CreatedByR, 
+        to_char(M_MovementLine.Updated, ?) as updated, 
+        to_char(M_MovementLine.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_MovementLine.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_MovementLine.UpdatedBy) as UpdatedByR,
+        M_MovementLine.M_MovementLine_ID, 
+M_MovementLine.AD_Client_ID, 
+(CASE WHEN M_MovementLine.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_MovementLine.AD_Org_ID, 
+(CASE WHEN M_MovementLine.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_MovementLine.M_Movement_ID, 
+(CASE WHEN M_MovementLine.M_Movement_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS M_Movement_IDR, 
+M_MovementLine.Line, 
+M_MovementLine.Description, 
+COALESCE(M_MovementLine.IsActive, 'N') AS IsActive, 
+M_MovementLine.M_Product_ID, 
+(CASE WHEN M_MovementLine.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+M_MovementLine.M_AttributeSetInstance_ID, 
+(CASE WHEN M_MovementLine.M_AttributeSetInstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Description), ''))),'') ) END) AS M_AttributeSetInstance_IDR, 
+M_MovementLine.QuantityOrder, 
+M_MovementLine.M_Product_Uom_Id, 
+(CASE WHEN M_MovementLine.M_Product_Uom_Id IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL7.Name IS NULL THEN TO_CHAR(table7.Name) ELSE TO_CHAR(tableTRL7.Name) END)), ''))),'') ) END) AS M_Product_Uom_IdR, 
+M_MovementLine.MovementQty, 
+M_MovementLine.C_UOM_ID, 
+(CASE WHEN M_MovementLine.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL8.Name IS NULL THEN TO_CHAR(table8.Name) ELSE TO_CHAR(tableTRL8.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+M_MovementLine.M_Locator_ID, 
+(CASE WHEN M_MovementLine.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Value), ''))),'') ) END) AS M_Locator_IDR, 
+M_MovementLine.M_LocatorTo_ID, 
+(CASE WHEN M_MovementLine.M_LocatorTo_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Value), ''))),'') ) END) AS M_LocatorTo_IDR, 
+ 
+        ? AS LANGUAGE 
+        FROM M_MovementLine left join (select AD_Client_ID, Name from AD_Client) table1 on (M_MovementLine.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_MovementLine.AD_Org_ID = table2.AD_Org_ID) left join (select M_Movement_ID, DocumentNo, Name from M_Movement) table3 on (M_MovementLine.M_Movement_ID = table3.M_Movement_ID) left join (select M_Product_ID, Value, Name from M_Product) table4 on (M_MovementLine.M_Product_ID = table4.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL4 on (table4.M_Product_ID = tableTRL4.M_Product_ID and tableTRL4.AD_Language = ?)  left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table5 on (M_MovementLine.M_AttributeSetInstance_ID = table5.M_AttributeSetInstance_ID) left join (select M_Product_Uom_Id, C_UOM_ID from M_Product_UOM) table6 on (M_MovementLine.M_Product_Uom_Id =  table6.M_Product_Uom_Id) left join (select C_UOM_ID, Name from C_UOM) table7 on (table6.C_UOM_ID = table7.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL7 on (table7.C_UOM_ID = tableTRL7.C_UOM_ID and tableTRL7.AD_Language = ?)  left join (select C_UOM_ID, Name from C_UOM) table8 on (M_MovementLine.C_UOM_ID = table8.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL8 on (table8.C_UOM_ID = tableTRL8.C_UOM_ID and tableTRL8.AD_Language = ?)  left join (select M_Locator_ID, Value from M_Locator) table9 on (M_MovementLine.M_Locator_ID = table9.M_Locator_ID) left join (select M_Locator_ID, Value from M_Locator) table10 on (M_MovementLine.M_LocatorTo_ID = table10.M_Locator_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_MovementLine.M_MovementLine_ID = ? 
+        AND M_MovementLine.AD_Client_ID IN ('1') 
+           AND M_MovementLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mMovementId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_MovementLine.M_Movement_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_MovementLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_MovementLine.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mMovementId" id="paramKeyParent"></Parameter>
+<Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mProductUomId"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="mLocatorIdr"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="line"></Parameter><Parameter name="description"></Parameter><Parameter name="mLocatortoId"></Parameter><Parameter name="mLocatortoIdr"></Parameter><Parameter name="mMovementlineId"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="quantityorder"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="movementqty"></Parameter>
+   </SqlMethod>
+
+
+   <SqlMethod name="selectAux800002" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) AS TOTAL FROM M_PRODUCT_UOM WHERE M_PRODUCT_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Product_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectAuxF5D52BE5281A4969946A5332D641DE93" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT PROCESSED FROM M_MOVEMENT WHERE M_MOVEMENT_ID = ? 
+    ]]></Sql>
+
+<Parameter name="M_MOVEMENT_ID"/>
+  </SqlMethod>
+
+
+
+
+
+   <SqlMethod name="selectDef3589_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3591_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Locator_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3587_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3593_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3820" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(Line),0)+10 AS DefaultValue FROM M_MovementLine WHERE M_Movement_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Movement_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3592_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_LocatorTo_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_LocatorTo_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8551_5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_AttributeSetInstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_AttributeSetInstance_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_MovementLine.M_Movement_ID AS NAME
+        FROM M_MovementLine
+        WHERE M_MovementLine.M_MovementLine_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Movement left join (select M_Movement_ID, DocumentNo, Name from M_Movement) table1 on (M_Movement.M_Movement_ID = table1.M_Movement_ID) WHERE M_Movement.M_Movement_ID = ?  
+    ]]></Sql>
+<Parameter name="mMovementId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Movement left join (select M_Movement_ID, DocumentNo, Name from M_Movement) table1 on (M_Movement.M_Movement_ID = table1.M_Movement_ID) WHERE M_Movement.M_Movement_ID = ?  
+    ]]></Sql>
+<Parameter name="mMovementId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_MovementLine
+        SET M_MovementLine_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , M_Movement_ID = (?) , Line = TO_NUMBER(?) , Description = (?) , IsActive = (?) , M_Product_ID = (?) , M_AttributeSetInstance_ID = (?) , QuantityOrder = TO_NUMBER(?) , M_Product_Uom_Id = (?) , MovementQty = TO_NUMBER(?) , C_UOM_ID = (?) , M_Locator_ID = (?) , M_LocatorTo_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_MovementLine.M_MovementLine_ID = ? 
+                 AND M_MovementLine.M_Movement_ID = ? 
+        AND M_MovementLine.AD_Client_ID IN ('1') 
+        AND M_MovementLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mMovementlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mMovementId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="mLocatortoId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mMovementlineId"></Parameter>
+    
+    <Parameter name="mMovementId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_MovementLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_MovementLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_MovementLine 
+        (M_MovementLine_ID, AD_Client_ID, AD_Org_ID, M_Movement_ID, Line, Description, IsActive, M_Product_ID, M_AttributeSetInstance_ID, QuantityOrder, M_Product_Uom_Id, MovementQty, C_UOM_ID, M_Locator_ID, M_LocatorTo_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mMovementlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mMovementId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="mLocatortoId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_MovementLine
+        WHERE M_MovementLine.M_MovementLine_ID = ? 
+                 AND M_MovementLine.M_Movement_ID = ? 
+        AND M_MovementLine.AD_Client_ID IN ('1') 
+        AND M_MovementLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mMovementId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_MovementLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_MovementLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_MovementLine
+        WHERE M_MovementLine.M_MovementLine_ID = ? 
+                 AND M_MovementLine.M_Movement_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mMovementId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_MovementLine
+         WHERE M_MovementLine.M_MovementLine_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_MovementLine
+         WHERE M_MovementLine.M_MovementLine_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

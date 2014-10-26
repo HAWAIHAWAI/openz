@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/***************************************************************************************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html. Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific  language  governing  rights  and  limitations
+* under the License. The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SL. Parts created by Openbravo are Copyright (C) 2001-2009 Openbravo SL
+* All Rights Reserved.
+* Contributor(s): Stefan Zimmermann, 2011, sz@zimmermann-software.de (SZ) Contributions are Copyright (C) 2011 Stefan Zimmermann
+*                 
+* 
+****************************************************************************************************************************************************/
+-->
+
+
+
+
+
+<SqlClass name="GridTestData" package="org.openz.controller.testcases">
+  <SqlClassComment></SqlClassComment>
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    <![CDATA[
+      SELECT CASE ic.issotrx WHEN 'Y' THEN 'SalesOrder' WHEN 'N' THEN 'PurchaseOrder' END AS linkname, ic.C_Order_ID,  ad_get_doctypename(ic.C_DocType_ID,?) as cdoctypename, ic.DocumentNo, bp.Name as cbpartnername, ic.DateOrdered,ic.datepromised,
+      icl.amountlines, ic.notinvoicedlines, l.Name as TermName, l.Value as TermValue, ic.pendinglines as pendinglines,icl.m_product_id ,bp.salesrep_id,bp.C_BPartner_ID,
+      zssi_limitlength55(coalesce((select m_product_po.vendorproductno from m_product_po, c_orderline,c_order where m_product_po.m_product_id=icl.m_product_id and icl.c_orderline_id=c_orderline.c_orderline_id and c_order.c_order_id=c_orderline.c_order_id and c_order.c_bpartner_id=m_product_po.c_bpartner_id AND m_product_po.vendorproductno is not null),' ')||' - '||AD_COLUMN_IDENTIFIER(to_char('M_Product'), to_char(icl.m_product_id), ?)) as product, icl.line as positionline,
+      icl.qtydelivered,icl.qtyordered,icl.c_orderline_id as orderlineid, icl.pendingqty as qtydiffpending, icl.m_inoutline_id,
+      icl.lineprice, icl.pendingprice as pricenet, icl.priceactual as priceactual, icl.pendingamt, icl.description as oldescription,
+      zssi_getprojectorcostcentername(icl.c_project_id,icl.a_asset_id) as PROJECT 
+      FROM C_Invoice_Candidate_v ic, c_invoice_candidate_lines_v icl, C_BPartner bp, AD_Ref_List l left join AD_Ref_List_trl ltrl on l.AD_Ref_List_ID=ltrl.AD_Ref_List_ID and ltrl.ad_language=?
+      WHERE  icl.c_order_id=ic.c_order_id
+      AND ic.C_BPartner_ID=bp.C_BPartner_ID
+      AND l.value = ic.term
+      AND ic.term <> 'N'
+      AND AD_Reference_ID='150'
+      AND ic.issotrx = ?
+      AND coalesce(icl.m_inout_doctype_id,'') not in ('2317023F9771481696461C5EAF9A0915','2E1E735AA91A49F8BC7181D31B09B370') 
+      AND 1=1
+      ORDER BY bp.Name,DatePromised,DateOrdered, DocumentNo, positionline
+      ]]></Sql>
+    <Field name="rownum" value="count"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="language"/>
+    <Parameter name="issotrx"/>
+  </SqlMethod>
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql></Sql>
+  </SqlMethod>
+  <SqlMethod name="initUpdate" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    <![CDATA[
+      UPDATE C_Order SET IsSelected = 'N'
+      WHERE IsSelected='Y'
+      ]]></Sql>
+  </SqlMethod>
+  <SqlMethod name="updateSelection" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    <![CDATA[
+      UPDATE C_Order SET IsSelected='Y' 
+      WHERE 1=1
+      ]]></Sql>
+    <Parameter name="parcOrdersId" optional="true" type="argument" after="WHERE 1=1" text="AND C_Order_ID IN"/>
+  </SqlMethod>
+  <SqlMethod name="resetSelection" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    <![CDATA[
+      UPDATE C_Order SET IsSelected='N' 
+      WHERE 1=1
+      ]]></Sql>
+    <Parameter name="parcOrdersId" optional="true" type="argument" after="WHERE 1=1" text="AND C_Order_ID IN"/>
+  </SqlMethod>
+  <SqlMethod name="bPartnerDescription" type="preparedStatement" return="String" default="">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    SELECT NAME FROM C_BPARTNER 
+    WHERE C_BPARTNER_ID = ?
+    </Sql>
+    <Parameter name="cBpartnerId"/>
+  </SqlMethod>
+  <SqlMethod name="treeOrg" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+        SELECT AD_TREE_ORG_ID FROM AD_CLIENTINFO
+        WHERE AD_CLIENT_ID = ?
+    </Sql>
+    <Parameter name="client"/>
+  </SqlMethod>
+  <SqlMethod name="selectOrderlines" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+        SELECT C_ORDERLINE_ID as orderlineid from c_orderline
+        WHERE c_order_id = ?
+    </Sql>
+    <Parameter name="corderId"/>
+  </SqlMethod>
+    <SqlMethod name="insert" connection="true" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      INSERT INTO C_GENERATEINVOICEMANUAL(C_GENERATEINVOICEMANUAL_ID, C_ORDERLINE_ID, C_ORDER_ID, AD_CLIENT_ID, AD_ORG_ID,  CREATEDBY, UPDATEDBY, QTY, PRICE, LINEAMT,IGNORERESIDUE, DESCRIPTION, M_InOutLine_ID)
+      VALUES(?, ?, ?, ?, ?, ?, ?, TO_NUMBER(?), TO_NUMBER(?),TO_NUMBER(?), ?, ?,?)
+      </Sql>
+      <Parameter name="cGenerateinvoicemanualId"/>
+      <Parameter name="cOrderlineId"/>
+      <Parameter name="cOrderId"/>
+      <Parameter name="adClientId"/>
+      <Parameter name="adOrgId"/>
+      <Parameter name="createdby"/>
+      <Parameter name="updatedby"/>
+      <Parameter name="qty"/>
+      <Parameter name="price"/>
+      <Parameter name="lineamt"/>
+      <Parameter name="ignoreresidue"/>
+      <Parameter name="description"/>
+      <Parameter name="mInoutlineId"/>
+  </SqlMethod>
+  <SqlMethod name="deleteerror" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      DELETE FROM C_GENERATEINVOICEMANUAL where c_invoiceline_id is null
+    </Sql>
+  </SqlMethod>
+  </SqlClass>

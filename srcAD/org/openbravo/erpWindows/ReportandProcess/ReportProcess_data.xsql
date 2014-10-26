@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ReportProcessData" package="org.openbravo.erpWindows.ReportandProcess">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Process.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Process.CreatedBy) as CreatedByR, 
+        to_char(AD_Process.Updated, ?) as updated, 
+        to_char(AD_Process.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Process.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Process.UpdatedBy) as UpdatedByR,
+        AD_Process.AD_Module_ID, 
+(CASE WHEN AD_Process.AD_Module_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Version), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Module_IDR, 
+AD_Process.AD_Client_ID, 
+(CASE WHEN AD_Process.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Process.AD_Org_ID, 
+(CASE WHEN AD_Process.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_Process.Value, 
+AD_Process.Name, 
+AD_Process.Description, 
+AD_Process.Help, 
+COALESCE(AD_Process.IsActive, 'N') AS IsActive, 
+AD_Process.AccessLevel, 
+(CASE WHEN AD_Process.AccessLevel IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS AccessLevelR, 
+AD_Process.UIPattern, 
+(CASE WHEN AD_Process.UIPattern IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS UIPatternR, 
+COALESCE(AD_Process.Manualresponse, 'N') AS Manualresponse, 
+COALESCE(AD_Process.IsReport, 'N') AS IsReport, 
+COALESCE(AD_Process.IsUserStartable, 'N') AS IsUserStartable, 
+AD_Process.Classname, 
+AD_Process.ProcedureName, 
+COALESCE(AD_Process.IsBackground, 'N') AS IsBackground, 
+COALESCE(AD_Process.IsDirectPrint, 'N') AS IsDirectPrint, 
+COALESCE(AD_Process.IsJasper, 'N') AS IsJasper, 
+COALESCE(AD_Process.Isdirectservletcall, 'N') AS Isdirectservletcall, 
+AD_Process.Jrname, 
+COALESCE(AD_Process.Isexternalservice, 'N') AS Isexternalservice, 
+AD_Process.Service_Type, 
+(CASE WHEN AD_Process.Service_Type IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS Service_TypeR, 
+AD_Process.Service_Source, 
+AD_Process.AD_Process_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Process left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table1 on (AD_Process.AD_Module_ID = table1.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table2 on (table1.AD_Language =  table2.AD_Language) left join (select AD_Client_ID, Name from AD_Client) table3 on (AD_Process.AD_Client_ID = table3.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table4 on (AD_Process.AD_Org_ID = table4.AD_Org_ID) left join ad_ref_list_v list1 on (AD_Process.AccessLevel = list1.value and list1.ad_reference_id = '5' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (AD_Process.UIPattern = list2.value and list2.ad_reference_id = '55BB57CFEF7E4EA0B3F429E4A55586D8' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (AD_Process.Service_Type = list3.value and list3.ad_reference_id = '1004400002' and list3.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_Process.AD_Process_ID = ? 
+        AND AD_Process.AD_Client_ID IN ('1') 
+           AND AD_Process.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Process.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Process.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="isdirectservletcall"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="adModuleId"></Parameter><Parameter name="isuserstartable"></Parameter><Parameter name="name"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="value"></Parameter><Parameter name="isjasper"></Parameter><Parameter name="manualresponse"></Parameter><Parameter name="serviceType"></Parameter><Parameter name="isbackground"></Parameter><Parameter name="jrname"></Parameter><Parameter name="adProcessId"></Parameter><Parameter name="uipattern"></Parameter><Parameter name="description"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="help"></Parameter><Parameter name="isreport"></Parameter><Parameter name="isexternalservice"></Parameter><Parameter name="accesslevel"></Parameter><Parameter name="isactive"></Parameter><Parameter name="isdirectprint"></Parameter><Parameter name="procedurename"></Parameter><Parameter name="serviceSource"></Parameter><Parameter name="classname"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef5661EC317B633D0FE040007F01004528" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MAX(AD_MODULE_ID) FROM AD_MODULE WHERE ISDEFAULT='Y' 
+    ]]></Sql>
+
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2806_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2808_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Process
+        SET AD_Module_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Value = (?) , Name = (?) , Description = (?) , Help = (?) , IsActive = (?) , AccessLevel = (?) , UIPattern = (?) , Manualresponse = (?) , IsReport = (?) , IsUserStartable = (?) , Classname = (?) , ProcedureName = (?) , IsBackground = (?) , IsDirectPrint = (?) , IsJasper = (?) , Isdirectservletcall = (?) , Jrname = (?) , Isexternalservice = (?) , Service_Type = (?) , Service_Source = (?) , AD_Process_ID = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Process.AD_Process_ID = ? 
+        
+        AND AD_Process.AD_Client_ID IN ('1') 
+        AND AD_Process.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adModuleId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="accesslevel"></Parameter> <Parameter name="uipattern"></Parameter> <Parameter name="manualresponse"></Parameter> <Parameter name="isreport"></Parameter> <Parameter name="isuserstartable"></Parameter> <Parameter name="classname"></Parameter> <Parameter name="procedurename"></Parameter> <Parameter name="isbackground"></Parameter> <Parameter name="isdirectprint"></Parameter> <Parameter name="isjasper"></Parameter> <Parameter name="isdirectservletcall"></Parameter> <Parameter name="jrname"></Parameter> <Parameter name="isexternalservice"></Parameter> <Parameter name="serviceType"></Parameter> <Parameter name="serviceSource"></Parameter> <Parameter name="adProcessId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adProcessId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Process.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Process.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Process 
+        (AD_Module_ID, AD_Client_ID, AD_Org_ID, Value, Name, Description, Help, IsActive, AccessLevel, UIPattern, Manualresponse, IsReport, IsUserStartable, Classname, ProcedureName, IsBackground, IsDirectPrint, IsJasper, Isdirectservletcall, Jrname, Isexternalservice, Service_Type, Service_Source, AD_Process_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adModuleId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="accesslevel"></Parameter> <Parameter name="uipattern"></Parameter> <Parameter name="manualresponse"></Parameter> <Parameter name="isreport"></Parameter> <Parameter name="isuserstartable"></Parameter> <Parameter name="classname"></Parameter> <Parameter name="procedurename"></Parameter> <Parameter name="isbackground"></Parameter> <Parameter name="isdirectprint"></Parameter> <Parameter name="isjasper"></Parameter> <Parameter name="isdirectservletcall"></Parameter> <Parameter name="jrname"></Parameter> <Parameter name="isexternalservice"></Parameter> <Parameter name="serviceType"></Parameter> <Parameter name="serviceSource"></Parameter> <Parameter name="adProcessId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Process
+        WHERE AD_Process.AD_Process_ID = ? 
+        
+        AND AD_Process.AD_Client_ID IN ('1') 
+        AND AD_Process.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Process.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Process.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Process
+        WHERE AD_Process.AD_Process_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Process
+         WHERE AD_Process.AD_Process_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Process
+         WHERE AD_Process.AD_Process_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

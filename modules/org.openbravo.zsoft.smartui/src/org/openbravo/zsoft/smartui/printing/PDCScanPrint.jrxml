@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Label_Shipment_15x10" pageWidth="68" pageHeight="68" columnWidth="64" leftMargin="2" rightMargin="2" topMargin="2" bottomMargin="0">
+	<property name="ireport.zoom" value="6.72749994932561"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="DOCUMENT_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LANGUAGE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+        m_product.m_product_id||m_internal_consumptionline.m_internal_consumptionline_id as id,
+        case when c_getconfigoption('useproductvalue2scanproducts',m_product.ad_org_id)='Y' then  m_product.value else m_product.upc end as value,
+        (CASE when snr_internal_consumptionline.serialnumber is null then snr_internal_consumptionline.lotnumber else snr_internal_consumptionline.serialnumber end) as snrbc,
+       (CASE when snr_internal_consumptionline.serialnumber is null then  snr_internal_consumptionline.lotnumber else snr_internal_consumptionline.serialnumber end) as snr,
+        case when c_getconfigoption('useproductvalue2scanproducts',m_product.ad_org_id)='Y' then  m_product.value else m_product.upc end as barcode,
+        TO_CHAR(m_internal_consumption.movementdate,'DD.MM.YYYY') as date,
+        coalesce(m_product_po.vendorproductno,'') as vendorno,
+        coalesce(c_bpartner.name,'') as vendorname,
+        substr(m_product.name,1,40) as name
+from 	m_product,
+	m_internal_consumption
+left join c_project
+on c_project.c_project_id=m_internal_consumption.c_project_id
+left join c_bpartner
+on c_bpartner.c_bpartner_id=c_project.c_bpartner_id,
+	m_internal_consumptionline
+        		left join snr_internal_consumptionline
+                     on snr_internal_consumptionline.m_internal_consumptionline_id=m_internal_consumptionline.m_internal_consumptionline_id
+        		left join m_product_po
+                     on m_product_po.m_product_id=m_internal_consumptionline.m_product_id
+where m_internal_consumptionline.m_product_id=m_product.m_product_id
+and m_internal_consumption.m_internal_consumption_id=m_internal_consumptionline.m_internal_consumption_id
+and m_internal_consumption.m_internal_consumption_id IN ($P{DOCUMENT_ID})]]>
+	</queryString>
+	<field name="id" class="java.lang.String"/>
+	<field name="value" class="java.lang.String"/>
+	<field name="snrbc" class="java.lang.String"/>
+	<field name="snr" class="java.lang.String"/>
+	<field name="barcode" class="java.lang.String"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="vendorno" class="java.lang.String"/>
+	<field name="vendorname" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+	</group>
+	<title>
+		<band/>
+	</title>
+	<detail>
+		<band height="66" splitType="Prevent">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Top">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-2" y="7" width="34" height="34" isRemoveLineWhenBlank="true"/>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($F{barcode},com.google.zxing.BarcodeFormat.QR_CODE,300,300))]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Top">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="32" y="7" width="34" height="34" isRemoveLineWhenBlank="true"/>
+				<imageExpression class="java.awt.Image"><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($F{snrbc},com.google.zxing.BarcodeFormat.QR_CODE,300,300))]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="-2" y="-2" width="68" height="11" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style size='5'>"+(($F{name}==null)?"":$F{name})+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-2" y="38" width="33" height="17" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style size='4'>"+(($F{value}==null)?"":$F{value})+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="32" y="38" width="34" height="17" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style size='4'>"+(($F{snr} == null) ?"":$F{snr})+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement positionType="Float" x="-2" y="54" width="34" height="8" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style size='3'>"+(($F{vendorname}==null)?"":$F{vendorname})+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement positionType="Float" x="31" y="54" width="33" height="8" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style size='3'>"+(($F{vendorno}==null)?"":$F{vendorno})+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement positionType="Float" x="-2" y="61" width="34" height="5" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="styled">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<style size='2.5'>"+(($F{date}==null)?"":$F{date})+"</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

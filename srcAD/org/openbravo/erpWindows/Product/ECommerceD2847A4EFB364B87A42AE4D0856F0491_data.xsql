@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ECommerceD2847A4EFB364B87A42AE4D0856F0491Data" package="org.openbravo.erpWindows.Product">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zse_product_shop.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zse_product_shop.CreatedBy) as CreatedByR, 
+        to_char(zse_product_shop.Updated, ?) as updated, 
+        to_char(zse_product_shop.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zse_product_shop.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zse_product_shop.UpdatedBy) as UpdatedByR,
+        zse_product_shop.M_Product_ID, 
+(CASE WHEN zse_product_shop.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+zse_product_shop.ZSE_Product_Shop_ID, 
+zse_product_shop.AD_Org_ID, 
+(CASE WHEN zse_product_shop.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+zse_product_shop.AD_Client_ID, 
+zse_product_shop.ZSE_Shop_ID, 
+(CASE WHEN zse_product_shop.ZSE_Shop_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'') ) END) AS ZSE_Shop_IDR, 
+zse_product_shop.Eccategory, 
+zse_product_shop.Ecpriority, 
+COALESCE(zse_product_shop.Isorderable, 'N') AS Isorderable, 
+COALESCE(zse_product_shop.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM zse_product_shop left join (select M_Product_ID, Value, Name from M_Product) table1 on (zse_product_shop.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  left join (select AD_Org_ID, Name from AD_Org) table2 on (zse_product_shop.AD_Org_ID = table2.AD_Org_ID) left join (select ZSE_Shop_ID, Value from ZSE_Shop) table3 on (zse_product_shop.ZSE_Shop_ID = table3.ZSE_Shop_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zse_product_shop.ZSE_Product_Shop_ID = ? 
+        AND zse_product_shop.AD_Client_ID IN ('1') 
+           AND zse_product_shop.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mProductId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zse_product_shop.M_Product_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zse_product_shop.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zse_product_shop.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+<Parameter name="zseShopId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="eccategory"></Parameter><Parameter name="isorderable"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="zseProductShopId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="ecpriority"></Parameter><Parameter name="adClientId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef746B8B38DC0F4B2392F1EE8995493A59_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefA36EF117A57545A48185C1536003E5AA_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zse_product_shop.M_Product_ID AS NAME
+        FROM zse_product_shop
+        WHERE zse_product_shop.ZSE_Product_Shop_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zse_product_shop
+        SET M_Product_ID = (?) , ZSE_Product_Shop_ID = (?) , AD_Org_ID = (?) , AD_Client_ID = (?) , ZSE_Shop_ID = (?) , Eccategory = (?) , Ecpriority = TO_NUMBER(?) , Isorderable = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE zse_product_shop.ZSE_Product_Shop_ID = ? 
+                 AND zse_product_shop.M_Product_ID = ? 
+        AND zse_product_shop.AD_Client_ID IN ('1') 
+        AND zse_product_shop.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mProductId"></Parameter> <Parameter name="zseProductShopId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="zseShopId"></Parameter> <Parameter name="eccategory"></Parameter> <Parameter name="ecpriority"></Parameter> <Parameter name="isorderable"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zseProductShopId"></Parameter>
+    
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zse_product_shop.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zse_product_shop.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zse_product_shop 
+        (M_Product_ID, ZSE_Product_Shop_ID, AD_Org_ID, AD_Client_ID, ZSE_Shop_ID, Eccategory, Ecpriority, Isorderable, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mProductId"></Parameter> <Parameter name="zseProductShopId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="zseShopId"></Parameter> <Parameter name="eccategory"></Parameter> <Parameter name="ecpriority"></Parameter> <Parameter name="isorderable"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zse_product_shop
+        WHERE zse_product_shop.ZSE_Product_Shop_ID = ? 
+                 AND zse_product_shop.M_Product_ID = ? 
+        AND zse_product_shop.AD_Client_ID IN ('1') 
+        AND zse_product_shop.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zse_product_shop.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zse_product_shop.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zse_product_shop
+        WHERE zse_product_shop.ZSE_Product_Shop_ID = ? 
+                 AND zse_product_shop.M_Product_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zse_product_shop
+         WHERE zse_product_shop.ZSE_Product_Shop_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zse_product_shop
+         WHERE zse_product_shop.ZSE_Product_Shop_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

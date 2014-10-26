@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="LinesData" package="org.openbravo.erpWindows.Requisition">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_RequisitionLine.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_RequisitionLine.CreatedBy) as CreatedByR, 
+        to_char(M_RequisitionLine.Updated, ?) as updated, 
+        to_char(M_RequisitionLine.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_RequisitionLine.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_RequisitionLine.UpdatedBy) as UpdatedByR,
+        M_RequisitionLine.AD_Client_ID, 
+(CASE WHEN M_RequisitionLine.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_RequisitionLine.M_Requisitionline_ID, 
+M_RequisitionLine.AD_Org_ID, 
+(CASE WHEN M_RequisitionLine.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_RequisitionLine.M_Requisition_ID, 
+(CASE WHEN M_RequisitionLine.M_Requisition_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'') ) END) AS M_Requisition_IDR, 
+COALESCE(M_RequisitionLine.IsActive, 'N') AS IsActive, 
+M_RequisitionLine.Line, 
+M_RequisitionLine.Reqstatus, 
+(CASE WHEN M_RequisitionLine.Reqstatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS ReqstatusR, 
+M_RequisitionLine.Needbydate, 
+M_RequisitionLine.M_Product_ID, 
+(CASE WHEN M_RequisitionLine.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+M_RequisitionLine.Suppliernotes, 
+M_RequisitionLine.Internalnotes, 
+M_RequisitionLine.M_AttributeSetInstance_ID, 
+(CASE WHEN M_RequisitionLine.M_AttributeSetInstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Description), ''))),'') ) END) AS M_AttributeSetInstance_IDR, 
+M_RequisitionLine.C_BPartner_ID, 
+(CASE WHEN M_RequisitionLine.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+M_RequisitionLine.A_Asset_ID, 
+(CASE WHEN M_RequisitionLine.A_Asset_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS A_Asset_IDR, 
+M_RequisitionLine.C_Project_ID, 
+(CASE WHEN M_RequisitionLine.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS C_Project_IDR, 
+M_RequisitionLine.C_Projecttask_ID, 
+(CASE WHEN M_RequisitionLine.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+M_RequisitionLine.PriceList, 
+M_RequisitionLine.PriceActual, 
+M_RequisitionLine.LineNetAmt, 
+M_RequisitionLine.QuantityOrder, 
+M_RequisitionLine.M_Product_Uom_Id, 
+(CASE WHEN M_RequisitionLine.M_Product_Uom_Id IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL12.Name IS NULL THEN TO_CHAR(table12.Name) ELSE TO_CHAR(tableTRL12.Name) END)), ''))),'') ) END) AS M_Product_Uom_IdR, 
+M_RequisitionLine.Qty, 
+M_RequisitionLine.C_UOM_ID, 
+(CASE WHEN M_RequisitionLine.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL13.Name IS NULL THEN TO_CHAR(table13.Name) ELSE TO_CHAR(tableTRL13.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+M_RequisitionLine.Orderedqty, 
+M_RequisitionLine.Lockedby, 
+(CASE WHEN M_RequisitionLine.Lockedby IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Name), ''))),'') ) END) AS LockedbyR, 
+M_RequisitionLine.Lockdate, 
+COALESCE(M_RequisitionLine.Rejected, 'N') AS Rejected, 
+M_RequisitionLine.Description, 
+M_RequisitionLine.Changestatus, 
+M_RequisitionLine.Discount, 
+M_RequisitionLine.C_Currency_ID, 
+M_RequisitionLine.Lockqty, 
+M_RequisitionLine.Lockprice, 
+M_RequisitionLine.M_PriceList_ID, 
+M_RequisitionLine.Lockcause, 
+M_RequisitionLine.C_Projectphase_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM M_RequisitionLine left join (select AD_Client_ID, Name from AD_Client) table1 on (M_RequisitionLine.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_RequisitionLine.AD_Org_ID = table2.AD_Org_ID) left join (select M_Requisition_ID, DocumentNo from M_Requisition) table3 on (M_RequisitionLine.M_Requisition_ID = table3.M_Requisition_ID) left join ad_ref_list_v list1 on (M_RequisitionLine.Reqstatus = list1.value and list1.ad_reference_id = '1004400000' and list1.ad_language = ?)  left join (select M_Product_ID, Value, Name from M_Product) table4 on (M_RequisitionLine.M_Product_ID = table4.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL4 on (table4.M_Product_ID = tableTRL4.M_Product_ID and tableTRL4.AD_Language = ?)  left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table5 on (M_RequisitionLine.M_AttributeSetInstance_ID = table5.M_AttributeSetInstance_ID) left join (select C_BPartner_ID, Name from C_BPartner) table6 on (M_RequisitionLine.C_BPartner_ID = table6.C_BPartner_ID) left join (select A_Asset_ID, Name from A_Asset) table7 on (M_RequisitionLine.A_Asset_ID = table7.A_Asset_ID) left join (select C_Project_ID, Value, Name from C_Project) table8 on (M_RequisitionLine.C_Project_ID = table8.C_Project_ID) left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table9 on (M_RequisitionLine.C_Projecttask_ID = table9.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table10 on (table9.C_Project_ID = table10.C_Project_ID) left join (select M_Product_Uom_Id, C_UOM_ID from M_Product_Uom) table11 on (M_RequisitionLine.M_Product_Uom_Id = table11.M_Product_Uom_Id) left join (select C_UOM_ID, Name from C_UOM) table12 on (table11.C_UOM_ID = table12.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL12 on (table12.C_UOM_ID = tableTRL12.C_UOM_ID and tableTRL12.AD_Language = ?)  left join (select C_UOM_ID, Name from C_UOM) table13 on (M_RequisitionLine.C_UOM_ID = table13.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL13 on (table13.C_UOM_ID = tableTRL13.C_UOM_ID and tableTRL13.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table14 on (M_RequisitionLine.Lockedby =  table14.AD_User_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_RequisitionLine.M_Requisitionline_ID = ? 
+        AND M_RequisitionLine.AD_Client_ID IN ('1') 
+           AND M_RequisitionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mRequisitionId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_RequisitionLine.M_Requisition_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_RequisitionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_RequisitionLine.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mRequisitionId" id="paramKeyParent"></Parameter>
+<Parameter name="qty"></Parameter><Parameter name="lockdate"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="priceactual"></Parameter><Parameter name="linenetamt"></Parameter><Parameter name="lockcause"></Parameter><Parameter name="suppliernotes"></Parameter><Parameter name="cProjectphaseId"></Parameter><Parameter name="line"></Parameter><Parameter name="rejected"></Parameter><Parameter name="mRequisitionlineId"></Parameter><Parameter name="description"></Parameter><Parameter name="lockqty"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="reqstatus"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cProjectIdr"></Parameter><Parameter name="pricelist"></Parameter><Parameter name="needbydate"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="changestatus"></Parameter><Parameter name="internalnotes"></Parameter><Parameter name="mProductUomId"></Parameter><Parameter name="discount"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="lockedby"></Parameter><Parameter name="quantityorder"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="lockprice"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="orderedqty"></Parameter><Parameter name="aAssetId"></Parameter>
+   </SqlMethod>
+
+
+   <SqlMethod name="selectAux1004400000" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) AS TOTAL FROM M_PRODUCT_UOM WHERE M_PRODUCT_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Product_ID"/>
+  </SqlMethod>
+
+
+
+
+
+   <SqlMethod name="selectDef39CA956F7EC448C6878FDBC4F1EDE761" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_projectphase_id AS DefaultValue FROM m_requisition WHERE m_requisition_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Requisition_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1004400040" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(LINE),0)+10 AS DefaultValue FROM M_REQUISITIONLINE WHERE M_Requisition_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Requisition_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803549_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefF51AEEAF9B12444A9DD7F520811CAAC6" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_project_id AS DefaultValue FROM m_requisition WHERE m_requisition_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Requisition_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefF51AEEAF9B12444A9DD7F520811CAAC6_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as C_Project_ID FROM C_Project table1 WHERE table1.isActive='Y' AND table1.C_Project_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Project_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1004400004_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_AttributeSetInstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_AttributeSetInstance_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803547_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1004400000_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803552_5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef90ED670C8D404D79A1C0B560146CEB41" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_projecttask_id AS DefaultValue FROM m_requisition WHERE m_requisition_ID=? 
+    ]]></Sql>
+
+<Parameter name="m_requisition_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8F6E73C87E184ACC98C52058BC9216B0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT a_asset_id AS DefaultValue FROM m_requisition WHERE m_requisition_ID=? 
+    ]]></Sql>
+
+<Parameter name="M_Requisition_ID"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_RequisitionLine.M_Requisition_ID AS NAME
+        FROM M_RequisitionLine
+        WHERE M_RequisitionLine.M_Requisitionline_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), ''))) AS NAME FROM M_Requisition left join (select M_Requisition_ID, DocumentNo from M_Requisition) table1 on (M_Requisition.M_Requisition_ID = table1.M_Requisition_ID) WHERE M_Requisition.M_Requisition_ID = ?  
+    ]]></Sql>
+<Parameter name="mRequisitionId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), ''))) AS NAME FROM M_Requisition left join (select M_Requisition_ID, DocumentNo from M_Requisition) table1 on (M_Requisition.M_Requisition_ID = table1.M_Requisition_ID) WHERE M_Requisition.M_Requisition_ID = ?  
+    ]]></Sql>
+<Parameter name="mRequisitionId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_RequisitionLine
+        SET AD_Client_ID = (?) , M_Requisitionline_ID = (?) , AD_Org_ID = (?) , M_Requisition_ID = (?) , IsActive = (?) , Line = TO_NUMBER(?) , Reqstatus = (?) , Needbydate = TO_DATE(?) , M_Product_ID = (?) , Suppliernotes = (?) , Internalnotes = (?) , M_AttributeSetInstance_ID = (?) , C_BPartner_ID = (?) , A_Asset_ID = (?) , C_Project_ID = (?) , C_Projecttask_ID = (?) , PriceList = TO_NUMBER(?) , PriceActual = TO_NUMBER(?) , LineNetAmt = TO_NUMBER(?) , QuantityOrder = TO_NUMBER(?) , M_Product_Uom_Id = (?) , Qty = TO_NUMBER(?) , C_UOM_ID = (?) , Orderedqty = TO_NUMBER(?) , Lockedby = (?) , Lockdate = TO_DATE(?) , Rejected = (?) , Description = (?) , Changestatus = (?) , Discount = TO_NUMBER(?) , C_Currency_ID = (?) , Lockqty = TO_NUMBER(?) , Lockprice = TO_NUMBER(?) , M_PriceList_ID = (?) , Lockcause = (?) , C_Projectphase_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_RequisitionLine.M_Requisitionline_ID = ? 
+                 AND M_RequisitionLine.M_Requisition_ID = ? 
+        AND M_RequisitionLine.AD_Client_ID IN ('1') 
+        AND M_RequisitionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="mRequisitionlineId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mRequisitionId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="line"></Parameter> <Parameter name="reqstatus"></Parameter> <Parameter name="needbydate"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="suppliernotes"></Parameter> <Parameter name="internalnotes"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="pricelist"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="linenetamt"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="orderedqty"></Parameter> <Parameter name="lockedby"></Parameter> <Parameter name="lockdate"></Parameter> <Parameter name="rejected"></Parameter> <Parameter name="description"></Parameter> <Parameter name="changestatus"></Parameter> <Parameter name="discount"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="lockqty"></Parameter> <Parameter name="lockprice"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="lockcause"></Parameter> <Parameter name="cProjectphaseId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mRequisitionlineId"></Parameter>
+    
+    <Parameter name="mRequisitionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_RequisitionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_RequisitionLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_RequisitionLine 
+        (AD_Client_ID, M_Requisitionline_ID, AD_Org_ID, M_Requisition_ID, IsActive, Line, Reqstatus, Needbydate, M_Product_ID, Suppliernotes, Internalnotes, M_AttributeSetInstance_ID, C_BPartner_ID, A_Asset_ID, C_Project_ID, C_Projecttask_ID, PriceList, PriceActual, LineNetAmt, QuantityOrder, M_Product_Uom_Id, Qty, C_UOM_ID, Orderedqty, Lockedby, Lockdate, Rejected, Description, Changestatus, Discount, C_Currency_ID, Lockqty, Lockprice, M_PriceList_ID, Lockcause, C_Projectphase_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_DATE(?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="mRequisitionlineId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mRequisitionId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="line"></Parameter> <Parameter name="reqstatus"></Parameter> <Parameter name="needbydate"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="suppliernotes"></Parameter> <Parameter name="internalnotes"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="pricelist"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="linenetamt"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="orderedqty"></Parameter> <Parameter name="lockedby"></Parameter> <Parameter name="lockdate"></Parameter> <Parameter name="rejected"></Parameter> <Parameter name="description"></Parameter> <Parameter name="changestatus"></Parameter> <Parameter name="discount"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="lockqty"></Parameter> <Parameter name="lockprice"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="lockcause"></Parameter> <Parameter name="cProjectphaseId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_RequisitionLine
+        WHERE M_RequisitionLine.M_Requisitionline_ID = ? 
+                 AND M_RequisitionLine.M_Requisition_ID = ? 
+        AND M_RequisitionLine.AD_Client_ID IN ('1') 
+        AND M_RequisitionLine.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mRequisitionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_RequisitionLine.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_RequisitionLine.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_RequisitionLine
+        WHERE M_RequisitionLine.M_Requisitionline_ID = ? 
+                 AND M_RequisitionLine.M_Requisition_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mRequisitionId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_RequisitionLine
+         WHERE M_RequisitionLine.M_Requisitionline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_RequisitionLine
+         WHERE M_RequisitionLine.M_Requisitionline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

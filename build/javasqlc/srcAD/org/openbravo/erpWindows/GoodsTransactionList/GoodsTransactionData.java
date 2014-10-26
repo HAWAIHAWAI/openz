@@ -1,0 +1,954 @@
+//Sqlc generated V1.O00-1
+package org.openbravo.erpWindows.GoodsTransactionList;
+
+import java.sql.*;
+
+import org.apache.log4j.Logger;
+
+import javax.servlet.ServletException;
+
+import org.openbravo.data.FieldProvider;
+import org.openbravo.database.ConnectionProvider;
+import org.openbravo.data.UtilSql;
+import org.openbravo.data.FResponse;
+import java.util.*;
+
+/**
+WAD Generated class
+ */
+class GoodsTransactionData implements FieldProvider {
+static Logger log4j = Logger.getLogger(GoodsTransactionData.class);
+  private String InitRecordNumber="0";
+  public String created;
+  public String createdbyr;
+  public String updated;
+  public String updatedTimeStamp;
+  public String updatedby;
+  public String updatedbyr;
+  public String cProjectissueId;
+  public String adOrgId;
+  public String adOrgIdr;
+  public String mLocatorId;
+  public String mLocatorIdr;
+  public String movementdate;
+  public String mProductId;
+  public String mProductIdr;
+  public String mAttributesetinstanceId;
+  public String mAttributesetinstanceIdr;
+  public String movementtype;
+  public String movementtyper;
+  public String movementqty;
+  public String cUomId;
+  public String cUomIdr;
+  public String quantityorder;
+  public String mProductUomId;
+  public String mProductUomIdr;
+  public String cProjectId;
+  public String cProjectIdr;
+  public String cProjectphaseId;
+  public String cProjecttaskId;
+  public String cProjecttaskIdr;
+  public String aAssetId;
+  public String aAssetIdr;
+  public String mInternalConsumptionlineId;
+  public String mInternalConsumptionlineIdr;
+  public String mInoutlineId;
+  public String mInoutlineIdr;
+  public String mInventorylineId;
+  public String mInventorylineIdr;
+  public String mProductionlineId;
+  public String mMovementlineId;
+  public String mMovementlineIdr;
+  public String isactive;
+  public String adClientId;
+  public String mTransactionId;
+  public String language;
+  public String adUserClient;
+  public String adOrgClient;
+  public String createdby;
+  public String trBgcolor;
+  public String totalCount;
+  public String dateTimeFormat;
+
+  public String getInitRecordNumber() {
+    return InitRecordNumber;
+  }
+
+  public String getField(String fieldName) {
+    if (fieldName.equalsIgnoreCase("created"))
+      return created;
+    else if (fieldName.equalsIgnoreCase("createdbyr"))
+      return createdbyr;
+    else if (fieldName.equalsIgnoreCase("updated"))
+      return updated;
+    else if (fieldName.equalsIgnoreCase("updated_time_stamp") || fieldName.equals("updatedTimeStamp"))
+      return updatedTimeStamp;
+    else if (fieldName.equalsIgnoreCase("updatedby"))
+      return updatedby;
+    else if (fieldName.equalsIgnoreCase("updatedbyr"))
+      return updatedbyr;
+    else if (fieldName.equalsIgnoreCase("c_projectissue_id") || fieldName.equals("cProjectissueId"))
+      return cProjectissueId;
+    else if (fieldName.equalsIgnoreCase("ad_org_id") || fieldName.equals("adOrgId"))
+      return adOrgId;
+    else if (fieldName.equalsIgnoreCase("ad_org_idr") || fieldName.equals("adOrgIdr"))
+      return adOrgIdr;
+    else if (fieldName.equalsIgnoreCase("m_locator_id") || fieldName.equals("mLocatorId"))
+      return mLocatorId;
+    else if (fieldName.equalsIgnoreCase("m_locator_idr") || fieldName.equals("mLocatorIdr"))
+      return mLocatorIdr;
+    else if (fieldName.equalsIgnoreCase("movementdate"))
+      return movementdate;
+    else if (fieldName.equalsIgnoreCase("m_product_id") || fieldName.equals("mProductId"))
+      return mProductId;
+    else if (fieldName.equalsIgnoreCase("m_product_idr") || fieldName.equals("mProductIdr"))
+      return mProductIdr;
+    else if (fieldName.equalsIgnoreCase("m_attributesetinstance_id") || fieldName.equals("mAttributesetinstanceId"))
+      return mAttributesetinstanceId;
+    else if (fieldName.equalsIgnoreCase("m_attributesetinstance_idr") || fieldName.equals("mAttributesetinstanceIdr"))
+      return mAttributesetinstanceIdr;
+    else if (fieldName.equalsIgnoreCase("movementtype"))
+      return movementtype;
+    else if (fieldName.equalsIgnoreCase("movementtyper"))
+      return movementtyper;
+    else if (fieldName.equalsIgnoreCase("movementqty"))
+      return movementqty;
+    else if (fieldName.equalsIgnoreCase("c_uom_id") || fieldName.equals("cUomId"))
+      return cUomId;
+    else if (fieldName.equalsIgnoreCase("c_uom_idr") || fieldName.equals("cUomIdr"))
+      return cUomIdr;
+    else if (fieldName.equalsIgnoreCase("quantityorder"))
+      return quantityorder;
+    else if (fieldName.equalsIgnoreCase("m_product_uom_id") || fieldName.equals("mProductUomId"))
+      return mProductUomId;
+    else if (fieldName.equalsIgnoreCase("m_product_uom_idr") || fieldName.equals("mProductUomIdr"))
+      return mProductUomIdr;
+    else if (fieldName.equalsIgnoreCase("c_project_id") || fieldName.equals("cProjectId"))
+      return cProjectId;
+    else if (fieldName.equalsIgnoreCase("c_project_idr") || fieldName.equals("cProjectIdr"))
+      return cProjectIdr;
+    else if (fieldName.equalsIgnoreCase("c_projectphase_id") || fieldName.equals("cProjectphaseId"))
+      return cProjectphaseId;
+    else if (fieldName.equalsIgnoreCase("c_projecttask_id") || fieldName.equals("cProjecttaskId"))
+      return cProjecttaskId;
+    else if (fieldName.equalsIgnoreCase("c_projecttask_idr") || fieldName.equals("cProjecttaskIdr"))
+      return cProjecttaskIdr;
+    else if (fieldName.equalsIgnoreCase("a_asset_id") || fieldName.equals("aAssetId"))
+      return aAssetId;
+    else if (fieldName.equalsIgnoreCase("a_asset_idr") || fieldName.equals("aAssetIdr"))
+      return aAssetIdr;
+    else if (fieldName.equalsIgnoreCase("m_internal_consumptionline_id") || fieldName.equals("mInternalConsumptionlineId"))
+      return mInternalConsumptionlineId;
+    else if (fieldName.equalsIgnoreCase("m_internal_consumptionline_idr") || fieldName.equals("mInternalConsumptionlineIdr"))
+      return mInternalConsumptionlineIdr;
+    else if (fieldName.equalsIgnoreCase("m_inoutline_id") || fieldName.equals("mInoutlineId"))
+      return mInoutlineId;
+    else if (fieldName.equalsIgnoreCase("m_inoutline_idr") || fieldName.equals("mInoutlineIdr"))
+      return mInoutlineIdr;
+    else if (fieldName.equalsIgnoreCase("m_inventoryline_id") || fieldName.equals("mInventorylineId"))
+      return mInventorylineId;
+    else if (fieldName.equalsIgnoreCase("m_inventoryline_idr") || fieldName.equals("mInventorylineIdr"))
+      return mInventorylineIdr;
+    else if (fieldName.equalsIgnoreCase("m_productionline_id") || fieldName.equals("mProductionlineId"))
+      return mProductionlineId;
+    else if (fieldName.equalsIgnoreCase("m_movementline_id") || fieldName.equals("mMovementlineId"))
+      return mMovementlineId;
+    else if (fieldName.equalsIgnoreCase("m_movementline_idr") || fieldName.equals("mMovementlineIdr"))
+      return mMovementlineIdr;
+    else if (fieldName.equalsIgnoreCase("isactive"))
+      return isactive;
+    else if (fieldName.equalsIgnoreCase("ad_client_id") || fieldName.equals("adClientId"))
+      return adClientId;
+    else if (fieldName.equalsIgnoreCase("m_transaction_id") || fieldName.equals("mTransactionId"))
+      return mTransactionId;
+    else if (fieldName.equalsIgnoreCase("language"))
+      return language;
+    else if (fieldName.equals("adUserClient"))
+      return adUserClient;
+    else if (fieldName.equals("adOrgClient"))
+      return adOrgClient;
+    else if (fieldName.equals("createdby"))
+      return createdby;
+    else if (fieldName.equals("trBgcolor"))
+      return trBgcolor;
+    else if (fieldName.equals("totalCount"))
+      return totalCount;
+    else if (fieldName.equals("dateTimeFormat"))
+      return dateTimeFormat;
+   else {
+     log4j.debug("Field does not exist: " + fieldName);
+     return null;
+   }
+ }
+
+/**
+Select for edit
+ */
+  public static GoodsTransactionData[] selectEdit(ConnectionProvider connectionProvider, String dateTimeFormat, String paramLanguage, String key, String adUserClient, String adOrgClient)    throws ServletException {
+    return selectEdit(connectionProvider, dateTimeFormat, paramLanguage, key, adUserClient, adOrgClient, 0, 0);
+  }
+
+/**
+Select for edit
+ */
+  public static GoodsTransactionData[] selectEdit(ConnectionProvider connectionProvider, String dateTimeFormat, String paramLanguage, String key, String adUserClient, String adOrgClient, int firstRegister, int numberRegisters)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT to_char(M_Transaction.Created, ?) as created, " +
+      "        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Transaction.CreatedBy) as CreatedByR, " +
+      "        to_char(M_Transaction.Updated, ?) as updated, " +
+      "        to_char(M_Transaction.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  " +
+      "        M_Transaction.UpdatedBy, " +
+      "        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Transaction.UpdatedBy) as UpdatedByR," +
+      "        M_Transaction.C_ProjectIssue_ID, " +
+      "M_Transaction.AD_Org_ID, " +
+      "(CASE WHEN M_Transaction.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, " +
+      "M_Transaction.M_Locator_ID, " +
+      "(CASE WHEN M_Transaction.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'') ) END) AS M_Locator_IDR, " +
+      "M_Transaction.MovementDate, " +
+      "M_Transaction.M_Product_ID, " +
+      "(CASE WHEN M_Transaction.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS M_Product_IDR, " +
+      "M_Transaction.M_AttributeSetInstance_ID, " +
+      "(CASE WHEN M_Transaction.M_AttributeSetInstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Description), ''))),'') ) END) AS M_AttributeSetInstance_IDR, " +
+      "M_Transaction.MovementType, " +
+      "(CASE WHEN M_Transaction.MovementType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS MovementTypeR, " +
+      "M_Transaction.MovementQty, " +
+      "M_Transaction.C_UOM_ID, " +
+      "(CASE WHEN M_Transaction.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL5.Name IS NULL THEN TO_CHAR(table5.Name) ELSE TO_CHAR(tableTRL5.Name) END)), ''))),'') ) END) AS C_UOM_IDR, " +
+      "M_Transaction.QuantityOrder, " +
+      "M_Transaction.M_Product_Uom_Id, " +
+      "(CASE WHEN M_Transaction.M_Product_Uom_Id IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL7.Name IS NULL THEN TO_CHAR(table7.Name) ELSE TO_CHAR(tableTRL7.Name) END)), ''))),'') ) END) AS M_Product_Uom_IdR, " +
+      "M_Transaction.C_Project_ID, " +
+      "(CASE WHEN M_Transaction.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS C_Project_IDR, " +
+      "M_Transaction.C_Projectphase_ID, " +
+      "M_Transaction.C_Projecttask_ID, " +
+      "(CASE WHEN M_Transaction.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'') ) END) AS C_Projecttask_IDR, " +
+      "M_Transaction.A_Asset_ID, " +
+      "(CASE WHEN M_Transaction.A_Asset_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Name), ''))),'') ) END) AS A_Asset_IDR, " +
+      "M_Transaction.M_Internal_Consumptionline_ID, " +
+      "(CASE WHEN M_Transaction.M_Internal_Consumptionline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL14.Name IS NULL THEN TO_CHAR(table14.Name) ELSE TO_CHAR(tableTRL14.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.MovementQty), ''))),'') ) END) AS M_Internal_Consumptionline_IDR, " +
+      "M_Transaction.M_InOutLine_ID, " +
+      "(CASE WHEN M_Transaction.M_InOutLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table16.MovementDate, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL17.Name IS NULL THEN TO_CHAR(table17.Name) ELSE TO_CHAR(tableTRL17.Name) END)), ''))),'') ) END) AS M_InOutLine_IDR, " +
+      "M_Transaction.M_InventoryLine_ID, " +
+      "(CASE WHEN M_Transaction.M_InventoryLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table18.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table18.QtyCount), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table18.Name), ''))),'') ) END) AS M_InventoryLine_IDR, " +
+      "M_Transaction.M_ProductionLine_ID, " +
+      "M_Transaction.M_MovementLine_ID, " +
+      "(CASE WHEN M_Transaction.M_MovementLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table20.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table20.MovementQty), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.Name), ''))),'') ) END) AS M_MovementLine_IDR, " +
+      "COALESCE(M_Transaction.IsActive, 'N') AS IsActive, " +
+      "M_Transaction.AD_Client_ID, " +
+      "M_Transaction.M_Transaction_ID, " +
+      "        ? AS LANGUAGE " +
+      "        FROM M_Transaction left join (select AD_Org_ID, Name from AD_Org) table1 on (M_Transaction.AD_Org_ID = table1.AD_Org_ID) left join (select M_Locator_ID, Value from M_Locator) table2 on (M_Transaction.M_Locator_ID = table2.M_Locator_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (M_Transaction.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table4 on (M_Transaction.M_AttributeSetInstance_ID = table4.M_AttributeSetInstance_ID) left join ad_ref_list_v list1 on (M_Transaction.MovementType = list1.value and list1.ad_reference_id = '189' and list1.ad_language = ?)  left join (select C_UOM_ID, Name from C_UOM) table5 on (M_Transaction.C_UOM_ID = table5.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL5 on (table5.C_UOM_ID = tableTRL5.C_UOM_ID and tableTRL5.AD_Language = ?)  left join (select M_Product_Uom_Id, C_UOM_ID from M_Product_UOM) table6 on (M_Transaction.M_Product_Uom_Id =  table6.M_Product_Uom_Id) left join (select C_UOM_ID, Name from C_UOM) table7 on (table6.C_UOM_ID = table7.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL7 on (table7.C_UOM_ID = tableTRL7.C_UOM_ID and tableTRL7.AD_Language = ?)  left join (select C_Project_ID, Value, Name from C_Project) table8 on (M_Transaction.C_Project_ID = table8.C_Project_ID) left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table9 on (M_Transaction.C_Projecttask_ID = table9.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table10 on (table9.C_Project_ID = table10.C_Project_ID) left join (select A_Asset_ID, Name from A_Asset) table11 on (M_Transaction.A_Asset_ID = table11.A_Asset_ID) left join (select M_Internal_Consumptionline_ID, M_Internal_Consumption_ID, M_Product_ID, MovementQty from M_Internal_Consumptionline) table12 on (M_Transaction.M_Internal_Consumptionline_ID = table12.M_Internal_Consumptionline_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table13 on (table12.M_Internal_Consumption_ID = table13.M_Internal_Consumption_ID) left join (select M_Product_ID, Value, Name from M_Product) table14 on (table12.M_Product_ID = table14.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL14 on (table14.M_Product_ID = tableTRL14.M_Product_ID and tableTRL14.AD_Language = ?)  left join (select M_InOutLine_ID, M_InOut_ID, M_Product_ID from M_InOutLine) table15 on (M_Transaction.M_InOutLine_ID = table15.M_InOutLine_ID) left join (select M_InOut_ID, DocumentNo, MovementDate from M_InOut) table16 on (table15.M_InOut_ID = table16.M_InOut_ID) left join (select M_Product_ID, Value, Name from M_Product) table17 on (table15.M_Product_ID = table17.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL17 on (table17.M_Product_ID = tableTRL17.M_Product_ID and tableTRL17.AD_Language = ?)  left join (select M_InventoryLine_ID, Line, QtyCount, M_Inventory_ID, Name from M_InventoryLine) table18 on (M_Transaction.M_InventoryLine_ID = table18.M_InventoryLine_ID) left join (select M_Inventory_ID, Name from M_Inventory) table19 on (table18.M_Inventory_ID = table19.M_Inventory_ID) left join (select M_MovementLine_ID, Line, MovementQty, M_Movement_ID from M_MovementLine) table20 on (M_Transaction.M_MovementLine_ID = table20.M_MovementLine_ID) left join (select M_Movement_ID, DocumentNo, Name from M_Movement) table21 on (table20.M_Movement_ID = table21.M_Movement_ID)" +
+      "        WHERE 2=2 " +
+      "        AND 1=1 " +
+      "        AND M_Transaction.M_Transaction_ID = ? " +
+      "        AND M_Transaction.AD_Client_ID IN (";
+    strSql = strSql + ((adUserClient==null || adUserClient.equals(""))?"":adUserClient);
+    strSql = strSql + 
+      ") " +
+      "           AND M_Transaction.AD_Org_ID IN (";
+    strSql = strSql + ((adOrgClient==null || adOrgClient.equals(""))?"":adOrgClient);
+    strSql = strSql + 
+      ") ";
+
+    ResultSet result;
+    Vector<java.lang.Object> vector = new Vector<java.lang.Object>(0);
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, dateTimeFormat);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, dateTimeFormat);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, paramLanguage);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, paramLanguage);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, paramLanguage);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, paramLanguage);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, paramLanguage);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, paramLanguage);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, paramLanguage);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, key);
+      if (adUserClient != null && !(adUserClient.equals(""))) {
+        }
+      if (adOrgClient != null && !(adOrgClient.equals(""))) {
+        }
+
+      result = st.executeQuery();
+      long countRecord = 0;
+      long countRecordSkip = 1;
+      boolean continueResult = true;
+      while(countRecordSkip < firstRegister && continueResult) {
+        continueResult = result.next();
+        countRecordSkip++;
+      }
+      while(continueResult && result.next()) {
+        countRecord++;
+        GoodsTransactionData objectGoodsTransactionData = new GoodsTransactionData();
+        objectGoodsTransactionData.created = UtilSql.getValue(result, "created");
+        objectGoodsTransactionData.createdbyr = UtilSql.getValue(result, "createdbyr");
+        objectGoodsTransactionData.updated = UtilSql.getValue(result, "updated");
+        objectGoodsTransactionData.updatedTimeStamp = UtilSql.getValue(result, "updated_time_stamp");
+        objectGoodsTransactionData.updatedby = UtilSql.getValue(result, "updatedby");
+        objectGoodsTransactionData.updatedbyr = UtilSql.getValue(result, "updatedbyr");
+        objectGoodsTransactionData.cProjectissueId = UtilSql.getValue(result, "c_projectissue_id");
+        objectGoodsTransactionData.adOrgId = UtilSql.getValue(result, "ad_org_id");
+        objectGoodsTransactionData.adOrgIdr = UtilSql.getValue(result, "ad_org_idr");
+        objectGoodsTransactionData.mLocatorId = UtilSql.getValue(result, "m_locator_id");
+        objectGoodsTransactionData.mLocatorIdr = UtilSql.getValue(result, "m_locator_idr");
+        objectGoodsTransactionData.movementdate = UtilSql.getDateValue(result, "movementdate", "dd-MM-yyyy");
+        objectGoodsTransactionData.mProductId = UtilSql.getValue(result, "m_product_id");
+        objectGoodsTransactionData.mProductIdr = UtilSql.getValue(result, "m_product_idr");
+        objectGoodsTransactionData.mAttributesetinstanceId = UtilSql.getValue(result, "m_attributesetinstance_id");
+        objectGoodsTransactionData.mAttributesetinstanceIdr = UtilSql.getValue(result, "m_attributesetinstance_idr");
+        objectGoodsTransactionData.movementtype = UtilSql.getValue(result, "movementtype");
+        objectGoodsTransactionData.movementtyper = UtilSql.getValue(result, "movementtyper");
+        objectGoodsTransactionData.movementqty = UtilSql.getValue(result, "movementqty");
+        objectGoodsTransactionData.cUomId = UtilSql.getValue(result, "c_uom_id");
+        objectGoodsTransactionData.cUomIdr = UtilSql.getValue(result, "c_uom_idr");
+        objectGoodsTransactionData.quantityorder = UtilSql.getValue(result, "quantityorder");
+        objectGoodsTransactionData.mProductUomId = UtilSql.getValue(result, "m_product_uom_id");
+        objectGoodsTransactionData.mProductUomIdr = UtilSql.getValue(result, "m_product_uom_idr");
+        objectGoodsTransactionData.cProjectId = UtilSql.getValue(result, "c_project_id");
+        objectGoodsTransactionData.cProjectIdr = UtilSql.getValue(result, "c_project_idr");
+        objectGoodsTransactionData.cProjectphaseId = UtilSql.getValue(result, "c_projectphase_id");
+        objectGoodsTransactionData.cProjecttaskId = UtilSql.getValue(result, "c_projecttask_id");
+        objectGoodsTransactionData.cProjecttaskIdr = UtilSql.getValue(result, "c_projecttask_idr");
+        objectGoodsTransactionData.aAssetId = UtilSql.getValue(result, "a_asset_id");
+        objectGoodsTransactionData.aAssetIdr = UtilSql.getValue(result, "a_asset_idr");
+        objectGoodsTransactionData.mInternalConsumptionlineId = UtilSql.getValue(result, "m_internal_consumptionline_id");
+        objectGoodsTransactionData.mInternalConsumptionlineIdr = UtilSql.getValue(result, "m_internal_consumptionline_idr");
+        objectGoodsTransactionData.mInoutlineId = UtilSql.getValue(result, "m_inoutline_id");
+        objectGoodsTransactionData.mInoutlineIdr = UtilSql.getValue(result, "m_inoutline_idr");
+        objectGoodsTransactionData.mInventorylineId = UtilSql.getValue(result, "m_inventoryline_id");
+        objectGoodsTransactionData.mInventorylineIdr = UtilSql.getValue(result, "m_inventoryline_idr");
+        objectGoodsTransactionData.mProductionlineId = UtilSql.getValue(result, "m_productionline_id");
+        objectGoodsTransactionData.mMovementlineId = UtilSql.getValue(result, "m_movementline_id");
+        objectGoodsTransactionData.mMovementlineIdr = UtilSql.getValue(result, "m_movementline_idr");
+        objectGoodsTransactionData.isactive = UtilSql.getValue(result, "isactive");
+        objectGoodsTransactionData.adClientId = UtilSql.getValue(result, "ad_client_id");
+        objectGoodsTransactionData.mTransactionId = UtilSql.getValue(result, "m_transaction_id");
+        objectGoodsTransactionData.language = UtilSql.getValue(result, "language");
+        objectGoodsTransactionData.adUserClient = "";
+        objectGoodsTransactionData.adOrgClient = "";
+        objectGoodsTransactionData.createdby = "";
+        objectGoodsTransactionData.trBgcolor = "";
+        objectGoodsTransactionData.totalCount = "";
+        objectGoodsTransactionData.InitRecordNumber = Integer.toString(firstRegister);
+        vector.addElement(objectGoodsTransactionData);
+        if (countRecord >= numberRegisters && numberRegisters != 0) {
+          continueResult = false;
+        }
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    GoodsTransactionData objectGoodsTransactionData[] = new GoodsTransactionData[vector.size()];
+    vector.copyInto(objectGoodsTransactionData);
+    return(objectGoodsTransactionData);
+  }
+
+/**
+Create a registry
+ */
+  public static GoodsTransactionData[] set(String mInventorylineId, String mProductId, String mProductIdr, String mInternalConsumptionlineId, String cProjectId, String mAttributesetinstanceId, String mAttributesetinstanceIdr, String movementqty, String cUomId, String cProjectissueId, String cProjecttaskId, String quantityorder, String mTransactionId, String adClientId, String movementtype, String adOrgId, String mMovementlineId, String mInoutlineId, String mInoutlineIdr, String mLocatorId, String mLocatorIdr, String createdby, String createdbyr, String cProjectphaseId, String updatedby, String updatedbyr, String mProductUomId, String isactive, String mProductionlineId, String movementdate, String aAssetId)    throws ServletException {
+    GoodsTransactionData objectGoodsTransactionData[] = new GoodsTransactionData[1];
+    objectGoodsTransactionData[0] = new GoodsTransactionData();
+    objectGoodsTransactionData[0].created = "";
+    objectGoodsTransactionData[0].createdbyr = createdbyr;
+    objectGoodsTransactionData[0].updated = "";
+    objectGoodsTransactionData[0].updatedTimeStamp = "";
+    objectGoodsTransactionData[0].updatedby = updatedby;
+    objectGoodsTransactionData[0].updatedbyr = updatedbyr;
+    objectGoodsTransactionData[0].cProjectissueId = cProjectissueId;
+    objectGoodsTransactionData[0].adOrgId = adOrgId;
+    objectGoodsTransactionData[0].adOrgIdr = "";
+    objectGoodsTransactionData[0].mLocatorId = mLocatorId;
+    objectGoodsTransactionData[0].mLocatorIdr = mLocatorIdr;
+    objectGoodsTransactionData[0].movementdate = movementdate;
+    objectGoodsTransactionData[0].mProductId = mProductId;
+    objectGoodsTransactionData[0].mProductIdr = mProductIdr;
+    objectGoodsTransactionData[0].mAttributesetinstanceId = mAttributesetinstanceId;
+    objectGoodsTransactionData[0].mAttributesetinstanceIdr = mAttributesetinstanceIdr;
+    objectGoodsTransactionData[0].movementtype = movementtype;
+    objectGoodsTransactionData[0].movementtyper = "";
+    objectGoodsTransactionData[0].movementqty = movementqty;
+    objectGoodsTransactionData[0].cUomId = cUomId;
+    objectGoodsTransactionData[0].cUomIdr = "";
+    objectGoodsTransactionData[0].quantityorder = quantityorder;
+    objectGoodsTransactionData[0].mProductUomId = mProductUomId;
+    objectGoodsTransactionData[0].mProductUomIdr = "";
+    objectGoodsTransactionData[0].cProjectId = cProjectId;
+    objectGoodsTransactionData[0].cProjectIdr = "";
+    objectGoodsTransactionData[0].cProjectphaseId = cProjectphaseId;
+    objectGoodsTransactionData[0].cProjecttaskId = cProjecttaskId;
+    objectGoodsTransactionData[0].cProjecttaskIdr = "";
+    objectGoodsTransactionData[0].aAssetId = aAssetId;
+    objectGoodsTransactionData[0].aAssetIdr = "";
+    objectGoodsTransactionData[0].mInternalConsumptionlineId = mInternalConsumptionlineId;
+    objectGoodsTransactionData[0].mInternalConsumptionlineIdr = "";
+    objectGoodsTransactionData[0].mInoutlineId = mInoutlineId;
+    objectGoodsTransactionData[0].mInoutlineIdr = mInoutlineIdr;
+    objectGoodsTransactionData[0].mInventorylineId = mInventorylineId;
+    objectGoodsTransactionData[0].mInventorylineIdr = "";
+    objectGoodsTransactionData[0].mProductionlineId = mProductionlineId;
+    objectGoodsTransactionData[0].mMovementlineId = mMovementlineId;
+    objectGoodsTransactionData[0].mMovementlineIdr = "";
+    objectGoodsTransactionData[0].isactive = isactive;
+    objectGoodsTransactionData[0].adClientId = adClientId;
+    objectGoodsTransactionData[0].mTransactionId = mTransactionId;
+    objectGoodsTransactionData[0].language = "";
+    return objectGoodsTransactionData;
+  }
+
+/**
+Select for auxiliar field
+ */
+  public static String selectAux800006(ConnectionProvider connectionProvider, String M_Product_ID)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT (CASE COUNT(*) WHEN 0 THEN 0 ELSE 1 END) AS TOTAL FROM M_PRODUCT_UOM WHERE M_PRODUCT_ID=? ";
+
+    ResultSet result;
+    String strReturn = "";
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, M_Product_ID);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "total");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+/**
+Select for auxiliar field
+ */
+  public static String selectDef3668_0(ConnectionProvider connectionProvider, String M_Product_IDR)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  ";
+
+    ResultSet result;
+    String strReturn = "";
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, M_Product_IDR);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "m_product_id");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+/**
+Select for auxiliar field
+ */
+  public static String selectDef9867_1(ConnectionProvider connectionProvider, String M_AttributeSetInstance_IDR)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_AttributeSetInstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  ";
+
+    ResultSet result;
+    String strReturn = "";
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, M_AttributeSetInstance_IDR);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "m_attributesetinstance_id");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+/**
+Select for auxiliar field
+ */
+  public static String selectDef3673_2(ConnectionProvider connectionProvider, String M_InOutLine_IDR)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT  ( COALESCE(TO_CHAR(table2.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table2.MovementDate), '')  || ' - ' || COALESCE(TO_CHAR(table3.Value), '')  || ' - ' || COALESCE(TO_CHAR(table3.Name), '') ) as M_InOutLine_ID FROM M_InOutLine table1 left join M_InOut table2 on (table1.M_InOut_ID = table2.M_InOut_ID) left join M_Product table3 on (table1.M_Product_ID = table3.M_Product_ID) WHERE table1.isActive='Y' AND table1.M_InOutLine_ID = ?  ";
+
+    ResultSet result;
+    String strReturn = "";
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, M_InOutLine_IDR);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "m_inoutline_id");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+/**
+Select for auxiliar field
+ */
+  public static String selectDef3667_3(ConnectionProvider connectionProvider, String M_Locator_IDR)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  ";
+
+    ResultSet result;
+    String strReturn = "";
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, M_Locator_IDR);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "m_locator_id");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+/**
+Select for auxiliar field
+ */
+  public static String selectDef3663_4(ConnectionProvider connectionProvider, String CreatedByR)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  ";
+
+    ResultSet result;
+    String strReturn = "";
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, CreatedByR);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "createdby");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+/**
+Select for auxiliar field
+ */
+  public static String selectDef3665_5(ConnectionProvider connectionProvider, String UpdatedByR)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  ";
+
+    ResultSet result;
+    String strReturn = "";
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, UpdatedByR);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "updatedby");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+  public int update(Connection conn, ConnectionProvider connectionProvider)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        UPDATE M_Transaction" +
+      "        SET C_ProjectIssue_ID = (?) , AD_Org_ID = (?) , M_Locator_ID = (?) , MovementDate = TO_DATE(?) , M_Product_ID = (?) , M_AttributeSetInstance_ID = (?) , MovementType = (?) , MovementQty = TO_NUMBER(?) , C_UOM_ID = (?) , QuantityOrder = TO_NUMBER(?) , M_Product_Uom_Id = (?) , C_Project_ID = (?) , C_Projectphase_ID = (?) , C_Projecttask_ID = (?) , A_Asset_ID = (?) , M_Internal_Consumptionline_ID = (?) , M_InOutLine_ID = (?) , M_InventoryLine_ID = (?) , M_ProductionLine_ID = (?) , M_MovementLine_ID = (?) , IsActive = (?) , AD_Client_ID = (?) , M_Transaction_ID = (?) , updated = now(), updatedby = ? " +
+      "        WHERE M_Transaction.M_Transaction_ID = ? " +
+      "        AND M_Transaction.AD_Client_ID IN (";
+    strSql = strSql + ((adUserClient==null || adUserClient.equals(""))?"":adUserClient);
+    strSql = strSql + 
+      ") " +
+      "        AND M_Transaction.AD_Org_ID IN (";
+    strSql = strSql + ((adOrgClient==null || adOrgClient.equals(""))?"":adOrgClient);
+    strSql = strSql + 
+      ") ";
+
+    int updateCount = 0;
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(conn, strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjectissueId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, adOrgId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mLocatorId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, movementdate);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mProductId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mAttributesetinstanceId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, movementtype);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, movementqty);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cUomId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, quantityorder);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mProductUomId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjectId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjectphaseId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjecttaskId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, aAssetId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mInternalConsumptionlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mInoutlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mInventorylineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mProductionlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mMovementlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, isactive);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, adClientId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mTransactionId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, updatedby);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mTransactionId);
+      if (adUserClient != null && !(adUserClient.equals(""))) {
+        }
+      if (adOrgClient != null && !(adOrgClient.equals(""))) {
+        }
+
+      updateCount = st.executeUpdate();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releaseTransactionalPreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(updateCount);
+  }
+
+  public int insert(Connection conn, ConnectionProvider connectionProvider)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        INSERT INTO M_Transaction " +
+      "        (C_ProjectIssue_ID, AD_Org_ID, M_Locator_ID, MovementDate, M_Product_ID, M_AttributeSetInstance_ID, MovementType, MovementQty, C_UOM_ID, QuantityOrder, M_Product_Uom_Id, C_Project_ID, C_Projectphase_ID, C_Projecttask_ID, A_Asset_ID, M_Internal_Consumptionline_ID, M_InOutLine_ID, M_InventoryLine_ID, M_ProductionLine_ID, M_MovementLine_ID, IsActive, AD_Client_ID, M_Transaction_ID, created, createdby, updated, updatedBy)" +
+      "        VALUES ((?), (?), (?), TO_DATE(?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)";
+
+    int updateCount = 0;
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(conn, strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjectissueId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, adOrgId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mLocatorId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, movementdate);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mProductId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mAttributesetinstanceId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, movementtype);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, movementqty);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cUomId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, quantityorder);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mProductUomId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjectId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjectphaseId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, cProjecttaskId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, aAssetId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mInternalConsumptionlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mInoutlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mInventorylineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mProductionlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mMovementlineId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, isactive);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, adClientId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, mTransactionId);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, createdby);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, updatedby);
+
+      updateCount = st.executeUpdate();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releaseTransactionalPreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(updateCount);
+  }
+
+  public static int delete(ConnectionProvider connectionProvider, String param1, String adUserClient, String adOrgClient)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        DELETE FROM M_Transaction" +
+      "        WHERE M_Transaction.M_Transaction_ID = ? " +
+      "        AND M_Transaction.AD_Client_ID IN (";
+    strSql = strSql + ((adUserClient==null || adUserClient.equals(""))?"":adUserClient);
+    strSql = strSql + 
+      ") " +
+      "        AND M_Transaction.AD_Org_ID IN (";
+    strSql = strSql + ((adOrgClient==null || adOrgClient.equals(""))?"":adOrgClient);
+    strSql = strSql + 
+      ") ";
+
+    int updateCount = 0;
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, param1);
+      if (adUserClient != null && !(adUserClient.equals(""))) {
+        }
+      if (adOrgClient != null && !(adOrgClient.equals(""))) {
+        }
+
+      updateCount = st.executeUpdate();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(updateCount);
+  }
+
+  public static int deleteTransactional(Connection conn, ConnectionProvider connectionProvider, String param1)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        DELETE FROM M_Transaction" +
+      "        WHERE M_Transaction.M_Transaction_ID = ? ";
+
+    int updateCount = 0;
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(conn, strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, param1);
+
+      updateCount = st.executeUpdate();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releaseTransactionalPreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(updateCount);
+  }
+
+/**
+Select for relation
+ */
+  public static String selectOrg(ConnectionProvider connectionProvider, String id)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT AD_ORG_ID" +
+      "          FROM M_Transaction" +
+      "         WHERE M_Transaction.M_Transaction_ID = ? ";
+
+    ResultSet result;
+    String strReturn = null;
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, id);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "ad_org_id");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+
+  public static String getCurrentDBTimestamp(ConnectionProvider connectionProvider, String id)    throws ServletException {
+    String strSql = "";
+    strSql = strSql + 
+      "        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp" +
+      "          FROM M_Transaction" +
+      "         WHERE M_Transaction.M_Transaction_ID = ? ";
+
+    ResultSet result;
+    String strReturn = null;
+    PreparedStatement st = null;
+
+    int iParameter = 0;
+    try {
+    st = connectionProvider.getPreparedStatement(strSql);
+      iParameter++; UtilSql.setValue(st, iParameter, 12, null, id);
+
+      result = st.executeQuery();
+      if(result.next()) {
+        strReturn = UtilSql.getValue(result, "updated_time_stamp");
+      }
+      result.close();
+    } catch(SQLException e){
+      log4j.error("SQL error in query: " + strSql + "Exception:"+ e);
+      throw new ServletException("@CODE=" + e.getSQLState() + "@" + e.getMessage());
+    } catch(Exception ex){
+      log4j.error("Exception in query: " + strSql + "Exception:"+ ex);
+      throw new ServletException("@CODE=@" + ex.getMessage());
+    } finally {
+      try {
+        connectionProvider.releasePreparedStatement(st);
+      } catch(Exception ignore){
+        ignore.printStackTrace();
+      }
+    }
+    return(strReturn);
+  }
+}

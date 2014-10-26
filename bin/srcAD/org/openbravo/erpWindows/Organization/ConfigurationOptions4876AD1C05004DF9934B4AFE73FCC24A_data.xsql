@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ConfigurationOptions4876AD1C05004DF9934B4AFE73FCC24AData" package="org.openbravo.erpWindows.Organization">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(c_orgconfiguration.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_orgconfiguration.CreatedBy) as CreatedByR, 
+        to_char(c_orgconfiguration.Updated, ?) as updated, 
+        to_char(c_orgconfiguration.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        c_orgconfiguration.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_orgconfiguration.UpdatedBy) as UpdatedByR,
+        c_orgconfiguration.c_orgconfiguration_id, 
+c_orgconfiguration.AD_Org_ID, 
+(CASE WHEN c_orgconfiguration.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+c_orgconfiguration.AD_Client_ID, 
+(CASE WHEN c_orgconfiguration.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Client_IDR, 
+COALESCE(c_orgconfiguration.Isstandard, 'N') AS Isstandard, 
+COALESCE(c_orgconfiguration.Deliveryofservices, 'N') AS Deliveryofservices, 
+COALESCE(c_orgconfiguration.Isactive, 'N') AS Isactive, 
+COALESCE(c_orgconfiguration.ActivatePOBPartnerPreselection, 'N') AS ActivatePOBPartnerPreselection, 
+COALESCE(c_orgconfiguration.Datevonlycreditdebit, 'N') AS Datevonlycreditdebit, 
+COALESCE(c_orgconfiguration.Automaterial2project, 'N') AS Automaterial2project, 
+COALESCE(c_orgconfiguration.Activateinternalconsumptionauto, 'N') AS Activateinternalconsumptionauto, 
+COALESCE(c_orgconfiguration.Createprojectfromso, 'N') AS Createprojectfromso, 
+COALESCE(c_orgconfiguration.Generatestdtaskfromso, 'N') AS Generatestdtaskfromso, 
+COALESCE(c_orgconfiguration.Closeprojectfromso, 'N') AS Closeprojectfromso, 
+COALESCE(c_orgconfiguration.Bringbackmorematerialthanreceived, 'N') AS Bringbackmorematerialthanreceived, 
+COALESCE(c_orgconfiguration.Synchronizeworkstepboms, 'N') AS Synchronizeworkstepboms, 
+COALESCE(c_orgconfiguration.Projectonlyapprovedproducts, 'N') AS Projectonlyapprovedproducts, 
+COALESCE(c_orgconfiguration.Projectgetmatontaskstart, 'N') AS Projectgetmatontaskstart, 
+COALESCE(c_orgconfiguration.Datevexportprojasset, 'N') AS Datevexportprojasset, 
+COALESCE(c_orgconfiguration.Projectmatpanautowhengetmat, 'N') AS Projectmatpanautowhengetmat, 
+COALESCE(c_orgconfiguration.Reinvoiceprojectexpenses, 'N') AS Reinvoiceprojectexpenses, 
+COALESCE(c_orgconfiguration.Autoprojectvaluesequence, 'N') AS Autoprojectvaluesequence, 
+COALESCE(c_orgconfiguration.Projectvaluereadonly, 'N') AS Projectvaluereadonly, 
+COALESCE(c_orgconfiguration.Projectmangerworkflow, 'N') AS Projectmangerworkflow, 
+COALESCE(c_orgconfiguration.Poprojectworkflow, 'N') AS Poprojectworkflow, 
+c_orgconfiguration.Defaultpoapprovalamt, 
+COALESCE(c_orgconfiguration.Prapprovalworkflow, 'N') AS Prapprovalworkflow, 
+c_orgconfiguration.Defaultprapprovalamt, 
+COALESCE(c_orgconfiguration.Pipurchaserdisplay, 'N') AS Pipurchaserdisplay, 
+COALESCE(c_orgconfiguration.Orderrequisitionrestriction, 'N') AS Orderrequisitionrestriction, 
+COALESCE(c_orgconfiguration.Offerpropabilitynotnull, 'N') AS Offerpropabilitynotnull, 
+COALESCE(c_orgconfiguration.Orderprojectnotnull, 'N') AS Orderprojectnotnull, 
+COALESCE(c_orgconfiguration.Datepromisednotnull, 'N') AS Datepromisednotnull, 
+COALESCE(c_orgconfiguration.Activatepoinvoiceautomatically, 'N') AS Activatepoinvoiceautomatically, 
+COALESCE(c_orgconfiguration.Activatereceiptautomatically, 'N') AS Activatereceiptautomatically, 
+COALESCE(c_orgconfiguration.Activatesoinvoiceautomatically, 'N') AS Activatesoinvoiceautomatically, 
+COALESCE(c_orgconfiguration.Activateshipmentautomatically, 'N') AS Activateshipmentautomatically, 
+COALESCE(c_orgconfiguration.Docnoreadonly, 'N') AS Docnoreadonly, 
+COALESCE(c_orgconfiguration.Autoproductvaluesequence, 'N') AS Autoproductvaluesequence, 
+COALESCE(c_orgconfiguration.Productvaluereadonly, 'N') AS Productvaluereadonly, 
+COALESCE(c_orgconfiguration.Useproductvalue2scanproducts, 'N') AS Useproductvalue2scanproducts, 
+COALESCE(c_orgconfiguration.Autoproducteansequence, 'N') AS Autoproducteansequence, 
+COALESCE(c_orgconfiguration.Autoselectlotnumber, 'N') AS Autoselectlotnumber, 
+COALESCE(c_orgconfiguration.Autobpartnervaluesequence, 'N') AS Autobpartnervaluesequence, 
+COALESCE(c_orgconfiguration.Bpartnervaluereadonly, 'N') AS Bpartnervaluereadonly, 
+c_orgconfiguration.Refreshintervall, 
+ 
+        ? AS LANGUAGE 
+        FROM c_orgconfiguration left join (select AD_Org_ID, Name from AD_Org) table1 on (c_orgconfiguration.AD_Org_ID = table1.AD_Org_ID) left join (select AD_Client_ID, Name from AD_Client) table2 on (c_orgconfiguration.AD_Client_ID = table2.AD_Client_ID)
+        WHERE 2=2 
+ AND c_orgconfiguration.ad_org_id=?
+        AND 1=1 
+        AND c_orgconfiguration.c_orgconfiguration_id = ? 
+        AND c_orgconfiguration.AD_Client_ID IN ('1') 
+           AND c_orgconfiguration.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="ad_org_id"/>
+
+    <Parameter name="adOrgId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND c_orgconfiguration.AD_Org_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_orgconfiguration.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_orgconfiguration.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+<Parameter name="synchronizeworkstepboms"></Parameter><Parameter name="poprojectworkflow"></Parameter><Parameter name="datepromisednotnull"></Parameter><Parameter name="reinvoiceprojectexpenses"></Parameter><Parameter name="activatepoinvoiceautomatically"></Parameter><Parameter name="activatepobpartnerpreselection"></Parameter><Parameter name="projectgetmatontaskstart"></Parameter><Parameter name="autoproductvaluesequence"></Parameter><Parameter name="orderrequisitionrestriction"></Parameter><Parameter name="activateinternalconsumptionauto"></Parameter><Parameter name="projectmangerworkflow"></Parameter><Parameter name="datevonlycreditdebit"></Parameter><Parameter name="autobpartnervaluesequence"></Parameter><Parameter name="projectonlyapprovedproducts"></Parameter><Parameter name="offerpropabilitynotnull"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="activatereceiptautomatically"></Parameter><Parameter name="closeprojectfromso"></Parameter><Parameter name="datevexportprojasset"></Parameter><Parameter name="bpartnervaluereadonly"></Parameter><Parameter name="autoprojectvaluesequence"></Parameter><Parameter name="defaultpoapprovalamt"></Parameter><Parameter name="projectmatpanautowhengetmat"></Parameter><Parameter name="autoselectlotnumber"></Parameter><Parameter name="docnoreadonly"></Parameter><Parameter name="deliveryofservices"></Parameter><Parameter name="productvaluereadonly"></Parameter><Parameter name="projectvaluereadonly"></Parameter><Parameter name="isstandard"></Parameter><Parameter name="automaterial2project"></Parameter><Parameter name="activatesoinvoiceautomatically"></Parameter><Parameter name="cOrgconfigurationId"></Parameter><Parameter name="bringbackmorematerialthanreceived"></Parameter><Parameter name="refreshintervall"></Parameter><Parameter name="orderprojectnotnull"></Parameter><Parameter name="generatestdtaskfromso"></Parameter><Parameter name="createprojectfromso"></Parameter><Parameter name="defaultprapprovalamt"></Parameter><Parameter name="prapprovalworkflow"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="pipurchaserdisplay"></Parameter><Parameter name="useproductvalue2scanproducts"></Parameter><Parameter name="autoproducteansequence"></Parameter><Parameter name="activateshipmentautomatically"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef96ADB0FF81F24B95876A09A80B4C4087_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8CF3A910C14A4BFAA8A1267155933BBB_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_orgconfiguration.AD_Org_ID AS NAME
+        FROM c_orgconfiguration
+        WHERE c_orgconfiguration.c_orgconfiguration_id = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE c_orgconfiguration
+        SET c_orgconfiguration_id = (?) , AD_Org_ID = (?) , AD_Client_ID = (?) , Isstandard = (?) , Deliveryofservices = (?) , Isactive = (?) , ActivatePOBPartnerPreselection = (?) , Datevonlycreditdebit = (?) , Automaterial2project = (?) , Activateinternalconsumptionauto = (?) , Createprojectfromso = (?) , Generatestdtaskfromso = (?) , Closeprojectfromso = (?) , Bringbackmorematerialthanreceived = (?) , Synchronizeworkstepboms = (?) , Projectonlyapprovedproducts = (?) , Projectgetmatontaskstart = (?) , Datevexportprojasset = (?) , Projectmatpanautowhengetmat = (?) , Reinvoiceprojectexpenses = (?) , Autoprojectvaluesequence = (?) , Projectvaluereadonly = (?) , Projectmangerworkflow = (?) , Poprojectworkflow = (?) , Defaultpoapprovalamt = TO_NUMBER(?) , Prapprovalworkflow = (?) , Defaultprapprovalamt = TO_NUMBER(?) , Pipurchaserdisplay = (?) , Orderrequisitionrestriction = (?) , Offerpropabilitynotnull = (?) , Orderprojectnotnull = (?) , Datepromisednotnull = (?) , Activatepoinvoiceautomatically = (?) , Activatereceiptautomatically = (?) , Activatesoinvoiceautomatically = (?) , Activateshipmentautomatically = (?) , Docnoreadonly = (?) , Autoproductvaluesequence = (?) , Productvaluereadonly = (?) , Useproductvalue2scanproducts = (?) , Autoproducteansequence = (?) , Autoselectlotnumber = (?) , Autobpartnervaluesequence = (?) , Bpartnervaluereadonly = (?) , Refreshintervall = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE c_orgconfiguration.c_orgconfiguration_id = ? 
+                 AND c_orgconfiguration.AD_Org_ID = ? 
+        AND c_orgconfiguration.AD_Client_ID IN ('1') 
+        AND c_orgconfiguration.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cOrgconfigurationId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isstandard"></Parameter> <Parameter name="deliveryofservices"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="activatepobpartnerpreselection"></Parameter> <Parameter name="datevonlycreditdebit"></Parameter> <Parameter name="automaterial2project"></Parameter> <Parameter name="activateinternalconsumptionauto"></Parameter> <Parameter name="createprojectfromso"></Parameter> <Parameter name="generatestdtaskfromso"></Parameter> <Parameter name="closeprojectfromso"></Parameter> <Parameter name="bringbackmorematerialthanreceived"></Parameter> <Parameter name="synchronizeworkstepboms"></Parameter> <Parameter name="projectonlyapprovedproducts"></Parameter> <Parameter name="projectgetmatontaskstart"></Parameter> <Parameter name="datevexportprojasset"></Parameter> <Parameter name="projectmatpanautowhengetmat"></Parameter> <Parameter name="reinvoiceprojectexpenses"></Parameter> <Parameter name="autoprojectvaluesequence"></Parameter> <Parameter name="projectvaluereadonly"></Parameter> <Parameter name="projectmangerworkflow"></Parameter> <Parameter name="poprojectworkflow"></Parameter> <Parameter name="defaultpoapprovalamt"></Parameter> <Parameter name="prapprovalworkflow"></Parameter> <Parameter name="defaultprapprovalamt"></Parameter> <Parameter name="pipurchaserdisplay"></Parameter> <Parameter name="orderrequisitionrestriction"></Parameter> <Parameter name="offerpropabilitynotnull"></Parameter> <Parameter name="orderprojectnotnull"></Parameter> <Parameter name="datepromisednotnull"></Parameter> <Parameter name="activatepoinvoiceautomatically"></Parameter> <Parameter name="activatereceiptautomatically"></Parameter> <Parameter name="activatesoinvoiceautomatically"></Parameter> <Parameter name="activateshipmentautomatically"></Parameter> <Parameter name="docnoreadonly"></Parameter> <Parameter name="autoproductvaluesequence"></Parameter> <Parameter name="productvaluereadonly"></Parameter> <Parameter name="useproductvalue2scanproducts"></Parameter> <Parameter name="autoproducteansequence"></Parameter> <Parameter name="autoselectlotnumber"></Parameter> <Parameter name="autobpartnervaluesequence"></Parameter> <Parameter name="bpartnervaluereadonly"></Parameter> <Parameter name="refreshintervall"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cOrgconfigurationId"></Parameter>
+    
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_orgconfiguration.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_orgconfiguration.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO c_orgconfiguration 
+        (c_orgconfiguration_id, AD_Org_ID, AD_Client_ID, Isstandard, Deliveryofservices, Isactive, ActivatePOBPartnerPreselection, Datevonlycreditdebit, Automaterial2project, Activateinternalconsumptionauto, Createprojectfromso, Generatestdtaskfromso, Closeprojectfromso, Bringbackmorematerialthanreceived, Synchronizeworkstepboms, Projectonlyapprovedproducts, Projectgetmatontaskstart, Datevexportprojasset, Projectmatpanautowhengetmat, Reinvoiceprojectexpenses, Autoprojectvaluesequence, Projectvaluereadonly, Projectmangerworkflow, Poprojectworkflow, Defaultpoapprovalamt, Prapprovalworkflow, Defaultprapprovalamt, Pipurchaserdisplay, Orderrequisitionrestriction, Offerpropabilitynotnull, Orderprojectnotnull, Datepromisednotnull, Activatepoinvoiceautomatically, Activatereceiptautomatically, Activatesoinvoiceautomatically, Activateshipmentautomatically, Docnoreadonly, Autoproductvaluesequence, Productvaluereadonly, Useproductvalue2scanproducts, Autoproducteansequence, Autoselectlotnumber, Autobpartnervaluesequence, Bpartnervaluereadonly, Refreshintervall, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cOrgconfigurationId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isstandard"></Parameter> <Parameter name="deliveryofservices"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="activatepobpartnerpreselection"></Parameter> <Parameter name="datevonlycreditdebit"></Parameter> <Parameter name="automaterial2project"></Parameter> <Parameter name="activateinternalconsumptionauto"></Parameter> <Parameter name="createprojectfromso"></Parameter> <Parameter name="generatestdtaskfromso"></Parameter> <Parameter name="closeprojectfromso"></Parameter> <Parameter name="bringbackmorematerialthanreceived"></Parameter> <Parameter name="synchronizeworkstepboms"></Parameter> <Parameter name="projectonlyapprovedproducts"></Parameter> <Parameter name="projectgetmatontaskstart"></Parameter> <Parameter name="datevexportprojasset"></Parameter> <Parameter name="projectmatpanautowhengetmat"></Parameter> <Parameter name="reinvoiceprojectexpenses"></Parameter> <Parameter name="autoprojectvaluesequence"></Parameter> <Parameter name="projectvaluereadonly"></Parameter> <Parameter name="projectmangerworkflow"></Parameter> <Parameter name="poprojectworkflow"></Parameter> <Parameter name="defaultpoapprovalamt"></Parameter> <Parameter name="prapprovalworkflow"></Parameter> <Parameter name="defaultprapprovalamt"></Parameter> <Parameter name="pipurchaserdisplay"></Parameter> <Parameter name="orderrequisitionrestriction"></Parameter> <Parameter name="offerpropabilitynotnull"></Parameter> <Parameter name="orderprojectnotnull"></Parameter> <Parameter name="datepromisednotnull"></Parameter> <Parameter name="activatepoinvoiceautomatically"></Parameter> <Parameter name="activatereceiptautomatically"></Parameter> <Parameter name="activatesoinvoiceautomatically"></Parameter> <Parameter name="activateshipmentautomatically"></Parameter> <Parameter name="docnoreadonly"></Parameter> <Parameter name="autoproductvaluesequence"></Parameter> <Parameter name="productvaluereadonly"></Parameter> <Parameter name="useproductvalue2scanproducts"></Parameter> <Parameter name="autoproducteansequence"></Parameter> <Parameter name="autoselectlotnumber"></Parameter> <Parameter name="autobpartnervaluesequence"></Parameter> <Parameter name="bpartnervaluereadonly"></Parameter> <Parameter name="refreshintervall"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_orgconfiguration
+        WHERE c_orgconfiguration.c_orgconfiguration_id = ? 
+                 AND c_orgconfiguration.AD_Org_ID = ? 
+        AND c_orgconfiguration.AD_Client_ID IN ('1') 
+        AND c_orgconfiguration.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_orgconfiguration.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_orgconfiguration.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_orgconfiguration
+        WHERE c_orgconfiguration.c_orgconfiguration_id = ? 
+                 AND c_orgconfiguration.AD_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM c_orgconfiguration
+         WHERE c_orgconfiguration.c_orgconfiguration_id = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM c_orgconfiguration
+         WHERE c_orgconfiguration.c_orgconfiguration_id = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

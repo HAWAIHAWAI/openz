@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="BinContentsData" package="org.openbravo.erpWindows.WarehouseandStorageBins">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_Storage_Detail.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Storage_Detail.CreatedBy) as CreatedByR, 
+        to_char(M_Storage_Detail.Updated, ?) as updated, 
+        to_char(M_Storage_Detail.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_Storage_Detail.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Storage_Detail.UpdatedBy) as UpdatedByR,
+        M_Storage_Detail.AD_Client_ID, 
+(CASE WHEN M_Storage_Detail.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_Storage_Detail.AD_Org_ID, 
+(CASE WHEN M_Storage_Detail.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_Storage_Detail.M_Locator_ID, 
+(CASE WHEN M_Storage_Detail.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'') ) END) AS M_Locator_IDR, 
+M_Storage_Detail.M_Product_ID, 
+(CASE WHEN M_Storage_Detail.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+M_Storage_Detail.M_AttributeSetInstance_ID, 
+(CASE WHEN M_Storage_Detail.M_AttributeSetInstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Description), ''))),'') ) END) AS M_AttributeSetInstance_IDR, 
+COALESCE(M_Storage_Detail.IsActive, 'N') AS IsActive, 
+M_Storage_Detail.DateLastInventory, 
+M_Storage_Detail.C_UOM_ID, 
+(CASE WHEN M_Storage_Detail.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL6.Name IS NULL THEN TO_CHAR(table6.Name) ELSE TO_CHAR(tableTRL6.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+M_Storage_Detail.M_Product_Uom_Id, 
+(CASE WHEN M_Storage_Detail.M_Product_Uom_Id IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL8.Name IS NULL THEN TO_CHAR(table8.Name) ELSE TO_CHAR(tableTRL8.Name) END)), ''))),'') ) END) AS M_Product_Uom_IdR, 
+M_Storage_Detail.QtyOnHand, 
+M_Storage_Detail.QtyOrderOnHand, 
+M_Storage_Detail.PreQtyOnHand, 
+M_Storage_Detail.PreQtyOrderOnHand, 
+M_Storage_Detail.M_Storage_Detail_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM M_Storage_Detail left join (select AD_Client_ID, Name from AD_Client) table1 on (M_Storage_Detail.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_Storage_Detail.AD_Org_ID = table2.AD_Org_ID) left join (select M_Locator_ID, Value from M_Locator) table3 on (M_Storage_Detail.M_Locator_ID = table3.M_Locator_ID) left join (select M_Product_ID, Value, Name from M_Product) table4 on (M_Storage_Detail.M_Product_ID = table4.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL4 on (table4.M_Product_ID = tableTRL4.M_Product_ID and tableTRL4.AD_Language = ?)  left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table5 on (M_Storage_Detail.M_AttributeSetInstance_ID = table5.M_AttributeSetInstance_ID) left join (select C_UOM_ID, Name from C_UOM) table6 on (M_Storage_Detail.C_UOM_ID = table6.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL6 on (table6.C_UOM_ID = tableTRL6.C_UOM_ID and tableTRL6.AD_Language = ?)  left join (select M_Product_Uom_Id, C_UOM_ID from M_Product_Uom) table7 on (M_Storage_Detail.M_Product_Uom_Id = table7.M_Product_Uom_Id) left join (select C_UOM_ID, Name from C_UOM) table8 on (table7.C_UOM_ID = table8.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL8 on (table8.C_UOM_ID = tableTRL8.C_UOM_ID and tableTRL8.AD_Language = ?) 
+        WHERE 2=2 
+ AND M_Storage_Detail.qtyonhand <>0 AND M_Storage_Detail.M_Locator_ID = ?
+        AND 1=1 
+        AND M_Storage_Detail.M_Storage_Detail_ID = ? 
+        AND M_Storage_Detail.AD_Client_ID IN ('1') 
+           AND M_Storage_Detail.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="M_Locator_ID"/>
+
+    <Parameter name="mLocatorId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_Storage_Detail.M_Locator_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Storage_Detail.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Storage_Detail.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mLocatorId" id="paramKeyParent"></Parameter>
+<Parameter name="cUomId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="datelastinventory"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mLocatorIdr"></Parameter><Parameter name="qtyorderonhand"></Parameter><Parameter name="mProductUomId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="preqtyonhand"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="preqtyorderonhand"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="qtyonhand"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="mStorageDetailId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef800649_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800634_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Locator_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800647_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800633_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800635_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_AttributeSetInstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_AttributeSetInstance_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_Storage_Detail.M_Locator_ID AS NAME
+        FROM M_Storage_Detail
+        WHERE M_Storage_Detail.M_Storage_Detail_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))) AS NAME FROM M_Locator left join (select M_Locator_ID, Value from M_Locator) table1 on (M_Locator.M_Locator_ID = table1.M_Locator_ID) WHERE M_Locator.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="mLocatorId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))) AS NAME FROM M_Locator left join (select M_Locator_ID, Value from M_Locator) table1 on (M_Locator.M_Locator_ID = table1.M_Locator_ID) WHERE M_Locator.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="mLocatorId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_Storage_Detail
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , M_Locator_ID = (?) , M_Product_ID = (?) , M_AttributeSetInstance_ID = (?) , IsActive = (?) , DateLastInventory = TO_DATE(?) , C_UOM_ID = (?) , M_Product_Uom_Id = (?) , QtyOnHand = TO_NUMBER(?) , QtyOrderOnHand = TO_NUMBER(?) , PreQtyOnHand = TO_NUMBER(?) , PreQtyOrderOnHand = TO_NUMBER(?) , M_Storage_Detail_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_Storage_Detail.M_Storage_Detail_ID = ? 
+                 AND M_Storage_Detail.M_Locator_ID = ? 
+        AND M_Storage_Detail.AD_Client_ID IN ('1') 
+        AND M_Storage_Detail.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="datelastinventory"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="qtyonhand"></Parameter> <Parameter name="qtyorderonhand"></Parameter> <Parameter name="preqtyonhand"></Parameter> <Parameter name="preqtyorderonhand"></Parameter> <Parameter name="mStorageDetailId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mStorageDetailId"></Parameter>
+    
+    <Parameter name="mLocatorId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Storage_Detail.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Storage_Detail.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_Storage_Detail 
+        (AD_Client_ID, AD_Org_ID, M_Locator_ID, M_Product_ID, M_AttributeSetInstance_ID, IsActive, DateLastInventory, C_UOM_ID, M_Product_Uom_Id, QtyOnHand, QtyOrderOnHand, PreQtyOnHand, PreQtyOrderOnHand, M_Storage_Detail_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="datelastinventory"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="qtyonhand"></Parameter> <Parameter name="qtyorderonhand"></Parameter> <Parameter name="preqtyonhand"></Parameter> <Parameter name="preqtyorderonhand"></Parameter> <Parameter name="mStorageDetailId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Storage_Detail
+        WHERE M_Storage_Detail.M_Storage_Detail_ID = ? 
+                 AND M_Storage_Detail.M_Locator_ID = ? 
+        AND M_Storage_Detail.AD_Client_ID IN ('1') 
+        AND M_Storage_Detail.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mLocatorId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Storage_Detail.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Storage_Detail.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Storage_Detail
+        WHERE M_Storage_Detail.M_Storage_Detail_ID = ? 
+                 AND M_Storage_Detail.M_Locator_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mLocatorId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_Storage_Detail
+         WHERE M_Storage_Detail.M_Storage_Detail_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_Storage_Detail
+         WHERE M_Storage_Detail.M_Storage_Detail_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

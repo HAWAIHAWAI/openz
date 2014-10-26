@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="AttributeValueData" package="org.openbravo.erpWindows.Attribute">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_AttributeValue.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_AttributeValue.CreatedBy) as CreatedByR, 
+        to_char(M_AttributeValue.Updated, ?) as updated, 
+        to_char(M_AttributeValue.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_AttributeValue.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_AttributeValue.UpdatedBy) as UpdatedByR,
+        M_AttributeValue.M_AttributeValue_ID, 
+M_AttributeValue.AD_Client_ID, 
+(CASE WHEN M_AttributeValue.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_AttributeValue.AD_Org_ID, 
+(CASE WHEN M_AttributeValue.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_AttributeValue.M_Attribute_ID, 
+(CASE WHEN M_AttributeValue.M_Attribute_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS M_Attribute_IDR, 
+M_AttributeValue.Value, 
+M_AttributeValue.Name, 
+M_AttributeValue.Description, 
+COALESCE(M_AttributeValue.IsActive, 'N') AS IsActive, 
+ 
+        ? AS LANGUAGE 
+        FROM M_AttributeValue left join (select AD_Client_ID, Name from AD_Client) table1 on (M_AttributeValue.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_AttributeValue.AD_Org_ID = table2.AD_Org_ID) left join (select M_Attribute_ID, Name from M_Attribute) table3 on (M_AttributeValue.M_Attribute_ID = table3.M_Attribute_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_AttributeValue.M_AttributeValue_ID = ? 
+        AND M_AttributeValue.AD_Client_ID IN ('1') 
+           AND M_AttributeValue.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="mAttributeId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_AttributeValue.M_Attribute_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_AttributeValue.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_AttributeValue.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mAttributeId" id="paramKeyParent"></Parameter>
+<Parameter name="name"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mAttributevalueId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="value"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef8461_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8462_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_AttributeValue.M_Attribute_ID AS NAME
+        FROM M_AttributeValue
+        WHERE M_AttributeValue.M_AttributeValue_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Attribute left join (select M_Attribute_ID, Name from M_Attribute) table1 on (M_Attribute.M_Attribute_ID = table1.M_Attribute_ID) WHERE M_Attribute.M_Attribute_ID = ?  
+    ]]></Sql>
+<Parameter name="mAttributeId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_Attribute left join (select M_Attribute_ID, Name from M_Attribute) table1 on (M_Attribute.M_Attribute_ID = table1.M_Attribute_ID) WHERE M_Attribute.M_Attribute_ID = ?  
+    ]]></Sql>
+<Parameter name="mAttributeId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_AttributeValue
+        SET M_AttributeValue_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , M_Attribute_ID = (?) , Value = (?) , Name = (?) , Description = (?) , IsActive = (?) , updated = now(), updatedby = ? 
+        WHERE M_AttributeValue.M_AttributeValue_ID = ? 
+                 AND M_AttributeValue.M_Attribute_ID = ? 
+        AND M_AttributeValue.AD_Client_ID IN ('1') 
+        AND M_AttributeValue.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mAttributevalueId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mAttributeId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mAttributevalueId"></Parameter>
+    
+    <Parameter name="mAttributeId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_AttributeValue.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_AttributeValue.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_AttributeValue 
+        (M_AttributeValue_ID, AD_Client_ID, AD_Org_ID, M_Attribute_ID, Value, Name, Description, IsActive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mAttributevalueId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mAttributeId"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_AttributeValue
+        WHERE M_AttributeValue.M_AttributeValue_ID = ? 
+                 AND M_AttributeValue.M_Attribute_ID = ? 
+        AND M_AttributeValue.AD_Client_ID IN ('1') 
+        AND M_AttributeValue.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mAttributeId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_AttributeValue.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_AttributeValue.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_AttributeValue
+        WHERE M_AttributeValue.M_AttributeValue_ID = ? 
+                 AND M_AttributeValue.M_Attribute_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mAttributeId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_AttributeValue
+         WHERE M_AttributeValue.M_AttributeValue_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_AttributeValue
+         WHERE M_AttributeValue.M_AttributeValue_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ImportBudgetData" package="org.openbravo.erpWindows.ImportBudget">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(I_Budgetline.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_Budgetline.CreatedBy) as CreatedByR, 
+        to_char(I_Budgetline.Updated, ?) as updated, 
+        to_char(I_Budgetline.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        I_Budgetline.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = I_Budgetline.UpdatedBy) as UpdatedByR,
+        I_Budgetline.I_Budgetline_ID, 
+COALESCE(I_Budgetline.I_IsImported, 'N') AS I_IsImported, 
+I_Budgetline.C_Budgetline_ID, 
+(CASE WHEN I_Budgetline.C_Budgetline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.SeqNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS C_Budgetline_IDR, 
+I_Budgetline.I_ErrorMsg, 
+I_Budgetline.AD_Client_ID, 
+(CASE WHEN I_Budgetline.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Client_IDR, 
+I_Budgetline.AD_Org_ID, 
+(CASE WHEN I_Budgetline.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(I_Budgetline.IsActive, 'N') AS IsActive, 
+I_Budgetline.C_Budget_ID, 
+(CASE WHEN I_Budgetline.C_Budget_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS C_Budget_IDR, 
+I_Budgetline.SeqNo, 
+I_Budgetline.Price, 
+I_Budgetline.C_Currency_ID, 
+(CASE WHEN I_Budgetline.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+I_Budgetline.Currencyident, 
+I_Budgetline.Qty, 
+I_Budgetline.Amount, 
+I_Budgetline.C_Period_ID, 
+(CASE WHEN I_Budgetline.C_Period_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS C_Period_IDR, 
+I_Budgetline.Periodident, 
+I_Budgetline.C_Elementvalue_ID, 
+(CASE WHEN I_Budgetline.C_Elementvalue_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL9.Name IS NULL THEN TO_CHAR(table9.Name) ELSE TO_CHAR(tableTRL9.Name) END)), ''))),'') ) END) AS C_Elementvalue_IDR, 
+I_Budgetline.Elementvalueident, 
+I_Budgetline.C_Acctschema_ID, 
+(CASE WHEN I_Budgetline.C_Acctschema_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'') ) END) AS C_Acctschema_IDR, 
+I_Budgetline.Acctschemaident, 
+I_Budgetline.M_Product_ID, 
+(CASE WHEN I_Budgetline.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL11.Name IS NULL THEN TO_CHAR(table11.Name) ELSE TO_CHAR(tableTRL11.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+I_Budgetline.Productident, 
+I_Budgetline.C_UOM_ID, 
+(CASE WHEN I_Budgetline.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL12.Name IS NULL THEN TO_CHAR(table12.Name) ELSE TO_CHAR(tableTRL12.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+I_Budgetline.M_Product_Category_ID, 
+(CASE WHEN I_Budgetline.M_Product_Category_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Name), ''))),'') ) END) AS M_Product_Category_IDR, 
+I_Budgetline.Prodcategoryident, 
+I_Budgetline.C_BPartner_ID, 
+(CASE WHEN I_Budgetline.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+I_Budgetline.Partnerident, 
+I_Budgetline.C_BP_Group_ID, 
+(CASE WHEN I_Budgetline.C_BP_Group_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Name), ''))),'') ) END) AS C_BP_Group_IDR, 
+I_Budgetline.Bpgroupident, 
+I_Budgetline.AD_OrgTrx_ID, 
+(CASE WHEN I_Budgetline.AD_OrgTrx_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Name), ''))),'') ) END) AS AD_OrgTrx_IDR, 
+I_Budgetline.Orgtrxident, 
+I_Budgetline.C_Activity_ID, 
+(CASE WHEN I_Budgetline.C_Activity_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Name), ''))),'') ) END) AS C_Activity_IDR, 
+I_Budgetline.Activityident, 
+I_Budgetline.C_Campaign_ID, 
+(CASE WHEN I_Budgetline.C_Campaign_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table18.Name), ''))),'') ) END) AS C_Campaign_IDR, 
+I_Budgetline.Campaignident, 
+I_Budgetline.C_Project_ID, 
+(CASE WHEN I_Budgetline.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Name), ''))),'') ) END) AS C_Project_IDR, 
+I_Budgetline.Projectident, 
+I_Budgetline.C_SalesRegion_ID, 
+(CASE WHEN I_Budgetline.C_SalesRegion_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table20.Name), ''))),'') ) END) AS C_SalesRegion_IDR, 
+I_Budgetline.Salesregionident, 
+I_Budgetline.Description, 
+I_Budgetline.Processing, 
+COALESCE(I_Budgetline.Processed, 'N') AS Processed, 
+ 
+        ? AS LANGUAGE 
+        FROM I_Budgetline left join (select C_Budgetline_ID, C_Period_ID, SeqNo, C_Budget_ID from C_Budgetline) table1 on (I_Budgetline.C_Budgetline_ID = table1.C_Budgetline_ID) left join (select C_Period_ID, Name from C_Period) table2 on (table1.C_Period_ID =  table2.C_Period_ID) left join (select C_Budget_ID, Name from C_Budget) table3 on (table1.C_Budget_ID = table3.C_Budget_ID) left join (select AD_Client_ID, Name from AD_Client) table4 on (I_Budgetline.AD_Client_ID = table4.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table5 on (I_Budgetline.AD_Org_ID = table5.AD_Org_ID) left join (select C_Budget_ID, Name from C_Budget) table6 on (I_Budgetline.C_Budget_ID = table6.C_Budget_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table7 on (I_Budgetline.C_Currency_ID = table7.C_Currency_ID) left join (select C_Period_ID, Name from C_Period) table8 on (I_Budgetline.C_Period_ID = table8.C_Period_ID) left join (select C_Elementvalue_ID, Value, Name from C_Elementvalue) table9 on (I_Budgetline.C_Elementvalue_ID = table9.C_Elementvalue_ID) left join (select C_ElementValue_ID,AD_Language, Name from C_ElementValue_TRL) tableTRL9 on (table9.C_ElementValue_ID = tableTRL9.C_ElementValue_ID and tableTRL9.AD_Language = ?)  left join (select C_Acctschema_ID, Name from C_Acctschema) table10 on (I_Budgetline.C_Acctschema_ID = table10.C_Acctschema_ID) left join (select M_Product_ID, Value, Name from M_Product) table11 on (I_Budgetline.M_Product_ID = table11.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL11 on (table11.M_Product_ID = tableTRL11.M_Product_ID and tableTRL11.AD_Language = ?)  left join (select C_UOM_ID, Name from C_UOM) table12 on (I_Budgetline.C_UOM_ID = table12.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL12 on (table12.C_UOM_ID = tableTRL12.C_UOM_ID and tableTRL12.AD_Language = ?)  left join (select M_Product_Category_ID, Name from M_Product_Category) table13 on (I_Budgetline.M_Product_Category_ID = table13.M_Product_Category_ID) left join (select C_BPartner_ID, Name from C_BPartner) table14 on (I_Budgetline.C_BPartner_ID = table14.C_BPartner_ID) left join (select C_BP_Group_ID, Name from C_BP_Group) table15 on (I_Budgetline.C_BP_Group_ID = table15.C_BP_Group_ID) left join (select AD_Org_ID, value, Name from AD_Org) table16 on (I_Budgetline.AD_OrgTrx_ID =  table16.AD_Org_ID) left join (select C_Activity_ID, Name from C_Activity) table17 on (I_Budgetline.C_Activity_ID = table17.C_Activity_ID) left join (select C_Campaign_ID, Name from C_Campaign) table18 on (I_Budgetline.C_Campaign_ID = table18.C_Campaign_ID) left join (select C_Project_ID, Value, Name from C_Project) table19 on (I_Budgetline.C_Project_ID = table19.C_Project_ID) left join (select C_SalesRegion_ID, Name from C_SalesRegion) table20 on (I_Budgetline.C_SalesRegion_ID = table20.C_SalesRegion_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND I_Budgetline.I_Budgetline_ID = ? 
+        AND I_Budgetline.AD_Client_ID IN ('1') 
+           AND I_Budgetline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_Budgetline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_Budgetline.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="seqno"></Parameter><Parameter name="amount"></Parameter><Parameter name="projectident"></Parameter><Parameter name="processed"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="description"></Parameter><Parameter name="qty"></Parameter><Parameter name="activityident"></Parameter><Parameter name="cBudgetlineId"></Parameter><Parameter name="cAcctschemaId"></Parameter><Parameter name="prodcategoryident"></Parameter><Parameter name="cPeriodId"></Parameter><Parameter name="orgtrxident"></Parameter><Parameter name="cElementvalueId"></Parameter><Parameter name="cCampaignId"></Parameter><Parameter name="elementvalueident"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="price"></Parameter><Parameter name="adOrgtrxId"></Parameter><Parameter name="iErrormsg"></Parameter><Parameter name="campaignident"></Parameter><Parameter name="cActivityId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="salesregionident"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="processing"></Parameter><Parameter name="productident"></Parameter><Parameter name="partnerident"></Parameter><Parameter name="iIsimported"></Parameter><Parameter name="periodident"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cBudgetId"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="cSalesregionId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="bpgroupident"></Parameter><Parameter name="acctschemaident"></Parameter><Parameter name="currencyident"></Parameter><Parameter name="iBudgetlineId"></Parameter><Parameter name="cBpGroupId"></Parameter><Parameter name="mProductCategoryId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef802910" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(SEQNO),0)+10 AS DefaultValue FROM I_BUDGETLINE WHERE C_BUDGETLINE_ID=? 
+    ]]></Sql>
+
+<Parameter name="C_BUDGETLINE_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802897_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802895_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802887_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802885_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE I_Budgetline
+        SET I_Budgetline_ID = (?) , I_IsImported = (?) , C_Budgetline_ID = (?) , I_ErrorMsg = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , IsActive = (?) , C_Budget_ID = (?) , SeqNo = TO_NUMBER(?) , Price = TO_NUMBER(?) , C_Currency_ID = (?) , Currencyident = (?) , Qty = TO_NUMBER(?) , Amount = TO_NUMBER(?) , C_Period_ID = (?) , Periodident = (?) , C_Elementvalue_ID = (?) , Elementvalueident = (?) , C_Acctschema_ID = (?) , Acctschemaident = (?) , M_Product_ID = (?) , Productident = (?) , C_UOM_ID = (?) , M_Product_Category_ID = (?) , Prodcategoryident = (?) , C_BPartner_ID = (?) , Partnerident = (?) , C_BP_Group_ID = (?) , Bpgroupident = (?) , AD_OrgTrx_ID = (?) , Orgtrxident = (?) , C_Activity_ID = (?) , Activityident = (?) , C_Campaign_ID = (?) , Campaignident = (?) , C_Project_ID = (?) , Projectident = (?) , C_SalesRegion_ID = (?) , Salesregionident = (?) , Description = (?) , Processing = (?) , Processed = (?) , updated = now(), updatedby = ? 
+        WHERE I_Budgetline.I_Budgetline_ID = ? 
+        
+        AND I_Budgetline.AD_Client_ID IN ('1') 
+        AND I_Budgetline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="iBudgetlineId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cBudgetlineId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cBudgetId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="price"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="currencyident"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="cPeriodId"></Parameter> <Parameter name="periodident"></Parameter> <Parameter name="cElementvalueId"></Parameter> <Parameter name="elementvalueident"></Parameter> <Parameter name="cAcctschemaId"></Parameter> <Parameter name="acctschemaident"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="productident"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mProductCategoryId"></Parameter> <Parameter name="prodcategoryident"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="partnerident"></Parameter> <Parameter name="cBpGroupId"></Parameter> <Parameter name="bpgroupident"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="orgtrxident"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="activityident"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="campaignident"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="projectident"></Parameter> <Parameter name="cSalesregionId"></Parameter> <Parameter name="salesregionident"></Parameter> <Parameter name="description"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="iBudgetlineId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_Budgetline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_Budgetline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO I_Budgetline 
+        (I_Budgetline_ID, I_IsImported, C_Budgetline_ID, I_ErrorMsg, AD_Client_ID, AD_Org_ID, IsActive, C_Budget_ID, SeqNo, Price, C_Currency_ID, Currencyident, Qty, Amount, C_Period_ID, Periodident, C_Elementvalue_ID, Elementvalueident, C_Acctschema_ID, Acctschemaident, M_Product_ID, Productident, C_UOM_ID, M_Product_Category_ID, Prodcategoryident, C_BPartner_ID, Partnerident, C_BP_Group_ID, Bpgroupident, AD_OrgTrx_ID, Orgtrxident, C_Activity_ID, Activityident, C_Campaign_ID, Campaignident, C_Project_ID, Projectident, C_SalesRegion_ID, Salesregionident, Description, Processing, Processed, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="iBudgetlineId"></Parameter> <Parameter name="iIsimported"></Parameter> <Parameter name="cBudgetlineId"></Parameter> <Parameter name="iErrormsg"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cBudgetId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="price"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="currencyident"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="cPeriodId"></Parameter> <Parameter name="periodident"></Parameter> <Parameter name="cElementvalueId"></Parameter> <Parameter name="elementvalueident"></Parameter> <Parameter name="cAcctschemaId"></Parameter> <Parameter name="acctschemaident"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="productident"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mProductCategoryId"></Parameter> <Parameter name="prodcategoryident"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="partnerident"></Parameter> <Parameter name="cBpGroupId"></Parameter> <Parameter name="bpgroupident"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="orgtrxident"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="activityident"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="campaignident"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="projectident"></Parameter> <Parameter name="cSalesregionId"></Parameter> <Parameter name="salesregionident"></Parameter> <Parameter name="description"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="processed"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_Budgetline
+        WHERE I_Budgetline.I_Budgetline_ID = ? 
+        
+        AND I_Budgetline.AD_Client_ID IN ('1') 
+        AND I_Budgetline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="I_Budgetline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="I_Budgetline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM I_Budgetline
+        WHERE I_Budgetline.I_Budgetline_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM I_Budgetline
+         WHERE I_Budgetline.I_Budgetline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM I_Budgetline
+         WHERE I_Budgetline.I_Budgetline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

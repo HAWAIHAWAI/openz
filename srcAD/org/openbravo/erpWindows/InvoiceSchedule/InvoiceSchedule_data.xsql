@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="InvoiceScheduleData" package="org.openbravo.erpWindows.InvoiceSchedule">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_InvoiceSchedule.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_InvoiceSchedule.CreatedBy) as CreatedByR, 
+        to_char(C_InvoiceSchedule.Updated, ?) as updated, 
+        to_char(C_InvoiceSchedule.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_InvoiceSchedule.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_InvoiceSchedule.UpdatedBy) as UpdatedByR,
+        C_InvoiceSchedule.AD_Client_ID, 
+(CASE WHEN C_InvoiceSchedule.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_InvoiceSchedule.AD_Org_ID, 
+(CASE WHEN C_InvoiceSchedule.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_InvoiceSchedule.Name, 
+C_InvoiceSchedule.Description, 
+COALESCE(C_InvoiceSchedule.IsActive, 'N') AS IsActive, 
+COALESCE(C_InvoiceSchedule.IsDefault, 'N') AS IsDefault, 
+C_InvoiceSchedule.InvoiceFrequency, 
+(CASE WHEN C_InvoiceSchedule.InvoiceFrequency IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS InvoiceFrequencyR, 
+C_InvoiceSchedule.InvoiceDay, 
+C_InvoiceSchedule.C_InvoiceSchedule_ID, 
+C_InvoiceSchedule.InvoiceWeekDay, 
+C_InvoiceSchedule.Amt, 
+COALESCE(C_InvoiceSchedule.EvenInvoiceWeek, 'N') AS EvenInvoiceWeek, 
+C_InvoiceSchedule.InvoiceDayCutoff, 
+C_InvoiceSchedule.InvoiceWeekDayCutoff, 
+COALESCE(C_InvoiceSchedule.IsAmount, 'N') AS IsAmount, 
+ 
+        ? AS LANGUAGE 
+        FROM C_InvoiceSchedule left join (select AD_Client_ID, Name from AD_Client) table1 on (C_InvoiceSchedule.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_InvoiceSchedule.AD_Org_ID = table2.AD_Org_ID) left join ad_ref_list_v list1 on (C_InvoiceSchedule.InvoiceFrequency = list1.value and list1.ad_reference_id = '168' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_InvoiceSchedule.C_InvoiceSchedule_ID = ? 
+        AND C_InvoiceSchedule.AD_Client_ID IN ('1') 
+           AND C_InvoiceSchedule.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_InvoiceSchedule.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_InvoiceSchedule.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="invoiceweekday"></Parameter><Parameter name="invoiceday"></Parameter><Parameter name="name"></Parameter><Parameter name="invoicedaycutoff"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="invoicefrequency"></Parameter><Parameter name="invoiceweekdaycutoff"></Parameter><Parameter name="eveninvoiceweek"></Parameter><Parameter name="cInvoicescheduleId"></Parameter><Parameter name="isamount"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="amt"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isdefault"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef2141_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2143_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_InvoiceSchedule
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , Name = (?) , Description = (?) , IsActive = (?) , IsDefault = (?) , InvoiceFrequency = (?) , InvoiceDay = TO_NUMBER(?) , C_InvoiceSchedule_ID = (?) , InvoiceWeekDay = (?) , Amt = TO_NUMBER(?) , EvenInvoiceWeek = (?) , InvoiceDayCutoff = TO_NUMBER(?) , InvoiceWeekDayCutoff = (?) , IsAmount = (?) , updated = now(), updatedby = ? 
+        WHERE C_InvoiceSchedule.C_InvoiceSchedule_ID = ? 
+        
+        AND C_InvoiceSchedule.AD_Client_ID IN ('1') 
+        AND C_InvoiceSchedule.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="invoicefrequency"></Parameter> <Parameter name="invoiceday"></Parameter> <Parameter name="cInvoicescheduleId"></Parameter> <Parameter name="invoiceweekday"></Parameter> <Parameter name="amt"></Parameter> <Parameter name="eveninvoiceweek"></Parameter> <Parameter name="invoicedaycutoff"></Parameter> <Parameter name="invoiceweekdaycutoff"></Parameter> <Parameter name="isamount"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cInvoicescheduleId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_InvoiceSchedule.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_InvoiceSchedule.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_InvoiceSchedule 
+        (AD_Client_ID, AD_Org_ID, Name, Description, IsActive, IsDefault, InvoiceFrequency, InvoiceDay, C_InvoiceSchedule_ID, InvoiceWeekDay, Amt, EvenInvoiceWeek, InvoiceDayCutoff, InvoiceWeekDayCutoff, IsAmount, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="invoicefrequency"></Parameter> <Parameter name="invoiceday"></Parameter> <Parameter name="cInvoicescheduleId"></Parameter> <Parameter name="invoiceweekday"></Parameter> <Parameter name="amt"></Parameter> <Parameter name="eveninvoiceweek"></Parameter> <Parameter name="invoicedaycutoff"></Parameter> <Parameter name="invoiceweekdaycutoff"></Parameter> <Parameter name="isamount"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_InvoiceSchedule
+        WHERE C_InvoiceSchedule.C_InvoiceSchedule_ID = ? 
+        
+        AND C_InvoiceSchedule.AD_Client_ID IN ('1') 
+        AND C_InvoiceSchedule.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_InvoiceSchedule.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_InvoiceSchedule.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_InvoiceSchedule
+        WHERE C_InvoiceSchedule.C_InvoiceSchedule_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_InvoiceSchedule
+         WHERE C_InvoiceSchedule.C_InvoiceSchedule_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_InvoiceSchedule
+         WHERE C_InvoiceSchedule.C_InvoiceSchedule_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

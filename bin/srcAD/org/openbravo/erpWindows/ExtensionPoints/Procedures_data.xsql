@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ProceduresData" package="org.openbravo.erpWindows.ExtensionPoints">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_EP_Procedures.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_EP_Procedures.CreatedBy) as CreatedByR, 
+        to_char(AD_EP_Procedures.Updated, ?) as updated, 
+        to_char(AD_EP_Procedures.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_EP_Procedures.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_EP_Procedures.UpdatedBy) as UpdatedByR,
+        AD_EP_Procedures.AD_Client_ID, 
+(CASE WHEN AD_EP_Procedures.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_EP_Procedures.AD_EP_Procedures_ID, 
+AD_EP_Procedures.AD_Org_ID, 
+(CASE WHEN AD_EP_Procedures.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_EP_Procedures.AD_Extension_Points_ID, 
+(CASE WHEN AD_EP_Procedures.AD_Extension_Points_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_Extension_Points_IDR, 
+AD_EP_Procedures.AD_Module_ID, 
+(CASE WHEN AD_EP_Procedures.AD_Module_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Version), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Module_IDR, 
+COALESCE(AD_EP_Procedures.Isactive, 'N') AS Isactive, 
+AD_EP_Procedures.Procedurename, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_EP_Procedures left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_EP_Procedures.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_EP_Procedures.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Extension_Points_ID, Name from AD_Extension_Points) table3 on (AD_EP_Procedures.AD_Extension_Points_ID = table3.AD_Extension_Points_ID) left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table4 on (AD_EP_Procedures.AD_Module_ID = table4.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table5 on (table4.AD_Language =  table5.AD_Language)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_EP_Procedures.AD_EP_Procedures_ID = ? 
+        AND AD_EP_Procedures.AD_Client_ID IN ('1') 
+           AND AD_EP_Procedures.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="adExtensionPointsId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND AD_EP_Procedures.AD_Extension_Points_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_EP_Procedures.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_EP_Procedures.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adExtensionPointsId" id="paramKeyParent"></Parameter>
+<Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adModuleId"></Parameter><Parameter name="adEpProceduresId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="procedurename"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef6F387D3737D43635E040007F01002312" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MAX(AD_MODULE_ID) FROM AD_MODULE WHERE ISDEFAULT='Y' 
+    ]]></Sql>
+
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6F387D3737D13635E040007F01002312_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6F387D3737CF3635E040007F01002312_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT AD_EP_Procedures.AD_Extension_Points_ID AS NAME
+        FROM AD_EP_Procedures
+        WHERE AD_EP_Procedures.AD_EP_Procedures_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Extension_Points left join (select AD_Extension_Points_ID, Name from AD_Extension_Points) table1 on (AD_Extension_Points.AD_Extension_Points_ID = table1.AD_Extension_Points_ID) WHERE AD_Extension_Points.AD_Extension_Points_ID = ?  
+    ]]></Sql>
+<Parameter name="adExtensionPointsId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Extension_Points left join (select AD_Extension_Points_ID, Name from AD_Extension_Points) table1 on (AD_Extension_Points.AD_Extension_Points_ID = table1.AD_Extension_Points_ID) WHERE AD_Extension_Points.AD_Extension_Points_ID = ?  
+    ]]></Sql>
+<Parameter name="adExtensionPointsId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_EP_Procedures
+        SET AD_Client_ID = (?) , AD_EP_Procedures_ID = (?) , AD_Org_ID = (?) , AD_Extension_Points_ID = (?) , AD_Module_ID = (?) , Isactive = (?) , Procedurename = (?) , updated = now(), updatedby = ? 
+        WHERE AD_EP_Procedures.AD_EP_Procedures_ID = ? 
+                 AND AD_EP_Procedures.AD_Extension_Points_ID = ? 
+        AND AD_EP_Procedures.AD_Client_ID IN ('1') 
+        AND AD_EP_Procedures.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adEpProceduresId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adExtensionPointsId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="procedurename"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adEpProceduresId"></Parameter>
+    
+    <Parameter name="adExtensionPointsId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_EP_Procedures.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_EP_Procedures.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_EP_Procedures 
+        (AD_Client_ID, AD_EP_Procedures_ID, AD_Org_ID, AD_Extension_Points_ID, AD_Module_ID, Isactive, Procedurename, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adEpProceduresId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adExtensionPointsId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="procedurename"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_EP_Procedures
+        WHERE AD_EP_Procedures.AD_EP_Procedures_ID = ? 
+                 AND AD_EP_Procedures.AD_Extension_Points_ID = ? 
+        AND AD_EP_Procedures.AD_Client_ID IN ('1') 
+        AND AD_EP_Procedures.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adExtensionPointsId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_EP_Procedures.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_EP_Procedures.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_EP_Procedures
+        WHERE AD_EP_Procedures.AD_EP_Procedures_ID = ? 
+                 AND AD_EP_Procedures.AD_Extension_Points_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adExtensionPointsId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_EP_Procedures
+         WHERE AD_EP_Procedures.AD_EP_Procedures_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_EP_Procedures
+         WHERE AD_EP_Procedures.AD_EP_Procedures_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

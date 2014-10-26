@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="AreasofInterestData" package="org.openbravo.erpWindows.BusinessPartner">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(R_ContactInterest.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = R_ContactInterest.CreatedBy) as CreatedByR, 
+        to_char(R_ContactInterest.Updated, ?) as updated, 
+        to_char(R_ContactInterest.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        R_ContactInterest.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = R_ContactInterest.UpdatedBy) as UpdatedByR,
+        R_ContactInterest.AD_Client_ID, 
+R_ContactInterest.AD_Org_ID, 
+R_ContactInterest.AD_User_ID, 
+(CASE WHEN R_ContactInterest.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_User_IDR, 
+R_ContactInterest.R_ContactInterest_ID, 
+R_ContactInterest.R_InterestArea_ID, 
+(CASE WHEN R_ContactInterest.R_InterestArea_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS R_InterestArea_IDR, 
+COALESCE(R_ContactInterest.IsActive, 'N') AS IsActive, 
+R_ContactInterest.SubscribeDate, 
+R_ContactInterest.OptOutDate, 
+ 
+        ? AS LANGUAGE 
+        FROM R_ContactInterest left join (select AD_User_ID, Name from AD_User) table1 on (R_ContactInterest.AD_User_ID = table1.AD_User_ID) left join (select R_InterestArea_ID, Name from R_InterestArea) table2 on (R_ContactInterest.R_InterestArea_ID = table2.R_InterestArea_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND R_ContactInterest.R_ContactInterest_ID = ? 
+        AND R_ContactInterest.AD_Client_ID IN ('1') 
+           AND R_ContactInterest.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="adUserId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND R_ContactInterest.AD_User_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="R_ContactInterest.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="R_ContactInterest.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adUserId" id="paramKeyParent"></Parameter>
+<Parameter name="optoutdate"></Parameter><Parameter name="subscribedate"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="rContactinterestId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="rInterestareaId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef7762_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef7763_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT R_ContactInterest.AD_User_ID AS NAME
+        FROM R_ContactInterest
+        WHERE R_ContactInterest.R_ContactInterest_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_User left join (select AD_User_ID, Name from AD_User) table1 on (AD_User.AD_User_ID = table1.AD_User_ID) WHERE AD_User.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="adUserId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_User left join (select AD_User_ID, Name from AD_User) table1 on (AD_User.AD_User_ID = table1.AD_User_ID) WHERE AD_User.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="adUserId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE R_ContactInterest
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , AD_User_ID = (?) , R_ContactInterest_ID = (?) , R_InterestArea_ID = (?) , IsActive = (?) , SubscribeDate = TO_DATE(?) , OptOutDate = TO_DATE(?) , updated = now(), updatedby = ? 
+        WHERE R_ContactInterest.R_ContactInterest_ID = ? 
+                 AND R_ContactInterest.AD_User_ID = ? 
+        AND R_ContactInterest.AD_Client_ID IN ('1') 
+        AND R_ContactInterest.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="rContactinterestId"></Parameter> <Parameter name="rInterestareaId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="subscribedate"></Parameter> <Parameter name="optoutdate"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="rContactinterestId"></Parameter>
+    
+    <Parameter name="adUserId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="R_ContactInterest.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="R_ContactInterest.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO R_ContactInterest 
+        (AD_Client_ID, AD_Org_ID, AD_User_ID, R_ContactInterest_ID, R_InterestArea_ID, IsActive, SubscribeDate, OptOutDate, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_DATE(?), TO_DATE(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="rContactinterestId"></Parameter> <Parameter name="rInterestareaId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="subscribedate"></Parameter> <Parameter name="optoutdate"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM R_ContactInterest
+        WHERE R_ContactInterest.R_ContactInterest_ID = ? 
+                 AND R_ContactInterest.AD_User_ID = ? 
+        AND R_ContactInterest.AD_Client_ID IN ('1') 
+        AND R_ContactInterest.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adUserId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="R_ContactInterest.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="R_ContactInterest.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM R_ContactInterest
+        WHERE R_ContactInterest.R_ContactInterest_ID = ? 
+                 AND R_ContactInterest.AD_User_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adUserId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM R_ContactInterest
+         WHERE R_ContactInterest.R_ContactInterest_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM R_ContactInterest
+         WHERE R_ContactInterest.R_ContactInterest_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

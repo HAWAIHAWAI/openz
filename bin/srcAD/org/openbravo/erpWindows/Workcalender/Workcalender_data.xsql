@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="WorkcalenderData" package="org.openbravo.erpWindows.Workcalender">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_WORKCALENDER.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_WORKCALENDER.CreatedBy) as CreatedByR, 
+        to_char(C_WORKCALENDER.Updated, ?) as updated, 
+        to_char(C_WORKCALENDER.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_WORKCALENDER.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_WORKCALENDER.UpdatedBy) as UpdatedByR,
+        C_WORKCALENDER.Workdate, 
+C_WORKCALENDER.C_Workcalender_ID, 
+C_WORKCALENDER.Dayname, 
+(CASE WHEN C_WORKCALENDER.Dayname IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DaynameR, 
+C_WORKCALENDER.Worktime, 
+TO_CHAR(C_WORKCALENDER.Workbegintime, 'HH24:MI:SS') AS Workbegintime, 
+COALESCE(C_WORKCALENDER.Isholiday, 'N') AS Isholiday, 
+COALESCE(C_WORKCALENDER.Isworkday, 'N') AS Isworkday, 
+COALESCE(C_WORKCALENDER.Isweekend, 'N') AS Isweekend, 
+C_WORKCALENDER.AD_Org_ID, 
+(CASE WHEN C_WORKCALENDER.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_WORKCALENDER.AD_Client_ID, 
+COALESCE(C_WORKCALENDER.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM C_WORKCALENDER left join ad_ref_list_v list1 on (C_WORKCALENDER.Dayname = list1.value and list1.ad_reference_id = '167' and list1.ad_language = ?)  left join (select AD_Org_ID, Name from AD_Org) table1 on (C_WORKCALENDER.AD_Org_ID = table1.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_WORKCALENDER.C_Workcalender_ID = ? 
+        AND C_WORKCALENDER.AD_Client_ID IN ('1') 
+           AND C_WORKCALENDER.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_WORKCALENDER.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_WORKCALENDER.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="workdate"></Parameter><Parameter name="worktime"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isholiday"></Parameter><Parameter name="dayname"></Parameter><Parameter name="cWorkcalenderId"></Parameter><Parameter name="isweekend"></Parameter><Parameter name="workbegintime"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="isworkday"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef8EF10D11901742719533E5D1A4D503F0_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef52BA0BE8304F41429D5059A306FFEE31_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_WORKCALENDER
+        SET Workdate = TO_DATE(?) , C_Workcalender_ID = (?) , Dayname = (?) , Worktime = TO_NUMBER(?) , Workbegintime = TO_TIMESTAMP(?,'HH24:MI:SS') , Isholiday = (?) , Isworkday = (?) , Isweekend = (?) , AD_Org_ID = (?) , AD_Client_ID = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE C_WORKCALENDER.C_Workcalender_ID = ? 
+        
+        AND C_WORKCALENDER.AD_Client_ID IN ('1') 
+        AND C_WORKCALENDER.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="workdate"></Parameter> <Parameter name="cWorkcalenderId"></Parameter> <Parameter name="dayname"></Parameter> <Parameter name="worktime"></Parameter> <Parameter name="workbegintime"></Parameter> <Parameter name="isholiday"></Parameter> <Parameter name="isworkday"></Parameter> <Parameter name="isweekend"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cWorkcalenderId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_WORKCALENDER.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_WORKCALENDER.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_WORKCALENDER 
+        (Workdate, C_Workcalender_ID, Dayname, Worktime, Workbegintime, Isholiday, Isworkday, Isweekend, AD_Org_ID, AD_Client_ID, Isactive, created, createdby, updated, updatedBy)
+        VALUES (TO_DATE(?), (?), (?), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="workdate"></Parameter> <Parameter name="cWorkcalenderId"></Parameter> <Parameter name="dayname"></Parameter> <Parameter name="worktime"></Parameter> <Parameter name="workbegintime"></Parameter> <Parameter name="isholiday"></Parameter> <Parameter name="isworkday"></Parameter> <Parameter name="isweekend"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_WORKCALENDER
+        WHERE C_WORKCALENDER.C_Workcalender_ID = ? 
+        
+        AND C_WORKCALENDER.AD_Client_ID IN ('1') 
+        AND C_WORKCALENDER.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_WORKCALENDER.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_WORKCALENDER.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_WORKCALENDER
+        WHERE C_WORKCALENDER.C_Workcalender_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_WORKCALENDER
+         WHERE C_WORKCALENDER.C_Workcalender_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_WORKCALENDER
+         WHERE C_WORKCALENDER.C_Workcalender_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

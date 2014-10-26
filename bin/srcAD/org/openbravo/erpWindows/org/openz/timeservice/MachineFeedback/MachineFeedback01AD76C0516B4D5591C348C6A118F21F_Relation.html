@@ -1,0 +1,377 @@
+<HTML xmlns="http://www.w3.org/1999/xhtml" xmlns:DOJO="" xmlns:OPENBRAVO="" xmlns:="http://www.w3.org/1999/xhtml">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8"></META>
+<TITLE>Machine Feedback</TITLE>
+<LINK rel="shortcut icon" href="../../../../../web/images/favicon.ico" type="image/x-icon"></LINK>
+<LINK rel="stylesheet" type="text/css" href="../../../../../web/skins/Default/Openbravo_ERP.css" id="paramCSS"></LINK>
+<LINK rel="stylesheet" type="text/css" media="print" href="../../../../../web/skins/Default/Openbravo_ERP_print.css" id="paramCSS_print"></LINK>
+
+<SCRIPT language="JavaScript" type="text/javascript" id="paramDirectory">
+var baseDirectory = "../../../../../web/";
+</SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/messages.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" type="text/javascript" id="paramLanguage">
+	defaultLang = "en_US";
+</SCRIPT>
+<SCRIPT language="JavaScript" type="text/javascript" id="confirmOnChanges">var confirmOnChanges = false;</SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/shortcuts.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/utils.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/windowKeyboard.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/appStatus.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/ajax.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/default/MessageBox.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/djConfig.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/dojotoolkit/dojo/dojo.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../../../../../web/js/djDependencies.js" type="text/javascript"></SCRIPT>
+
+
+<SCRIPT language="JavaScript" type="text/javascript">
+function validate(action, form, value) {
+  var frm=document.frmMain;
+  var key = eval("document.frmMain." + frm.inpKeyName.value);
+  var myvalue = getSelectedValues();
+  if (action != "DEFAULT" && (myvalue==null || myvalue=="")) return false;
+  setInputValue(frm.inpKeyName.value, myvalue);
+  if (action=="TAB") {
+    if (isMultipleSelected()) {
+      showJSMessage(13);
+      return false;
+    }
+    if (inputValue(key)==null || inputValue(key)=="") {
+      setFocusFirstControl();
+      return false;
+    }
+  } else if (action=="EDIT") {
+    if (isMultipleSelected()) {
+      showJSMessage(13);
+      return false;
+    }
+    if (inputValue(key)==null || inputValue(key)=="") {
+      showJSMessage(1);
+      return false;
+    }
+  } else if (action=="DEFAULT") {
+    if (isMultipleSelected()) {
+      showJSMessage(13);
+      return false;
+    }
+    if (inputValue(key)==null || inputValue(key)=="") {
+      showJSMessage(1);
+      return false;
+    }
+  }
+  return validateClient(action, form, value);
+}
+
+function selectFilters(params) {
+  setGridFilters(params);
+  updateGridDataAfterFilter();
+  return true;
+}
+
+ function calculateNumRows() {
+   resizeArea();
+   document.getElementById("grid_sample").style.display = "block";
+   var grid_header_height = document.getElementById("grid_sample_header").clientHeight + 1;
+   var grid_row_height = document.getElementById("grid_sample_row").clientHeight + 1;
+   var messagebox_cont = document.getElementById("messageBoxID");
+   var related_info_cont = document.getElementById("related_info_cont");
+   var client_height = document.getElementById("client").clientHeight;
+   client_height = client_height - grid_header_height - (related_info_cont?related_info_cont.clientHeight:0) - (messagebox_cont?messagebox_cont.clientHeight:0);
+   client_height = client_height - 20;
+   var numRows = (client_height)/(grid_row_height);
+   numRows = parseInt(numRows);
+   if (numRows > 1) { numRows -= 1; }
+   document.getElementById("grid_sample").style.display = "none";
+   return numRows;
+ }
+</SCRIPT>
+<SCRIPT language="JavaScript" type="text/javascript" id="selectedColumn"></SCRIPT>
+<SCRIPT language="JavaScript" type="text/javascript">dojo.require("openbravo.widget.DataGrid");
+function updateHeader(liveGrid, offset) {
+  var backendPageSize = liveGrid.getBackendPageSize();
+  var currPageStart = (liveGrid.metaData.getBackendPage()*backendPageSize);
+  var pageFull = (liveGrid.metaData.getTotalRows() >= backendPageSize);
+  var firstPage = (liveGrid.metaData.getBackendPage() == 0);
+  var res =  "<nobr class='Main_ToolBar_text_bookmark'>";
+  var strPrevious = getMessage("GridPreviousPage");
+  var strNext = getMessage("GridNextPage");
+
+  if (!firstPage) {
+    res = res + "<a href='#' onclick='gridMovePage(\"PREVIOUSPAGE\")' class='Main_ToolBar_text_pagerange'>" + strPrevious + " " + backendPageSize + "</a>&nbsp;&nbsp;";
+  }
+  res = res + ((liveGrid.visibleRows>0)?(currPageStart+offset+1):0) + " - "+ (currPageStart+offset+liveGrid.visibleRows) + " / " + (currPageStart+liveGrid.metaData.getTotalRows());
+  if (pageFull) {
+    res = res + "&nbsp;&nbsp;<a href='#' onclick='gridMovePage(\"NEXTPAGE\")' class='Main_ToolBar_text_pagerange'>" + strNext + " " + backendPageSize + "</a>";
+  }
+
+  liveGrid.setGridPaging(!firstPage,pageFull);
+  res = res + "</nobr>";
+  dojo.byId('bookmark').innerHTML = res;
+}
+
+function onRowDblClick(cell) {
+  var value = dijit.byId('grid').getSelectedRows();
+  if (value==null || value=="" || value.length>1) return false;
+  setInputValue('inpzspmPtaskfeedbacklineId', value);
+  return submitCommandForm('EDIT', true, null, document.frmMain.urlwin.value, '_self');
+}
+function getSelectedValues() {
+  var value = dijit.byId('grid').getSelectedRows();
+  if (value==null || value.length==0) return "";
+  return value[0];
+}
+function isMultipleSelected() {
+  var value = dijit.byId('grid').getSelectedRows();
+  if (value==null || value=="") return false;
+  return (value.length>1);
+}
+function onGridLoadDo() {
+  if (selectedRow==null) return true;
+  if (selectedRow<=0) dijit.byId('grid').goToFirstRow();
+  else dijit.byId('grid').goToRow(selectedRow);
+  return true;
+}
+function setGridFilters(newparams) {
+  var params = [];
+  params["newFilter"] = "1";
+  if (newparams!=null && newparams.length>0) {
+    var total = newparams.length;
+    for (var i=0;i<total;i++) {
+      params[newparams[i][0]] = newparams[i][1];
+    }
+  }
+  dijit.byId('grid').setRequestParams(params);
+  return true;
+}
+function updateGridData() {
+  dijit.byId('grid').refreshGridData();
+  return true;
+}
+function updateGridDataAfterFilter() {
+  dijit.byId('grid').refreshGridDataAfterFilter();
+  return true;
+}
+function gridMovePage(direction) {
+  dijit.byId('grid').gridMovePage(direction);
+  return true;
+}
+
+function validateClient(action, form, value) {
+  var frm=document.frmMain;
+
+  return true;
+}
+</SCRIPT>
+
+<SCRIPT language="JavaScript" type="text/javascript">
+  function onLoadDo() {
+    this.windowTables = new Array(
+      new windowTableId('client')
+    );
+    setWindowTableParentElement();
+    this.tabsTables = new Array(
+      new tabTableId('tdtopTabs')
+    );
+    setTabTableParentElement();
+    enableShortcuts('relation');
+    resizeArea();
+    calculateMsgBoxWidth();
+    updateMenuIcon('buttonMenu');
+    setWindowElementFocus('firstElement');
+  }
+
+  function onResizeDo() {
+    resizeArea(true);
+    calculateMsgBoxWidth();
+  }
+</SCRIPT>
+
+</HEAD>
+<BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="onLoadDo();" onresize="onResizeDo();">
+<FORM id="form" method="post" action="MachineFeedback01AD76C0516B4D5591C348C6A118F21F_Edition.html" name="frmMain">
+<INPUT type="hidden" name="Command"></INPUT>
+<INPUT type="hidden" name="inpTabId" value="01AD76C0516B4D5591C348C6A118F21F"></INPUT>
+<INPUT type="hidden" name="inpParamSessionDate" value="" id="paramSessionDate"></INPUT>
+<INPUT type="hidden" name="inpwindowId" value="" id="paramWindowId"></INPUT>
+<INPUT type="hidden" name="inpzspmPtaskfeedbacklineId" value=""></INPUT>
+<INPUT type="hidden" name="inpkeyColumnId" value="Zspm_Ptaskfeedbackline_ID"></INPUT>
+<INPUT type="hidden" name="inpTableId" value="712E8FF212784631AC12D022110E8C93" id="paramTableId"></INPUT>
+<INPUT type="hidden" name="inpKeyName" value="inpzspmPtaskfeedbacklineId"></INPUT>
+<INPUT type="hidden" name="urlwin" value="MachineFeedback01AD76C0516B4D5591C348C6A118F21F_Edition.html" id="urlwin"></INPUT>
+<INPUT type="hidden" name="inpAccessLevel" value="1"></INPUT>
+<TABLE height="100%" border="0" cellpadding="0" cellspacing="0" id="main">
+    <TR>
+      <TD valign="top" id="tdleftTabs"></TD>
+      <TD valign="top">
+        <TABLE width="100%" border="0" cellspacing="0" cellpadding="0" class="Main_ContentPane_Left" id="tdleftSeparator">
+          <TR><TD class="Main_NavBar_bg_left"></TD></TR>
+          <TR><TD class="Main_ToolBar_bg_left" valign="top"></TD></TR>
+          <TR><TD class="Main_Client_bg_left"></TD></TR>
+          <TR><TD class="Main_Bottom_bg_left"></TD></TR>
+        </TABLE>
+      </TD>
+      <TD valign="top">
+        <DIV class="Main_ContentPane_NavBar" id="tdtopButtons"></DIV>
+        <DIV class="Main_ContentPane_ToolBar" id="paramToolBar"></DIV>
+        <TABLE width="100%" border="0" cellspacing="0" cellpadding="0" class="Main_ContentPane_TabPane" id="tdtopTabs">
+          <TR id="paramParentTabContainer"></TR>
+          <TR id="paramMainTabContainer"></TR>
+          <TR id="paramChildTabContainer"></TR>
+        </TABLE>
+        <DIV class="Main_ContentPane_Client" style="overflow: hidden; display: none;" id="client">
+          <TABLE summary="" id="sectionDetail">
+            <TR>
+              <TD>
+                
+                <TABLE cellpadding="0" cellspacing="0" id="messageBoxID" class="MessageBoxyy">
+  <TBODY>
+  <TR class="MessageBox_TopMargin">
+    <TD class="MessageBox_LeftMargin"></TD>
+    <TD></TD>
+    <TD class="MessageBox_RightMargin"></TD>
+  </TR>
+  <TR>
+    <TD class="MessageBox_LeftMargin"></TD>
+    <TD>
+
+      <TABLE cellpadding="0" cellspacing="0" style="width: 100%;">
+        <TBODY>
+        <TR>
+          <TD class="MessageBox_LeftTrans">
+            <TABLE style="width: 100%; height: 100%" cellpadding="0" cellspacing="0">
+              <TBODY>
+              <TR>
+                <TD class="MessageBox_TopLeft"></TD>
+              </TR>
+              <TR>
+                <TD class="MessageBox_Left"></TD>
+              </TR>
+              </TBODY>
+            </TABLE>
+          </TD>
+          <TD class="MessageBox_bg">
+
+            <TABLE class="MessageBox_Top">
+            <TBODY>
+              <TR>
+                <TD>
+                  <SPAN>
+                  <TABLE cellpadding="0" cellspacing="0" class="MessageBox_Body_ContentCell">
+                    <TBODY>
+                    <TR>
+                      <TD class="MessageBox_Icon_ContentCell">
+                        <DIV class="MessageBox_Icon"></DIV>
+                      </TD>
+                      <TD style="vertical-align: top;" id="messageBoxIDContent">
+                        <SPAN>
+                          <DIV class="MessageBox_TextTitle" id="messageBoxIDTitle">
+                            Info: AccessTableWithNoView
+                          </DIV>
+                          <DIV class="MessageBox_TextDescription" id="messageBoxIDMessage">
+                            The current information is empty.
+                          </DIV>
+                          <DIV class="MessageBox_TextSeparator"></DIV>
+                        </SPAN>
+                      </TD>
+                    </TR>
+                    </TBODY>
+                  </TABLE>
+                  </SPAN>
+                </TD>
+              </TR>
+              </TBODY>
+            </TABLE>
+
+          </TD>
+          <TD class="MessageBox_RightTrans">
+            <TABLE style="width: 100%; height: 100%" cellpadding="0" cellspacing="0">
+              <TBODY>
+              <TR>
+                <TD class="MessageBox_TopRight"></TD>
+              </TR>
+              <TR>
+                <TD class="MessageBox_Right"></TD>
+              </TR>
+              </TBODY>
+            </TABLE>
+          </TD>
+        </TR>
+        <TR>
+          <TD rowspan="2" class="MessageBox_BottomLeft">
+          </TD>
+          <TD class="MessageBox_BottomTrans MessageBox_bg">
+          </TD>
+          <TD rowspan="2" class="MessageBox_BottomRight">
+          </TD>
+        </TR>
+        <TR>
+          <TD class="MessageBox_Bottom">
+          </TD>
+        </TR>
+        </TBODY>
+      </TABLE>
+
+    </TD>
+    <TD class="MessageBox_RightMargin"></TD>
+  </TR>
+  <TR class="MessageBox_BottomMargin">
+    <TD class="MessageBox_LeftMargin"></TD>
+    <TD></TD>
+    <TD class="MessageBox_RightMargin"></TD>
+  </TR>
+  </TBODY>
+</TABLE>
+<TABLE cellspacing="0" cellpadding="0" width="10px" class="DataGrid_Header_Table DataGrid_Body_Table" style="table-layout: auto;" id="grid_sample">
+  <TR class="DataGrid_Body_Row" id="grid_sample_header">
+    <TH width="10px" class="DataGrid_Header_Cell">DataGrid</TH>
+  </TR>
+  <TR class="DataGrid_Body_Row DataGrid_Body_Row_1" id="grid_sample_row">
+    <TD class="DataGrid_Body_Cell">Loading...</TD>
+  </TR>
+</TABLE>
+                <TABLE cellspacing="0" cellpadding="0" width="0px" height="0px" cellspacing="0" cellpadding="0">
+                  <TR>
+                    <TD><INPUT type="text" class="DataGrid_Table_Dummy_Input" id="grid_table_dummy_input"></INPUT></TD>
+                  </TR>
+                </TABLE>
+                  <table width="100%" cellspacing="0" cellpadding="0" border="0" class="Main_Client_TableRelation" id="grid_table"><tr><td><div id="grid" dojoType="openbravo.widget.DataGrid"
+      structureUrl="../utility/DataGrid.html?Command=STRUCTURE&inpadTabId=01AD76C0516B4D5591C348C6A118F21F&inpadWindowId=A5D5CE0CDB8E414F8A7A107B96C4ABA8&inpAccessLevel=1" 
+      dataUrl="../utility/DataGrid.html?Command=DATA&inpadTabId=01AD76C0516B4D5591C348C6A118F21F&inpadWindowId=A5D5CE0CDB8E414F8A7A107B96C4ABA8&inpAccessLevel=1" 
+      updatesUrl="../utility/DataGrid.html?Command=UPDATE&inpadTabId=01AD76C0516B4D5591C348C6A118F21F&inpadWindowId=A5D5CE0CDB8E414F8A7A107B96C4ABA8&inpAccessLevel=1" 
+      calculateNumRows="true" 
+      editable="false" sortable="true" 
+      deleteable="true" 
+      onInvalidValue="alert" 
+      onScroll="updateHeader" 
+      onGridLoad="onGridLoadDo"
+      bufferSize="3.0"
+      showLineNumbers="true" 
+      offset="xx" sortcols="xx" sortdirs="xx" defaultrow="xx" 
+      maxWidth="99%" 
+      percentageWidthRelativeToId="client" 
+      preventCache="true" useCache="true" cacheContent="false">
+    </div>
+</td></tr></table>
+              </TD>
+            </TR>
+          </TABLE>
+        </DIV>
+        <TABLE width="100%" border="0" cellspacing="0" cellpadding="0" class="Menu_ContentPane_Bottom" id="tdbottomSeparator">
+          <TR>
+            <TD class="Main_Bottom_bg"><IMG src="../../../../../web/images/blank.gif" border="0"></IMG></TD>
+          </TR>
+        </TABLE></TD>
+      <TD valign="top">
+        <TABLE width="100%" border="0" cellspacing="0" cellpadding="0" class="Main_ContentPane_Right" id="tdrightSeparator">
+            <TR><TD class="Main_NavBar_bg_right"></TD></TR>
+            <TR><TD class="Main_ToolBar_bg_right" valign="top"></TD></TR>
+            <TR><TD class="Main_Client_bg_right"></TD></TR>
+            <TR><TD class="Main_Bottom_bg_right"></TD></TR>
+        </TABLE>
+      </TD>
+    </TR>
+  </TABLE></FORM>
+
+
+</BODY></HTML>

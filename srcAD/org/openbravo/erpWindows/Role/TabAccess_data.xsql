@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="TabAccessData" package="org.openbravo.erpWindows.Role">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ad_role_tabaccess.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_role_tabaccess.CreatedBy) as CreatedByR, 
+        to_char(ad_role_tabaccess.Updated, ?) as updated, 
+        to_char(ad_role_tabaccess.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ad_role_tabaccess.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_role_tabaccess.UpdatedBy) as UpdatedByR,
+        ad_role_tabaccess.AD_Role_ID, 
+(CASE WHEN ad_role_tabaccess.AD_Role_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Role_IDR, 
+ad_role_tabaccess.AD_Role_Tabaccess_ID, 
+ad_role_tabaccess.AD_Tab_ID, 
+(CASE WHEN ad_role_tabaccess.AD_Tab_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS AD_Tab_IDR, 
+ad_role_tabaccess.AD_Client_ID, 
+ad_role_tabaccess.Visiblesetting, 
+(CASE WHEN ad_role_tabaccess.Visiblesetting IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS VisiblesettingR, 
+ad_role_tabaccess.AD_Org_ID, 
+ad_role_tabaccess.Editsetting, 
+(CASE WHEN ad_role_tabaccess.Editsetting IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS EditsettingR, 
+COALESCE(ad_role_tabaccess.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM ad_role_tabaccess left join (select AD_Role_ID, Name from AD_Role) table1 on (ad_role_tabaccess.AD_Role_ID = table1.AD_Role_ID) left join (select AD_Tab_ID, Name, AD_Window_ID from AD_Tab) table2 on (ad_role_tabaccess.AD_Tab_ID = table2.AD_Tab_ID) left join (select AD_Tab_ID,AD_Language, Name from AD_Tab_TRL) tableTRL2 on (table2.AD_Tab_ID = tableTRL2.AD_Tab_ID and tableTRL2.AD_Language = ?)  left join (select AD_Window_ID, Name from AD_Window) table3 on (table2.AD_Window_ID = table3.AD_Window_ID) left join (select AD_Window_ID,AD_Language, Name from AD_Window_TRL) tableTRL3 on (table3.AD_Window_ID = tableTRL3.AD_Window_ID and tableTRL3.AD_Language = ?)  left join ad_ref_list_v list1 on (ad_role_tabaccess.Visiblesetting = list1.value and list1.ad_reference_id = 'A4801B9D7ADB4BB69EBF727B71C8AB45' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (ad_role_tabaccess.Editsetting = list2.value and list2.ad_reference_id = '0765914076274AD79BACA01E75F4D0A1' and list2.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ad_role_tabaccess.AD_Role_Tabaccess_ID = ? 
+        AND ad_role_tabaccess.AD_Client_ID IN ('1') 
+           AND ad_role_tabaccess.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adRoleId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ad_role_tabaccess.AD_Role_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_role_tabaccess.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_role_tabaccess.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adRoleId" id="paramKeyParent"></Parameter>
+<Parameter name="adOrgId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="visiblesetting"></Parameter><Parameter name="adTabId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="editsetting"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adRoleTabaccessId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef269B0211E5C7445C88FF6955056C8782_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef092418BEC65E4286915FB49B1AC7B46A_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_role_tabaccess.AD_Role_ID AS NAME
+        FROM ad_role_tabaccess
+        WHERE ad_role_tabaccess.AD_Role_Tabaccess_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Role left join (select AD_Role_ID, Name from AD_Role) table1 on (AD_Role.AD_Role_ID = table1.AD_Role_ID) WHERE AD_Role.AD_Role_ID = ?  
+    ]]></Sql>
+<Parameter name="adRoleId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Role left join (select AD_Role_ID, Name from AD_Role) table1 on (AD_Role.AD_Role_ID = table1.AD_Role_ID) WHERE AD_Role.AD_Role_ID = ?  
+    ]]></Sql>
+<Parameter name="adRoleId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ad_role_tabaccess
+        SET AD_Role_ID = (?) , AD_Role_Tabaccess_ID = (?) , AD_Tab_ID = (?) , AD_Client_ID = (?) , Visiblesetting = (?) , AD_Org_ID = (?) , Editsetting = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE ad_role_tabaccess.AD_Role_Tabaccess_ID = ? 
+                 AND ad_role_tabaccess.AD_Role_ID = ? 
+        AND ad_role_tabaccess.AD_Client_ID IN ('1') 
+        AND ad_role_tabaccess.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adRoleId"></Parameter> <Parameter name="adRoleTabaccessId"></Parameter> <Parameter name="adTabId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="visiblesetting"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="editsetting"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adRoleTabaccessId"></Parameter>
+    
+    <Parameter name="adRoleId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_role_tabaccess.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_role_tabaccess.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ad_role_tabaccess 
+        (AD_Role_ID, AD_Role_Tabaccess_ID, AD_Tab_ID, AD_Client_ID, Visiblesetting, AD_Org_ID, Editsetting, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adRoleId"></Parameter> <Parameter name="adRoleTabaccessId"></Parameter> <Parameter name="adTabId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="visiblesetting"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="editsetting"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_role_tabaccess
+        WHERE ad_role_tabaccess.AD_Role_Tabaccess_ID = ? 
+                 AND ad_role_tabaccess.AD_Role_ID = ? 
+        AND ad_role_tabaccess.AD_Client_ID IN ('1') 
+        AND ad_role_tabaccess.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adRoleId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_role_tabaccess.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_role_tabaccess.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_role_tabaccess
+        WHERE ad_role_tabaccess.AD_Role_Tabaccess_ID = ? 
+                 AND ad_role_tabaccess.AD_Role_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adRoleId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ad_role_tabaccess
+         WHERE ad_role_tabaccess.AD_Role_Tabaccess_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ad_role_tabaccess
+         WHERE ad_role_tabaccess.AD_Role_Tabaccess_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

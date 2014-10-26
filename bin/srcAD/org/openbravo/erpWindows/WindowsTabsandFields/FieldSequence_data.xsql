@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="FieldSequenceData" package="org.openbravo.erpWindows.WindowsTabsandFields">
+  <SqlClassComment>Clase AlmacenData</SqlClassComment>
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_field_v.AD_Field_V_ID AS ID, 
+        TO_CHAR(COALESCE(TO_CHAR(ad_field_v.Name), '')) AS NAME, ad_field_v.AD_Field_V_ID, '' AS SHOWN, 
+        '' AS seqno_Param, '' AS TOTAL, '' AS ISINDEVELOPMENT,
+                ad_field_v.AD_Tab_ID, 
+        ad_field_v.Created, 
+        ad_field_v.CreatedBy, 
+        ad_field_v.Updated, 
+        ad_field_v.UpdatedBy, ? AS LANGUAGE 
+        FROM ad_field_v
+        WHERE 2=2 
+        
+        AND ad_field_v.AD_Client_ID IN ('1') 
+        AND ad_field_v.AD_Org_ID IN ('1') 
+        AND ad_field_v.AD_Tab_ID = ?
+        AND ad_field_v.Isdisplayed = 'Y' 
+         ORDER BY ad_field_v.Seqno
+    ]]></Sql>
+    <Parameter name="paramLanguage"></Parameter>
+    
+    <Parameter name="adUserClient" type="replace" optional="true" after="ad_field_v.AD_Client_ID IN (" text="'1'"/>
+    <Parameter name="adOrgClient" type="replace" optional="true" after="ad_field_v.AD_Org_ID IN (" text="'1'"/>
+    <Parameter name="param1"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="selectNotShown" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_field_v.AD_Field_V_ID AS ID, 
+        TO_CHAR(COALESCE(TO_CHAR(ad_field_v.Name), '')) AS NAME, 
+        ad_field_v.Created, 
+        ad_field_v.CreatedBy, 
+        ad_field_v.Updated, 
+        ad_field_v.UpdatedBy, ? AS LANGUAGE 
+        FROM ad_field_v
+        WHERE 2=2 
+        
+        AND ad_field_v.AD_Client_ID IN ('1') 
+        AND ad_field_v.AD_Org_ID IN ('1') 
+        AND ad_field_v.AD_Tab_ID = ?
+        AND ad_field_v.Isdisplayed = 'N' 
+         ORDER BY ad_field_v.Seqno
+    ]]></Sql>
+    <Parameter name="paramLanguage"></Parameter>
+    
+    <Parameter name="adUserClient" type="replace" optional="true" after="ad_field_v.AD_Client_ID IN (" text="'1'"/>
+    <Parameter name="adOrgClient" type="replace" optional="true" after="ad_field_v.AD_Org_ID IN (" text="'1'"/>
+    <Parameter name="param1"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectInDevelopmentModule" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT 'Y' as ISINDEVELOPMENT 
+        FROM ad_field_v
+        WHERE  ad_field_v.isactive in ('N','Y') 
+         AND ad_field_v.AD_Field_V_ID = ? 
+    ]]></Sql>
+    <Parameter id="paramKey" name="adFieldVId"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectSeqNo" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT Seqno
+        FROM ad_field_v
+        WHERE ad_field_v.AD_Field_V_ID = ? 
+    ]]></Sql>
+    <Parameter id="paramKey" name="adFieldVId"></Parameter>
+  </SqlMethod>
+
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))) AS NAME FROM AD_Tab left join (select AD_Tab_ID, Name, AD_Window_ID from AD_Tab) table1 on (AD_Tab.AD_Tab_ID = table1.AD_Tab_ID) left join (select AD_Tab_ID,AD_Language, Name from AD_Tab_TRL) tableTRL1 on (table1.AD_Tab_ID = tableTRL1.AD_Tab_ID and tableTRL1.AD_Language = ?)  left join (select AD_Window_ID, Name from AD_Window) table2 on (table1.AD_Window_ID = table2.AD_Window_ID) left join (select AD_Window_ID,AD_Language, Name from AD_Window_TRL) tableTRL2 on (table2.AD_Window_ID = tableTRL2.AD_Window_ID and tableTRL2.AD_Language = ?)  WHERE AD_Tab.AD_Tab_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="adTabId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))) AS NAME FROM AD_Tab left join (select AD_Tab_ID, Name, AD_Window_ID from AD_Tab) table1 on (AD_Tab.AD_Tab_ID = table1.AD_Tab_ID) left join (select AD_Tab_ID,AD_Language, Name from AD_Tab_TRL) tableTRL1 on (table1.AD_Tab_ID = tableTRL1.AD_Tab_ID and tableTRL1.AD_Language = ?)  left join (select AD_Window_ID, Name from AD_Window) table2 on (table1.AD_Window_ID = table2.AD_Window_ID) left join (select AD_Window_ID,AD_Language, Name from AD_Window_TRL) tableTRL2 on (table2.AD_Window_ID = tableTRL2.AD_Window_ID and tableTRL2.AD_Language = ?)  WHERE AD_Tab.AD_Tab_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="adTabId"/>
+
+  </SqlMethod>
+
+
+  <SqlMethod name="updateY" type="preparedStatement" connection="true" return="rowCount" static="false">
+    <Sql><![CDATA[
+        UPDATE ad_field_v
+        SET Isdisplayed='Y', Seqno = TO_NUMBER(?), updated = now(), updatedby = ? 
+        WHERE ad_field_v.AD_Field_V_ID = ? 
+                 AND ad_field_v.AD_Tab_ID = ? 
+    ]]></Sql>
+    <Parameter name="seqnoParam"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adFieldVId"></Parameter>
+        <Parameter name="adTabId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="updateN" type="preparedStatement" connection="true" return="rowCount" static="false">
+    <Sql><![CDATA[
+        UPDATE ad_field_v
+        SET Isdisplayed='N', Seqno = NULL, 
+        updated = now(), updatedby = ?
+        WHERE 1=1          AND ad_field_v.AD_Tab_ID = ? 
+    ]]></Sql>
+    <Parameter name="updatedby"></Parameter>
+        <Parameter name="adTabId" id="paramKeyParent"></Parameter>
+    <Parameter name="shown" optional="true" type="argument" after="WHERE 1=1 " text=" AND ad_field_v.AD_Field_V_ID NOT IN "/>
+  </SqlMethod>
+  
+   <SqlMethod name="isTemplateInDev" type="preparedStatement" return="boolean">
+    <Sql><![CDATA[
+        SELECT COUNT(*)
+          FROM AD_MODULE
+         WHERE TYPE='T'
+           AND ISINDEVELOPMENT='Y'
+    ]]></Sql>
+  </SqlMethod>
+</SqlClass>

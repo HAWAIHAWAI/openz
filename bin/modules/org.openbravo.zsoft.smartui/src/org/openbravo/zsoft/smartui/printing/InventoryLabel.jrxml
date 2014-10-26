@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_Standard" pageWidth="230" pageHeight="407" columnWidth="230" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.7565740045078884"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="default" vAlign="Middle" fontName="OpenZ Sans" fontSize="10" pdfFontName="OpenZ Sans" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Report_Title" fontName="OpenZ Sans" fontSize="18">
+		<box leftPadding="5"/>
+	</style>
+	<style name="Report_Subtitle" forecolor="#555555" fontName="OpenZ Sans" fontSize="14">
+		<box leftPadding="5"/>
+	</style>
+	<style name="Total_Field" mode="Opaque" forecolor="#000000" backcolor="#CCCCCC" vAlign="Middle">
+		<box leftPadding="5"/>
+	</style>
+	<style name="Detail_Header" mode="Opaque" forecolor="#FFFFFF" backcolor="#555555" vAlign="Middle">
+		<box leftPadding="5">
+			<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+			<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="GroupHeader_DarkGray" mode="Opaque" forecolor="#FFFFFF" backcolor="#555555" vAlign="Middle" fontName="OpenZ Sans" fontSize="14">
+		<box leftPadding="5"/>
+	</style>
+	<style name="GroupHeader_Gray" mode="Opaque" backcolor="#999999"/>
+	<style name="Detail_Line">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==1)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CCCCCC"/>
+		</conditionalStyle>
+	</style>
+	<style name="Total_Gray" mode="Opaque" forecolor="#000000" backcolor="#CCCCCC"/>
+	<style name="Group_Footer" fontName="OpenZ Sans" fontSize="11" isBold="true"/>
+	<style name="Report_Footer" isDefault="true" vAlign="Middle" fontName="OpenZ Sans" fontSize="11"/>
+	<parameter name="ATTACH" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BASE_WEB" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BASE_DESIGN" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/stefan/OBproject/openbravo/MTMBranch/OpenbravoERP/modules/org.openbravo.zsoft.smartui/src"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LANGUAGE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["de_DE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_CLIENT" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["('1000000')"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_ORG" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["('0')"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_TITLE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["REPORT TITLE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_SUBTITLE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String"/>
+	<parameter name="LOCALE" class="java.util.Locale" isForPrompting="false"/>
+	<parameter name="NUMBERFORMAT" class="java.text.DecimalFormat" isForPrompting="false"/>
+	<parameter name="SUBREP_RptStd_InvoiceLines" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SUBREP_RptStd_OrderLines" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SUBREP_RptStd_Manufacturer" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SUBREP_RptStd_TaxLines" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="LANGUAGE2" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["de_DE"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+        snr.snr_masterdata_id as id,
+        coalesce(snr.vendor,'') as vendor,
+        m_product.value as product,
+        m_product.name as productname,
+        coalesce(snr.model,'') as geraetetext,
+        to_char(snr.firstseen,'dd.mm.yyyy') as wareneingang,
+        snr.serialnumber,
+        coalesce(snr.identifier2,'xxxxxxx') as serialofitem,
+        coalesce(snr.identifier3,'xxxxxxx') as inventarnummer,
+        coalesce(snr.externaltrackingno,'') as sigmaauftragsnummer,
+        coalesce(orderreference,'') as betellid,
+        m_product_category.name as category,
+        m_product.m_product_id as PRODUCT_ID,
+        coalesce(zssi_getusername(snr.ad_user_id),'') as username,
+        coalesce(snr.remark,'') as bemerkung,
+        coalesce(snr.itemname,'') as rechnername,
+        coalesce(snr.location,'') as raumnummer
+from
+        snr_masterdata snr
+                left join m_product on snr.m_product_id = m_product.m_product_id
+                left join m_product_category on m_product.m_product_category_id = m_product_category.m_product_category_id
+
+where snr.snr_masterdata_id in  ($P{DOCUMENT_ID})]]>
+	</queryString>
+	<field name="id" class="java.lang.String"/>
+	<field name="vendor" class="java.lang.String"/>
+	<field name="product" class="java.lang.String"/>
+	<field name="productname" class="java.lang.String"/>
+	<field name="geraetetext" class="java.lang.String"/>
+	<field name="wareneingang" class="java.lang.String"/>
+	<field name="serialnumber" class="java.lang.String"/>
+	<field name="serialofitem" class="java.lang.String"/>
+	<field name="inventarnummer" class="java.lang.String"/>
+	<field name="sigmaauftragsnummer" class="java.lang.String"/>
+	<field name="betellid" class="java.lang.String"/>
+	<field name="category" class="java.lang.String"/>
+	<field name="product_id" class="java.lang.String"/>
+	<field name="username" class="java.lang.String"/>
+	<field name="bemerkung" class="java.lang.String"/>
+	<field name="rechnername" class="java.lang.String"/>
+	<field name="raumnummer" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="407" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="230" height="22"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Warenbegleitzettel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="220" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[zurück an: Brigitta Behrens / Gerätewirtschaft]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="22" width="230" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="43" width="230" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="44" width="230" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vendor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Lieferant]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="97" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="114" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Wareneingang]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="98" width="230" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{wareneingang}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="182" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Inventarnummer]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="122" width="230" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="191" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="245" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Seriennummer]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="254" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="271" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[BM-Nummer]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="255" width="230" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sigmaauftragsnummer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="282" width="230" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{betellid}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="281" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="298" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Bestell-ID]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="20" y="124" width="170" height="58"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{serialnumber}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<componentElement>
+				<reportElement x="20" y="192" width="170" height="52"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{serialofitem}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="324" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Bemerkung]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="309" width="230" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bemerkung}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="308" width="230" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="333" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="349" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Bearbeiter-IT-KZZ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="349" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Empfänger-KZZ/Gruppen OE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="358" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="374" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Rechnername]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="359" width="100" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rechnername}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="374" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Raumnummer]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="359" width="100" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{raumnummer}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="384" width="230" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="405" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="395" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Datum / Unterschrift]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="182" width="120" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serialnumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="244" width="120" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serialofitem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="334" width="125" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{username}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="70" width="230" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="87" width="100" height="10"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Ware]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="71" width="230" height="16"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{geraetetext}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

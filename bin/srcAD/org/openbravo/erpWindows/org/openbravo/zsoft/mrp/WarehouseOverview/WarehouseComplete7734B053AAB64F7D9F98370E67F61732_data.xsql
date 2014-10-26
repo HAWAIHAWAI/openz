@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="WarehouseComplete7734B053AAB64F7D9F98370E67F61732Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.mrp.WarehouseOverview">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssi_onhanqty_overview.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_onhanqty_overview.CreatedBy) as CreatedByR, 
+        to_char(zssi_onhanqty_overview.Updated, ?) as updated, 
+        to_char(zssi_onhanqty_overview.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssi_onhanqty_overview.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_onhanqty_overview.UpdatedBy) as UpdatedByR,
+        zssi_onhanqty_overview.M_Product_ID, 
+(CASE WHEN zssi_onhanqty_overview.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+zssi_onhanqty_overview.M_Warehouse_ID, 
+(CASE WHEN zssi_onhanqty_overview.M_Warehouse_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS M_Warehouse_IDR, 
+zssi_onhanqty_overview.Qtyonhand, 
+zssi_onhanqty_overview.Qtyreserved, 
+zssi_onhanqty_overview.Qtyincomming, 
+zssi_onhanqty_overview.Qtyinsale, 
+zssi_onhanqty_overview.Qtyordered, 
+zssi_onhanqty_overview.Qtyoutflow, 
+zssi_onhanqty_overview.Qtyinflow, 
+zssi_onhanqty_overview.C_Uom_ID, 
+(CASE WHEN zssi_onhanqty_overview.C_Uom_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS C_Uom_IDR, 
+zssi_onhanqty_overview.M_Attributesetinstance_ID, 
+(CASE WHEN zssi_onhanqty_overview.M_Attributesetinstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Description), ''))),'') ) END) AS M_Attributesetinstance_IDR, 
+zssi_onhanqty_overview.AD_Org_ID, 
+(CASE WHEN zssi_onhanqty_overview.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Org_IDR, 
+zssi_onhanqty_overview.Zssi_Onhanqty_Overview_ID, 
+COALESCE(zssi_onhanqty_overview.Isactive, 'N') AS Isactive, 
+zssi_onhanqty_overview.AD_Client_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM zssi_onhanqty_overview left join (select M_Product_ID, Value, Name from M_Product) table1 on (zssi_onhanqty_overview.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  left join (select M_Warehouse_ID, Name from M_Warehouse) table2 on (zssi_onhanqty_overview.M_Warehouse_ID = table2.M_Warehouse_ID) left join (select C_Uom_ID, Name from C_Uom) table3 on (zssi_onhanqty_overview.C_Uom_ID = table3.C_Uom_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL3 on (table3.C_UOM_ID = tableTRL3.C_UOM_ID and tableTRL3.AD_Language = ?)  left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table4 on (zssi_onhanqty_overview.M_Attributesetinstance_ID = table4.M_AttributeSetInstance_ID) left join (select AD_Org_ID, Name from AD_Org) table5 on (zssi_onhanqty_overview.AD_Org_ID = table5.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssi_onhanqty_overview.Zssi_Onhanqty_Overview_ID = ? 
+        AND zssi_onhanqty_overview.AD_Client_ID IN ('1') 
+           AND zssi_onhanqty_overview.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_onhanqty_overview.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_onhanqty_overview.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="qtyincomming"></Parameter><Parameter name="mWarehouseId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="qtyinflow"></Parameter><Parameter name="qtyinsale"></Parameter><Parameter name="qtyonhand"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="qtyordered"></Parameter><Parameter name="zssiOnhanqtyOverviewId"></Parameter><Parameter name="qtyoutflow"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="qtyreserved"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefB18F6AAF3DF74B5BA50C306F5CD38B01_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefF83F9AB95002421B9F5887FA6B62FC8B_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef0E3E9A242FFF48078962E13F2F28838D_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8EBA1560E96748AC9C85E6ED41B0911C_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_Attributesetinstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Attributesetinstance_IDR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssi_onhanqty_overview
+        SET M_Product_ID = (?) , M_Warehouse_ID = (?) , Qtyonhand = TO_NUMBER(?) , Qtyreserved = TO_NUMBER(?) , Qtyincomming = TO_NUMBER(?) , Qtyinsale = TO_NUMBER(?) , Qtyordered = TO_NUMBER(?) , Qtyoutflow = TO_NUMBER(?) , Qtyinflow = TO_NUMBER(?) , C_Uom_ID = (?) , M_Attributesetinstance_ID = (?) , AD_Org_ID = (?) , Zssi_Onhanqty_Overview_ID = (?) , Isactive = (?) , AD_Client_ID = (?) , updated = now(), updatedby = ? 
+        WHERE zssi_onhanqty_overview.Zssi_Onhanqty_Overview_ID = ? 
+        
+        AND zssi_onhanqty_overview.AD_Client_ID IN ('1') 
+        AND zssi_onhanqty_overview.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mProductId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="qtyonhand"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyincomming"></Parameter> <Parameter name="qtyinsale"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="qtyoutflow"></Parameter> <Parameter name="qtyinflow"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="zssiOnhanqtyOverviewId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adClientId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssiOnhanqtyOverviewId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_onhanqty_overview.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_onhanqty_overview.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssi_onhanqty_overview 
+        (M_Product_ID, M_Warehouse_ID, Qtyonhand, Qtyreserved, Qtyincomming, Qtyinsale, Qtyordered, Qtyoutflow, Qtyinflow, C_Uom_ID, M_Attributesetinstance_ID, AD_Org_ID, Zssi_Onhanqty_Overview_ID, Isactive, AD_Client_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mProductId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="qtyonhand"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyincomming"></Parameter> <Parameter name="qtyinsale"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="qtyoutflow"></Parameter> <Parameter name="qtyinflow"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="zssiOnhanqtyOverviewId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adClientId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_onhanqty_overview
+        WHERE zssi_onhanqty_overview.Zssi_Onhanqty_Overview_ID = ? 
+        
+        AND zssi_onhanqty_overview.AD_Client_ID IN ('1') 
+        AND zssi_onhanqty_overview.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_onhanqty_overview.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_onhanqty_overview.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_onhanqty_overview
+        WHERE zssi_onhanqty_overview.Zssi_Onhanqty_Overview_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssi_onhanqty_overview
+         WHERE zssi_onhanqty_overview.Zssi_Onhanqty_Overview_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssi_onhanqty_overview
+         WHERE zssi_onhanqty_overview.Zssi_Onhanqty_Overview_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

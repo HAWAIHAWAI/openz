@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="FieldFormatData" package="org.openbravo.erpWindows.ImportLoaderFormat">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_ImpFormat_Row.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_ImpFormat_Row.CreatedBy) as CreatedByR, 
+        to_char(AD_ImpFormat_Row.Updated, ?) as updated, 
+        to_char(AD_ImpFormat_Row.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_ImpFormat_Row.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_ImpFormat_Row.UpdatedBy) as UpdatedByR,
+        AD_ImpFormat_Row.AD_ImpFormat_Row_ID, 
+AD_ImpFormat_Row.AD_Client_ID, 
+(CASE WHEN AD_ImpFormat_Row.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_ImpFormat_Row.AD_Org_ID, 
+(CASE WHEN AD_ImpFormat_Row.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_ImpFormat_Row.AD_ImpFormat_ID, 
+(CASE WHEN AD_ImpFormat_Row.AD_ImpFormat_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_ImpFormat_IDR, 
+AD_ImpFormat_Row.SeqNo, 
+AD_ImpFormat_Row.Name, 
+COALESCE(AD_ImpFormat_Row.IsActive, 'N') AS IsActive, 
+AD_ImpFormat_Row.AD_Column_ID, 
+(CASE WHEN AD_ImpFormat_Row.AD_Column_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.ColumnName), ''))),'') ) END) AS AD_Column_IDR, 
+AD_ImpFormat_Row.DataType, 
+(CASE WHEN AD_ImpFormat_Row.DataType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DataTypeR, 
+AD_ImpFormat_Row.DataFormat, 
+AD_ImpFormat_Row.StartNo, 
+AD_ImpFormat_Row.EndNo, 
+AD_ImpFormat_Row.DecimalPoint, 
+COALESCE(AD_ImpFormat_Row.DivideBy100, 'N') AS DivideBy100, 
+AD_ImpFormat_Row.ConstantValue, 
+AD_ImpFormat_Row.Callout, 
+AD_ImpFormat_Row.Script, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_ImpFormat_Row left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_ImpFormat_Row.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_ImpFormat_Row.AD_Org_ID = table2.AD_Org_ID) left join (select AD_ImpFormat_ID, Name from AD_ImpFormat) table3 on (AD_ImpFormat_Row.AD_ImpFormat_ID = table3.AD_ImpFormat_ID) left join (select AD_Column_ID, ColumnName from AD_Column) table4 on (AD_ImpFormat_Row.AD_Column_ID = table4.AD_Column_ID) left join ad_ref_list_v list1 on (AD_ImpFormat_Row.DataType = list1.value and list1.ad_reference_id = '210' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_ImpFormat_Row.AD_ImpFormat_Row_ID = ? 
+        AND AD_ImpFormat_Row.AD_Client_ID IN ('1') 
+           AND AD_ImpFormat_Row.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adImpformatId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND AD_ImpFormat_Row.AD_ImpFormat_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_ImpFormat_Row.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_ImpFormat_Row.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adImpformatId" id="paramKeyParent"></Parameter>
+<Parameter name="name"></Parameter><Parameter name="endno"></Parameter><Parameter name="divideby100"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="datatype"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="constantvalue"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adColumnId"></Parameter><Parameter name="decimalpoint"></Parameter><Parameter name="dataformat"></Parameter><Parameter name="adImpformatRowId"></Parameter><Parameter name="script"></Parameter><Parameter name="seqno"></Parameter><Parameter name="callout"></Parameter><Parameter name="startno"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef4686_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4691" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(SeqNo),0)+10 AS DefaultValue FROM AD_ImpFormat_Row WHERE AD_ImpFormat_ID=? 
+    ]]></Sql>
+
+<Parameter name="AD_ImpFormat_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4688_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT AD_ImpFormat_Row.AD_ImpFormat_ID AS NAME
+        FROM AD_ImpFormat_Row
+        WHERE AD_ImpFormat_Row.AD_ImpFormat_Row_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_ImpFormat left join (select AD_ImpFormat_ID, Name from AD_ImpFormat) table1 on (AD_ImpFormat.AD_ImpFormat_ID = table1.AD_ImpFormat_ID) WHERE AD_ImpFormat.AD_ImpFormat_ID = ?  
+    ]]></Sql>
+<Parameter name="adImpformatId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_ImpFormat left join (select AD_ImpFormat_ID, Name from AD_ImpFormat) table1 on (AD_ImpFormat.AD_ImpFormat_ID = table1.AD_ImpFormat_ID) WHERE AD_ImpFormat.AD_ImpFormat_ID = ?  
+    ]]></Sql>
+<Parameter name="adImpformatId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_ImpFormat_Row
+        SET AD_ImpFormat_Row_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , AD_ImpFormat_ID = (?) , SeqNo = TO_NUMBER(?) , Name = (?) , IsActive = (?) , AD_Column_ID = (?) , DataType = (?) , DataFormat = (?) , StartNo = TO_NUMBER(?) , EndNo = TO_NUMBER(?) , DecimalPoint = (?) , DivideBy100 = (?) , ConstantValue = (?) , Callout = (?) , Script = (?) , updated = now(), updatedby = ? 
+        WHERE AD_ImpFormat_Row.AD_ImpFormat_Row_ID = ? 
+                 AND AD_ImpFormat_Row.AD_ImpFormat_ID = ? 
+        AND AD_ImpFormat_Row.AD_Client_ID IN ('1') 
+        AND AD_ImpFormat_Row.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adImpformatRowId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adImpformatId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adColumnId"></Parameter> <Parameter name="datatype"></Parameter> <Parameter name="dataformat"></Parameter> <Parameter name="startno"></Parameter> <Parameter name="endno"></Parameter> <Parameter name="decimalpoint"></Parameter> <Parameter name="divideby100"></Parameter> <Parameter name="constantvalue"></Parameter> <Parameter name="callout"></Parameter> <Parameter name="script"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adImpformatRowId"></Parameter>
+    
+    <Parameter name="adImpformatId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_ImpFormat_Row.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_ImpFormat_Row.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_ImpFormat_Row 
+        (AD_ImpFormat_Row_ID, AD_Client_ID, AD_Org_ID, AD_ImpFormat_ID, SeqNo, Name, IsActive, AD_Column_ID, DataType, DataFormat, StartNo, EndNo, DecimalPoint, DivideBy100, ConstantValue, Callout, Script, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adImpformatRowId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adImpformatId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adColumnId"></Parameter> <Parameter name="datatype"></Parameter> <Parameter name="dataformat"></Parameter> <Parameter name="startno"></Parameter> <Parameter name="endno"></Parameter> <Parameter name="decimalpoint"></Parameter> <Parameter name="divideby100"></Parameter> <Parameter name="constantvalue"></Parameter> <Parameter name="callout"></Parameter> <Parameter name="script"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_ImpFormat_Row
+        WHERE AD_ImpFormat_Row.AD_ImpFormat_Row_ID = ? 
+                 AND AD_ImpFormat_Row.AD_ImpFormat_ID = ? 
+        AND AD_ImpFormat_Row.AD_Client_ID IN ('1') 
+        AND AD_ImpFormat_Row.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adImpformatId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_ImpFormat_Row.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_ImpFormat_Row.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_ImpFormat_Row
+        WHERE AD_ImpFormat_Row.AD_ImpFormat_Row_ID = ? 
+                 AND AD_ImpFormat_Row.AD_ImpFormat_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adImpformatId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_ImpFormat_Row
+         WHERE AD_ImpFormat_Row.AD_ImpFormat_Row_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_ImpFormat_Row
+         WHERE AD_ImpFormat_Row.AD_ImpFormat_Row_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="PriceListData" package="org.openbravo.erpWindows.PriceList">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_PriceList.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_PriceList.CreatedBy) as CreatedByR, 
+        to_char(M_PriceList.Updated, ?) as updated, 
+        to_char(M_PriceList.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_PriceList.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_PriceList.UpdatedBy) as UpdatedByR,
+        M_PriceList.M_PriceList_ID, 
+M_PriceList.BasePriceList_ID, 
+M_PriceList.AD_Client_ID, 
+(CASE WHEN M_PriceList.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_PriceList.AD_Org_ID, 
+(CASE WHEN M_PriceList.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_PriceList.Name, 
+M_PriceList.Description, 
+COALESCE(M_PriceList.IsActive, 'N') AS IsActive, 
+COALESCE(M_PriceList.IsDefault, 'N') AS IsDefault, 
+M_PriceList.C_Currency_ID, 
+(CASE WHEN M_PriceList.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+COALESCE(M_PriceList.IsSOPriceList, 'N') AS IsSOPriceList, 
+COALESCE(M_PriceList.IsTaxIncluded, 'N') AS IsTaxIncluded, 
+COALESCE(M_PriceList.EnforcePriceLimit, 'N') AS EnforcePriceLimit, 
+ 
+        ? AS LANGUAGE 
+        FROM M_PriceList left join (select AD_Client_ID, Name from AD_Client) table1 on (M_PriceList.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_PriceList.AD_Org_ID = table2.AD_Org_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table3 on (M_PriceList.C_Currency_ID = table3.C_Currency_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_PriceList.M_PriceList_ID = ? 
+        AND M_PriceList.AD_Client_ID IN ('1') 
+           AND M_PriceList.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_PriceList.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_PriceList.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="issopricelist"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="description"></Parameter><Parameter name="enforcepricelimit"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="name"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="istaxincluded"></Parameter><Parameter name="basepricelistId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef2105_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2107_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_PriceList
+        SET M_PriceList_ID = (?) , BasePriceList_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Name = (?) , Description = (?) , IsActive = (?) , IsDefault = (?) , C_Currency_ID = (?) , IsSOPriceList = (?) , IsTaxIncluded = (?) , EnforcePriceLimit = (?) , updated = now(), updatedby = ? 
+        WHERE M_PriceList.M_PriceList_ID = ? 
+        
+        AND M_PriceList.AD_Client_ID IN ('1') 
+        AND M_PriceList.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mPricelistId"></Parameter> <Parameter name="basepricelistId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="issopricelist"></Parameter> <Parameter name="istaxincluded"></Parameter> <Parameter name="enforcepricelimit"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mPricelistId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_PriceList.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_PriceList.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_PriceList 
+        (M_PriceList_ID, BasePriceList_ID, AD_Client_ID, AD_Org_ID, Name, Description, IsActive, IsDefault, C_Currency_ID, IsSOPriceList, IsTaxIncluded, EnforcePriceLimit, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mPricelistId"></Parameter> <Parameter name="basepricelistId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="issopricelist"></Parameter> <Parameter name="istaxincluded"></Parameter> <Parameter name="enforcepricelimit"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_PriceList
+        WHERE M_PriceList.M_PriceList_ID = ? 
+        
+        AND M_PriceList.AD_Client_ID IN ('1') 
+        AND M_PriceList.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_PriceList.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_PriceList.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_PriceList
+        WHERE M_PriceList.M_PriceList_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_PriceList
+         WHERE M_PriceList.M_PriceList_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_PriceList
+         WHERE M_PriceList.M_PriceList_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

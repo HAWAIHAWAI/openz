@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="RoleAccessData" package="org.openbravo.erpWindows.TablesandColumns">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Table_Access.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Table_Access.CreatedBy) as CreatedByR, 
+        to_char(AD_Table_Access.Updated, ?) as updated, 
+        to_char(AD_Table_Access.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Table_Access.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Table_Access.UpdatedBy) as UpdatedByR,
+        AD_Table_Access.AD_Table_Access_ID, 
+AD_Table_Access.AD_Client_ID, 
+(CASE WHEN AD_Table_Access.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Table_Access.AD_Org_ID, 
+(CASE WHEN AD_Table_Access.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_Table_Access.AD_Table_ID, 
+(CASE WHEN AD_Table_Access.AD_Table_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.TableName), ''))),'') ) END) AS AD_Table_IDR, 
+AD_Table_Access.AD_Role_ID, 
+(CASE WHEN AD_Table_Access.AD_Role_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Role_IDR, 
+COALESCE(AD_Table_Access.IsActive, 'N') AS IsActive, 
+COALESCE(AD_Table_Access.IsExclude, 'N') AS IsExclude, 
+COALESCE(AD_Table_Access.IsReadOnly, 'N') AS IsReadOnly, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Table_Access left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_Table_Access.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_Table_Access.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Table_ID, TableName from AD_Table) table3 on (AD_Table_Access.AD_Table_ID = table3.AD_Table_ID) left join (select AD_Role_ID, Name from AD_Role) table4 on (AD_Table_Access.AD_Role_ID = table4.AD_Role_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_Table_Access.AD_Table_Access_ID = ? 
+        
+        
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="adTableId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND AD_Table_Access.AD_Table_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+    
+    
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+<Parameter name="isreadonly"></Parameter><Parameter name="adTableAccessId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isexclude"></Parameter><Parameter name="adRoleId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef8567_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef8569_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT AD_Table_Access.AD_Table_ID AS NAME
+        FROM AD_Table_Access
+        WHERE AD_Table_Access.AD_Table_Access_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.TableName), ''))) AS NAME FROM AD_Table left join (select AD_Table_ID, TableName from AD_Table) table1 on (AD_Table.AD_Table_ID = table1.AD_Table_ID) WHERE AD_Table.AD_Table_ID = ?  
+    ]]></Sql>
+<Parameter name="adTableId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.TableName), ''))) AS NAME FROM AD_Table left join (select AD_Table_ID, TableName from AD_Table) table1 on (AD_Table.AD_Table_ID = table1.AD_Table_ID) WHERE AD_Table.AD_Table_ID = ?  
+    ]]></Sql>
+<Parameter name="adTableId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Table_Access
+        SET AD_Table_Access_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , AD_Table_ID = (?) , AD_Role_ID = (?) , IsActive = (?) , IsExclude = (?) , IsReadOnly = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Table_Access.AD_Table_Access_ID = ? 
+                 AND AD_Table_Access.AD_Table_ID = ? 
+        
+        
+    ]]></Sql>
+    <Parameter name="adTableAccessId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adRoleId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isexclude"></Parameter> <Parameter name="isreadonly"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adTableAccessId"></Parameter>
+    
+    <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+    
+    
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Table_Access 
+        (AD_Table_Access_ID, AD_Client_ID, AD_Org_ID, AD_Table_ID, AD_Role_ID, IsActive, IsExclude, IsReadOnly, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adTableAccessId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adRoleId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isexclude"></Parameter> <Parameter name="isreadonly"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Table_Access
+        WHERE AD_Table_Access.AD_Table_Access_ID = ? 
+                 AND AD_Table_Access.AD_Table_ID = ? 
+        
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+    
+    
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Table_Access
+        WHERE AD_Table_Access.AD_Table_Access_ID = ? 
+                 AND AD_Table_Access.AD_Table_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adTableId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Table_Access
+         WHERE AD_Table_Access.AD_Table_Access_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Table_Access
+         WHERE AD_Table_Access.AD_Table_Access_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

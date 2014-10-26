@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Task800192Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.cmms.MaintenanceOrder">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(MA_Maint_Scheduled.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Maint_Scheduled.CreatedBy) as CreatedByR, 
+        to_char(MA_Maint_Scheduled.Updated, ?) as updated, 
+        to_char(MA_Maint_Scheduled.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        MA_Maint_Scheduled.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Maint_Scheduled.UpdatedBy) as UpdatedByR,
+        MA_Maint_Scheduled.AD_Client_ID, 
+(CASE WHEN MA_Maint_Scheduled.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+MA_Maint_Scheduled.MA_Maint_Scheduled_ID, 
+MA_Maint_Scheduled.AD_Org_ID, 
+(CASE WHEN MA_Maint_Scheduled.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+MA_Maint_Scheduled.MA_Maint_Part_ID, 
+(CASE WHEN MA_Maint_Scheduled.MA_Maint_Part_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'') ) END) AS MA_Maint_Part_IDR, 
+COALESCE(MA_Maint_Scheduled.IsActive, 'N') AS IsActive, 
+MA_Maint_Scheduled.MA_Maintenance_ID, 
+(CASE WHEN MA_Maint_Scheduled.MA_Maintenance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS MA_Maintenance_IDR, 
+MA_Maint_Scheduled.Scheduleddate, 
+MA_Maint_Scheduled.Shift, 
+(CASE WHEN MA_Maint_Scheduled.Shift IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS ShiftR, 
+MA_Maint_Scheduled.Maintenance_Type, 
+(CASE WHEN MA_Maint_Scheduled.Maintenance_Type IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS Maintenance_TypeR, 
+MA_Maint_Scheduled.MA_Machine_ID, 
+(CASE WHEN MA_Maint_Scheduled.MA_Machine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS MA_Machine_IDR, 
+MA_Maint_Scheduled.MA_Machine_Type_ID, 
+(CASE WHEN MA_Maint_Scheduled.MA_Machine_Type_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS MA_Machine_Type_IDR, 
+MA_Maint_Scheduled.MA_Maint_Operation_ID, 
+(CASE WHEN MA_Maint_Scheduled.MA_Maint_Operation_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS MA_Maint_Operation_IDR, 
+MA_Maint_Scheduled.Description, 
+COALESCE(MA_Maint_Scheduled.Confirmed, 'N') AS Confirmed, 
+COALESCE(MA_Maint_Scheduled.Result, 'N') AS Result, 
+MA_Maint_Scheduled.Usedtime, 
+MA_Maint_Scheduled.Observation, 
+MA_Maint_Scheduled.M_Internal_Consumption_ID, 
+(CASE WHEN MA_Maint_Scheduled.M_Internal_Consumption_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS M_Internal_Consumption_IDR, 
+ 
+        ? AS LANGUAGE 
+        FROM MA_Maint_Scheduled left join (select AD_Client_ID, Name from AD_Client) table1 on (MA_Maint_Scheduled.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (MA_Maint_Scheduled.AD_Org_ID = table2.AD_Org_ID) left join (select MA_Maint_Part_ID, DocumentNo from MA_Maint_Part) table3 on (MA_Maint_Scheduled.MA_Maint_Part_ID = table3.MA_Maint_Part_ID) left join (select MA_Maintenance_ID, Name from MA_Maintenance) table4 on (MA_Maint_Scheduled.MA_Maintenance_ID = table4.MA_Maintenance_ID) left join ad_ref_list_v list1 on (MA_Maint_Scheduled.Shift = list1.value and list1.ad_reference_id = '800038' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (MA_Maint_Scheduled.Maintenance_Type = list2.value and list2.ad_reference_id = '800033' and list2.ad_language = ?)  left join (select MA_Machine_ID, Value, Name from MA_Machine) table5 on (MA_Maint_Scheduled.MA_Machine_ID = table5.MA_Machine_ID) left join (select MA_Machine_Type_ID, Name from MA_Machine_Type) table6 on (MA_Maint_Scheduled.MA_Machine_Type_ID = table6.MA_Machine_Type_ID) left join (select MA_Maint_Operation_ID, Name from MA_Maint_Operation) table7 on (MA_Maint_Scheduled.MA_Maint_Operation_ID = table7.MA_Maint_Operation_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table8 on (MA_Maint_Scheduled.M_Internal_Consumption_ID = table8.M_Internal_Consumption_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND MA_Maint_Scheduled.MA_Maint_Scheduled_ID = ? 
+        AND MA_Maint_Scheduled.AD_Client_ID IN ('1') 
+           AND MA_Maint_Scheduled.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="maMaintPartId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND MA_Maint_Scheduled.MA_Maint_Part_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Maint_Scheduled.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Maint_Scheduled.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="maMaintPartId" id="paramKeyParent"></Parameter>
+<Parameter name="maMaintOperationId"></Parameter><Parameter name="confirmed"></Parameter><Parameter name="maMaintenanceId"></Parameter><Parameter name="shift"></Parameter><Parameter name="observation"></Parameter><Parameter name="mInternalConsumptionId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="result"></Parameter><Parameter name="isactive"></Parameter><Parameter name="maintenanceType"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="maMaintScheduledId"></Parameter><Parameter name="maMachineId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="scheduleddate"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="maMachineTypeId"></Parameter><Parameter name="usedtime"></Parameter><Parameter name="description"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef802642_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802644_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MA_Maint_Scheduled.MA_Maint_Part_ID AS NAME
+        FROM MA_Maint_Scheduled
+        WHERE MA_Maint_Scheduled.MA_Maint_Scheduled_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), ''))) AS NAME FROM MA_Maint_Part left join (select MA_Maint_Part_ID, DocumentNo from MA_Maint_Part) table1 on (MA_Maint_Part.MA_Maint_Part_ID = table1.MA_Maint_Part_ID) WHERE MA_Maint_Part.MA_Maint_Part_ID = ?  
+    ]]></Sql>
+<Parameter name="maMaintPartId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), ''))) AS NAME FROM MA_Maint_Part left join (select MA_Maint_Part_ID, DocumentNo from MA_Maint_Part) table1 on (MA_Maint_Part.MA_Maint_Part_ID = table1.MA_Maint_Part_ID) WHERE MA_Maint_Part.MA_Maint_Part_ID = ?  
+    ]]></Sql>
+<Parameter name="maMaintPartId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE MA_Maint_Scheduled
+        SET AD_Client_ID = (?) , MA_Maint_Scheduled_ID = (?) , AD_Org_ID = (?) , MA_Maint_Part_ID = (?) , IsActive = (?) , MA_Maintenance_ID = (?) , Scheduleddate = TO_DATE(?) , Shift = (?) , Maintenance_Type = (?) , MA_Machine_ID = (?) , MA_Machine_Type_ID = (?) , MA_Maint_Operation_ID = (?) , Description = (?) , Confirmed = (?) , Result = (?) , Usedtime = TO_NUMBER(?) , Observation = (?) , M_Internal_Consumption_ID = (?) , updated = now(), updatedby = ? 
+        WHERE MA_Maint_Scheduled.MA_Maint_Scheduled_ID = ? 
+                 AND MA_Maint_Scheduled.MA_Maint_Part_ID = ? 
+        AND MA_Maint_Scheduled.AD_Client_ID IN ('1') 
+        AND MA_Maint_Scheduled.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="maMaintScheduledId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMaintPartId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="maMaintenanceId"></Parameter> <Parameter name="scheduleddate"></Parameter> <Parameter name="shift"></Parameter> <Parameter name="maintenanceType"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="maMachineTypeId"></Parameter> <Parameter name="maMaintOperationId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="confirmed"></Parameter> <Parameter name="result"></Parameter> <Parameter name="usedtime"></Parameter> <Parameter name="observation"></Parameter> <Parameter name="mInternalConsumptionId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="maMaintScheduledId"></Parameter>
+    
+    <Parameter name="maMaintPartId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Maint_Scheduled.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Maint_Scheduled.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO MA_Maint_Scheduled 
+        (AD_Client_ID, MA_Maint_Scheduled_ID, AD_Org_ID, MA_Maint_Part_ID, IsActive, MA_Maintenance_ID, Scheduleddate, Shift, Maintenance_Type, MA_Machine_ID, MA_Machine_Type_ID, MA_Maint_Operation_ID, Description, Confirmed, Result, Usedtime, Observation, M_Internal_Consumption_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="maMaintScheduledId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMaintPartId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="maMaintenanceId"></Parameter> <Parameter name="scheduleddate"></Parameter> <Parameter name="shift"></Parameter> <Parameter name="maintenanceType"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="maMachineTypeId"></Parameter> <Parameter name="maMaintOperationId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="confirmed"></Parameter> <Parameter name="result"></Parameter> <Parameter name="usedtime"></Parameter> <Parameter name="observation"></Parameter> <Parameter name="mInternalConsumptionId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Maint_Scheduled
+        WHERE MA_Maint_Scheduled.MA_Maint_Scheduled_ID = ? 
+                 AND MA_Maint_Scheduled.MA_Maint_Part_ID = ? 
+        AND MA_Maint_Scheduled.AD_Client_ID IN ('1') 
+        AND MA_Maint_Scheduled.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMaintPartId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Maint_Scheduled.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Maint_Scheduled.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Maint_Scheduled
+        WHERE MA_Maint_Scheduled.MA_Maint_Scheduled_ID = ? 
+                 AND MA_Maint_Scheduled.MA_Maint_Part_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMaintPartId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM MA_Maint_Scheduled
+         WHERE MA_Maint_Scheduled.MA_Maint_Scheduled_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM MA_Maint_Scheduled
+         WHERE MA_Maint_Scheduled.MA_Maint_Scheduled_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

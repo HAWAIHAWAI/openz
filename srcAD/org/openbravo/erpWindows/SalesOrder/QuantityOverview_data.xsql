@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="QuantityOverviewData" package="org.openbravo.erpWindows.SalesOrder">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssi_qtyoverview.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_qtyoverview.CreatedBy) as CreatedByR, 
+        to_char(zssi_qtyoverview.Updated, ?) as updated, 
+        to_char(zssi_qtyoverview.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssi_qtyoverview.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_qtyoverview.UpdatedBy) as UpdatedByR,
+        zssi_qtyoverview.Zssi_Qtyoverview_ID, 
+zssi_qtyoverview.AD_Org_ID, 
+(CASE WHEN zssi_qtyoverview.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+zssi_qtyoverview.AD_Client_ID, 
+zssi_qtyoverview.Line, 
+zssi_qtyoverview.M_Product_ID, 
+(CASE WHEN zssi_qtyoverview.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+zssi_qtyoverview.Description, 
+COALESCE(zssi_qtyoverview.Isactive, 'N') AS Isactive, 
+zssi_qtyoverview.Qtyorderordered, 
+zssi_qtyoverview.Qtyavailable, 
+zssi_qtyoverview.Qtyonhand, 
+zssi_qtyoverview.Qtydelivered, 
+zssi_qtyoverview.Qtytodeliver, 
+zssi_qtyoverview.Qtyinvoiced, 
+zssi_qtyoverview.Qtyorderedvendor, 
+zssi_qtyoverview.C_Order_ID, 
+(CASE WHEN zssi_qtyoverview.C_Order_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.GrandTotal), ''))),'') ) END) AS C_Order_IDR, 
+ 
+        ? AS LANGUAGE 
+        FROM zssi_qtyoverview left join (select AD_Org_ID, Name from AD_Org) table1 on (zssi_qtyoverview.AD_Org_ID = table1.AD_Org_ID) left join (select M_Product_ID, Value, Name from M_Product) table2 on (zssi_qtyoverview.M_Product_ID = table2.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL2 on (table2.M_Product_ID = tableTRL2.M_Product_ID and tableTRL2.AD_Language = ?)  left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table3 on (zssi_qtyoverview.C_Order_ID = table3.C_Order_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssi_qtyoverview.Zssi_Qtyoverview_ID = ? 
+        AND zssi_qtyoverview.AD_Client_ID IN ('1') 
+           AND zssi_qtyoverview.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cOrderId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zssi_qtyoverview.C_Order_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_qtyoverview.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_qtyoverview.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+<Parameter name="isactive"></Parameter><Parameter name="qtyonhand"></Parameter><Parameter name="line"></Parameter><Parameter name="description"></Parameter><Parameter name="qtyorderordered"></Parameter><Parameter name="zssiQtyoverviewId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="qtyinvoiced"></Parameter><Parameter name="qtyorderedvendor"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="qtytodeliver"></Parameter><Parameter name="qtyavailable"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="qtydelivered"></Parameter><Parameter name="cOrderIdr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef8A9A2BDBE88F4ACB9214EE004ED94CE1_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef7941B115CCE04438BFBCA3595C1FD852_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5C520A666EB646DDAA635646196D5348_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefF812137CB93D4DF9A5BAA83081B1179C_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '')  || ' - ' || COALESCE(TO_CHAR(table1.DateOrdered), '')  || ' - ' || COALESCE(TO_CHAR(table1.GrandTotal), '') ) as C_Order_ID FROM C_Order table1 WHERE table1.isActive='Y' AND table1.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Order_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zssi_qtyoverview.C_Order_ID AS NAME
+        FROM zssi_qtyoverview
+        WHERE zssi_qtyoverview.Zssi_Qtyoverview_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssi_qtyoverview
+        SET Zssi_Qtyoverview_ID = (?) , AD_Org_ID = (?) , AD_Client_ID = (?) , Line = TO_NUMBER(?) , M_Product_ID = (?) , Description = (?) , Isactive = (?) , Qtyorderordered = TO_NUMBER(?) , Qtyavailable = TO_NUMBER(?) , Qtyonhand = TO_NUMBER(?) , Qtydelivered = TO_NUMBER(?) , Qtytodeliver = TO_NUMBER(?) , Qtyinvoiced = TO_NUMBER(?) , Qtyorderedvendor = TO_NUMBER(?) , C_Order_ID = (?) , updated = now(), updatedby = ? 
+        WHERE zssi_qtyoverview.Zssi_Qtyoverview_ID = ? 
+                 AND zssi_qtyoverview.C_Order_ID = ? 
+        AND zssi_qtyoverview.AD_Client_ID IN ('1') 
+        AND zssi_qtyoverview.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="zssiQtyoverviewId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="qtyorderordered"></Parameter> <Parameter name="qtyavailable"></Parameter> <Parameter name="qtyonhand"></Parameter> <Parameter name="qtydelivered"></Parameter> <Parameter name="qtytodeliver"></Parameter> <Parameter name="qtyinvoiced"></Parameter> <Parameter name="qtyorderedvendor"></Parameter> <Parameter name="cOrderId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssiQtyoverviewId"></Parameter>
+    
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_qtyoverview.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_qtyoverview.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssi_qtyoverview 
+        (Zssi_Qtyoverview_ID, AD_Org_ID, AD_Client_ID, Line, M_Product_ID, Description, Isactive, Qtyorderordered, Qtyavailable, Qtyonhand, Qtydelivered, Qtytodeliver, Qtyinvoiced, Qtyorderedvendor, C_Order_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="zssiQtyoverviewId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="qtyorderordered"></Parameter> <Parameter name="qtyavailable"></Parameter> <Parameter name="qtyonhand"></Parameter> <Parameter name="qtydelivered"></Parameter> <Parameter name="qtytodeliver"></Parameter> <Parameter name="qtyinvoiced"></Parameter> <Parameter name="qtyorderedvendor"></Parameter> <Parameter name="cOrderId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_qtyoverview
+        WHERE zssi_qtyoverview.Zssi_Qtyoverview_ID = ? 
+                 AND zssi_qtyoverview.C_Order_ID = ? 
+        AND zssi_qtyoverview.AD_Client_ID IN ('1') 
+        AND zssi_qtyoverview.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_qtyoverview.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_qtyoverview.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_qtyoverview
+        WHERE zssi_qtyoverview.Zssi_Qtyoverview_ID = ? 
+                 AND zssi_qtyoverview.C_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssi_qtyoverview
+         WHERE zssi_qtyoverview.Zssi_Qtyoverview_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssi_qtyoverview
+         WHERE zssi_qtyoverview.Zssi_Qtyoverview_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

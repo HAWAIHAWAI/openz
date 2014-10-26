@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Translation50252C0870B240EE9921D1D0911517EBData" package="org.openbravo.erpWindows.org.openbravo.zsoft.smartui.DepartmentsAreas">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_User_Department_trl.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_User_Department_trl.CreatedBy) as CreatedByR, 
+        to_char(C_User_Department_trl.Updated, ?) as updated, 
+        to_char(C_User_Department_trl.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_User_Department_trl.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_User_Department_trl.UpdatedBy) as UpdatedByR,
+        C_User_Department_trl.C_User_Department_Trl_ID, 
+C_User_Department_trl.C_User_Department_ID, 
+(CASE WHEN C_User_Department_trl.C_User_Department_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS C_User_Department_IDR, 
+C_User_Department_trl.AD_Client_ID, 
+C_User_Department_trl.AD_Language, 
+(CASE WHEN C_User_Department_trl.AD_Language IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_LanguageR, 
+C_User_Department_trl.Name, 
+C_User_Department_trl.AD_Org_ID, 
+COALESCE(C_User_Department_trl.Isactive, 'N') AS Isactive, 
+COALESCE(C_User_Department_trl.Istranslated, 'N') AS Istranslated, 
+ 
+        ? AS LANGUAGE 
+        FROM C_User_Department_trl left join (select C_User_Department_ID, Name from C_User_Department) table1 on (C_User_Department_trl.C_User_Department_ID = table1.C_User_Department_ID) left join (select C_User_Department_ID,AD_Language, Name from C_User_Department_TRL) tableTRL1 on (table1.C_User_Department_ID = tableTRL1.C_User_Department_ID and tableTRL1.AD_Language = ?)  left join (select AD_Language, Name from AD_Language) table2 on (C_User_Department_trl.AD_Language =  table2.AD_Language)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_User_Department_trl.C_User_Department_Trl_ID = ? 
+        AND C_User_Department_trl.AD_Client_ID IN ('1') 
+           AND C_User_Department_trl.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cUserDepartmentId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_User_Department_trl.C_User_Department_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_User_Department_trl.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_User_Department_trl.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cUserDepartmentId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="istranslated"></Parameter><Parameter name="cUserDepartmentTrlId"></Parameter><Parameter name="adLanguage"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="name"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef777EED95DD894512A88F86B32E102A50_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef87D3B38AA17B48BD9F2332FC30D852EF_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_User_Department_trl.C_User_Department_ID AS NAME
+        FROM C_User_Department_trl
+        WHERE C_User_Department_trl.C_User_Department_Trl_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM C_User_Department left join (select C_User_Department_ID, Name from C_User_Department) table1 on (C_User_Department.C_User_Department_ID = table1.C_User_Department_ID) left join (select C_User_Department_ID,AD_Language, Name from C_User_Department_TRL) tableTRL1 on (table1.C_User_Department_ID = tableTRL1.C_User_Department_ID and tableTRL1.AD_Language = ?)  WHERE C_User_Department.C_User_Department_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="cUserDepartmentId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM C_User_Department left join (select C_User_Department_ID, Name from C_User_Department) table1 on (C_User_Department.C_User_Department_ID = table1.C_User_Department_ID) left join (select C_User_Department_ID,AD_Language, Name from C_User_Department_TRL) tableTRL1 on (table1.C_User_Department_ID = tableTRL1.C_User_Department_ID and tableTRL1.AD_Language = ?)  WHERE C_User_Department.C_User_Department_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="cUserDepartmentId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_User_Department_trl
+        SET C_User_Department_Trl_ID = (?) , C_User_Department_ID = (?) , AD_Client_ID = (?) , AD_Language = (?) , Name = (?) , AD_Org_ID = (?) , Isactive = (?) , Istranslated = (?) , updated = now(), updatedby = ? 
+        WHERE C_User_Department_trl.C_User_Department_Trl_ID = ? 
+                 AND C_User_Department_trl.C_User_Department_ID = ? 
+        AND C_User_Department_trl.AD_Client_ID IN ('1') 
+        AND C_User_Department_trl.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cUserDepartmentTrlId"></Parameter> <Parameter name="cUserDepartmentId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="name"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="istranslated"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cUserDepartmentTrlId"></Parameter>
+    
+    <Parameter name="cUserDepartmentId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_User_Department_trl.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_User_Department_trl.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_User_Department_trl 
+        (C_User_Department_Trl_ID, C_User_Department_ID, AD_Client_ID, AD_Language, Name, AD_Org_ID, Isactive, Istranslated, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cUserDepartmentTrlId"></Parameter> <Parameter name="cUserDepartmentId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="name"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="istranslated"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_User_Department_trl
+        WHERE C_User_Department_trl.C_User_Department_Trl_ID = ? 
+                 AND C_User_Department_trl.C_User_Department_ID = ? 
+        AND C_User_Department_trl.AD_Client_ID IN ('1') 
+        AND C_User_Department_trl.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cUserDepartmentId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_User_Department_trl.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_User_Department_trl.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_User_Department_trl
+        WHERE C_User_Department_trl.C_User_Department_Trl_ID = ? 
+                 AND C_User_Department_trl.C_User_Department_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cUserDepartmentId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_User_Department_trl
+         WHERE C_User_Department_trl.C_User_Department_Trl_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_User_Department_trl
+         WHERE C_User_Department_trl.C_User_Department_Trl_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="BuiltinSerialsandBatches1849F6E0F2AF4E4D8715FEA00C2818B7Data" package="org.openbravo.erpWindows.org.zsoft.serial.SerialNumberTracking">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(snr_currentbom_serials.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = snr_currentbom_serials.CreatedBy) as CreatedByR, 
+        to_char(snr_currentbom_serials.Updated, ?) as updated, 
+        to_char(snr_currentbom_serials.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        snr_currentbom_serials.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = snr_currentbom_serials.UpdatedBy) as UpdatedByR,
+        snr_currentbom_serials.SNR_Currentbom_Serials_ID, 
+snr_currentbom_serials.SNR_Currentbom_V_ID, 
+(CASE WHEN snr_currentbom_serials.SNR_Currentbom_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Serialnumber), ''))),'') ) END) AS SNR_Currentbom_V_IDR, 
+snr_currentbom_serials.SNR_Masterdata_ID, 
+(CASE WHEN snr_currentbom_serials.SNR_Masterdata_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL5.Name IS NULL THEN TO_CHAR(table5.Name) ELSE TO_CHAR(tableTRL5.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Serialnumber), ''))),'') ) END) AS SNR_Masterdata_IDR, 
+snr_currentbom_serials.SNR_Batchmasterdata_ID, 
+(CASE WHEN snr_currentbom_serials.SNR_Batchmasterdata_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Batchnumber), ''))),'') ) END) AS SNR_Batchmasterdata_IDR, 
+snr_currentbom_serials.Qty, 
+snr_currentbom_serials.AD_Client_ID, 
+snr_currentbom_serials.AD_Org_ID, 
+COALESCE(snr_currentbom_serials.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM snr_currentbom_serials left join (select SNR_Currentbom_V_ID, SNR_Masterdata_ID from SNR_Currentbom_V) table1 on (snr_currentbom_serials.SNR_Currentbom_V_ID = table1.SNR_Currentbom_V_ID) left join (select SNR_Masterdata_ID, M_Product_ID, Serialnumber from SNR_Masterdata) table2 on (table1.SNR_Masterdata_ID = table2.SNR_Masterdata_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (table2.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select SNR_Masterdata_ID, M_Product_ID, Serialnumber from SNR_Masterdata) table4 on (snr_currentbom_serials.SNR_Masterdata_ID = table4.SNR_Masterdata_ID) left join (select M_Product_ID, Value, Name from M_Product) table5 on (table4.M_Product_ID = table5.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL5 on (table5.M_Product_ID = tableTRL5.M_Product_ID and tableTRL5.AD_Language = ?)  left join (select SNR_Batchmasterdata_ID, Batchnumber from SNR_Batchmasterdata) table6 on (snr_currentbom_serials.SNR_Batchmasterdata_ID = table6.SNR_Batchmasterdata_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND snr_currentbom_serials.SNR_Currentbom_Serials_ID = ? 
+        AND snr_currentbom_serials.AD_Client_ID IN ('1') 
+           AND snr_currentbom_serials.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="snrCurrentbomVId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND snr_currentbom_serials.SNR_Currentbom_V_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_currentbom_serials.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_currentbom_serials.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="snrCurrentbomVId" id="paramKeyParent"></Parameter>
+<Parameter name="snrMasterdataId"></Parameter><Parameter name="snrBatchmasterdataId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="qty"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="snrCurrentbomSerialsId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1D3913B97905472197D90F1D4E5F2EF3_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9C3B9312A531473B9B52CA1B65E69C2C_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT snr_currentbom_serials.SNR_Currentbom_V_ID AS NAME
+        FROM snr_currentbom_serials
+        WHERE snr_currentbom_serials.SNR_Currentbom_Serials_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table3.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Serialnumber), ''))) AS NAME FROM snr_currentbom_v left join (select SNR_Currentbom_V_ID, SNR_Masterdata_ID from SNR_Currentbom_V) table1 on (snr_currentbom_v.SNR_Currentbom_V_ID = table1.SNR_Currentbom_V_ID) left join (select SNR_Masterdata_ID, M_Product_ID, Serialnumber from SNR_Masterdata) table2 on (table1.SNR_Masterdata_ID = table2.SNR_Masterdata_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (table2.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  WHERE snr_currentbom_v.SNR_Currentbom_V_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="snrCurrentbomVId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table3.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Serialnumber), ''))) AS NAME FROM snr_currentbom_v left join (select SNR_Currentbom_V_ID, SNR_Masterdata_ID from SNR_Currentbom_V) table1 on (snr_currentbom_v.SNR_Currentbom_V_ID = table1.SNR_Currentbom_V_ID) left join (select SNR_Masterdata_ID, M_Product_ID, Serialnumber from SNR_Masterdata) table2 on (table1.SNR_Masterdata_ID = table2.SNR_Masterdata_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (table2.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  WHERE snr_currentbom_v.SNR_Currentbom_V_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="snrCurrentbomVId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE snr_currentbom_serials
+        SET SNR_Currentbom_Serials_ID = (?) , SNR_Currentbom_V_ID = (?) , SNR_Masterdata_ID = (?) , SNR_Batchmasterdata_ID = (?) , Qty = TO_NUMBER(?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE snr_currentbom_serials.SNR_Currentbom_Serials_ID = ? 
+                 AND snr_currentbom_serials.SNR_Currentbom_V_ID = ? 
+        AND snr_currentbom_serials.AD_Client_ID IN ('1') 
+        AND snr_currentbom_serials.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="snrCurrentbomSerialsId"></Parameter> <Parameter name="snrCurrentbomVId"></Parameter> <Parameter name="snrMasterdataId"></Parameter> <Parameter name="snrBatchmasterdataId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="snrCurrentbomSerialsId"></Parameter>
+    
+    <Parameter name="snrCurrentbomVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_currentbom_serials.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_currentbom_serials.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO snr_currentbom_serials 
+        (SNR_Currentbom_Serials_ID, SNR_Currentbom_V_ID, SNR_Masterdata_ID, SNR_Batchmasterdata_ID, Qty, AD_Client_ID, AD_Org_ID, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="snrCurrentbomSerialsId"></Parameter> <Parameter name="snrCurrentbomVId"></Parameter> <Parameter name="snrMasterdataId"></Parameter> <Parameter name="snrBatchmasterdataId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM snr_currentbom_serials
+        WHERE snr_currentbom_serials.SNR_Currentbom_Serials_ID = ? 
+                 AND snr_currentbom_serials.SNR_Currentbom_V_ID = ? 
+        AND snr_currentbom_serials.AD_Client_ID IN ('1') 
+        AND snr_currentbom_serials.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="snrCurrentbomVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_currentbom_serials.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_currentbom_serials.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM snr_currentbom_serials
+        WHERE snr_currentbom_serials.SNR_Currentbom_Serials_ID = ? 
+                 AND snr_currentbom_serials.SNR_Currentbom_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="snrCurrentbomVId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM snr_currentbom_serials
+         WHERE snr_currentbom_serials.SNR_Currentbom_Serials_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM snr_currentbom_serials
+         WHERE snr_currentbom_serials.SNR_Currentbom_Serials_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

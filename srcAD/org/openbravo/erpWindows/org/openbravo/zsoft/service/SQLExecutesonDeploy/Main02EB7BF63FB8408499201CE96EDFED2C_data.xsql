@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Main02EB7BF63FB8408499201CE96EDFED2CData" package="org.openbravo.erpWindows.org.openbravo.zsoft.service.SQLExecutesonDeploy">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zsse_executeondeploy.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zsse_executeondeploy.CreatedBy) as CreatedByR, 
+        to_char(zsse_executeondeploy.Updated, ?) as updated, 
+        to_char(zsse_executeondeploy.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zsse_executeondeploy.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zsse_executeondeploy.UpdatedBy) as UpdatedByR,
+        zsse_executeondeploy.Zsse_Executeondeploy_ID, 
+zsse_executeondeploy.AD_Client_ID, 
+(CASE WHEN zsse_executeondeploy.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+zsse_executeondeploy.AD_Org_ID, 
+(CASE WHEN zsse_executeondeploy.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(zsse_executeondeploy.Isstandard, 'N') AS Isstandard, 
+COALESCE(zsse_executeondeploy.Isactive, 'N') AS Isactive, 
+zsse_executeondeploy.Description, 
+zsse_executeondeploy.Seqno, 
+zsse_executeondeploy.Sqlstmt, 
+ 
+        ? AS LANGUAGE 
+        FROM zsse_executeondeploy left join (select AD_Client_ID, Name from AD_Client) table1 on (zsse_executeondeploy.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (zsse_executeondeploy.AD_Org_ID = table2.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zsse_executeondeploy.Zsse_Executeondeploy_ID = ? 
+        AND zsse_executeondeploy.AD_Client_ID IN ('1') 
+           AND zsse_executeondeploy.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zsse_executeondeploy.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zsse_executeondeploy.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="zsseExecuteondeployId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="sqlstmt"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="description"></Parameter><Parameter name="seqno"></Parameter><Parameter name="isstandard"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1E43ECEA397343EABD7B9838437EECDE_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefBEBFE4513B0F4059995DDC142F615D2A" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(SEQNO),0)+10 AS DefaultValue FROM ZSSE_EXECUTEONDEPLOY where AD_CLIENT_ID=? 
+    ]]></Sql>
+
+<Parameter name="AD_CLIENT_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1ED390E2CF9141FA81E582A206AFA920_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zsse_executeondeploy
+        SET Zsse_Executeondeploy_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Isstandard = (?) , Isactive = (?) , Description = (?) , Seqno = TO_NUMBER(?) , Sqlstmt = (?) , updated = now(), updatedby = ? 
+        WHERE zsse_executeondeploy.Zsse_Executeondeploy_ID = ? 
+        
+        AND zsse_executeondeploy.AD_Client_ID IN ('1') 
+        AND zsse_executeondeploy.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="zsseExecuteondeployId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isstandard"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="description"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="sqlstmt"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zsseExecuteondeployId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zsse_executeondeploy.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zsse_executeondeploy.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zsse_executeondeploy 
+        (Zsse_Executeondeploy_ID, AD_Client_ID, AD_Org_ID, Isstandard, Isactive, Description, Seqno, Sqlstmt, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="zsseExecuteondeployId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isstandard"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="description"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="sqlstmt"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zsse_executeondeploy
+        WHERE zsse_executeondeploy.Zsse_Executeondeploy_ID = ? 
+        
+        AND zsse_executeondeploy.AD_Client_ID IN ('1') 
+        AND zsse_executeondeploy.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zsse_executeondeploy.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zsse_executeondeploy.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zsse_executeondeploy
+        WHERE zsse_executeondeploy.Zsse_Executeondeploy_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zsse_executeondeploy
+         WHERE zsse_executeondeploy.Zsse_Executeondeploy_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zsse_executeondeploy
+         WHERE zsse_executeondeploy.Zsse_Executeondeploy_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

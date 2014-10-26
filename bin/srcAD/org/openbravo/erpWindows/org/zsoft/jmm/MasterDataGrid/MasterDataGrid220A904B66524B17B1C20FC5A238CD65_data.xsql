@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="MasterDataGrid220A904B66524B17B1C20FC5A238CD65Data" package="org.openbravo.erpWindows.org.zsoft.jmm.MasterDataGrid">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(juwimm_orderstatuscomplete_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_orderstatuscomplete_v.CreatedBy) as CreatedByR, 
+        to_char(juwimm_orderstatuscomplete_v.Updated, ?) as updated, 
+        to_char(juwimm_orderstatuscomplete_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        juwimm_orderstatuscomplete_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_orderstatuscomplete_v.UpdatedBy) as UpdatedByR,
+        juwimm_orderstatuscomplete_v.User1_ID, 
+COALESCE(juwimm_orderstatuscomplete_v.IsSelfService, 'N') AS IsSelfService, 
+juwimm_orderstatuscomplete_v.AD_OrgTrx_ID, 
+juwimm_orderstatuscomplete_v.DropShip_Location_ID, 
+juwimm_orderstatuscomplete_v.CopyFrom, 
+juwimm_orderstatuscomplete_v.User2_ID, 
+juwimm_orderstatuscomplete_v.DropShip_User_ID, 
+juwimm_orderstatuscomplete_v.DropShip_BPartner_ID, 
+juwimm_orderstatuscomplete_v.AD_Client_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+juwimm_orderstatuscomplete_v.AD_Org_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+juwimm_orderstatuscomplete_v.DocumentNo, 
+juwimm_orderstatuscomplete_v.Incotermsdescription, 
+juwimm_orderstatuscomplete_v.POReference, 
+juwimm_orderstatuscomplete_v.Generatetemplate, 
+juwimm_orderstatuscomplete_v.DateOrdered, 
+juwimm_orderstatuscomplete_v.Transactionreference, 
+juwimm_orderstatuscomplete_v.CopyFromPO, 
+juwimm_orderstatuscomplete_v.A_Asset_ID, 
+juwimm_orderstatuscomplete_v.C_DocTypeTarget_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_DocTypeTarget_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS C_DocTypeTarget_IDR, 
+juwimm_orderstatuscomplete_v.Name, 
+juwimm_orderstatuscomplete_v.C_DocType_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_DocType_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS C_DocType_IDR, 
+juwimm_orderstatuscomplete_v.DocStatus, 
+(CASE WHEN juwimm_orderstatuscomplete_v.DocStatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DocStatusR, 
+juwimm_orderstatuscomplete_v.Description, 
+juwimm_orderstatuscomplete_v.Deliverynotes, 
+juwimm_orderstatuscomplete_v.Internalnote, 
+juwimm_orderstatuscomplete_v.C_BPartner_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+juwimm_orderstatuscomplete_v.bpzipcode, 
+juwimm_orderstatuscomplete_v.BillTo_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.BillTo_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS BillTo_IDR, 
+juwimm_orderstatuscomplete_v.C_BPartner_Location_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_BPartner_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS C_BPartner_Location_IDR, 
+juwimm_orderstatuscomplete_v.AD_User_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Name), ''))),'') ) END) AS AD_User_IDR, 
+juwimm_orderstatuscomplete_v.SalesRep_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.SalesRep_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Name), ''))),'') ) END) AS SalesRep_IDR, 
+juwimm_orderstatuscomplete_v.M_PriceList_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.M_PriceList_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Name), ''))),'') ) END) AS M_PriceList_IDR, 
+COALESCE(juwimm_orderstatuscomplete_v.IsDiscountPrinted, 'N') AS IsDiscountPrinted, 
+juwimm_orderstatuscomplete_v.InvoiceRule, 
+(CASE WHEN juwimm_orderstatuscomplete_v.InvoiceRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS InvoiceRuleR, 
+juwimm_orderstatuscomplete_v.Estpropability, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Estpropability IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS EstpropabilityR, 
+juwimm_orderstatuscomplete_v.M_Warehouse_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.M_Warehouse_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Name), ''))),'') ) END) AS M_Warehouse_IDR, 
+juwimm_orderstatuscomplete_v.C_Currency_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+juwimm_orderstatuscomplete_v.DeliveryRule, 
+(CASE WHEN juwimm_orderstatuscomplete_v.DeliveryRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS DeliveryRuleR, 
+juwimm_orderstatuscomplete_v.PriorityRule, 
+(CASE WHEN juwimm_orderstatuscomplete_v.PriorityRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list5.name),'') ) END) AS PriorityRuleR, 
+juwimm_orderstatuscomplete_v.PaymentRule, 
+(CASE WHEN juwimm_orderstatuscomplete_v.PaymentRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list6.name),'') ) END) AS PaymentRuleR, 
+juwimm_orderstatuscomplete_v.C_PaymentTerm_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_PaymentTerm_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL13.Name IS NULL THEN TO_CHAR(table13.Name) ELSE TO_CHAR(tableTRL13.Name) END)), ''))),'') ) END) AS C_PaymentTerm_IDR, 
+juwimm_orderstatuscomplete_v.C_Incoterms_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_Incoterms_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Name), ''))),'') ) END) AS C_Incoterms_IDR, 
+juwimm_orderstatuscomplete_v.Delivery_Location_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Delivery_Location_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Name), ''))),'') ) END) AS Delivery_Location_IDR, 
+juwimm_orderstatuscomplete_v.DeliveryViaRule, 
+(CASE WHEN juwimm_orderstatuscomplete_v.DeliveryViaRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list7.name),'') ) END) AS DeliveryViaRuleR, 
+juwimm_orderstatuscomplete_v.M_Shipper_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.M_Shipper_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Name), ''))),'') ) END) AS M_Shipper_IDR, 
+juwimm_orderstatuscomplete_v.Weight, 
+juwimm_orderstatuscomplete_v.Weight_Uom, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Weight_Uom IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL17.Name IS NULL THEN TO_CHAR(table17.Name) ELSE TO_CHAR(tableTRL17.Name) END)), ''))),'') ) END) AS Weight_UomR, 
+juwimm_orderstatuscomplete_v.FreightCostRule, 
+(CASE WHEN juwimm_orderstatuscomplete_v.FreightCostRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list8.name),'') ) END) AS FreightCostRuleR, 
+juwimm_orderstatuscomplete_v.M_Product_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.M_Product_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL18.Name IS NULL THEN TO_CHAR(table18.Name) ELSE TO_CHAR(tableTRL18.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+juwimm_orderstatuscomplete_v.Qty, 
+juwimm_orderstatuscomplete_v.FreightAmt, 
+juwimm_orderstatuscomplete_v.C_Project_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Name), ''))),'') ) END) AS C_Project_IDR, 
+juwimm_orderstatuscomplete_v.C_Projecttask_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table20.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+juwimm_orderstatuscomplete_v.Orderselfjoin, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Orderselfjoin IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table22.DocumentNo), ''))),'') ) END) AS OrderselfjoinR, 
+juwimm_orderstatuscomplete_v.Firstschedinvoicedate, 
+juwimm_orderstatuscomplete_v.DatePromised, 
+juwimm_orderstatuscomplete_v.Scheddeliverydate, 
+juwimm_orderstatuscomplete_v.Schedtransactiondate, 
+juwimm_orderstatuscomplete_v.Transactiondate, 
+juwimm_orderstatuscomplete_v.Contractdate, 
+juwimm_orderstatuscomplete_v.Enddate, 
+juwimm_orderstatuscomplete_v.Invoicefrequence, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Invoicefrequence IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list9.name),'') ) END) AS InvoicefrequenceR, 
+juwimm_orderstatuscomplete_v.C_Projectphase_ID, 
+COALESCE(juwimm_orderstatuscomplete_v.Isinvoiceafterfirstcycle, 'N') AS Isinvoiceafterfirstcycle, 
+juwimm_orderstatuscomplete_v.Quarterly_Month, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Quarterly_Month IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list10.name),'') ) END) AS Quarterly_MonthR, 
+juwimm_orderstatuscomplete_v.Yearly_Month, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Yearly_Month IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list11.name),'') ) END) AS Yearly_MonthR, 
+juwimm_orderstatuscomplete_v.Weekly_Day, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Weekly_Day IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list12.name),'') ) END) AS Weekly_DayR, 
+juwimm_orderstatuscomplete_v.C_Bidproject_ID, 
+juwimm_orderstatuscomplete_v.Monthly_Day, 
+juwimm_orderstatuscomplete_v.Proposalstatus, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Proposalstatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list13.name),'') ) END) AS ProposalstatusR, 
+juwimm_orderstatuscomplete_v.Lostproposalfixedreason, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Lostproposalfixedreason IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list14.name),'') ) END) AS LostproposalfixedreasonR, 
+juwimm_orderstatuscomplete_v.Lostproposalreason, 
+juwimm_orderstatuscomplete_v.Totallinesonetime, 
+juwimm_orderstatuscomplete_v.Grandtotalonetime, 
+juwimm_orderstatuscomplete_v.TotalLines, 
+juwimm_orderstatuscomplete_v.GrandTotal, 
+juwimm_orderstatuscomplete_v.Generateproject, 
+juwimm_orderstatuscomplete_v.Closeproject, 
+juwimm_orderstatuscomplete_v.Invoicedamt, 
+juwimm_orderstatuscomplete_v.Totalpaid, 
+juwimm_orderstatuscomplete_v.Completeordervalue, 
+COALESCE(juwimm_orderstatuscomplete_v.Deliverycomplete, 'N') AS Deliverycomplete, 
+COALESCE(juwimm_orderstatuscomplete_v.Iscompletelyinvoiced, 'N') AS Iscompletelyinvoiced, 
+juwimm_orderstatuscomplete_v.Juwimm_Completion, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Juwimm_Completion IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list15.name),'') ) END) AS Juwimm_CompletionR, 
+juwimm_orderstatuscomplete_v.Juwimm_Time, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Juwimm_Time IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list16.name),'') ) END) AS Juwimm_TimeR, 
+juwimm_orderstatuscomplete_v.Juwimm_Resources, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Juwimm_Resources IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list17.name),'') ) END) AS Juwimm_ResourcesR, 
+juwimm_orderstatuscomplete_v.Juwimm_Budget, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Juwimm_Budget IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list18.name),'') ) END) AS Juwimm_BudgetR, 
+juwimm_orderstatuscomplete_v.Juwimm_Team_ID, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Juwimm_Team_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL23.Name IS NULL THEN TO_CHAR(table23.Name) ELSE TO_CHAR(tableTRL23.Name) END)), ''))),'') ) END) AS Juwimm_Team_IDR, 
+juwimm_orderstatuscomplete_v.Juwimm_Plannedgolive, 
+juwimm_orderstatuscomplete_v.Juwimm_Estgolive, 
+juwimm_orderstatuscomplete_v.Juwimm_Nextimpdate, 
+juwimm_orderstatuscomplete_v.Juwimm_Description, 
+juwimm_orderstatuscomplete_v.Juwimm_Plannedstart, 
+juwimm_orderstatuscomplete_v.Juwimm_Eststart, 
+juwimm_orderstatuscomplete_v.Juwimm_Milestone1, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms1planneddate, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms1estdate, 
+juwimm_orderstatuscomplete_v.Juwimm_Milestone2, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms2planneddate, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms2estdate, 
+juwimm_orderstatuscomplete_v.Juwimm_Milestone3, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms3planneddate, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms3estdate, 
+juwimm_orderstatuscomplete_v.Juwimm_Milestone4, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms4planneddate, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms4estdate, 
+juwimm_orderstatuscomplete_v.Juwimm_Milestone5, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms5planneddate, 
+COALESCE(juwimm_orderstatuscomplete_v.Ispaid, 'N') AS Ispaid, 
+COALESCE(juwimm_orderstatuscomplete_v.Isrecharge, 'N') AS Isrecharge, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms5estdate, 
+juwimm_orderstatuscomplete_v.Juwimm_Milestone6, 
+juwimm_orderstatuscomplete_v.BtnCopyTemplate, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms6planneddate, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms6estdate, 
+juwimm_orderstatuscomplete_v.Subscriptionchangedate, 
+juwimm_orderstatuscomplete_v.Juwimm_Milestone7, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms7planneddate, 
+juwimm_orderstatuscomplete_v.Juwimm_Orderstatuscomplete_V_ID, 
+juwimm_orderstatuscomplete_v.Juwimm_Ms7estdate, 
+juwimm_orderstatuscomplete_v.Juwimm_Plannedend, 
+juwimm_orderstatuscomplete_v.Juwimm_Orderstatus_ID, 
+juwimm_orderstatuscomplete_v.Juwimm_Estend, 
+juwimm_orderstatuscomplete_v.Juwimm_Projectman, 
+juwimm_orderstatuscomplete_v.Juwimm_Ouputremarks, 
+juwimm_orderstatuscomplete_v.Juwimm_Lastaction, 
+juwimm_orderstatuscomplete_v.Juwimm_Nextaction, 
+juwimm_orderstatuscomplete_v.Juwimm_Issues, 
+juwimm_orderstatuscomplete_v.Juwimm_Decisions, 
+juwimm_orderstatuscomplete_v.Juwimm_Lastupdateon, 
+juwimm_orderstatuscomplete_v.Juwimm_Lastupdateby, 
+(CASE WHEN juwimm_orderstatuscomplete_v.Juwimm_Lastupdateby IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table24.Name), ''))),'') ) END) AS Juwimm_LastupdatebyR, 
+juwimm_orderstatuscomplete_v.C_Charge_ID, 
+COALESCE(juwimm_orderstatuscomplete_v.IsDelivered, 'N') AS IsDelivered, 
+juwimm_orderstatuscomplete_v.C_Activity_ID, 
+COALESCE(juwimm_orderstatuscomplete_v.Processed, 'N') AS Processed, 
+COALESCE(juwimm_orderstatuscomplete_v.IsSOTrx, 'N') AS IsSOTrx, 
+juwimm_orderstatuscomplete_v.DocAction, 
+juwimm_orderstatuscomplete_v.C_Campaign_ID, 
+COALESCE(juwimm_orderstatuscomplete_v.IsTaxIncluded, 'N') AS IsTaxIncluded, 
+juwimm_orderstatuscomplete_v.DatePrinted, 
+COALESCE(juwimm_orderstatuscomplete_v.IsInvoiced, 'N') AS IsInvoiced, 
+juwimm_orderstatuscomplete_v.DateAcct, 
+juwimm_orderstatuscomplete_v.C_Order_ID, 
+COALESCE(juwimm_orderstatuscomplete_v.IsSelected, 'N') AS IsSelected, 
+COALESCE(juwimm_orderstatuscomplete_v.IsPrinted, 'N') AS IsPrinted, 
+juwimm_orderstatuscomplete_v.Posted, 
+COALESCE(juwimm_orderstatuscomplete_v.IsActive, 'N') AS IsActive, 
+juwimm_orderstatuscomplete_v.Processing, 
+juwimm_orderstatuscomplete_v.ChargeAmt, 
+ 
+        ? AS LANGUAGE 
+        FROM juwimm_orderstatuscomplete_v left join (select AD_Client_ID, Name from AD_Client) table1 on (juwimm_orderstatuscomplete_v.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (juwimm_orderstatuscomplete_v.AD_Org_ID = table2.AD_Org_ID) left join (select C_DocType_ID, Name from C_DocType) table3 on (juwimm_orderstatuscomplete_v.C_DocTypeTarget_ID =  table3.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL3 on (table3.C_DocType_ID = tableTRL3.C_DocType_ID and tableTRL3.AD_Language = ?)  left join (select C_DocType_ID, Name from C_DocType) table4 on (juwimm_orderstatuscomplete_v.C_DocType_ID = table4.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL4 on (table4.C_DocType_ID = tableTRL4.C_DocType_ID and tableTRL4.AD_Language = ?)  left join ad_ref_list_v list1 on (juwimm_orderstatuscomplete_v.DocStatus = list1.value and list1.ad_reference_id = '131' and list1.ad_language = ?)  left join (select C_BPartner_ID, Name from C_BPartner) table5 on (juwimm_orderstatuscomplete_v.C_BPartner_ID = table5.C_BPartner_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table6 on (juwimm_orderstatuscomplete_v.BillTo_ID =  table6.C_BPartner_Location_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table7 on (juwimm_orderstatuscomplete_v.C_BPartner_Location_ID = table7.C_BPartner_Location_ID) left join (select AD_User_ID, Name from AD_User) table8 on (juwimm_orderstatuscomplete_v.AD_User_ID = table8.AD_User_ID) left join (select AD_User_ID, Name from AD_User) table9 on (juwimm_orderstatuscomplete_v.SalesRep_ID =  table9.AD_User_ID) left join (select M_PriceList_ID, Name from M_PriceList) table10 on (juwimm_orderstatuscomplete_v.M_PriceList_ID = table10.M_PriceList_ID) left join ad_ref_list_v list2 on (juwimm_orderstatuscomplete_v.InvoiceRule = list2.value and list2.ad_reference_id = '150' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (juwimm_orderstatuscomplete_v.Estpropability = list3.value and list3.ad_reference_id = 'DD6AA16AB1DD4DF5AD11A2665AE665BC' and list3.ad_language = ?)  left join (select M_Warehouse_ID, Name from M_Warehouse) table11 on (juwimm_orderstatuscomplete_v.M_Warehouse_ID =  table11.M_Warehouse_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table12 on (juwimm_orderstatuscomplete_v.C_Currency_ID = table12.C_Currency_ID) left join ad_ref_list_v list4 on (juwimm_orderstatuscomplete_v.DeliveryRule = list4.value and list4.ad_reference_id = '151' and list4.ad_language = ?)  left join ad_ref_list_v list5 on (juwimm_orderstatuscomplete_v.PriorityRule = list5.value and list5.ad_reference_id = '154' and list5.ad_language = ?)  left join ad_ref_list_v list6 on (juwimm_orderstatuscomplete_v.PaymentRule = list6.value and list6.ad_reference_id = '195' and list6.ad_language = ?)  left join (select C_PaymentTerm_ID, Name from C_PaymentTerm) table13 on (juwimm_orderstatuscomplete_v.C_PaymentTerm_ID = table13.C_PaymentTerm_ID) left join (select C_PaymentTerm_ID,AD_Language, Name from C_PaymentTerm_TRL) tableTRL13 on (table13.C_PaymentTerm_ID = tableTRL13.C_PaymentTerm_ID and tableTRL13.AD_Language = ?)  left join (select C_Incoterms_ID, Name from C_Incoterms) table14 on (juwimm_orderstatuscomplete_v.C_Incoterms_ID = table14.C_Incoterms_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table15 on (juwimm_orderstatuscomplete_v.Delivery_Location_ID =  table15.C_BPartner_Location_ID) left join ad_ref_list_v list7 on (juwimm_orderstatuscomplete_v.DeliveryViaRule = list7.value and list7.ad_reference_id = '152' and list7.ad_language = ?)  left join (select M_Shipper_ID, Name from M_Shipper) table16 on (juwimm_orderstatuscomplete_v.M_Shipper_ID = table16.M_Shipper_ID) left join (select C_UOM_ID, Name from C_UOM) table17 on (juwimm_orderstatuscomplete_v.Weight_Uom =  table17.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL17 on (table17.C_UOM_ID = tableTRL17.C_UOM_ID and tableTRL17.AD_Language = ?)  left join ad_ref_list_v list8 on (juwimm_orderstatuscomplete_v.FreightCostRule = list8.value and list8.ad_reference_id = '153' and list8.ad_language = ?)  left join (select M_Product_ID, value, Name from M_Product) table18 on (juwimm_orderstatuscomplete_v.M_Product_ID =  table18.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL18 on (table18.M_Product_ID = tableTRL18.M_Product_ID and tableTRL18.AD_Language = ?)  left join (select C_Project_ID, Value, Name from C_Project) table19 on (juwimm_orderstatuscomplete_v.C_Project_ID = table19.C_Project_ID) left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table20 on (juwimm_orderstatuscomplete_v.C_Projecttask_ID = table20.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table21 on (table20.C_Project_ID = table21.C_Project_ID) left join (select C_Order_ID, DocumentNo from C_Order) table22 on (juwimm_orderstatuscomplete_v.Orderselfjoin =  table22.C_Order_ID) left join ad_ref_list_v list9 on (juwimm_orderstatuscomplete_v.Invoicefrequence = list9.value and list9.ad_reference_id = 'F17BFE71276743BBB6105EE61D9FD666' and list9.ad_language = ?)  left join ad_ref_list_v list10 on (juwimm_orderstatuscomplete_v.Quarterly_Month = list10.value and list10.ad_reference_id = '99780AA6C1644A329162A8AF74602925' and list10.ad_language = ?)  left join ad_ref_list_v list11 on (juwimm_orderstatuscomplete_v.Yearly_Month = list11.value and list11.ad_reference_id = 'B849337BE90242BEB0B230808EDC0CEE' and list11.ad_language = ?)  left join ad_ref_list_v list12 on (juwimm_orderstatuscomplete_v.Weekly_Day = list12.value and list12.ad_reference_id = '167' and list12.ad_language = ?)  left join ad_ref_list_v list13 on (juwimm_orderstatuscomplete_v.Proposalstatus = list13.value and list13.ad_reference_id = 'B00D78B6B154404A831F25F11ABD867E' and list13.ad_language = ?)  left join ad_ref_list_v list14 on (juwimm_orderstatuscomplete_v.Lostproposalfixedreason = list14.value and list14.ad_reference_id = 'B51F770E9FA84F5B8FC0FFD7B3848317' and list14.ad_language = ?)  left join ad_ref_list_v list15 on (juwimm_orderstatuscomplete_v.Juwimm_Completion = list15.value and list15.ad_reference_id = 'DFB97A7B6DE848EEAA271F95215E316E' and list15.ad_language = ?)  left join ad_ref_list_v list16 on (juwimm_orderstatuscomplete_v.Juwimm_Time = list16.value and list16.ad_reference_id = 'BBFB55FDBAA64C0EB46F026460AE8285' and list16.ad_language = ?)  left join ad_ref_list_v list17 on (juwimm_orderstatuscomplete_v.Juwimm_Resources = list17.value and list17.ad_reference_id = '7C374D10EA044BE3B252D6654A7AA5E1' and list17.ad_language = ?)  left join ad_ref_list_v list18 on (juwimm_orderstatuscomplete_v.Juwimm_Budget = list18.value and list18.ad_reference_id = '76CDE2B245D44726AE30457453FF622E' and list18.ad_language = ?)  left join (select Juwimm_Team_ID, Name from Juwimm_Team) table23 on (juwimm_orderstatuscomplete_v.Juwimm_Team_ID = table23.Juwimm_Team_ID) left join (select Juwimm_Team_ID,AD_Language, Name from juwimm_team_TRL) tableTRL23 on (table23.Juwimm_Team_ID = tableTRL23.Juwimm_Team_ID and tableTRL23.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table24 on (juwimm_orderstatuscomplete_v.Juwimm_Lastupdateby =  table24.AD_User_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND juwimm_orderstatuscomplete_v.Juwimm_Orderstatuscomplete_V_ID = ? 
+        AND juwimm_orderstatuscomplete_v.AD_Client_ID IN ('1') 
+           AND juwimm_orderstatuscomplete_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatuscomplete_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatuscomplete_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="juwimmCompletion"></Parameter><Parameter name="juwimmMs6planneddate"></Parameter><Parameter name="processed"></Parameter><Parameter name="proposalstatus"></Parameter><Parameter name="isselected"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="cActivityId"></Parameter><Parameter name="deliveryviarule"></Parameter><Parameter name="juwimmMs3planneddate"></Parameter><Parameter name="transactiondate"></Parameter><Parameter name="juwimmProjectman"></Parameter><Parameter name="ispaid"></Parameter><Parameter name="juwimmMs3estdate"></Parameter><Parameter name="mWarehouseId"></Parameter><Parameter name="istaxincluded"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="internalnote"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="grandtotal"></Parameter><Parameter name="juwimmMilestone4"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="name"></Parameter><Parameter name="dropshipUserId"></Parameter><Parameter name="juwimmMs2estdate"></Parameter><Parameter name="totallinesonetime"></Parameter><Parameter name="datepromised"></Parameter><Parameter name="deliveryrule"></Parameter><Parameter name="schedtransactiondate"></Parameter><Parameter name="cCampaignId"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="juwimmEstend"></Parameter><Parameter name="contractdate"></Parameter><Parameter name="totallines"></Parameter><Parameter name="monthlyDay"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="juwimmPlannedstart"></Parameter><Parameter name="juwimmMs4planneddate"></Parameter><Parameter name="dateacct"></Parameter><Parameter name="billtoId"></Parameter><Parameter name="invoicerule"></Parameter><Parameter name="juwimmPlannedend"></Parameter><Parameter name="dateprinted"></Parameter><Parameter name="transactionreference"></Parameter><Parameter name="juwimmNextaction"></Parameter><Parameter name="closeproject"></Parameter><Parameter name="subscriptionchangedate"></Parameter><Parameter name="user1Id"></Parameter><Parameter name="invoicefrequence"></Parameter><Parameter name="cIncotermsId"></Parameter><Parameter name="cDoctypetargetId"></Parameter><Parameter name="freightcostrule"></Parameter><Parameter name="orderselfjoin"></Parameter><Parameter name="juwimmMilestone2"></Parameter><Parameter name="copyfrompo"></Parameter><Parameter name="isdelivered"></Parameter><Parameter name="dateordered"></Parameter><Parameter name="cBidprojectId"></Parameter><Parameter name="juwimmMilestone7"></Parameter><Parameter name="cOrderId"></Parameter><Parameter name="juwimmMs2planneddate"></Parameter><Parameter name="juwimmMilestone5"></Parameter><Parameter name="cPaymenttermId"></Parameter><Parameter name="juwimmMilestone3"></Parameter><Parameter name="poreference"></Parameter><Parameter name="juwimmLastupdateon"></Parameter><Parameter name="deliverycomplete"></Parameter><Parameter name="paymentrule"></Parameter><Parameter name="weightUom"></Parameter><Parameter name="isdiscountprinted"></Parameter><Parameter name="lostproposalreason"></Parameter><Parameter name="firstschedinvoicedate"></Parameter><Parameter name="juwimmDecisions"></Parameter><Parameter name="generateproject"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter><Parameter name="juwimmLastupdateby"></Parameter><Parameter name="incotermsdescription"></Parameter><Parameter name="isinvoiceafterfirstcycle"></Parameter><Parameter name="juwimmBudget"></Parameter><Parameter name="processing"></Parameter><Parameter name="enddate"></Parameter><Parameter name="juwimmMs4estdate"></Parameter><Parameter name="juwimmOrderstatuscompleteVId"></Parameter><Parameter name="juwimmDescription"></Parameter><Parameter name="juwimmEstgolive"></Parameter><Parameter name="priorityrule"></Parameter><Parameter name="juwimmTeamId"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="iscompletelyinvoiced"></Parameter><Parameter name="juwimmMilestone1"></Parameter><Parameter name="juwimmMs1estdate"></Parameter><Parameter name="juwimmMs7planneddate"></Parameter><Parameter name="totalpaid"></Parameter><Parameter name="juwimmNextimpdate"></Parameter><Parameter name="isselfservice"></Parameter><Parameter name="deliverynotes"></Parameter><Parameter name="user2Id"></Parameter><Parameter name="yearlyMonth"></Parameter><Parameter name="weeklyDay"></Parameter><Parameter name="bpzipcode"></Parameter><Parameter name="deliveryLocationId"></Parameter><Parameter name="quarterlyMonth"></Parameter><Parameter name="lostproposalfixedreason"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cProjectIdr"></Parameter><Parameter name="dropshipLocationId"></Parameter><Parameter name="isprinted"></Parameter><Parameter name="juwimmPlannedgolive"></Parameter><Parameter name="description"></Parameter><Parameter name="qty"></Parameter><Parameter name="grandtotalonetime"></Parameter><Parameter name="juwimmMs7estdate"></Parameter><Parameter name="juwimmResources"></Parameter><Parameter name="generatetemplate"></Parameter><Parameter name="juwimmMilestone6"></Parameter><Parameter name="isrecharge"></Parameter><Parameter name="cChargeId"></Parameter><Parameter name="estpropability"></Parameter><Parameter name="juwimmMs6estdate"></Parameter><Parameter name="docstatus"></Parameter><Parameter name="cDoctypeId"></Parameter><Parameter name="juwimmEststart"></Parameter><Parameter name="dropshipBpartnerId"></Parameter><Parameter name="completeordervalue"></Parameter><Parameter name="btncopytemplate"></Parameter><Parameter name="juwimmIssues"></Parameter><Parameter name="issotrx"></Parameter><Parameter name="mShipperId"></Parameter><Parameter name="adOrgtrxId"></Parameter><Parameter name="juwimmOrderstatusId"></Parameter><Parameter name="copyfrom"></Parameter><Parameter name="isactive"></Parameter><Parameter name="posted"></Parameter><Parameter name="juwimmMs1planneddate"></Parameter><Parameter name="weight"></Parameter><Parameter name="cProjectphaseId"></Parameter><Parameter name="juwimmTime"></Parameter><Parameter name="docaction"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="juwimmOuputremarks"></Parameter><Parameter name="isinvoiced"></Parameter><Parameter name="juwimmMs5estdate"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="invoicedamt"></Parameter><Parameter name="documentno"></Parameter><Parameter name="juwimmLastaction"></Parameter><Parameter name="chargeamt"></Parameter><Parameter name="scheddeliverydate"></Parameter><Parameter name="freightamt"></Parameter><Parameter name="juwimmMs5planneddate"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef4C16A28F3F8D4000A99034B2DA013578_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5961FEB7B1ED4D9DA0E25AC7BAA35D72_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef15980CB5975542D7958C5B8E7B3786D5_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as C_Project_ID FROM C_Project table1 WHERE table1.isActive='Y' AND table1.C_Project_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Project_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefDFB6035568AB4F4AB29F9EAB792AEA7B_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE juwimm_orderstatuscomplete_v
+        SET User1_ID = (?) , IsSelfService = (?) , AD_OrgTrx_ID = (?) , DropShip_Location_ID = (?) , CopyFrom = (?) , User2_ID = (?) , DropShip_User_ID = (?) , DropShip_BPartner_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , DocumentNo = (?) , Incotermsdescription = (?) , POReference = (?) , Generatetemplate = (?) , DateOrdered = TO_DATE(?) , Transactionreference = (?) , CopyFromPO = (?) , A_Asset_ID = (?) , C_DocTypeTarget_ID = (?) , Name = (?) , C_DocType_ID = (?) , DocStatus = (?) , Description = (?) , Deliverynotes = (?) , Internalnote = (?) , C_BPartner_ID = (?) , bpzipcode = (?) , BillTo_ID = (?) , C_BPartner_Location_ID = (?) , AD_User_ID = (?) , SalesRep_ID = (?) , M_PriceList_ID = (?) , IsDiscountPrinted = (?) , InvoiceRule = (?) , Estpropability = (?) , M_Warehouse_ID = (?) , C_Currency_ID = (?) , DeliveryRule = (?) , PriorityRule = (?) , PaymentRule = (?) , C_PaymentTerm_ID = (?) , C_Incoterms_ID = (?) , Delivery_Location_ID = (?) , DeliveryViaRule = (?) , M_Shipper_ID = (?) , Weight = TO_NUMBER(?) , Weight_Uom = (?) , FreightCostRule = (?) , M_Product_ID = (?) , Qty = TO_NUMBER(?) , FreightAmt = TO_NUMBER(?) , C_Project_ID = (?) , C_Projecttask_ID = (?) , Orderselfjoin = (?) , Firstschedinvoicedate = TO_DATE(?) , DatePromised = TO_DATE(?) , Scheddeliverydate = TO_DATE(?) , Schedtransactiondate = TO_DATE(?) , Transactiondate = TO_DATE(?) , Contractdate = TO_DATE(?) , Enddate = TO_DATE(?) , Invoicefrequence = (?) , C_Projectphase_ID = (?) , Isinvoiceafterfirstcycle = (?) , Quarterly_Month = (?) , Yearly_Month = (?) , Weekly_Day = (?) , C_Bidproject_ID = (?) , Monthly_Day = TO_NUMBER(?) , Proposalstatus = (?) , Lostproposalfixedreason = (?) , Lostproposalreason = (?) , Totallinesonetime = TO_NUMBER(?) , Grandtotalonetime = TO_NUMBER(?) , TotalLines = TO_NUMBER(?) , GrandTotal = TO_NUMBER(?) , Generateproject = (?) , Closeproject = (?) , Invoicedamt = TO_NUMBER(?) , Totalpaid = TO_NUMBER(?) , Completeordervalue = TO_NUMBER(?) , Deliverycomplete = (?) , Iscompletelyinvoiced = (?) , Juwimm_Completion = (?) , Juwimm_Time = (?) , Juwimm_Resources = (?) , Juwimm_Budget = (?) , Juwimm_Team_ID = (?) , Juwimm_Plannedgolive = TO_DATE(?) , Juwimm_Estgolive = TO_DATE(?) , Juwimm_Nextimpdate = TO_DATE(?) , Juwimm_Description = (?) , Juwimm_Plannedstart = TO_DATE(?) , Juwimm_Eststart = TO_DATE(?) , Juwimm_Milestone1 = (?) , Juwimm_Ms1planneddate = TO_DATE(?) , Juwimm_Ms1estdate = TO_DATE(?) , Juwimm_Milestone2 = (?) , Juwimm_Ms2planneddate = TO_DATE(?) , Juwimm_Ms2estdate = TO_DATE(?) , Juwimm_Milestone3 = (?) , Juwimm_Ms3planneddate = TO_DATE(?) , Juwimm_Ms3estdate = TO_DATE(?) , Juwimm_Milestone4 = (?) , Juwimm_Ms4planneddate = TO_DATE(?) , Juwimm_Ms4estdate = TO_DATE(?) , Juwimm_Milestone5 = (?) , Juwimm_Ms5planneddate = TO_DATE(?) , Ispaid = (?) , Isrecharge = (?) , Juwimm_Ms5estdate = TO_DATE(?) , Juwimm_Milestone6 = (?) , BtnCopyTemplate = (?) , Juwimm_Ms6planneddate = TO_DATE(?) , Juwimm_Ms6estdate = TO_DATE(?) , Subscriptionchangedate = TO_DATE(?) , Juwimm_Milestone7 = (?) , Juwimm_Ms7planneddate = TO_DATE(?) , Juwimm_Orderstatuscomplete_V_ID = (?) , Juwimm_Ms7estdate = TO_DATE(?) , Juwimm_Plannedend = TO_DATE(?) , Juwimm_Orderstatus_ID = (?) , Juwimm_Estend = TO_DATE(?) , Juwimm_Projectman = (?) , Juwimm_Ouputremarks = (?) , Juwimm_Lastaction = (?) , Juwimm_Nextaction = (?) , Juwimm_Issues = (?) , Juwimm_Decisions = (?) , Juwimm_Lastupdateon = TO_DATE(?) , Juwimm_Lastupdateby = (?) , C_Charge_ID = (?) , IsDelivered = (?) , C_Activity_ID = (?) , Processed = (?) , IsSOTrx = (?) , DocAction = (?) , C_Campaign_ID = (?) , IsTaxIncluded = (?) , DatePrinted = TO_DATE(?) , IsInvoiced = (?) , DateAcct = TO_DATE(?) , C_Order_ID = (?) , IsSelected = (?) , IsPrinted = (?) , Posted = (?) , IsActive = (?) , Processing = (?) , ChargeAmt = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE juwimm_orderstatuscomplete_v.Juwimm_Orderstatuscomplete_V_ID = ? 
+        
+        AND juwimm_orderstatuscomplete_v.AD_Client_ID IN ('1') 
+        AND juwimm_orderstatuscomplete_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="user1Id"></Parameter> <Parameter name="isselfservice"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="dropshipLocationId"></Parameter> <Parameter name="copyfrom"></Parameter> <Parameter name="user2Id"></Parameter> <Parameter name="dropshipUserId"></Parameter> <Parameter name="dropshipBpartnerId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="incotermsdescription"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="generatetemplate"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="transactionreference"></Parameter> <Parameter name="copyfrompo"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cDoctypetargetId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="description"></Parameter> <Parameter name="deliverynotes"></Parameter> <Parameter name="internalnote"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="bpzipcode"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="isdiscountprinted"></Parameter> <Parameter name="invoicerule"></Parameter> <Parameter name="estpropability"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="deliveryrule"></Parameter> <Parameter name="priorityrule"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="cIncotermsId"></Parameter> <Parameter name="deliveryLocationId"></Parameter> <Parameter name="deliveryviarule"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="weight"></Parameter> <Parameter name="weightUom"></Parameter> <Parameter name="freightcostrule"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="freightamt"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="orderselfjoin"></Parameter> <Parameter name="firstschedinvoicedate"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="schedtransactiondate"></Parameter> <Parameter name="transactiondate"></Parameter> <Parameter name="contractdate"></Parameter> <Parameter name="enddate"></Parameter> <Parameter name="invoicefrequence"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="isinvoiceafterfirstcycle"></Parameter> <Parameter name="quarterlyMonth"></Parameter> <Parameter name="yearlyMonth"></Parameter> <Parameter name="weeklyDay"></Parameter> <Parameter name="cBidprojectId"></Parameter> <Parameter name="monthlyDay"></Parameter> <Parameter name="proposalstatus"></Parameter> <Parameter name="lostproposalfixedreason"></Parameter> <Parameter name="lostproposalreason"></Parameter> <Parameter name="totallinesonetime"></Parameter> <Parameter name="grandtotalonetime"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="grandtotal"></Parameter> <Parameter name="generateproject"></Parameter> <Parameter name="closeproject"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="totalpaid"></Parameter> <Parameter name="completeordervalue"></Parameter> <Parameter name="deliverycomplete"></Parameter> <Parameter name="iscompletelyinvoiced"></Parameter> <Parameter name="juwimmCompletion"></Parameter> <Parameter name="juwimmTime"></Parameter> <Parameter name="juwimmResources"></Parameter> <Parameter name="juwimmBudget"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="juwimmPlannedgolive"></Parameter> <Parameter name="juwimmEstgolive"></Parameter> <Parameter name="juwimmNextimpdate"></Parameter> <Parameter name="juwimmDescription"></Parameter> <Parameter name="juwimmPlannedstart"></Parameter> <Parameter name="juwimmEststart"></Parameter> <Parameter name="juwimmMilestone1"></Parameter> <Parameter name="juwimmMs1planneddate"></Parameter> <Parameter name="juwimmMs1estdate"></Parameter> <Parameter name="juwimmMilestone2"></Parameter> <Parameter name="juwimmMs2planneddate"></Parameter> <Parameter name="juwimmMs2estdate"></Parameter> <Parameter name="juwimmMilestone3"></Parameter> <Parameter name="juwimmMs3planneddate"></Parameter> <Parameter name="juwimmMs3estdate"></Parameter> <Parameter name="juwimmMilestone4"></Parameter> <Parameter name="juwimmMs4planneddate"></Parameter> <Parameter name="juwimmMs4estdate"></Parameter> <Parameter name="juwimmMilestone5"></Parameter> <Parameter name="juwimmMs5planneddate"></Parameter> <Parameter name="ispaid"></Parameter> <Parameter name="isrecharge"></Parameter> <Parameter name="juwimmMs5estdate"></Parameter> <Parameter name="juwimmMilestone6"></Parameter> <Parameter name="btncopytemplate"></Parameter> <Parameter name="juwimmMs6planneddate"></Parameter> <Parameter name="juwimmMs6estdate"></Parameter> <Parameter name="subscriptionchangedate"></Parameter> <Parameter name="juwimmMilestone7"></Parameter> <Parameter name="juwimmMs7planneddate"></Parameter> <Parameter name="juwimmOrderstatuscompleteVId"></Parameter> <Parameter name="juwimmMs7estdate"></Parameter> <Parameter name="juwimmPlannedend"></Parameter> <Parameter name="juwimmOrderstatusId"></Parameter> <Parameter name="juwimmEstend"></Parameter> <Parameter name="juwimmProjectman"></Parameter> <Parameter name="juwimmOuputremarks"></Parameter> <Parameter name="juwimmLastaction"></Parameter> <Parameter name="juwimmNextaction"></Parameter> <Parameter name="juwimmIssues"></Parameter> <Parameter name="juwimmDecisions"></Parameter> <Parameter name="juwimmLastupdateon"></Parameter> <Parameter name="juwimmLastupdateby"></Parameter> <Parameter name="cChargeId"></Parameter> <Parameter name="isdelivered"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="istaxincluded"></Parameter> <Parameter name="dateprinted"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="isselected"></Parameter> <Parameter name="isprinted"></Parameter> <Parameter name="posted"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="chargeamt"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="juwimmOrderstatuscompleteVId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatuscomplete_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatuscomplete_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO juwimm_orderstatuscomplete_v 
+        (User1_ID, IsSelfService, AD_OrgTrx_ID, DropShip_Location_ID, CopyFrom, User2_ID, DropShip_User_ID, DropShip_BPartner_ID, AD_Client_ID, AD_Org_ID, DocumentNo, Incotermsdescription, POReference, Generatetemplate, DateOrdered, Transactionreference, CopyFromPO, A_Asset_ID, C_DocTypeTarget_ID, Name, C_DocType_ID, DocStatus, Description, Deliverynotes, Internalnote, C_BPartner_ID, bpzipcode, BillTo_ID, C_BPartner_Location_ID, AD_User_ID, SalesRep_ID, M_PriceList_ID, IsDiscountPrinted, InvoiceRule, Estpropability, M_Warehouse_ID, C_Currency_ID, DeliveryRule, PriorityRule, PaymentRule, C_PaymentTerm_ID, C_Incoterms_ID, Delivery_Location_ID, DeliveryViaRule, M_Shipper_ID, Weight, Weight_Uom, FreightCostRule, M_Product_ID, Qty, FreightAmt, C_Project_ID, C_Projecttask_ID, Orderselfjoin, Firstschedinvoicedate, DatePromised, Scheddeliverydate, Schedtransactiondate, Transactiondate, Contractdate, Enddate, Invoicefrequence, C_Projectphase_ID, Isinvoiceafterfirstcycle, Quarterly_Month, Yearly_Month, Weekly_Day, C_Bidproject_ID, Monthly_Day, Proposalstatus, Lostproposalfixedreason, Lostproposalreason, Totallinesonetime, Grandtotalonetime, TotalLines, GrandTotal, Generateproject, Closeproject, Invoicedamt, Totalpaid, Completeordervalue, Deliverycomplete, Iscompletelyinvoiced, Juwimm_Completion, Juwimm_Time, Juwimm_Resources, Juwimm_Budget, Juwimm_Team_ID, Juwimm_Plannedgolive, Juwimm_Estgolive, Juwimm_Nextimpdate, Juwimm_Description, Juwimm_Plannedstart, Juwimm_Eststart, Juwimm_Milestone1, Juwimm_Ms1planneddate, Juwimm_Ms1estdate, Juwimm_Milestone2, Juwimm_Ms2planneddate, Juwimm_Ms2estdate, Juwimm_Milestone3, Juwimm_Ms3planneddate, Juwimm_Ms3estdate, Juwimm_Milestone4, Juwimm_Ms4planneddate, Juwimm_Ms4estdate, Juwimm_Milestone5, Juwimm_Ms5planneddate, Ispaid, Isrecharge, Juwimm_Ms5estdate, Juwimm_Milestone6, BtnCopyTemplate, Juwimm_Ms6planneddate, Juwimm_Ms6estdate, Subscriptionchangedate, Juwimm_Milestone7, Juwimm_Ms7planneddate, Juwimm_Orderstatuscomplete_V_ID, Juwimm_Ms7estdate, Juwimm_Plannedend, Juwimm_Orderstatus_ID, Juwimm_Estend, Juwimm_Projectman, Juwimm_Ouputremarks, Juwimm_Lastaction, Juwimm_Nextaction, Juwimm_Issues, Juwimm_Decisions, Juwimm_Lastupdateon, Juwimm_Lastupdateby, C_Charge_ID, IsDelivered, C_Activity_ID, Processed, IsSOTrx, DocAction, C_Campaign_ID, IsTaxIncluded, DatePrinted, IsInvoiced, DateAcct, C_Order_ID, IsSelected, IsPrinted, Posted, IsActive, Processing, ChargeAmt, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), (?), (?), TO_DATE(?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="user1Id"></Parameter> <Parameter name="isselfservice"></Parameter> <Parameter name="adOrgtrxId"></Parameter> <Parameter name="dropshipLocationId"></Parameter> <Parameter name="copyfrom"></Parameter> <Parameter name="user2Id"></Parameter> <Parameter name="dropshipUserId"></Parameter> <Parameter name="dropshipBpartnerId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="documentno"></Parameter> <Parameter name="incotermsdescription"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="generatetemplate"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="transactionreference"></Parameter> <Parameter name="copyfrompo"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="cDoctypetargetId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="docstatus"></Parameter> <Parameter name="description"></Parameter> <Parameter name="deliverynotes"></Parameter> <Parameter name="internalnote"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="bpzipcode"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="isdiscountprinted"></Parameter> <Parameter name="invoicerule"></Parameter> <Parameter name="estpropability"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="deliveryrule"></Parameter> <Parameter name="priorityrule"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="cIncotermsId"></Parameter> <Parameter name="deliveryLocationId"></Parameter> <Parameter name="deliveryviarule"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="weight"></Parameter> <Parameter name="weightUom"></Parameter> <Parameter name="freightcostrule"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="freightamt"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="orderselfjoin"></Parameter> <Parameter name="firstschedinvoicedate"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="schedtransactiondate"></Parameter> <Parameter name="transactiondate"></Parameter> <Parameter name="contractdate"></Parameter> <Parameter name="enddate"></Parameter> <Parameter name="invoicefrequence"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="isinvoiceafterfirstcycle"></Parameter> <Parameter name="quarterlyMonth"></Parameter> <Parameter name="yearlyMonth"></Parameter> <Parameter name="weeklyDay"></Parameter> <Parameter name="cBidprojectId"></Parameter> <Parameter name="monthlyDay"></Parameter> <Parameter name="proposalstatus"></Parameter> <Parameter name="lostproposalfixedreason"></Parameter> <Parameter name="lostproposalreason"></Parameter> <Parameter name="totallinesonetime"></Parameter> <Parameter name="grandtotalonetime"></Parameter> <Parameter name="totallines"></Parameter> <Parameter name="grandtotal"></Parameter> <Parameter name="generateproject"></Parameter> <Parameter name="closeproject"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="totalpaid"></Parameter> <Parameter name="completeordervalue"></Parameter> <Parameter name="deliverycomplete"></Parameter> <Parameter name="iscompletelyinvoiced"></Parameter> <Parameter name="juwimmCompletion"></Parameter> <Parameter name="juwimmTime"></Parameter> <Parameter name="juwimmResources"></Parameter> <Parameter name="juwimmBudget"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="juwimmPlannedgolive"></Parameter> <Parameter name="juwimmEstgolive"></Parameter> <Parameter name="juwimmNextimpdate"></Parameter> <Parameter name="juwimmDescription"></Parameter> <Parameter name="juwimmPlannedstart"></Parameter> <Parameter name="juwimmEststart"></Parameter> <Parameter name="juwimmMilestone1"></Parameter> <Parameter name="juwimmMs1planneddate"></Parameter> <Parameter name="juwimmMs1estdate"></Parameter> <Parameter name="juwimmMilestone2"></Parameter> <Parameter name="juwimmMs2planneddate"></Parameter> <Parameter name="juwimmMs2estdate"></Parameter> <Parameter name="juwimmMilestone3"></Parameter> <Parameter name="juwimmMs3planneddate"></Parameter> <Parameter name="juwimmMs3estdate"></Parameter> <Parameter name="juwimmMilestone4"></Parameter> <Parameter name="juwimmMs4planneddate"></Parameter> <Parameter name="juwimmMs4estdate"></Parameter> <Parameter name="juwimmMilestone5"></Parameter> <Parameter name="juwimmMs5planneddate"></Parameter> <Parameter name="ispaid"></Parameter> <Parameter name="isrecharge"></Parameter> <Parameter name="juwimmMs5estdate"></Parameter> <Parameter name="juwimmMilestone6"></Parameter> <Parameter name="btncopytemplate"></Parameter> <Parameter name="juwimmMs6planneddate"></Parameter> <Parameter name="juwimmMs6estdate"></Parameter> <Parameter name="subscriptionchangedate"></Parameter> <Parameter name="juwimmMilestone7"></Parameter> <Parameter name="juwimmMs7planneddate"></Parameter> <Parameter name="juwimmOrderstatuscompleteVId"></Parameter> <Parameter name="juwimmMs7estdate"></Parameter> <Parameter name="juwimmPlannedend"></Parameter> <Parameter name="juwimmOrderstatusId"></Parameter> <Parameter name="juwimmEstend"></Parameter> <Parameter name="juwimmProjectman"></Parameter> <Parameter name="juwimmOuputremarks"></Parameter> <Parameter name="juwimmLastaction"></Parameter> <Parameter name="juwimmNextaction"></Parameter> <Parameter name="juwimmIssues"></Parameter> <Parameter name="juwimmDecisions"></Parameter> <Parameter name="juwimmLastupdateon"></Parameter> <Parameter name="juwimmLastupdateby"></Parameter> <Parameter name="cChargeId"></Parameter> <Parameter name="isdelivered"></Parameter> <Parameter name="cActivityId"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="docaction"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="istaxincluded"></Parameter> <Parameter name="dateprinted"></Parameter> <Parameter name="isinvoiced"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="isselected"></Parameter> <Parameter name="isprinted"></Parameter> <Parameter name="posted"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="chargeamt"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_orderstatuscomplete_v
+        WHERE juwimm_orderstatuscomplete_v.Juwimm_Orderstatuscomplete_V_ID = ? 
+        
+        AND juwimm_orderstatuscomplete_v.AD_Client_ID IN ('1') 
+        AND juwimm_orderstatuscomplete_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatuscomplete_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatuscomplete_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_orderstatuscomplete_v
+        WHERE juwimm_orderstatuscomplete_v.Juwimm_Orderstatuscomplete_V_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM juwimm_orderstatuscomplete_v
+         WHERE juwimm_orderstatuscomplete_v.Juwimm_Orderstatuscomplete_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM juwimm_orderstatuscomplete_v
+         WHERE juwimm_orderstatuscomplete_v.Juwimm_Orderstatuscomplete_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

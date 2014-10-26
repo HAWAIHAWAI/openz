@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="DocumentDefinitionData" package="org.openbravo.erpWindows.DocumentType">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_DocType.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_DocType.CreatedBy) as CreatedByR, 
+        to_char(C_DocType.Updated, ?) as updated, 
+        to_char(C_DocType.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_DocType.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_DocType.UpdatedBy) as UpdatedByR,
+        C_DocType.AD_Client_ID, 
+(CASE WHEN C_DocType.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_DocType.AD_Org_ID, 
+(CASE WHEN C_DocType.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_DocType.Name, 
+COALESCE(C_DocType.Orgfiltered, 'N') AS Orgfiltered, 
+C_DocType.Description, 
+C_DocType.C_Doctype_Reversed_ID, 
+C_DocType.PrintName, 
+C_DocType.DocumentNote, 
+COALESCE(C_DocType.IsActive, 'N') AS IsActive, 
+COALESCE(C_DocType.IsDefault, 'N') AS IsDefault, 
+C_DocType.GL_Category_ID, 
+(CASE WHEN C_DocType.GL_Category_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS GL_Category_IDR, 
+COALESCE(C_DocType.IsSOTrx, 'N') AS IsSOTrx, 
+C_DocType.DocBaseType, 
+(CASE WHEN C_DocType.DocBaseType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS DocBaseTypeR, 
+C_DocType.AD_Table_ID, 
+(CASE WHEN C_DocType.AD_Table_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.TableName), ''))),'') ) END) AS AD_Table_IDR, 
+C_DocType.DocSubTypeSO, 
+(CASE WHEN C_DocType.DocSubTypeSO IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS DocSubTypeSOR, 
+C_DocType.C_DocTypeInvoice_ID, 
+(CASE WHEN C_DocType.C_DocTypeInvoice_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL5.Name IS NULL THEN TO_CHAR(table5.Name) ELSE TO_CHAR(tableTRL5.Name) END)), ''))),'') ) END) AS C_DocTypeInvoice_IDR, 
+C_DocType.C_DocTypeShipment_ID, 
+(CASE WHEN C_DocType.C_DocTypeShipment_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL6.Name IS NULL THEN TO_CHAR(table6.Name) ELSE TO_CHAR(tableTRL6.Name) END)), ''))),'') ) END) AS C_DocTypeShipment_IDR, 
+COALESCE(C_DocType.IsDocNoControlled, 'N') AS IsDocNoControlled, 
+C_DocType.DocNoSequence_ID, 
+(CASE WHEN C_DocType.DocNoSequence_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS DocNoSequence_IDR, 
+C_DocType.C_DocType_ID, 
+C_DocType.DocumentCopies, 
+ 
+        ? AS LANGUAGE 
+        FROM C_DocType left join (select AD_Client_ID, Name from AD_Client) table1 on (C_DocType.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_DocType.AD_Org_ID = table2.AD_Org_ID) left join (select GL_Category_ID, Name from GL_Category) table3 on (C_DocType.GL_Category_ID = table3.GL_Category_ID) left join ad_ref_list_v list1 on (C_DocType.DocBaseType = list1.value and list1.ad_reference_id = '183' and list1.ad_language = ?)  left join (select AD_Table_ID, TableName from AD_Table) table4 on (C_DocType.AD_Table_ID = table4.AD_Table_ID) left join ad_ref_list_v list2 on (C_DocType.DocSubTypeSO = list2.value and list2.ad_reference_id = '148' and list2.ad_language = ?)  left join (select C_DocType_ID, Name from C_DocType) table5 on (C_DocType.C_DocTypeInvoice_ID =  table5.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL5 on (table5.C_DocType_ID = tableTRL5.C_DocType_ID and tableTRL5.AD_Language = ?)  left join (select C_DocType_ID, Name from C_DocType) table6 on (C_DocType.C_DocTypeShipment_ID =  table6.C_DocType_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL6 on (table6.C_DocType_ID = tableTRL6.C_DocType_ID and tableTRL6.AD_Language = ?)  left join (select AD_Sequence_ID, Name from AD_Sequence) table7 on (C_DocType.DocNoSequence_ID =  table7.AD_Sequence_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_DocType.C_DocType_ID = ? 
+        AND C_DocType.AD_Client_ID IN ('1') 
+           AND C_DocType.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_DocType.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_DocType.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="cDoctypeId"></Parameter><Parameter name="glCategoryId"></Parameter><Parameter name="adTableId"></Parameter><Parameter name="isdocnocontrolled"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="documentnote"></Parameter><Parameter name="docnosequenceId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="docbasetype"></Parameter><Parameter name="docsubtypeso"></Parameter><Parameter name="documentcopies"></Parameter><Parameter name="cDoctypeshipmentId"></Parameter><Parameter name="name"></Parameter><Parameter name="printname"></Parameter><Parameter name="orgfiltered"></Parameter><Parameter name="cDoctypeinvoiceId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="issotrx"></Parameter><Parameter name="cDoctypeReversedId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1506_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1508_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_DocType
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , Name = (?) , Orgfiltered = (?) , Description = (?) , C_Doctype_Reversed_ID = (?) , PrintName = (?) , DocumentNote = (?) , IsActive = (?) , IsDefault = (?) , GL_Category_ID = (?) , IsSOTrx = (?) , DocBaseType = (?) , AD_Table_ID = (?) , DocSubTypeSO = (?) , C_DocTypeInvoice_ID = (?) , C_DocTypeShipment_ID = (?) , IsDocNoControlled = (?) , DocNoSequence_ID = (?) , C_DocType_ID = (?) , DocumentCopies = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE C_DocType.C_DocType_ID = ? 
+        
+        AND C_DocType.AD_Client_ID IN ('1') 
+        AND C_DocType.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="orgfiltered"></Parameter> <Parameter name="description"></Parameter> <Parameter name="cDoctypeReversedId"></Parameter> <Parameter name="printname"></Parameter> <Parameter name="documentnote"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="glCategoryId"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="docbasetype"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="docsubtypeso"></Parameter> <Parameter name="cDoctypeinvoiceId"></Parameter> <Parameter name="cDoctypeshipmentId"></Parameter> <Parameter name="isdocnocontrolled"></Parameter> <Parameter name="docnosequenceId"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="documentcopies"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cDoctypeId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_DocType.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_DocType.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_DocType 
+        (AD_Client_ID, AD_Org_ID, Name, Orgfiltered, Description, C_Doctype_Reversed_ID, PrintName, DocumentNote, IsActive, IsDefault, GL_Category_ID, IsSOTrx, DocBaseType, AD_Table_ID, DocSubTypeSO, C_DocTypeInvoice_ID, C_DocTypeShipment_ID, IsDocNoControlled, DocNoSequence_ID, C_DocType_ID, DocumentCopies, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="orgfiltered"></Parameter> <Parameter name="description"></Parameter> <Parameter name="cDoctypeReversedId"></Parameter> <Parameter name="printname"></Parameter> <Parameter name="documentnote"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="glCategoryId"></Parameter> <Parameter name="issotrx"></Parameter> <Parameter name="docbasetype"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="docsubtypeso"></Parameter> <Parameter name="cDoctypeinvoiceId"></Parameter> <Parameter name="cDoctypeshipmentId"></Parameter> <Parameter name="isdocnocontrolled"></Parameter> <Parameter name="docnosequenceId"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="documentcopies"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_DocType
+        WHERE C_DocType.C_DocType_ID = ? 
+        
+        AND C_DocType.AD_Client_ID IN ('1') 
+        AND C_DocType.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_DocType.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_DocType.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_DocType
+        WHERE C_DocType.C_DocType_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_DocType
+         WHERE C_DocType.C_DocType_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_DocType
+         WHERE C_DocType.C_DocType_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

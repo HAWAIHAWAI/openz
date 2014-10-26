@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Header9DD23C5FDF88404086B541C55420208DData" package="org.openbravo.erpWindows.org.openz.internallogistic.ConsumptionOverview">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ils_consumption_overview_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ils_consumption_overview_v.CreatedBy) as CreatedByR, 
+        to_char(ils_consumption_overview_v.Updated, ?) as updated, 
+        to_char(ils_consumption_overview_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ils_consumption_overview_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ils_consumption_overview_v.UpdatedBy) as UpdatedByR,
+        ils_consumption_overview_v.M_Internal_Consumptionline_ID, 
+(CASE WHEN ils_consumption_overview_v.M_Internal_Consumptionline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.MovementQty), ''))),'') ) END) AS M_Internal_Consumptionline_IDR, 
+ils_consumption_overview_v.M_Product_ID, 
+(CASE WHEN ils_consumption_overview_v.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+ils_consumption_overview_v.Movementdate, 
+ils_consumption_overview_v.Movementqty, 
+ils_consumption_overview_v.Costs, 
+ils_consumption_overview_v.Costtotal, 
+ils_consumption_overview_v.Movementtype, 
+(CASE WHEN ils_consumption_overview_v.Movementtype IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS MovementtypeR, 
+ils_consumption_overview_v.AD_User_ID, 
+(CASE WHEN ils_consumption_overview_v.AD_User_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_User_IDR, 
+ils_consumption_overview_v.Supervisor_ID, 
+ils_consumption_overview_v.ILS_Consumption_Overview_V_ID, 
+ils_consumption_overview_v.Oe, 
+ils_consumption_overview_v.AD_Client_ID, 
+ils_consumption_overview_v.AD_Org_ID, 
+COALESCE(ils_consumption_overview_v.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM ils_consumption_overview_v left join (select M_Internal_Consumptionline_ID, M_Internal_Consumption_ID, M_Product_ID, MovementQty from M_Internal_Consumptionline) table1 on (ils_consumption_overview_v.M_Internal_Consumptionline_ID = table1.M_Internal_Consumptionline_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table2 on (table1.M_Internal_Consumption_ID = table2.M_Internal_Consumption_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (table1.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select M_Product_ID, Value, Name from M_Product) table4 on (ils_consumption_overview_v.M_Product_ID = table4.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL4 on (table4.M_Product_ID = tableTRL4.M_Product_ID and tableTRL4.AD_Language = ?)  left join ad_ref_list_v list1 on (ils_consumption_overview_v.Movementtype = list1.value and list1.ad_reference_id = '189' and list1.ad_language = ?)  left join (select AD_User_ID, Name from AD_User) table5 on (ils_consumption_overview_v.AD_User_ID = table5.AD_User_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ils_consumption_overview_v.ILS_Consumption_Overview_V_ID = ? 
+        AND ils_consumption_overview_v.AD_Client_ID IN ('1') 
+           AND ils_consumption_overview_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_consumption_overview_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_consumption_overview_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="movementtype"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="costtotal"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="oe"></Parameter><Parameter name="movementqty"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="movementdate"></Parameter><Parameter name="costs"></Parameter><Parameter name="mInternalConsumptionlineId"></Parameter><Parameter name="supervisorId"></Parameter><Parameter name="ilsConsumptionOverviewVId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefE69397393CA0419282A32E714C2386D2_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef86D2483FD3044AA98264CE6EF86B674A_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef57AC0E3A9D1A4B30BE7585B57BC0B9CC_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ils_consumption_overview_v
+        SET M_Internal_Consumptionline_ID = (?) , M_Product_ID = (?) , Movementdate = TO_DATE(?) , Movementqty = TO_NUMBER(?) , Costs = TO_NUMBER(?) , Costtotal = TO_NUMBER(?) , Movementtype = (?) , AD_User_ID = (?) , Supervisor_ID = (?) , ILS_Consumption_Overview_V_ID = (?) , Oe = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE ils_consumption_overview_v.ILS_Consumption_Overview_V_ID = ? 
+        
+        AND ils_consumption_overview_v.AD_Client_ID IN ('1') 
+        AND ils_consumption_overview_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="movementdate"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="costs"></Parameter> <Parameter name="costtotal"></Parameter> <Parameter name="movementtype"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="supervisorId"></Parameter> <Parameter name="ilsConsumptionOverviewVId"></Parameter> <Parameter name="oe"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="ilsConsumptionOverviewVId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_consumption_overview_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_consumption_overview_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ils_consumption_overview_v 
+        (M_Internal_Consumptionline_ID, M_Product_ID, Movementdate, Movementqty, Costs, Costtotal, Movementtype, AD_User_ID, Supervisor_ID, ILS_Consumption_Overview_V_ID, Oe, AD_Client_ID, AD_Org_ID, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), TO_DATE(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="movementdate"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="costs"></Parameter> <Parameter name="costtotal"></Parameter> <Parameter name="movementtype"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="supervisorId"></Parameter> <Parameter name="ilsConsumptionOverviewVId"></Parameter> <Parameter name="oe"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ils_consumption_overview_v
+        WHERE ils_consumption_overview_v.ILS_Consumption_Overview_V_ID = ? 
+        
+        AND ils_consumption_overview_v.AD_Client_ID IN ('1') 
+        AND ils_consumption_overview_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="ils_consumption_overview_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ils_consumption_overview_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ils_consumption_overview_v
+        WHERE ils_consumption_overview_v.ILS_Consumption_Overview_V_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ils_consumption_overview_v
+         WHERE ils_consumption_overview_v.ILS_Consumption_Overview_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ils_consumption_overview_v
+         WHERE ils_consumption_overview_v.ILS_Consumption_Overview_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

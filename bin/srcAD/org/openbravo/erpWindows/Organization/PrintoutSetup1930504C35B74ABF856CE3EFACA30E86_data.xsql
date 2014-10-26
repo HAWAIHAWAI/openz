@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="PrintoutSetup1930504C35B74ABF856CE3EFACA30E86Data" package="org.openbravo.erpWindows.Organization">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zspr_printinfo.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspr_printinfo.CreatedBy) as CreatedByR, 
+        to_char(zspr_printinfo.Updated, ?) as updated, 
+        to_char(zspr_printinfo.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zspr_printinfo.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspr_printinfo.UpdatedBy) as UpdatedByR,
+        zspr_printinfo.AD_Client_ID, 
+(CASE WHEN zspr_printinfo.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+zspr_printinfo.Zspr_Printinfo_ID, 
+zspr_printinfo.AD_Org_ID, 
+(CASE WHEN zspr_printinfo.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(zspr_printinfo.Isactive, 'N') AS Isactive, 
+zspr_printinfo.Addressheader, 
+zspr_printinfo.Onelineadr, 
+zspr_printinfo.Address1, 
+zspr_printinfo.Address2, 
+zspr_printinfo.Address3, 
+zspr_printinfo.Address4, 
+zspr_printinfo.Address5, 
+zspr_printinfo.Address6, 
+zspr_printinfo.Address7, 
+zspr_printinfo.Address8, 
+zspr_printinfo.Address9, 
+COALESCE(zspr_printinfo.Isfootergroupstyle, 'N') AS Isfootergroupstyle, 
+zspr_printinfo.Footer1, 
+zspr_printinfo.Footer2, 
+zspr_printinfo.Footer3, 
+zspr_printinfo.Footer4, 
+zspr_printinfo.Footer5, 
+ 
+        ? AS LANGUAGE 
+        FROM zspr_printinfo left join (select AD_Client_ID, Name from AD_Client) table1 on (zspr_printinfo.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (zspr_printinfo.AD_Org_ID = table2.AD_Org_ID)
+        WHERE 2=2 
+ AND zspr_printinfo.ad_org_id=?
+        AND 1=1 
+        AND zspr_printinfo.Zspr_Printinfo_ID = ? 
+        AND zspr_printinfo.AD_Client_ID IN ('1') 
+           AND zspr_printinfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="ad_org_id"/>
+
+    <Parameter name="adOrgId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zspr_printinfo.AD_Org_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspr_printinfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspr_printinfo.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+<Parameter name="address8"></Parameter><Parameter name="isactive"></Parameter><Parameter name="address2"></Parameter><Parameter name="address6"></Parameter><Parameter name="onelineadr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isfootergroupstyle"></Parameter><Parameter name="addressheader"></Parameter><Parameter name="footer5"></Parameter><Parameter name="zsprPrintinfoId"></Parameter><Parameter name="address1"></Parameter><Parameter name="address3"></Parameter><Parameter name="footer1"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="address7"></Parameter><Parameter name="address9"></Parameter><Parameter name="address4"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="footer4"></Parameter><Parameter name="footer2"></Parameter><Parameter name="address5"></Parameter><Parameter name="footer3"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef0B4283540BB5418C96C64D3C5267880F_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefC6E91D721EF847E2BCEE9A2CD6253DED_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zspr_printinfo.AD_Org_ID AS NAME
+        FROM zspr_printinfo
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zspr_printinfo
+        SET AD_Client_ID = (?) , Zspr_Printinfo_ID = (?) , AD_Org_ID = (?) , Isactive = (?) , Addressheader = (?) , Onelineadr = (?) , Address1 = (?) , Address2 = (?) , Address3 = (?) , Address4 = (?) , Address5 = (?) , Address6 = (?) , Address7 = (?) , Address8 = (?) , Address9 = (?) , Isfootergroupstyle = (?) , Footer1 = (?) , Footer2 = (?) , Footer3 = (?) , Footer4 = (?) , Footer5 = (?) , updated = now(), updatedby = ? 
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+                 AND zspr_printinfo.AD_Org_ID = ? 
+        AND zspr_printinfo.AD_Client_ID IN ('1') 
+        AND zspr_printinfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="zsprPrintinfoId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="addressheader"></Parameter> <Parameter name="onelineadr"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="address3"></Parameter> <Parameter name="address4"></Parameter> <Parameter name="address5"></Parameter> <Parameter name="address6"></Parameter> <Parameter name="address7"></Parameter> <Parameter name="address8"></Parameter> <Parameter name="address9"></Parameter> <Parameter name="isfootergroupstyle"></Parameter> <Parameter name="footer1"></Parameter> <Parameter name="footer2"></Parameter> <Parameter name="footer3"></Parameter> <Parameter name="footer4"></Parameter> <Parameter name="footer5"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zsprPrintinfoId"></Parameter>
+    
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspr_printinfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspr_printinfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zspr_printinfo 
+        (AD_Client_ID, Zspr_Printinfo_ID, AD_Org_ID, Isactive, Addressheader, Onelineadr, Address1, Address2, Address3, Address4, Address5, Address6, Address7, Address8, Address9, Isfootergroupstyle, Footer1, Footer2, Footer3, Footer4, Footer5, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="zsprPrintinfoId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="addressheader"></Parameter> <Parameter name="onelineadr"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="address3"></Parameter> <Parameter name="address4"></Parameter> <Parameter name="address5"></Parameter> <Parameter name="address6"></Parameter> <Parameter name="address7"></Parameter> <Parameter name="address8"></Parameter> <Parameter name="address9"></Parameter> <Parameter name="isfootergroupstyle"></Parameter> <Parameter name="footer1"></Parameter> <Parameter name="footer2"></Parameter> <Parameter name="footer3"></Parameter> <Parameter name="footer4"></Parameter> <Parameter name="footer5"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspr_printinfo
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+                 AND zspr_printinfo.AD_Org_ID = ? 
+        AND zspr_printinfo.AD_Client_ID IN ('1') 
+        AND zspr_printinfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspr_printinfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspr_printinfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspr_printinfo
+        WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+                 AND zspr_printinfo.AD_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zspr_printinfo
+         WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zspr_printinfo
+         WHERE zspr_printinfo.Zspr_Printinfo_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

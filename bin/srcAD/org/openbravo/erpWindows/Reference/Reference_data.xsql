@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ReferenceData" package="org.openbravo.erpWindows.Reference">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Reference.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Reference.CreatedBy) as CreatedByR, 
+        to_char(AD_Reference.Updated, ?) as updated, 
+        to_char(AD_Reference.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Reference.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Reference.UpdatedBy) as UpdatedByR,
+        AD_Reference.AD_Client_ID, 
+(CASE WHEN AD_Reference.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Reference.AD_Org_ID, 
+(CASE WHEN AD_Reference.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_Reference.AD_Module_ID, 
+(CASE WHEN AD_Reference.AD_Module_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Version), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Module_IDR, 
+AD_Reference.Name, 
+AD_Reference.Description, 
+AD_Reference.Help, 
+COALESCE(AD_Reference.IsActive, 'N') AS IsActive, 
+AD_Reference.ValidationType, 
+(CASE WHEN AD_Reference.ValidationType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS ValidationTypeR, 
+COALESCE(AD_Reference.Showinfomenu, 'N') AS Showinfomenu, 
+AD_Reference.VFormat, 
+AD_Reference.Popupsmallicon, 
+AD_Reference.Popupbigicon, 
+AD_Reference.Columns, 
+AD_Reference.Detailsidfield, 
+COALESCE(AD_Reference.Isuserdefinablelist, 'N') AS Isuserdefinablelist, 
+AD_Reference.AD_Reference_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Reference left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_Reference.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_Reference.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table3 on (AD_Reference.AD_Module_ID = table3.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table4 on (table3.AD_Language =  table4.AD_Language) left join ad_ref_list_v list1 on (AD_Reference.ValidationType = list1.value and list1.ad_reference_id = '2' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_Reference.AD_Reference_ID = ? 
+        AND AD_Reference.AD_Client_ID IN ('1') 
+           AND AD_Reference.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Reference.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Reference.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="detailsidfield"></Parameter><Parameter name="adReferenceId"></Parameter><Parameter name="validationtype"></Parameter><Parameter name="isactive"></Parameter><Parameter name="description"></Parameter><Parameter name="help"></Parameter><Parameter name="columns"></Parameter><Parameter name="vformat"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adModuleId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="popupbigicon"></Parameter><Parameter name="showinfomenu"></Parameter><Parameter name="isuserdefinablelist"></Parameter><Parameter name="popupsmallicon"></Parameter><Parameter name="name"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef555_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef557_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5661DEEC430FFC21E040007F01004C04" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MAX(AD_MODULE_ID) FROM AD_MODULE WHERE ISDEFAULT='Y' 
+    ]]></Sql>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Reference
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , AD_Module_ID = (?) , Name = (?) , Description = (?) , Help = (?) , IsActive = (?) , ValidationType = (?) , Showinfomenu = (?) , VFormat = (?) , Popupsmallicon = (?) , Popupbigicon = (?) , Columns = TO_NUMBER(?) , Detailsidfield = (?) , Isuserdefinablelist = (?) , AD_Reference_ID = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Reference.AD_Reference_ID = ? 
+        
+        AND AD_Reference.AD_Client_ID IN ('1') 
+        AND AD_Reference.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="validationtype"></Parameter> <Parameter name="showinfomenu"></Parameter> <Parameter name="vformat"></Parameter> <Parameter name="popupsmallicon"></Parameter> <Parameter name="popupbigicon"></Parameter> <Parameter name="columns"></Parameter> <Parameter name="detailsidfield"></Parameter> <Parameter name="isuserdefinablelist"></Parameter> <Parameter name="adReferenceId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adReferenceId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Reference.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Reference.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Reference 
+        (AD_Client_ID, AD_Org_ID, AD_Module_ID, Name, Description, Help, IsActive, ValidationType, Showinfomenu, VFormat, Popupsmallicon, Popupbigicon, Columns, Detailsidfield, Isuserdefinablelist, AD_Reference_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="help"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="validationtype"></Parameter> <Parameter name="showinfomenu"></Parameter> <Parameter name="vformat"></Parameter> <Parameter name="popupsmallicon"></Parameter> <Parameter name="popupbigicon"></Parameter> <Parameter name="columns"></Parameter> <Parameter name="detailsidfield"></Parameter> <Parameter name="isuserdefinablelist"></Parameter> <Parameter name="adReferenceId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Reference
+        WHERE AD_Reference.AD_Reference_ID = ? 
+        
+        AND AD_Reference.AD_Client_ID IN ('1') 
+        AND AD_Reference.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Reference.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Reference.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Reference
+        WHERE AD_Reference.AD_Reference_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Reference
+         WHERE AD_Reference.AD_Reference_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Reference
+         WHERE AD_Reference.AD_Reference_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

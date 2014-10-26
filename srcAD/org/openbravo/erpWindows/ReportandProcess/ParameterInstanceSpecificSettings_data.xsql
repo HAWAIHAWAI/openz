@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ParameterInstanceSpecificSettingsData" package="org.openbravo.erpWindows.ReportandProcess">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ad_process_para_instance.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_process_para_instance.CreatedBy) as CreatedByR, 
+        to_char(ad_process_para_instance.Updated, ?) as updated, 
+        to_char(ad_process_para_instance.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ad_process_para_instance.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_process_para_instance.UpdatedBy) as UpdatedByR,
+        ad_process_para_instance.AD_Process_Para_ID, 
+(CASE WHEN ad_process_para_instance.AD_Process_Para_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Process_Para_IDR, 
+ad_process_para_instance.Seqno, 
+ad_process_para_instance.Colstotal, 
+(CASE WHEN ad_process_para_instance.Colstotal IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS ColstotalR, 
+ad_process_para_instance.Editsetting, 
+(CASE WHEN ad_process_para_instance.Editsetting IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS EditsettingR, 
+ad_process_para_instance.Fieldlength, 
+ad_process_para_instance.AD_Reference_Value_ID, 
+(CASE WHEN ad_process_para_instance.AD_Reference_Value_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))),'') ) END) AS AD_Reference_Value_IDR, 
+ad_process_para_instance.AD_Table_ID, 
+(CASE WHEN ad_process_para_instance.AD_Table_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.TableName), ''))),'') ) END) AS AD_Table_IDR, 
+ad_process_para_instance.AD_Val_Rule_ID, 
+(CASE WHEN ad_process_para_instance.AD_Val_Rule_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Val_Rule_IDR, 
+ad_process_para_instance.Includesemptyitem, 
+(CASE WHEN ad_process_para_instance.Includesemptyitem IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS IncludesemptyitemR, 
+ad_process_para_instance.Template, 
+(CASE WHEN ad_process_para_instance.Template IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS TemplateR, 
+COALESCE(ad_process_para_instance.Isactive, 'N') AS Isactive, 
+ad_process_para_instance.Visiblesetting, 
+(CASE WHEN ad_process_para_instance.Visiblesetting IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list5.name),'') ) END) AS VisiblesettingR, 
+ad_process_para_instance.Displaylogic, 
+ad_process_para_instance.Readonlylogic, 
+ad_process_para_instance.Mandantorylogic, 
+ad_process_para_instance.Defaultvalue, 
+ad_process_para_instance.AD_Org_ID, 
+ad_process_para_instance.Isfirstfocusedfield, 
+ad_process_para_instance.AD_Client_ID, 
+ad_process_para_instance.AD_Process_Para_Instance_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM ad_process_para_instance left join (select AD_Process_Para_ID, Name from AD_Process_Para) table1 on (ad_process_para_instance.AD_Process_Para_ID = table1.AD_Process_Para_ID) left join ad_ref_list_v list1 on (ad_process_para_instance.Colstotal = list1.value and list1.ad_reference_id = '90234A91172D442B839E332DEE305E6F' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (ad_process_para_instance.Editsetting = list2.value and list2.ad_reference_id = '0765914076274AD79BACA01E75F4D0A1' and list2.ad_language = ?)  left join (select AD_Reference_ID, Name from AD_Reference) table2 on (ad_process_para_instance.AD_Reference_Value_ID =  table2.AD_Reference_ID) left join (select AD_Reference_ID,AD_Language, Name from AD_Reference_TRL) tableTRL2 on (table2.AD_Reference_ID = tableTRL2.AD_Reference_ID and tableTRL2.AD_Language = ?)  left join (select AD_Table_ID, TableName from AD_Table) table3 on (ad_process_para_instance.AD_Table_ID = table3.AD_Table_ID) left join (select AD_Val_Rule_ID, Name from AD_Val_Rule) table4 on (ad_process_para_instance.AD_Val_Rule_ID = table4.AD_Val_Rule_ID) left join ad_ref_list_v list3 on (ad_process_para_instance.Includesemptyitem = list3.value and list3.ad_reference_id = 'BE2C89D33763486BBCDDB2E1D63A5B00' and list3.ad_language = ?)  left join ad_ref_list_v list4 on (ad_process_para_instance.Template = list4.value and list4.ad_reference_id = '029984D63BCA4F67AD81C93DCF486DFE' and list4.ad_language = ?)  left join ad_ref_list_v list5 on (ad_process_para_instance.Visiblesetting = list5.value and list5.ad_reference_id = 'A4801B9D7ADB4BB69EBF727B71C8AB45' and list5.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ad_process_para_instance.AD_Process_Para_Instance_ID = ? 
+        AND ad_process_para_instance.AD_Client_ID IN ('1') 
+           AND ad_process_para_instance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adProcessParaId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ad_process_para_instance.AD_Process_Para_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_process_para_instance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_process_para_instance.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adProcessParaId" id="paramKeyParent"></Parameter>
+<Parameter name="adOrgId"></Parameter><Parameter name="visiblesetting"></Parameter><Parameter name="seqno"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adTableId"></Parameter><Parameter name="readonlylogic"></Parameter><Parameter name="displaylogic"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adProcessParaInstanceId"></Parameter><Parameter name="fieldlength"></Parameter><Parameter name="editsetting"></Parameter><Parameter name="template"></Parameter><Parameter name="includesemptyitem"></Parameter><Parameter name="adReferenceValueId"></Parameter><Parameter name="mandantorylogic"></Parameter><Parameter name="defaultvalue"></Parameter><Parameter name="isfirstfocusedfield"></Parameter><Parameter name="adValRuleId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="colstotal"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefD00871BE97DD46D19747F0BF82F1527E_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefA97FFE82A94D421FA3CE03E14E6B8F37_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_process_para_instance.AD_Process_Para_ID AS NAME
+        FROM ad_process_para_instance
+        WHERE ad_process_para_instance.AD_Process_Para_Instance_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Process_Para left join (select AD_Process_Para_ID, Name from AD_Process_Para) table1 on (AD_Process_Para.AD_Process_Para_ID = table1.AD_Process_Para_ID) WHERE AD_Process_Para.AD_Process_Para_ID = ?  
+    ]]></Sql>
+<Parameter name="adProcessParaId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Process_Para left join (select AD_Process_Para_ID, Name from AD_Process_Para) table1 on (AD_Process_Para.AD_Process_Para_ID = table1.AD_Process_Para_ID) WHERE AD_Process_Para.AD_Process_Para_ID = ?  
+    ]]></Sql>
+<Parameter name="adProcessParaId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ad_process_para_instance
+        SET AD_Process_Para_ID = (?) , Seqno = TO_NUMBER(?) , Colstotal = (?) , Editsetting = (?) , Fieldlength = TO_NUMBER(?) , AD_Reference_Value_ID = (?) , AD_Table_ID = (?) , AD_Val_Rule_ID = (?) , Includesemptyitem = (?) , Template = (?) , Isactive = (?) , Visiblesetting = (?) , Displaylogic = (?) , Readonlylogic = (?) , Mandantorylogic = (?) , Defaultvalue = (?) , AD_Org_ID = (?) , Isfirstfocusedfield = (?) , AD_Client_ID = (?) , AD_Process_Para_Instance_ID = (?) , updated = now(), updatedby = ? 
+        WHERE ad_process_para_instance.AD_Process_Para_Instance_ID = ? 
+                 AND ad_process_para_instance.AD_Process_Para_ID = ? 
+        AND ad_process_para_instance.AD_Client_ID IN ('1') 
+        AND ad_process_para_instance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adProcessParaId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="colstotal"></Parameter> <Parameter name="editsetting"></Parameter> <Parameter name="fieldlength"></Parameter> <Parameter name="adReferenceValueId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adValRuleId"></Parameter> <Parameter name="includesemptyitem"></Parameter> <Parameter name="template"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="visiblesetting"></Parameter> <Parameter name="displaylogic"></Parameter> <Parameter name="readonlylogic"></Parameter> <Parameter name="mandantorylogic"></Parameter> <Parameter name="defaultvalue"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isfirstfocusedfield"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adProcessParaInstanceId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adProcessParaInstanceId"></Parameter>
+    
+    <Parameter name="adProcessParaId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_process_para_instance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_process_para_instance.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ad_process_para_instance 
+        (AD_Process_Para_ID, Seqno, Colstotal, Editsetting, Fieldlength, AD_Reference_Value_ID, AD_Table_ID, AD_Val_Rule_ID, Includesemptyitem, Template, Isactive, Visiblesetting, Displaylogic, Readonlylogic, Mandantorylogic, Defaultvalue, AD_Org_ID, Isfirstfocusedfield, AD_Client_ID, AD_Process_Para_Instance_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adProcessParaId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="colstotal"></Parameter> <Parameter name="editsetting"></Parameter> <Parameter name="fieldlength"></Parameter> <Parameter name="adReferenceValueId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adValRuleId"></Parameter> <Parameter name="includesemptyitem"></Parameter> <Parameter name="template"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="visiblesetting"></Parameter> <Parameter name="displaylogic"></Parameter> <Parameter name="readonlylogic"></Parameter> <Parameter name="mandantorylogic"></Parameter> <Parameter name="defaultvalue"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isfirstfocusedfield"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adProcessParaInstanceId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_process_para_instance
+        WHERE ad_process_para_instance.AD_Process_Para_Instance_ID = ? 
+                 AND ad_process_para_instance.AD_Process_Para_ID = ? 
+        AND ad_process_para_instance.AD_Client_ID IN ('1') 
+        AND ad_process_para_instance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adProcessParaId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_process_para_instance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_process_para_instance.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_process_para_instance
+        WHERE ad_process_para_instance.AD_Process_Para_Instance_ID = ? 
+                 AND ad_process_para_instance.AD_Process_Para_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adProcessParaId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ad_process_para_instance
+         WHERE ad_process_para_instance.AD_Process_Para_Instance_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ad_process_para_instance
+         WHERE ad_process_para_instance.AD_Process_Para_Instance_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

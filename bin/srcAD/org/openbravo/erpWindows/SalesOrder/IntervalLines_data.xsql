@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="IntervalLinesData" package="org.openbravo.erpWindows.SalesOrder">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(c_subscriptionintervallines_view.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_subscriptionintervallines_view.CreatedBy) as CreatedByR, 
+        to_char(c_subscriptionintervallines_view.Updated, ?) as updated, 
+        to_char(c_subscriptionintervallines_view.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        c_subscriptionintervallines_view.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = c_subscriptionintervallines_view.UpdatedBy) as UpdatedByR,
+        COALESCE(c_subscriptionintervallines_view.IsDescription, 'N') AS IsDescription, 
+c_subscriptionintervallines_view.Ref_OrderLine_ID, 
+c_subscriptionintervallines_view.AD_Client_ID, 
+(CASE WHEN c_subscriptionintervallines_view.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+c_subscriptionintervallines_view.M_Offer_ID, 
+c_subscriptionintervallines_view.AD_Org_ID, 
+(CASE WHEN c_subscriptionintervallines_view.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.GrandTotal), ''))),'') ) END) AS C_Subscriptioninterval_View_IDR, 
+c_subscriptionintervallines_view.C_BPartner_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_BPartner_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_BPartner_IDR, 
+c_subscriptionintervallines_view.C_BPartner_Location_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_BPartner_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_BPartner_Location_IDR, 
+c_subscriptionintervallines_view.DateOrdered, 
+c_subscriptionintervallines_view.Linetaxamt, 
+c_subscriptionintervallines_view.Line, 
+COALESCE(c_subscriptionintervallines_view.Isgrossprice, 'N') AS Isgrossprice, 
+c_subscriptionintervallines_view.DatePromised, 
+c_subscriptionintervallines_view.C_Projectphase_ID, 
+c_subscriptionintervallines_view.Scheddeliverydate, 
+COALESCE(c_subscriptionintervallines_view.DirectShip, 'N') AS DirectShip, 
+c_subscriptionintervallines_view.A_Asset_ID, 
+c_subscriptionintervallines_view.M_Warehouse_ID, 
+(CASE WHEN c_subscriptionintervallines_view.M_Warehouse_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS M_Warehouse_IDR, 
+COALESCE(c_subscriptionintervallines_view.Isonetimeposition, 'N') AS Isonetimeposition, 
+c_subscriptionintervallines_view.M_Product_ID, 
+(CASE WHEN c_subscriptionintervallines_view.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL7.Name IS NULL THEN TO_CHAR(table7.Name) ELSE TO_CHAR(tableTRL7.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+COALESCE(c_subscriptionintervallines_view.Issummaryitem, 'N') AS Issummaryitem, 
+c_subscriptionintervallines_view.M_AttributeSetInstance_ID, 
+(CASE WHEN c_subscriptionintervallines_view.M_AttributeSetInstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Description), ''))),'') ) END) AS M_AttributeSetInstance_IDR, 
+c_subscriptionintervallines_view.S_ResourceAssignment_ID, 
+c_subscriptionintervallines_view.Description, 
+c_subscriptionintervallines_view.QuantityOrder, 
+c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID, 
+c_subscriptionintervallines_view.M_Product_Uom_Id, 
+(CASE WHEN c_subscriptionintervallines_view.M_Product_Uom_Id IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL10.Name IS NULL THEN TO_CHAR(table10.Name) ELSE TO_CHAR(tableTRL10.Name) END)), ''))),'') ) END) AS M_Product_Uom_IdR, 
+c_subscriptionintervallines_view.QtyOrdered, 
+c_subscriptionintervallines_view.C_UOM_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL11.Name IS NULL THEN TO_CHAR(table11.Name) ELSE TO_CHAR(tableTRL11.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+c_subscriptionintervallines_view.QtyDelivered, 
+c_subscriptionintervallines_view.QtyReserved, 
+c_subscriptionintervallines_view.QtyInvoiced, 
+c_subscriptionintervallines_view.Invoicedamt, 
+COALESCE(c_subscriptionintervallines_view.Ignoreresidue, 'N') AS Ignoreresidue, 
+c_subscriptionintervallines_view.M_Shipper_ID, 
+(CASE WHEN c_subscriptionintervallines_view.M_Shipper_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Name), ''))),'') ) END) AS M_Shipper_IDR, 
+c_subscriptionintervallines_view.PriceActual, 
+c_subscriptionintervallines_view.C_Currency_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+c_subscriptionintervallines_view.PriceStd, 
+COALESCE(c_subscriptionintervallines_view.CANCELPRICEAD, 'N') AS CANCELPRICEAD, 
+c_subscriptionintervallines_view.PriceList, 
+c_subscriptionintervallines_view.Discount, 
+c_subscriptionintervallines_view.FreightAmt, 
+c_subscriptionintervallines_view.C_Tax_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_Tax_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL14.Name IS NULL THEN TO_CHAR(table14.Name) ELSE TO_CHAR(tableTRL14.Name) END)), ''))),'') ) END) AS C_Tax_IDR, 
+c_subscriptionintervallines_view.C_Project_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Name), ''))),'') ) END) AS C_Project_IDR, 
+c_subscriptionintervallines_view.C_Projecttask_ID, 
+(CASE WHEN c_subscriptionintervallines_view.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+c_subscriptionintervallines_view.LineNetAmt, 
+c_subscriptionintervallines_view.Linegrossamt, 
+c_subscriptionintervallines_view.C_Charge_ID, 
+c_subscriptionintervallines_view.DateDelivered, 
+c_subscriptionintervallines_view.DateInvoiced, 
+c_subscriptionintervallines_view.PriceLimit, 
+COALESCE(c_subscriptionintervallines_view.IsActive, 'N') AS IsActive, 
+c_subscriptionintervallines_view.ChargeAmt, 
+ 
+        ? AS LANGUAGE 
+        FROM c_subscriptionintervallines_view left join (select AD_Client_ID, Name from AD_Client) table1 on (c_subscriptionintervallines_view.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (c_subscriptionintervallines_view.AD_Org_ID = table2.AD_Org_ID) left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table3 on (c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID = table3.C_Order_ID) left join (select C_BPartner_ID, Name from C_BPartner) table4 on (c_subscriptionintervallines_view.C_BPartner_ID = table4.C_BPartner_ID) left join (select C_BPartner_Location_ID, Name from C_BPartner_Location) table5 on (c_subscriptionintervallines_view.C_BPartner_Location_ID = table5.C_BPartner_Location_ID) left join (select M_Warehouse_ID, Name from M_Warehouse) table6 on (c_subscriptionintervallines_view.M_Warehouse_ID =  table6.M_Warehouse_ID) left join (select M_Product_ID, Value, Name from M_Product) table7 on (c_subscriptionintervallines_view.M_Product_ID = table7.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL7 on (table7.M_Product_ID = tableTRL7.M_Product_ID and tableTRL7.AD_Language = ?)  left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table8 on (c_subscriptionintervallines_view.M_AttributeSetInstance_ID = table8.M_AttributeSetInstance_ID) left join (select M_Product_Uom_Id, C_UOM_ID from M_Product_UOM) table9 on (c_subscriptionintervallines_view.M_Product_Uom_Id =  table9.M_Product_Uom_Id) left join (select C_UOM_ID, Name from C_UOM) table10 on (table9.C_UOM_ID = table10.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL10 on (table10.C_UOM_ID = tableTRL10.C_UOM_ID and tableTRL10.AD_Language = ?)  left join (select C_UOM_ID, Name from C_UOM) table11 on (c_subscriptionintervallines_view.C_UOM_ID = table11.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL11 on (table11.C_UOM_ID = tableTRL11.C_UOM_ID and tableTRL11.AD_Language = ?)  left join (select M_Shipper_ID, Name from M_Shipper) table12 on (c_subscriptionintervallines_view.M_Shipper_ID = table12.M_Shipper_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table13 on (c_subscriptionintervallines_view.C_Currency_ID = table13.C_Currency_ID) left join (select C_Tax_ID, Name from C_Tax) table14 on (c_subscriptionintervallines_view.C_Tax_ID =  table14.C_Tax_ID) left join (select C_Tax_ID,AD_Language, Name from C_Tax_TRL) tableTRL14 on (table14.C_Tax_ID = tableTRL14.C_Tax_ID and tableTRL14.AD_Language = ?)  left join (select C_Project_ID, Value, Name from C_Project) table15 on (c_subscriptionintervallines_view.C_Project_ID = table15.C_Project_ID) left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table16 on (c_subscriptionintervallines_view.C_Projecttask_ID = table16.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table17 on (table16.C_Project_ID = table17.C_Project_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID = ? 
+        AND c_subscriptionintervallines_view.AD_Client_ID IN ('1') 
+           AND c_subscriptionintervallines_view.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cSubscriptionintervalViewId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_subscriptionintervallines_view.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_subscriptionintervallines_view.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cSubscriptionintervalViewId" id="paramKeyParent"></Parameter>
+<Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="discount"></Parameter><Parameter name="scheddeliverydate"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="dateordered"></Parameter><Parameter name="ignoreresidue"></Parameter><Parameter name="cSubscriptionintervallinesViewId"></Parameter><Parameter name="refOrderlineId"></Parameter><Parameter name="linegrossamt"></Parameter><Parameter name="quantityorder"></Parameter><Parameter name="linenetamt"></Parameter><Parameter name="mShipperId"></Parameter><Parameter name="cProjectphaseId"></Parameter><Parameter name="datepromised"></Parameter><Parameter name="pricestd"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="description"></Parameter><Parameter name="qtydelivered"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="issummaryitem"></Parameter><Parameter name="datedelivered"></Parameter><Parameter name="pricelimit"></Parameter><Parameter name="isgrossprice"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="qtyreserved"></Parameter><Parameter name="invoicedamt"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="pricelist"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="isdescription"></Parameter><Parameter name="cSubscriptionintervalViewIdr"></Parameter><Parameter name="freightamt"></Parameter><Parameter name="mOfferId"></Parameter><Parameter name="qtyinvoiced"></Parameter><Parameter name="sResourceassignmentId"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="cancelpricead"></Parameter><Parameter name="priceactual"></Parameter><Parameter name="linetaxamt"></Parameter><Parameter name="mProductUomId"></Parameter><Parameter name="chargeamt"></Parameter><Parameter name="directship"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="cProjectIdr"></Parameter><Parameter name="qtyordered"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="isonetimeposition"></Parameter><Parameter name="cChargeId"></Parameter><Parameter name="mWarehouseId"></Parameter><Parameter name="dateinvoiced"></Parameter><Parameter name="line"></Parameter><Parameter name="cTaxId"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="cBpartnerIdr"></Parameter>
+   </SqlMethod>
+
+
+   <SqlMethod name="selectAuxFC17DFE42B964D5A9AF556A2F1A13492" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_get_docbasetype(?) 
+    ]]></Sql>
+
+<Parameter name="c_doctype_id"/>
+  </SqlMethod>
+
+
+
+
+
+   <SqlMethod name="selectDef5B279745ED3748BA9F47AE8CF7429546_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefFF567F89E6E44BE0B9635230964D3AAA" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_projectphase_id AS DefaultValue FROM c_order WHERE c_order_ID=? 
+    ]]></Sql>
+
+<Parameter name="c_order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef400514558EEC48B89EB53EDF4B132CA1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT a_asset_id AS DefaultValue FROM c_order WHERE c_order_ID=? 
+    ]]></Sql>
+
+<Parameter name="c_order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef685B417ACB3044BDB4EBA1272388DFE2_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2E892DA4D3134858A87CA976B303A3F1_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_AttributeSetInstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_AttributeSetInstance_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef0D22CCF0AC2749A4A4F41B7472042F2A_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3D84E9048403492EB9C62DD777F65845_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '')  || ' - ' || COALESCE(TO_CHAR(table1.DateOrdered), '')  || ' - ' || COALESCE(TO_CHAR(table1.GrandTotal), '') ) as C_Subscriptioninterval_View_ID FROM C_Order table1 WHERE table1.isActive='Y' AND table1.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Subscriptioninterval_View_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1B89E4F709F4492B814FCFD40B326C34" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_projecttask_id AS DefaultValue FROM c_order WHERE c_order_ID=? 
+    ]]></Sql>
+
+<Parameter name="c_order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef0ADC146B62014DDEB36538C37BF4B744" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_project_id AS DefaultValue FROM c_order WHERE c_order_ID=? 
+    ]]></Sql>
+
+<Parameter name="c_order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef0ADC146B62014DDEB36538C37BF4B744_5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as C_Project_ID FROM C_Project table1 WHERE table1.isActive='Y' AND table1.C_Project_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Project_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefABCCB98672FD49109BAF16F9A0A0710F" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(Line),0)+10 AS DefaultValue FROM C_OrderLine WHERE C_Order_ID=? 
+    ]]></Sql>
+
+<Parameter name="C_Order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefD501463B963F43BFAEDC2E411D9535B8" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_BPartner_ID AS DefaultValue FROM C_Order WHERE C_Order_ID=? 
+    ]]></Sql>
+
+<Parameter name="C_Order_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefD501463B963F43BFAEDC2E411D9535B8_6" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as C_BPartner_ID FROM C_BPartner table1 WHERE table1.isActive='Y' AND table1.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="C_BPartner_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID AS NAME
+        FROM c_subscriptionintervallines_view
+        WHERE c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM c_subscriptioninterval_view left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (c_subscriptioninterval_view.C_Subscriptioninterval_View_ID = table1.C_Order_ID) WHERE c_subscriptioninterval_view.C_Subscriptioninterval_View_ID = ?  
+    ]]></Sql>
+<Parameter name="cSubscriptionintervalViewId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM c_subscriptioninterval_view left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (c_subscriptioninterval_view.C_Subscriptioninterval_View_ID = table1.C_Order_ID) WHERE c_subscriptioninterval_view.C_Subscriptioninterval_View_ID = ?  
+    ]]></Sql>
+<Parameter name="cSubscriptionintervalViewId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE c_subscriptionintervallines_view
+        SET IsDescription = (?) , Ref_OrderLine_ID = (?) , AD_Client_ID = (?) , M_Offer_ID = (?) , AD_Org_ID = (?) , C_Subscriptioninterval_View_ID = (?) , C_BPartner_ID = (?) , C_BPartner_Location_ID = (?) , DateOrdered = TO_DATE(?) , Linetaxamt = TO_NUMBER(?) , Line = TO_NUMBER(?) , Isgrossprice = (?) , DatePromised = TO_DATE(?) , C_Projectphase_ID = (?) , Scheddeliverydate = TO_DATE(?) , DirectShip = (?) , A_Asset_ID = (?) , M_Warehouse_ID = (?) , Isonetimeposition = (?) , M_Product_ID = (?) , Issummaryitem = (?) , M_AttributeSetInstance_ID = (?) , S_ResourceAssignment_ID = (?) , Description = (?) , QuantityOrder = TO_NUMBER(?) , C_Subscriptionintervallines_View_ID = (?) , M_Product_Uom_Id = (?) , QtyOrdered = TO_NUMBER(?) , C_UOM_ID = (?) , QtyDelivered = TO_NUMBER(?) , QtyReserved = TO_NUMBER(?) , QtyInvoiced = TO_NUMBER(?) , Invoicedamt = TO_NUMBER(?) , Ignoreresidue = (?) , M_Shipper_ID = (?) , PriceActual = TO_NUMBER(?) , C_Currency_ID = (?) , PriceStd = TO_NUMBER(?) , CANCELPRICEAD = (?) , PriceList = TO_NUMBER(?) , Discount = TO_NUMBER(?) , FreightAmt = TO_NUMBER(?) , C_Tax_ID = (?) , C_Project_ID = (?) , C_Projecttask_ID = (?) , LineNetAmt = TO_NUMBER(?) , Linegrossamt = TO_NUMBER(?) , C_Charge_ID = (?) , DateDelivered = TO_DATE(?) , DateInvoiced = TO_DATE(?) , PriceLimit = TO_NUMBER(?) , IsActive = (?) , ChargeAmt = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID = ? 
+                 AND c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID = ? 
+        AND c_subscriptionintervallines_view.AD_Client_ID IN ('1') 
+        AND c_subscriptionintervallines_view.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="isdescription"></Parameter> <Parameter name="refOrderlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="mOfferId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cSubscriptionintervalViewId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="linetaxamt"></Parameter> <Parameter name="line"></Parameter> <Parameter name="isgrossprice"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="directship"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="isonetimeposition"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="issummaryitem"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="sResourceassignmentId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="cSubscriptionintervallinesViewId"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="qtydelivered"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyinvoiced"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="ignoreresidue"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="pricestd"></Parameter> <Parameter name="cancelpricead"></Parameter> <Parameter name="pricelist"></Parameter> <Parameter name="discount"></Parameter> <Parameter name="freightamt"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="linenetamt"></Parameter> <Parameter name="linegrossamt"></Parameter> <Parameter name="cChargeId"></Parameter> <Parameter name="datedelivered"></Parameter> <Parameter name="dateinvoiced"></Parameter> <Parameter name="pricelimit"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="chargeamt"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cSubscriptionintervallinesViewId"></Parameter>
+    
+    <Parameter name="cSubscriptionintervalViewId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_subscriptionintervallines_view.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_subscriptionintervallines_view.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO c_subscriptionintervallines_view 
+        (IsDescription, Ref_OrderLine_ID, AD_Client_ID, M_Offer_ID, AD_Org_ID, C_Subscriptioninterval_View_ID, C_BPartner_ID, C_BPartner_Location_ID, DateOrdered, Linetaxamt, Line, Isgrossprice, DatePromised, C_Projectphase_ID, Scheddeliverydate, DirectShip, A_Asset_ID, M_Warehouse_ID, Isonetimeposition, M_Product_ID, Issummaryitem, M_AttributeSetInstance_ID, S_ResourceAssignment_ID, Description, QuantityOrder, C_Subscriptionintervallines_View_ID, M_Product_Uom_Id, QtyOrdered, C_UOM_ID, QtyDelivered, QtyReserved, QtyInvoiced, Invoicedamt, Ignoreresidue, M_Shipper_ID, PriceActual, C_Currency_ID, PriceStd, CANCELPRICEAD, PriceList, Discount, FreightAmt, C_Tax_ID, C_Project_ID, C_Projecttask_ID, LineNetAmt, Linegrossamt, C_Charge_ID, DateDelivered, DateInvoiced, PriceLimit, IsActive, ChargeAmt, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), TO_NUMBER(?), TO_NUMBER(?), (?), TO_DATE(?), (?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), TO_DATE(?), TO_DATE(?), TO_NUMBER(?), (?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="isdescription"></Parameter> <Parameter name="refOrderlineId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="mOfferId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cSubscriptionintervalViewId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="linetaxamt"></Parameter> <Parameter name="line"></Parameter> <Parameter name="isgrossprice"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="directship"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="isonetimeposition"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="issummaryitem"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="sResourceassignmentId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="cSubscriptionintervallinesViewId"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="qtydelivered"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyinvoiced"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="ignoreresidue"></Parameter> <Parameter name="mShipperId"></Parameter> <Parameter name="priceactual"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="pricestd"></Parameter> <Parameter name="cancelpricead"></Parameter> <Parameter name="pricelist"></Parameter> <Parameter name="discount"></Parameter> <Parameter name="freightamt"></Parameter> <Parameter name="cTaxId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="linenetamt"></Parameter> <Parameter name="linegrossamt"></Parameter> <Parameter name="cChargeId"></Parameter> <Parameter name="datedelivered"></Parameter> <Parameter name="dateinvoiced"></Parameter> <Parameter name="pricelimit"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="chargeamt"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_subscriptionintervallines_view
+        WHERE c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID = ? 
+                 AND c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID = ? 
+        AND c_subscriptionintervallines_view.AD_Client_ID IN ('1') 
+        AND c_subscriptionintervallines_view.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cSubscriptionintervalViewId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="c_subscriptionintervallines_view.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="c_subscriptionintervallines_view.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM c_subscriptionintervallines_view
+        WHERE c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID = ? 
+                 AND c_subscriptionintervallines_view.C_Subscriptioninterval_View_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cSubscriptionintervalViewId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM c_subscriptionintervallines_view
+         WHERE c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM c_subscriptionintervallines_view
+         WHERE c_subscriptionintervallines_view.C_Subscriptionintervallines_View_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

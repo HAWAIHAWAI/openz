@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BWAReportAcct" pageWidth="390" pageHeight="842" columnWidth="390" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="CLIENT_ID" class="java.lang.String"/>
+	<parameter name="DATE_FROM" class="java.util.Date"/>
+	<parameter name="DATE_TO" class="java.util.Date"/>
+	<parameter name="BWAPREFS_ID" class="java.lang.String"/>
+	<parameter name="AD_ORG_ID" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select ACCTVALUE, ACCTDESCRIPTION, Summe,SummeVJ from
+ (  select ACCTVALUE,max(ACCTDESCRIPTION) as ACCTDESCRIPTION,
+       zsfi_getacctsum(bwaprefs.zspr_bwaprefs_id,account_id,$P{DATE_FROM},$P{DATE_TO},$P{AD_ORG_ID},'N') as summe,
+       zsfi_getacctsum(bwaprefs.zspr_bwaprefs_id,account_id,$P{DATE_FROM},$P{DATE_TO},$P{AD_ORG_ID},'Y') as summeVJ
+     from fact_acct_view,zspr_bwaprefacct bwaprefacct , zspr_bwaprefs bwaprefs
+     where bwaprefs.zspr_bwaprefs_id = $P{BWAPREFS_ID}
+           and bwaprefs.zspr_bwaprefs_id=bwaprefacct.zspr_bwaprefs_id
+           and fact_acct_view.ACCTVALUE like replace(bwaprefacct.acctmatch,'*','%')
+           and case when instr(bwaprefacct.acctmatch,'*')>0 then length(fact_acct_view.ACCTVALUE)=5 else length(fact_acct_view.ACCTVALUE)=4 end
+           and fact_acct_view.ad_client_id =$P{CLIENT_ID}
+           and fact_acct_view.c_acctschema_id=(select distinct c_acctschema_id from ad_org_acctschema where CASE when $P{AD_ORG_ID}!='0' then ad_org_id=$P{AD_ORG_ID} else 1=1 END)
+           and bwaprefacct.c_acctschema_id=fact_acct_view.c_acctschema_id
+           and CASE when $P{AD_ORG_ID}!='0' then fact_acct_view.ad_org_id=$P{AD_ORG_ID} else 1=1 END
+           and bwaprefs.isactive='Y'
+           and bwaprefs.dontprintdetails='N'
+     GROUP BY ACCTVALUE,bwaprefs.zspr_bwaprefs_id,account_id
+ ) a
+where summe != 0 or summeVJ != 0
+ORDER by ACCTVALUE, ACCTDESCRIPTION]]>
+	</queryString>
+	<field name="acctvalue" class="java.lang.String"/>
+	<field name="acctdescription" class="java.lang.String"/>
+	<field name="summe" class="java.math.BigDecimal"/>
+	<field name="summevj" class="java.math.BigDecimal"/>
+	<variable name="SUBSUM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{summe}]]></variableExpression>
+	</variable>
+	<variable name="SUBSumVJ" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{summevj}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="12" y="0" width="38" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{acctvalue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField" x="50" y="0" width="165" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{acctdescription}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="215" y="0" width="61" height="18"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{summe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="276" y="0" width="30" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[(Vorjahr:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="306" y="0" width="61" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{summevj}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-2" x="369" y="0" width="12" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[)]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-1" x="0" y="19" width="390" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

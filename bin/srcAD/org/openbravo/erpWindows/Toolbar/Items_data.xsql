@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ItemsData" package="org.openbravo.erpWindows.Toolbar">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ad_toolbaritems.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_toolbaritems.CreatedBy) as CreatedByR, 
+        to_char(ad_toolbaritems.Updated, ?) as updated, 
+        to_char(ad_toolbaritems.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ad_toolbaritems.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_toolbaritems.UpdatedBy) as UpdatedByR,
+        ad_toolbaritems.AD_Toolbaritems_ID, 
+ad_toolbaritems.AD_Toolbar_ID, 
+(CASE WHEN ad_toolbaritems.AD_Toolbar_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'') ) END) AS AD_Toolbar_IDR, 
+ad_toolbaritems.Seqno, 
+ad_toolbaritems.Message, 
+ad_toolbaritems.AD_Client_ID, 
+ad_toolbaritems.AD_Org_ID, 
+ad_toolbaritems.Codesnippet, 
+COALESCE(ad_toolbaritems.Isactive, 'N') AS Isactive, 
+ad_toolbaritems.Toolbaritem, 
+(CASE WHEN ad_toolbaritems.Toolbaritem IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS ToolbaritemR, 
+ 
+        ? AS LANGUAGE 
+        FROM ad_toolbaritems left join (select AD_Toolbar_ID, Value from AD_Toolbar) table1 on (ad_toolbaritems.AD_Toolbar_ID = table1.AD_Toolbar_ID) left join ad_ref_list_v list1 on (ad_toolbaritems.Toolbaritem = list1.value and list1.ad_reference_id = '08C65A5D536B42A797C6659322C37E7D' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ad_toolbaritems.AD_Toolbaritems_ID = ? 
+        AND ad_toolbaritems.AD_Client_ID IN ('1') 
+           AND ad_toolbaritems.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adToolbarId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ad_toolbaritems.AD_Toolbar_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_toolbaritems.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_toolbaritems.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adToolbarId" id="paramKeyParent"></Parameter>
+<Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="toolbaritem"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="message"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="seqno"></Parameter><Parameter name="adToolbaritemsId"></Parameter><Parameter name="codesnippet"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefCB9AB49BD6EC4F419A66186C02BE16B7_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef455086C00C8A442D85B6DDBC890DD137_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefF2E6D06FBD944C0F96DCF7649710A482" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(SEQNO),0)+10 AS DefaultValue FROM AD_TOOLBARITEMS WHERE ad_toolbar_id=? 
+    ]]></Sql>
+
+<Parameter name="ad_toolbar_id"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_toolbaritems.AD_Toolbar_ID AS NAME
+        FROM ad_toolbaritems
+        WHERE ad_toolbaritems.AD_Toolbaritems_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))) AS NAME FROM ad_toolbar left join (select AD_Toolbar_ID, Value from AD_Toolbar) table1 on (ad_toolbar.AD_Toolbar_ID = table1.AD_Toolbar_ID) WHERE ad_toolbar.AD_Toolbar_ID = ?  
+    ]]></Sql>
+<Parameter name="adToolbarId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))) AS NAME FROM ad_toolbar left join (select AD_Toolbar_ID, Value from AD_Toolbar) table1 on (ad_toolbar.AD_Toolbar_ID = table1.AD_Toolbar_ID) WHERE ad_toolbar.AD_Toolbar_ID = ?  
+    ]]></Sql>
+<Parameter name="adToolbarId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ad_toolbaritems
+        SET AD_Toolbaritems_ID = (?) , AD_Toolbar_ID = (?) , Seqno = TO_NUMBER(?) , Message = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Codesnippet = (?) , Isactive = (?) , Toolbaritem = (?) , updated = now(), updatedby = ? 
+        WHERE ad_toolbaritems.AD_Toolbaritems_ID = ? 
+                 AND ad_toolbaritems.AD_Toolbar_ID = ? 
+        AND ad_toolbaritems.AD_Client_ID IN ('1') 
+        AND ad_toolbaritems.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adToolbaritemsId"></Parameter> <Parameter name="adToolbarId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="message"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="codesnippet"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="toolbaritem"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adToolbaritemsId"></Parameter>
+    
+    <Parameter name="adToolbarId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_toolbaritems.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_toolbaritems.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ad_toolbaritems 
+        (AD_Toolbaritems_ID, AD_Toolbar_ID, Seqno, Message, AD_Client_ID, AD_Org_ID, Codesnippet, Isactive, Toolbaritem, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adToolbaritemsId"></Parameter> <Parameter name="adToolbarId"></Parameter> <Parameter name="seqno"></Parameter> <Parameter name="message"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="codesnippet"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="toolbaritem"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_toolbaritems
+        WHERE ad_toolbaritems.AD_Toolbaritems_ID = ? 
+                 AND ad_toolbaritems.AD_Toolbar_ID = ? 
+        AND ad_toolbaritems.AD_Client_ID IN ('1') 
+        AND ad_toolbaritems.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adToolbarId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_toolbaritems.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_toolbaritems.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_toolbaritems
+        WHERE ad_toolbaritems.AD_Toolbaritems_ID = ? 
+                 AND ad_toolbaritems.AD_Toolbar_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adToolbarId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ad_toolbaritems
+         WHERE ad_toolbaritems.AD_Toolbaritems_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ad_toolbaritems
+         WHERE ad_toolbaritems.AD_Toolbaritems_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Status6780E60B374444A49AC7010A32FE9884Data" package="org.openbravo.erpWindows.SalesOrder">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(juwimm_orderstatus.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_orderstatus.CreatedBy) as CreatedByR, 
+        to_char(juwimm_orderstatus.Updated, ?) as updated, 
+        to_char(juwimm_orderstatus.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        juwimm_orderstatus.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = juwimm_orderstatus.UpdatedBy) as UpdatedByR,
+        juwimm_orderstatus.C_Order_ID, 
+juwimm_orderstatus.Juwimm_Orderstatus_ID, 
+juwimm_orderstatus.Juwimm_Projectman, 
+juwimm_orderstatus.Juwimm_Completion, 
+(CASE WHEN juwimm_orderstatus.Juwimm_Completion IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS Juwimm_CompletionR, 
+juwimm_orderstatus.AD_Client_ID, 
+juwimm_orderstatus.AD_Org_ID, 
+juwimm_orderstatus.Juwimm_Time, 
+(CASE WHEN juwimm_orderstatus.Juwimm_Time IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS Juwimm_TimeR, 
+juwimm_orderstatus.Juwimm_Resources, 
+(CASE WHEN juwimm_orderstatus.Juwimm_Resources IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS Juwimm_ResourcesR, 
+COALESCE(juwimm_orderstatus.Isactive, 'N') AS Isactive, 
+juwimm_orderstatus.Juwimm_Budget, 
+(CASE WHEN juwimm_orderstatus.Juwimm_Budget IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS Juwimm_BudgetR, 
+juwimm_orderstatus.Juwimm_Team_ID, 
+(CASE WHEN juwimm_orderstatus.Juwimm_Team_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS Juwimm_Team_IDR, 
+juwimm_orderstatus.Juwimm_Plannedgolive, 
+juwimm_orderstatus.Juwimm_Estgolive, 
+juwimm_orderstatus.Juwimm_Nextimpdate, 
+juwimm_orderstatus.Juwimm_Description, 
+juwimm_orderstatus.Juwimm_Plannedstart, 
+juwimm_orderstatus.Juwimm_Eststart, 
+juwimm_orderstatus.Juwimm_Milestone1, 
+juwimm_orderstatus.Juwimm_Ms1planneddate, 
+juwimm_orderstatus.Juwimm_Ms1estdate, 
+juwimm_orderstatus.Juwimm_Milestone2, 
+juwimm_orderstatus.Juwimm_Ms2planneddate, 
+juwimm_orderstatus.Juwimm_Ms2estdate, 
+juwimm_orderstatus.Juwimm_Milestone3, 
+juwimm_orderstatus.Juwimm_Ms3planneddate, 
+juwimm_orderstatus.Juwimm_Ms3estdate, 
+juwimm_orderstatus.Juwimm_Milestone4, 
+juwimm_orderstatus.Juwimm_Ms4planneddate, 
+juwimm_orderstatus.Juwimm_Ms4estdate, 
+juwimm_orderstatus.Juwimm_Milestone5, 
+juwimm_orderstatus.Juwimm_Ms5planneddate, 
+juwimm_orderstatus.Juwimm_Ms5estdate, 
+juwimm_orderstatus.Juwimm_Milestone6, 
+juwimm_orderstatus.Juwimm_Ms6planneddate, 
+juwimm_orderstatus.Juwimm_Ms6estdate, 
+juwimm_orderstatus.Juwimm_Milestone7, 
+juwimm_orderstatus.Juwimm_Ms7planneddate, 
+juwimm_orderstatus.Juwimm_Ms7estdate, 
+juwimm_orderstatus.Juwimm_Plannedend, 
+juwimm_orderstatus.Juwimm_Estend, 
+juwimm_orderstatus.Juwimm_Ouputremarks, 
+juwimm_orderstatus.Juwimm_Lastaction, 
+juwimm_orderstatus.Juwimm_Nextaction, 
+juwimm_orderstatus.Juwimm_Issues, 
+juwimm_orderstatus.Juwimm_Decisions, 
+ 
+        ? AS LANGUAGE 
+        FROM juwimm_orderstatus left join ad_ref_list_v list1 on (juwimm_orderstatus.Juwimm_Completion = list1.value and list1.ad_reference_id = 'DFB97A7B6DE848EEAA271F95215E316E' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (juwimm_orderstatus.Juwimm_Time = list2.value and list2.ad_reference_id = 'BBFB55FDBAA64C0EB46F026460AE8285' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (juwimm_orderstatus.Juwimm_Resources = list3.value and list3.ad_reference_id = '7C374D10EA044BE3B252D6654A7AA5E1' and list3.ad_language = ?)  left join ad_ref_list_v list4 on (juwimm_orderstatus.Juwimm_Budget = list4.value and list4.ad_reference_id = '76CDE2B245D44726AE30457453FF622E' and list4.ad_language = ?)  left join (select Juwimm_Team_ID, Name from Juwimm_Team) table1 on (juwimm_orderstatus.Juwimm_Team_ID = table1.Juwimm_Team_ID) left join (select Juwimm_Team_ID,AD_Language, Name from juwimm_team_TRL) tableTRL1 on (table1.Juwimm_Team_ID = tableTRL1.Juwimm_Team_ID and tableTRL1.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND juwimm_orderstatus.Juwimm_Orderstatus_ID = ? 
+        AND juwimm_orderstatus.AD_Client_ID IN ('1') 
+           AND juwimm_orderstatus.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cOrderId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND juwimm_orderstatus.C_Order_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatus.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatus.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+<Parameter name="juwimmMilestone7"></Parameter><Parameter name="juwimmMs2planneddate"></Parameter><Parameter name="juwimmBudget"></Parameter><Parameter name="juwimmLastaction"></Parameter><Parameter name="juwimmMs6estdate"></Parameter><Parameter name="juwimmMs5planneddate"></Parameter><Parameter name="juwimmResources"></Parameter><Parameter name="juwimmMilestone3"></Parameter><Parameter name="juwimmMs3estdate"></Parameter><Parameter name="juwimmCompletion"></Parameter><Parameter name="juwimmIssues"></Parameter><Parameter name="juwimmMs7estdate"></Parameter><Parameter name="juwimmOrderstatusId"></Parameter><Parameter name="juwimmMs5estdate"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="juwimmTime"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="juwimmOuputremarks"></Parameter><Parameter name="isactive"></Parameter><Parameter name="juwimmDescription"></Parameter><Parameter name="juwimmEstend"></Parameter><Parameter name="juwimmDecisions"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="juwimmEststart"></Parameter><Parameter name="juwimmMs4estdate"></Parameter><Parameter name="juwimmEstgolive"></Parameter><Parameter name="juwimmProjectman"></Parameter><Parameter name="juwimmMs6planneddate"></Parameter><Parameter name="juwimmMilestone1"></Parameter><Parameter name="juwimmMilestone2"></Parameter><Parameter name="juwimmMs3planneddate"></Parameter><Parameter name="juwimmMs4planneddate"></Parameter><Parameter name="juwimmPlannedend"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="juwimmTeamId"></Parameter><Parameter name="juwimmMs1estdate"></Parameter><Parameter name="juwimmNextimpdate"></Parameter><Parameter name="juwimmMilestone6"></Parameter><Parameter name="juwimmMs1planneddate"></Parameter><Parameter name="juwimmPlannedgolive"></Parameter><Parameter name="juwimmMs7planneddate"></Parameter><Parameter name="juwimmMilestone5"></Parameter><Parameter name="juwimmNextaction"></Parameter><Parameter name="juwimmPlannedstart"></Parameter><Parameter name="juwimmMs2estdate"></Parameter><Parameter name="juwimmMilestone4"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef3107A020B4654A5B8BA3D94B27DFD73D_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1EF30B9969DB4F4CB3B14AC79BA0178F_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT juwimm_orderstatus.C_Order_ID AS NAME
+        FROM juwimm_orderstatus
+        WHERE juwimm_orderstatus.Juwimm_Orderstatus_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(table1.DateOrdered, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Order left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table1 on (C_Order.C_Order_ID = table1.C_Order_ID) WHERE C_Order.C_Order_ID = ?  
+    ]]></Sql>
+<Parameter name="cOrderId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE juwimm_orderstatus
+        SET C_Order_ID = (?) , Juwimm_Orderstatus_ID = (?) , Juwimm_Projectman = (?) , Juwimm_Completion = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Juwimm_Time = (?) , Juwimm_Resources = (?) , Isactive = (?) , Juwimm_Budget = (?) , Juwimm_Team_ID = (?) , Juwimm_Plannedgolive = TO_DATE(?) , Juwimm_Estgolive = TO_DATE(?) , Juwimm_Nextimpdate = TO_DATE(?) , Juwimm_Description = (?) , Juwimm_Plannedstart = TO_DATE(?) , Juwimm_Eststart = TO_DATE(?) , Juwimm_Milestone1 = (?) , Juwimm_Ms1planneddate = TO_DATE(?) , Juwimm_Ms1estdate = TO_DATE(?) , Juwimm_Milestone2 = (?) , Juwimm_Ms2planneddate = TO_DATE(?) , Juwimm_Ms2estdate = TO_DATE(?) , Juwimm_Milestone3 = (?) , Juwimm_Ms3planneddate = TO_DATE(?) , Juwimm_Ms3estdate = TO_DATE(?) , Juwimm_Milestone4 = (?) , Juwimm_Ms4planneddate = TO_DATE(?) , Juwimm_Ms4estdate = TO_DATE(?) , Juwimm_Milestone5 = (?) , Juwimm_Ms5planneddate = TO_DATE(?) , Juwimm_Ms5estdate = TO_DATE(?) , Juwimm_Milestone6 = (?) , Juwimm_Ms6planneddate = TO_DATE(?) , Juwimm_Ms6estdate = TO_DATE(?) , Juwimm_Milestone7 = (?) , Juwimm_Ms7planneddate = TO_DATE(?) , Juwimm_Ms7estdate = TO_DATE(?) , Juwimm_Plannedend = TO_DATE(?) , Juwimm_Estend = TO_DATE(?) , Juwimm_Ouputremarks = (?) , Juwimm_Lastaction = (?) , Juwimm_Nextaction = (?) , Juwimm_Issues = (?) , Juwimm_Decisions = (?) , updated = now(), updatedby = ? 
+        WHERE juwimm_orderstatus.Juwimm_Orderstatus_ID = ? 
+                 AND juwimm_orderstatus.C_Order_ID = ? 
+        AND juwimm_orderstatus.AD_Client_ID IN ('1') 
+        AND juwimm_orderstatus.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cOrderId"></Parameter> <Parameter name="juwimmOrderstatusId"></Parameter> <Parameter name="juwimmProjectman"></Parameter> <Parameter name="juwimmCompletion"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="juwimmTime"></Parameter> <Parameter name="juwimmResources"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="juwimmBudget"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="juwimmPlannedgolive"></Parameter> <Parameter name="juwimmEstgolive"></Parameter> <Parameter name="juwimmNextimpdate"></Parameter> <Parameter name="juwimmDescription"></Parameter> <Parameter name="juwimmPlannedstart"></Parameter> <Parameter name="juwimmEststart"></Parameter> <Parameter name="juwimmMilestone1"></Parameter> <Parameter name="juwimmMs1planneddate"></Parameter> <Parameter name="juwimmMs1estdate"></Parameter> <Parameter name="juwimmMilestone2"></Parameter> <Parameter name="juwimmMs2planneddate"></Parameter> <Parameter name="juwimmMs2estdate"></Parameter> <Parameter name="juwimmMilestone3"></Parameter> <Parameter name="juwimmMs3planneddate"></Parameter> <Parameter name="juwimmMs3estdate"></Parameter> <Parameter name="juwimmMilestone4"></Parameter> <Parameter name="juwimmMs4planneddate"></Parameter> <Parameter name="juwimmMs4estdate"></Parameter> <Parameter name="juwimmMilestone5"></Parameter> <Parameter name="juwimmMs5planneddate"></Parameter> <Parameter name="juwimmMs5estdate"></Parameter> <Parameter name="juwimmMilestone6"></Parameter> <Parameter name="juwimmMs6planneddate"></Parameter> <Parameter name="juwimmMs6estdate"></Parameter> <Parameter name="juwimmMilestone7"></Parameter> <Parameter name="juwimmMs7planneddate"></Parameter> <Parameter name="juwimmMs7estdate"></Parameter> <Parameter name="juwimmPlannedend"></Parameter> <Parameter name="juwimmEstend"></Parameter> <Parameter name="juwimmOuputremarks"></Parameter> <Parameter name="juwimmLastaction"></Parameter> <Parameter name="juwimmNextaction"></Parameter> <Parameter name="juwimmIssues"></Parameter> <Parameter name="juwimmDecisions"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="juwimmOrderstatusId"></Parameter>
+    
+    <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatus.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatus.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO juwimm_orderstatus 
+        (C_Order_ID, Juwimm_Orderstatus_ID, Juwimm_Projectman, Juwimm_Completion, AD_Client_ID, AD_Org_ID, Juwimm_Time, Juwimm_Resources, Isactive, Juwimm_Budget, Juwimm_Team_ID, Juwimm_Plannedgolive, Juwimm_Estgolive, Juwimm_Nextimpdate, Juwimm_Description, Juwimm_Plannedstart, Juwimm_Eststart, Juwimm_Milestone1, Juwimm_Ms1planneddate, Juwimm_Ms1estdate, Juwimm_Milestone2, Juwimm_Ms2planneddate, Juwimm_Ms2estdate, Juwimm_Milestone3, Juwimm_Ms3planneddate, Juwimm_Ms3estdate, Juwimm_Milestone4, Juwimm_Ms4planneddate, Juwimm_Ms4estdate, Juwimm_Milestone5, Juwimm_Ms5planneddate, Juwimm_Ms5estdate, Juwimm_Milestone6, Juwimm_Ms6planneddate, Juwimm_Ms6estdate, Juwimm_Milestone7, Juwimm_Ms7planneddate, Juwimm_Ms7estdate, Juwimm_Plannedend, Juwimm_Estend, Juwimm_Ouputremarks, Juwimm_Lastaction, Juwimm_Nextaction, Juwimm_Issues, Juwimm_Decisions, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_DATE(?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cOrderId"></Parameter> <Parameter name="juwimmOrderstatusId"></Parameter> <Parameter name="juwimmProjectman"></Parameter> <Parameter name="juwimmCompletion"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="juwimmTime"></Parameter> <Parameter name="juwimmResources"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="juwimmBudget"></Parameter> <Parameter name="juwimmTeamId"></Parameter> <Parameter name="juwimmPlannedgolive"></Parameter> <Parameter name="juwimmEstgolive"></Parameter> <Parameter name="juwimmNextimpdate"></Parameter> <Parameter name="juwimmDescription"></Parameter> <Parameter name="juwimmPlannedstart"></Parameter> <Parameter name="juwimmEststart"></Parameter> <Parameter name="juwimmMilestone1"></Parameter> <Parameter name="juwimmMs1planneddate"></Parameter> <Parameter name="juwimmMs1estdate"></Parameter> <Parameter name="juwimmMilestone2"></Parameter> <Parameter name="juwimmMs2planneddate"></Parameter> <Parameter name="juwimmMs2estdate"></Parameter> <Parameter name="juwimmMilestone3"></Parameter> <Parameter name="juwimmMs3planneddate"></Parameter> <Parameter name="juwimmMs3estdate"></Parameter> <Parameter name="juwimmMilestone4"></Parameter> <Parameter name="juwimmMs4planneddate"></Parameter> <Parameter name="juwimmMs4estdate"></Parameter> <Parameter name="juwimmMilestone5"></Parameter> <Parameter name="juwimmMs5planneddate"></Parameter> <Parameter name="juwimmMs5estdate"></Parameter> <Parameter name="juwimmMilestone6"></Parameter> <Parameter name="juwimmMs6planneddate"></Parameter> <Parameter name="juwimmMs6estdate"></Parameter> <Parameter name="juwimmMilestone7"></Parameter> <Parameter name="juwimmMs7planneddate"></Parameter> <Parameter name="juwimmMs7estdate"></Parameter> <Parameter name="juwimmPlannedend"></Parameter> <Parameter name="juwimmEstend"></Parameter> <Parameter name="juwimmOuputremarks"></Parameter> <Parameter name="juwimmLastaction"></Parameter> <Parameter name="juwimmNextaction"></Parameter> <Parameter name="juwimmIssues"></Parameter> <Parameter name="juwimmDecisions"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_orderstatus
+        WHERE juwimm_orderstatus.Juwimm_Orderstatus_ID = ? 
+                 AND juwimm_orderstatus.C_Order_ID = ? 
+        AND juwimm_orderstatus.AD_Client_ID IN ('1') 
+        AND juwimm_orderstatus.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="juwimm_orderstatus.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="juwimm_orderstatus.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM juwimm_orderstatus
+        WHERE juwimm_orderstatus.Juwimm_Orderstatus_ID = ? 
+                 AND juwimm_orderstatus.C_Order_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cOrderId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM juwimm_orderstatus
+         WHERE juwimm_orderstatus.Juwimm_Orderstatus_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM juwimm_orderstatus
+         WHERE juwimm_orderstatus.Juwimm_Orderstatus_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

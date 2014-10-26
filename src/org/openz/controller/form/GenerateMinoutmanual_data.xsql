@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/***************************************************************************************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html. Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific  language  governing  rights  and  limitations
+* under the License. The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SL. Parts created by Openbravo are Copyright (C) 2001-2009 Openbravo SL
+* All Rights Reserved.
+* Contributor(s): Stefan Zimmermann, 2011, sz@zimmermann-software.de (SZ) Contributions are Copyright (C) 2011 Stefan Zimmermann
+*                 
+* 
+****************************************************************************************************************************************************/
+-->
+
+
+
+
+
+<SqlClass name="GenerateMinoutmanualData" package="org.openz.controller.form">
+  <SqlClassComment></SqlClassComment>
+  
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    <![CDATA[
+      SELECT ad_client_id, ad_org_id, c_order_id, a_asset_id, c_orderline_id, c_project_id, c_projecttask_id, m_shipper_id, salesrep_id, c_doctype_id, issotrx,
+     c_bpartner_id,  zssi_getbpname(c_bpartner_id) as businesspartner, m_locator_id,
+      documentno,  projectname, zssi_GetDocText(c_doctype_id, ?) as doctypename, dateordered, datepromised, shipper_name, zssi_getusernamecomplete(salesrep_id,?) as salesrepname, totallines, grandtotal,
+      line, zssi_getproductname(m_product_id,?) as product_name, qtyordered, qtydelivered, qtyavailable, qty2deliver, description, 'N' as completed
+      from m_inout_candidate_v 
+      where 1=1
+      AND 2=2 AND ad_org_id in ('1')
+      AND issotrx = ?
+      order by businesspartner, documentno, line
+      ]]></Sql>
+      <Parameter name="language"/>
+      <Parameter name="language"/>
+      <Parameter name="language"/>
+      <Parameter name="parProduct" optional="true" after="where 1=1"><![CDATA[ AND m_inout_candidate_v.M_PRODUCT_ID = TO_CHAR(?)]]></Parameter>
+      <Parameter name="parDateFrom" optional="true" after="where 1=1"><![CDATA[ AND m_inout_candidate_v.datepromised >= TO_DATE(?)]]></Parameter>
+      <Parameter name="parDateTo" optional="true" after="where 1=1"><![CDATA[ AND m_inout_candidate_v.datepromised < TO_DATE(?)]]></Parameter>
+      <Parameter name="parVendor" optional="true" after="where 1=1"><![CDATA[ AND COALESCE(m_inout_candidate_v.C_BPARTNER_ID, m_inout_candidate_v.C_BPARTNER_ID,'-1') = TO_CHAR(?)]]></Parameter>
+      <Parameter name="adOrgId" optional="true" type="replace" after="AND 2=2 AND ad_org_id in (" text="'1'"/>
+      <Parameter name="issotrx"/>
+  </SqlMethod>
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql></Sql>
+  </SqlMethod>
+  
+  
+  
+  <SqlMethod name="bPartnerDescription" type="preparedStatement" return="String" default="">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    SELECT NAME FROM C_BPARTNER 
+    WHERE C_BPARTNER_ID = ?
+    </Sql>
+    <Parameter name="cBpartnerId"/>
+  </SqlMethod>
+  <SqlMethod name="getOrder" type="preparedStatement" return="String" default="">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+    SELECT c_order_id FROM C_orderline where c_orderline_id = ? limit 1 
+    </Sql>
+    <Parameter name="cOrderLineId"/>
+  </SqlMethod>
+  <SqlMethod name="treeOrg" type="preparedStatement" return="string">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+        SELECT AD_TREE_ORG_ID FROM AD_CLIENTINFO
+        WHERE AD_CLIENT_ID = ?
+    </Sql>
+    <Parameter name="client"/>
+  </SqlMethod>
+    <SqlMethod name="insert" connection="true" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      INSERT INTO C_GENERATEMINOUTMANUAL(C_GENERATEMINOUTMANUAL_ID, C_ORDERLINE_ID, C_ORDER_ID, AD_CLIENT_ID, AD_ORG_ID,  CREATEDBY, UPDATEDBY, QTY, M_LOCATOR_ID, DELIVERYCOMPLETE,pinstance_id)
+      VALUES(get_uuid(), ?, ?, ?, ?, ?, ?, TO_NUMBER(?), ? , ?, ?)
+      </Sql>
+      <Parameter name="cOrderlineId"/>
+      <Parameter name="cOrderId"/>
+      <Parameter name="adClientId"/>
+      <Parameter name="adOrgId"/>
+      <Parameter name="createdby"/>
+      <Parameter name="updatedby"/>
+      <Parameter name="qty"/>
+      <Parameter name="mLocatorId"/>
+      <Parameter name="deliverycomplete"/>
+      <Parameter name="pInstanceID"/>
+  </SqlMethod>
+  <SqlMethod name="deleteerror" type="preparedStatement" return="rowCount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      DELETE FROM C_GENERATEMINOUTMANUAL where c_orderline_id is null and pinstance_id = ?
+    </Sql>
+    <Parameter name="pInstanceID"/>
+  </SqlMethod>
+  </SqlClass>

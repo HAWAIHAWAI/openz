@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="AccountingData" package="org.openbravo.erpWindows.Product">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_Product_Acct.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Product_Acct.CreatedBy) as CreatedByR, 
+        to_char(M_Product_Acct.Updated, ?) as updated, 
+        to_char(M_Product_Acct.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_Product_Acct.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Product_Acct.UpdatedBy) as UpdatedByR,
+        M_Product_Acct.AD_Client_ID, 
+(CASE WHEN M_Product_Acct.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_Product_Acct.AD_Org_ID, 
+(CASE WHEN M_Product_Acct.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_Product_Acct.M_Product_ID, 
+(CASE WHEN M_Product_Acct.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+M_Product_Acct.C_AcctSchema_ID, 
+(CASE WHEN M_Product_Acct.C_AcctSchema_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_AcctSchema_IDR, 
+COALESCE(M_Product_Acct.IsActive, 'N') AS IsActive, 
+M_Product_Acct.P_Asset_Acct, 
+M_Product_Acct.P_Expense_Acct, 
+(CASE WHEN M_Product_Acct.P_Expense_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Combination), ''))),'') ) END) AS P_Expense_AcctR, 
+M_Product_Acct.P_Revenue_Acct, 
+(CASE WHEN M_Product_Acct.P_Revenue_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Combination), ''))),'') ) END) AS P_Revenue_AcctR, 
+M_Product_Acct.P_Cogs_Acct, 
+M_Product_Acct.P_PurchasePriceVariance_Acct, 
+M_Product_Acct.P_InvoicePriceVariance_Acct, 
+(CASE WHEN M_Product_Acct.P_InvoicePriceVariance_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Combination), ''))),'') ) END) AS P_InvoicePriceVariance_AcctR, 
+M_Product_Acct.P_TradeDiscountRec_Acct, 
+M_Product_Acct.P_TradeDiscountGrant_Acct, 
+M_Product_Acct.M_Product_Acct_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM M_Product_Acct left join (select AD_Client_ID, Name from AD_Client) table1 on (M_Product_Acct.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_Product_Acct.AD_Org_ID = table2.AD_Org_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (M_Product_Acct.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select C_AcctSchema_ID, Name from C_AcctSchema) table4 on (M_Product_Acct.C_AcctSchema_ID = table4.C_AcctSchema_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table5 on (M_Product_Acct.P_Expense_Acct = table5.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table6 on (M_Product_Acct.P_Revenue_Acct = table6.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table7 on (M_Product_Acct.P_InvoicePriceVariance_Acct = table7.C_ValidCombination_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_Product_Acct.M_Product_Acct_ID = ? 
+        AND M_Product_Acct.AD_Client_ID IN ('1') 
+           AND M_Product_Acct.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mProductId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_Product_Acct.M_Product_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Product_Acct.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Product_Acct.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+<Parameter name="adOrgId"></Parameter><Parameter name="pPurchasepricevarianceAcct"></Parameter><Parameter name="pPurchasepricevarianceAcctr"></Parameter><Parameter name="pTradediscountrecAcct"></Parameter><Parameter name="pTradediscountrecAcctr"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="pTradediscountgrantAcct"></Parameter><Parameter name="pTradediscountgrantAcctr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="pInvoicepricevarianceAcct"></Parameter><Parameter name="pInvoicepricevarianceAcctr"></Parameter><Parameter name="pRevenueAcct"></Parameter><Parameter name="pRevenueAcctr"></Parameter><Parameter name="cAcctschemaId"></Parameter><Parameter name="pCogsAcct"></Parameter><Parameter name="pCogsAcctr"></Parameter><Parameter name="mProductAcctId"></Parameter><Parameter name="pExpenseAcct"></Parameter><Parameter name="pExpenseAcctr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="pAssetAcct"></Parameter><Parameter name="pAssetAcctr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef5109_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_PurchasePriceVariance_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_PurchasePriceVariance_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6119_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_TradeDiscountRec_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_TradeDiscountRec_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2565_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6120_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_TradeDiscountGrant_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_TradeDiscountGrant_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2562_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2564_5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6118_6" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_InvoicePriceVariance_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_InvoicePriceVariance_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef31D8E17FACF74378B93278F16F34DA5E_7" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Revenue_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Revenue_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3421_8" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Cogs_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Cogs_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefDF4C8A3C70804B2FB2631E62C2DF7E1F_9" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Expense_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Expense_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3420_10" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Asset_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Asset_AcctR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_Product_Acct.M_Product_ID AS NAME
+        FROM M_Product_Acct
+        WHERE M_Product_Acct.M_Product_Acct_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_Product_Acct
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , M_Product_ID = (?) , C_AcctSchema_ID = (?) , IsActive = (?) , P_Asset_Acct = (?) , P_Expense_Acct = (?) , P_Revenue_Acct = (?) , P_Cogs_Acct = (?) , P_PurchasePriceVariance_Acct = (?) , P_InvoicePriceVariance_Acct = (?) , P_TradeDiscountRec_Acct = (?) , P_TradeDiscountGrant_Acct = (?) , M_Product_Acct_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_Product_Acct.M_Product_Acct_ID = ? 
+                 AND M_Product_Acct.M_Product_ID = ? 
+        AND M_Product_Acct.AD_Client_ID IN ('1') 
+        AND M_Product_Acct.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cAcctschemaId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="pAssetAcct"></Parameter> <Parameter name="pExpenseAcct"></Parameter> <Parameter name="pRevenueAcct"></Parameter> <Parameter name="pCogsAcct"></Parameter> <Parameter name="pPurchasepricevarianceAcct"></Parameter> <Parameter name="pInvoicepricevarianceAcct"></Parameter> <Parameter name="pTradediscountrecAcct"></Parameter> <Parameter name="pTradediscountgrantAcct"></Parameter> <Parameter name="mProductAcctId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mProductAcctId"></Parameter>
+    
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Product_Acct.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Product_Acct.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_Product_Acct 
+        (AD_Client_ID, AD_Org_ID, M_Product_ID, C_AcctSchema_ID, IsActive, P_Asset_Acct, P_Expense_Acct, P_Revenue_Acct, P_Cogs_Acct, P_PurchasePriceVariance_Acct, P_InvoicePriceVariance_Acct, P_TradeDiscountRec_Acct, P_TradeDiscountGrant_Acct, M_Product_Acct_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="cAcctschemaId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="pAssetAcct"></Parameter> <Parameter name="pExpenseAcct"></Parameter> <Parameter name="pRevenueAcct"></Parameter> <Parameter name="pCogsAcct"></Parameter> <Parameter name="pPurchasepricevarianceAcct"></Parameter> <Parameter name="pInvoicepricevarianceAcct"></Parameter> <Parameter name="pTradediscountrecAcct"></Parameter> <Parameter name="pTradediscountgrantAcct"></Parameter> <Parameter name="mProductAcctId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Product_Acct
+        WHERE M_Product_Acct.M_Product_Acct_ID = ? 
+                 AND M_Product_Acct.M_Product_ID = ? 
+        AND M_Product_Acct.AD_Client_ID IN ('1') 
+        AND M_Product_Acct.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Product_Acct.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Product_Acct.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Product_Acct
+        WHERE M_Product_Acct.M_Product_Acct_ID = ? 
+                 AND M_Product_Acct.M_Product_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_Product_Acct
+         WHERE M_Product_Acct.M_Product_Acct_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_Product_Acct
+         WHERE M_Product_Acct.M_Product_Acct_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

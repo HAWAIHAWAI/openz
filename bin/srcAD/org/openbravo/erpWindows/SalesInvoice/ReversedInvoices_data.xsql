@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ReversedInvoicesData" package="org.openbravo.erpWindows.SalesInvoice">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_Invoice_Reverse.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Invoice_Reverse.CreatedBy) as CreatedByR, 
+        to_char(C_Invoice_Reverse.Updated, ?) as updated, 
+        to_char(C_Invoice_Reverse.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_Invoice_Reverse.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Invoice_Reverse.UpdatedBy) as UpdatedByR,
+        C_Invoice_Reverse.AD_Client_ID, 
+(CASE WHEN C_Invoice_Reverse.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_Invoice_Reverse.C_Invoice_Reverse_ID, 
+C_Invoice_Reverse.AD_Org_ID, 
+(CASE WHEN C_Invoice_Reverse.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_Invoice_Reverse.Reversed_C_Invoice_ID, 
+(CASE WHEN C_Invoice_Reverse.Reversed_C_Invoice_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateInvoiced, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.GrandTotal), ''))),'') ) END) AS Reversed_C_Invoice_IDR, 
+C_Invoice_Reverse.C_Invoice_ID, 
+(CASE WHEN C_Invoice_Reverse.C_Invoice_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table4.DateInvoiced, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.GrandTotal), ''))),'') ) END) AS C_Invoice_IDR, 
+COALESCE(C_Invoice_Reverse.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM C_Invoice_Reverse left join (select AD_Client_ID, Name from AD_Client) table1 on (C_Invoice_Reverse.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_Invoice_Reverse.AD_Org_ID = table2.AD_Org_ID) left join (select C_Invoice_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice) table3 on (C_Invoice_Reverse.Reversed_C_Invoice_ID = table3.C_Invoice_ID) left join (select C_Invoice_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice) table4 on (C_Invoice_Reverse.C_Invoice_ID = table4.C_Invoice_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_Invoice_Reverse.C_Invoice_Reverse_ID = ? 
+        AND C_Invoice_Reverse.AD_Client_ID IN ('1') 
+           AND C_Invoice_Reverse.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="cInvoiceId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_Invoice_Reverse.C_Invoice_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Invoice_Reverse.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Invoice_Reverse.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cInvoiceId" id="paramKeyParent"></Parameter>
+<Parameter name="isactive"></Parameter><Parameter name="reversedCInvoiceId"></Parameter><Parameter name="reversedCInvoiceIdr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="cInvoiceReverseId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+   <SqlMethod name="selectAux01379E71C9E342A28AD3A60B5D499362" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT PROCESSED FROM C_INVOICE WHERE C_INVOICE_ID = ? 
+    ]]></Sql>
+
+<Parameter name="C_INVOICE_ID"/>
+  </SqlMethod>
+
+
+
+
+
+   <SqlMethod name="selectDef739A9DDF905A8F87E040007F010123C7_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table1.DateInvoiced), '')  || ' - ' || COALESCE(TO_CHAR(table1.GrandTotal), '') ) as Reversed_C_Invoice_ID FROM C_Invoice table1 WHERE table1.isActive='Y' AND table1.C_Invoice_ID = ?  
+    ]]></Sql>
+<Parameter name="Reversed_C_Invoice_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef7399CFDCF5B72DD0E040007F0101239A_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef7399CFDCF5B92DD0E040007F0101239A_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_Invoice_Reverse.C_Invoice_ID AS NAME
+        FROM C_Invoice_Reverse
+        WHERE C_Invoice_Reverse.C_Invoice_Reverse_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(table1.DateInvoiced, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Invoice left join (select C_Invoice_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice) table1 on (C_Invoice.C_Invoice_ID = table1.C_Invoice_ID) WHERE C_Invoice.C_Invoice_ID = ?  
+    ]]></Sql>
+<Parameter name="cInvoiceId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(table1.DateInvoiced, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.GrandTotal), ''))) AS NAME FROM C_Invoice left join (select C_Invoice_ID, DocumentNo, DateInvoiced, GrandTotal from C_Invoice) table1 on (C_Invoice.C_Invoice_ID = table1.C_Invoice_ID) WHERE C_Invoice.C_Invoice_ID = ?  
+    ]]></Sql>
+<Parameter name="cInvoiceId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_Invoice_Reverse
+        SET AD_Client_ID = (?) , C_Invoice_Reverse_ID = (?) , AD_Org_ID = (?) , Reversed_C_Invoice_ID = (?) , C_Invoice_ID = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE C_Invoice_Reverse.C_Invoice_Reverse_ID = ? 
+                 AND C_Invoice_Reverse.C_Invoice_ID = ? 
+        AND C_Invoice_Reverse.AD_Client_ID IN ('1') 
+        AND C_Invoice_Reverse.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="cInvoiceReverseId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="reversedCInvoiceId"></Parameter> <Parameter name="cInvoiceId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cInvoiceReverseId"></Parameter>
+    
+    <Parameter name="cInvoiceId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Invoice_Reverse.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Invoice_Reverse.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_Invoice_Reverse 
+        (AD_Client_ID, C_Invoice_Reverse_ID, AD_Org_ID, Reversed_C_Invoice_ID, C_Invoice_ID, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="cInvoiceReverseId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="reversedCInvoiceId"></Parameter> <Parameter name="cInvoiceId"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Invoice_Reverse
+        WHERE C_Invoice_Reverse.C_Invoice_Reverse_ID = ? 
+                 AND C_Invoice_Reverse.C_Invoice_ID = ? 
+        AND C_Invoice_Reverse.AD_Client_ID IN ('1') 
+        AND C_Invoice_Reverse.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cInvoiceId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Invoice_Reverse.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Invoice_Reverse.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Invoice_Reverse
+        WHERE C_Invoice_Reverse.C_Invoice_Reverse_ID = ? 
+                 AND C_Invoice_Reverse.C_Invoice_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cInvoiceId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_Invoice_Reverse
+         WHERE C_Invoice_Reverse.C_Invoice_Reverse_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_Invoice_Reverse
+         WHERE C_Invoice_Reverse.C_Invoice_Reverse_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProjecttaskProformaInvoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="61"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Report_Footer" isDefault="true" vAlign="Middle" fontName="SansSerif" fontSize="11"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String"/>
+	<parameter name="LANGUAGE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["de_DE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREP_ProjecttaskProformalines" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/danny/OpenZ/OpenSourceTrunc/openz/modules/org.openbravo.zsoft.smartui/src/org/openbravo/zsoft/smartui/printing/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+ad_image.binarydata as logo,
+zssi_getElementTextByColumname('Return to', $P{LANGUAGE}) as ret,
+zssi_getElementTextByColumname('Customs EORI-No.', $P{LANGUAGE}) as eorih,
+zssi_getElementTextByColumname('Proforma Invoice', $P{LANGUAGE}) as header,
+zssi_getElementTextByColumname('Department', $P{LANGUAGE}) as dep,
+zssi_getElementTextByColumname('Inv.No.', $P{LANGUAGE}) as inv,
+zssi_getElementTextByColumname('Contact Person', $P{LANGUAGE}) as cont,
+to_char(now(),'DD.MM.YYYY') as date,
+
+--Adress
+l.address1,
+l.address2,
+l.address3,
+l.address4,
+l.address5,
+l.address6,
+l.address7,
+l.address8,
+l.address9,
+l.footer1,
+l.footer2,
+l.footer3,
+l.footer4,
+l.footer5,
+--Employee
+coalesce(zssi_getusername(p.responsible_id),'') as contact,
+coalesce(a.description,'') as description,
+coalesce((Select ll.Eoriidentification from c_bpartner_location ll where ll.C_bpartner_id=p.c_bpartner_id and ll.c_location_id=p.c_location_id),'') as eori,
+p.name as rnr,
+coalesce(coalesce(a.phone2,a.phone),'') as phone
+from zspr_printinfo l,c_projecttask cp
+left join c_project p on cp.c_project_id=p.c_project_id
+left join ad_user a on p.responsible_id=a.ad_user_id,AD_ORGINFO LEFT JOIN ad_image on AD_ORGINFO.your_company_document_image=ad_image.ad_image_id
+where
+cp.ad_org_id=AD_ORGINFO.ad_org_id AND
+cp.c_projecttask_id in ($P{DOCUMENT_ID})]]>
+	</queryString>
+	<field name="logo" class="java.io.InputStream"/>
+	<field name="ret" class="java.lang.String"/>
+	<field name="eorih" class="java.lang.String"/>
+	<field name="header" class="java.lang.String"/>
+	<field name="dep" class="java.lang.String"/>
+	<field name="inv" class="java.lang.String"/>
+	<field name="cont" class="java.lang.String"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="address1" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="address3" class="java.lang.String"/>
+	<field name="address4" class="java.lang.String"/>
+	<field name="address5" class="java.lang.String"/>
+	<field name="address6" class="java.lang.String"/>
+	<field name="address7" class="java.lang.String"/>
+	<field name="address8" class="java.lang.String"/>
+	<field name="address9" class="java.lang.String"/>
+	<field name="footer1" class="java.lang.String"/>
+	<field name="footer2" class="java.lang.String"/>
+	<field name="footer3" class="java.lang.String"/>
+	<field name="footer4" class="java.lang.String"/>
+	<field name="footer5" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="eori" class="java.lang.String"/>
+	<field name="rnr" class="java.lang.String"/>
+	<field name="phone" class="java.lang.String"/>
+	<variable name="SUMQTY" class="java.math.BigDecimal" calculation="System"/>
+	<variable name="SUMWEIGHT" class="java.math.BigDecimal" calculation="System"/>
+	<variable name="SUMCOST" class="java.math.BigDecimal" calculation="System"/>
+	<title>
+		<band height="366">
+			<subreport>
+				<reportElement x="-14" y="311" width="593" height="26"/>
+				<subreportParameter name="LANGUAGE">
+					<subreportParameterExpression><![CDATA[$P{LANGUAGE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="C_PROJECT_ID">
+					<subreportParameterExpression><![CDATA[$P{DOCUMENT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUMQTY" toVariable="SUMQTY"/>
+				<returnValue subreportVariable="SUMWEIGHT" toVariable="SUMWEIGHT"/>
+				<returnValue subreportVariable="SUMCOST" toVariable="SUMCOST"/>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{SUBREP_ProjecttaskProformalines}]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="36" y="67" width="231" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ret}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="107" width="231" height="20"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="87" width="231" height="20"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="148" width="231" height="20"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="107" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="97" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="87" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="67" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="117" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Tel: "+$F{address6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="127" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Fax: "+$F{address7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="168" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dep}+" "+$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="178" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cont}+" "+$F{contact}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="188" width="137" height="10"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Tel: "+$F{phone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="198" width="231" height="20"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{eorih}+$F{eori}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="242" width="231" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{header}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="36" y="272" width="231" height="20"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{inv}+": "+$F{rnr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="218" width="137" height="12"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Right" vAlign="Top" isUsingCache="true" isLazy="true" onErrorType="Blank">
+				<reportElement key="image-2" style="Report_Footer" x="40" y="0" width="515" height="52"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$F{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="Float" x="23" y="337" width="80" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="356" y="337" width="80" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="436" y="337" width="135" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="103" y="337" width="253" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00;-###0.00">
+				<reportElement positionType="Float" x="23" y="350" width="80" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($V{SUMQTY} == null ? new java.math.BigDecimal("0") : $V{SUMQTY})]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00;-###0.00">
+				<reportElement positionType="Float" x="356" y="350" width="80" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($V{SUMWEIGHT} == null ? new java.math.BigDecimal("0") : $V{SUMWEIGHT})]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00;-###0.00">
+				<reportElement positionType="Float" x="436" y="350" width="135" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($V{SUMCOST} == null ? new java.math.BigDecimal("0") : $V{SUMCOST})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="103" y="350" width="253" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="-14" y="337" width="37" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="-14" y="350" width="37" height="13"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="120">
+			<textField isBlankWhenNull="true">
+				<reportElement x="331" y="49" width="87" height="36" isRemoveLineWhenBlank="true"/>
+				<box>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{footer2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="468" y="13" width="87" height="36" isRemoveLineWhenBlank="true"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{footer3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="468" y="48" width="87" height="36" isRemoveLineWhenBlank="true"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{footer4}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="468" y="83" width="87" height="36" isRemoveLineWhenBlank="true"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{footer5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

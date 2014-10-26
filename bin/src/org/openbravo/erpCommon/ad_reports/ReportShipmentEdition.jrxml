@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="ReportShipmentEdition" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="default" vAlign="Middle" fontName="Bitstream Vera Sans" fontSize="10"/>
+	<style name="Report_Title" fontName="Bitstream Vera Sans" fontSize="18">
+		<box leftPadding="5"/>
+	</style>
+	<style name="Report_Subtitle" forecolor="#555555" fontName="Bitstream Vera Sans" fontSize="14">
+		<box leftPadding="5"/>
+	</style>
+	<style name="Total_Field" mode="Opaque" forecolor="#000000" backcolor="#CCCCCC" vAlign="Middle">
+		<box leftPadding="5"/>
+	</style>
+	<style name="Detail_Header" mode="Opaque" forecolor="#FFFFFF" backcolor="#555555" vAlign="Middle">
+		<box leftPadding="5">
+			<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+			<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="GroupHeader_DarkGray" mode="Opaque" forecolor="#FFFFFF" backcolor="#555555" vAlign="Middle" fontName="Bitstream Vera Sans" fontSize="14">
+		<box leftPadding="5"/>
+	</style>
+	<style name="GroupHeader_Gray" mode="Opaque" backcolor="#999999"/>
+	<style name="Detail_Line">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{DOCUMENTNO_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CCCCCC"/>
+		</conditionalStyle>
+	</style>
+	<style name="Total_Gray" mode="Opaque" forecolor="#000000" backcolor="#CCCCCC"/>
+	<parameter name="ATTACH" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BASE_WEB" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BASE_DESIGN" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LANGUAGE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["en_US"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_CLIENT" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["(1000000)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_ORG" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["(0)"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_TITLE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["REPORT TITLE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_SUBTITLE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NUMBERFORMAT" class="java.text.DecimalFormat" isForPrompting="false"/>
+	<parameter name="LOCALE" class="java.util.Locale" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT M_INOUT.DOCUMENTNO AS DOCUMENTNO, M_INOUT.MOVEMENTDATE AS MOVEMENTDATE, C_BPARTNER.NAME AS CLIENT_NAME, M_PRODUCT.NAME AS PRODUCT_NAME, SUM(M_INOUTLINE.MOVEMENTQTY) AS QUANTITYORDER, C_UOM.NAME AS UOMNAME      FROM M_INOUT, M_INOUTLINE, C_BPARTNER, M_PRODUCT, C_UOM      WHERE M_INOUT.C_BPARTNER_ID = C_BPARTNER.C_BPARTNER_ID      AND M_INOUT.M_INOUT_ID = M_INOUTLINE.M_INOUT_ID      AND M_INOUTLINE.M_PRODUCT_ID = M_PRODUCT.M_PRODUCT_ID      AND M_INOUTLINE.C_UOM_ID = C_UOM.C_UOM_ID      AND M_INOUT.AD_ORG_ID IN ('0','EB35E52BCF8C4A9EA1389A4E820CCAE6','0E4EAAA0C2B942D9880F6E556BEEA59F','8AB2DB81ADD340978BDAA56C4ECF9AD5','7BC146ED7B864A5DA7A9097D22A73272','201ED4FC0FFF4AF490192833D9E8303F')      AND M_INOUT.AD_CLIENT_ID IN ('0','C726FEC915A54A0995C568555DA5BB3C')      AND 1=1      AND M_INOUT.ISSOTRX = 'Y'      GROUP BY C_BPARTNER.NAME, M_PRODUCT.NAME, C_UOM.NAME, M_INOUT.DOCUMENTNO, M_INOUT.MOVEMENTDATE      ORDER BY C_BPARTNER.NAME, M_INOUT.MOVEMENTDATE]]>
+	</queryString>
+	<field name="documentno" class="java.lang.String"/>
+	<field name="movementdate" class="java.sql.Timestamp"/>
+	<field name="client_name" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="quantityorder" class="java.math.BigDecimal"/>
+	<field name="uomname" class="java.lang.String"/>
+	<group name="CLIENT_NAME">
+		<groupExpression><![CDATA[$F{client_name}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement key="staticText" style="GroupHeader_DarkGray" x="0" y="0" width="120" height="23"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Customer]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" style="GroupHeader_DarkGray" x="120" y="0" width="415" height="23"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{client_name}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-2" stretchType="RelativeToBandHeight" x="0" y="23" width="1" height="10" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-3" stretchType="RelativeToBandHeight" x="535" y="1" width="1" height="32" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<line>
+					<reportElement key="line-32" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="10" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-33" stretchType="RelativeToBandHeight" x="535" y="0" width="1" height="10" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-34" x="0" y="10" width="535" height="1" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="DOCUMENTNO">
+		<groupExpression><![CDATA[$F{documentno}]]></groupExpression>
+		<groupHeader>
+			<band height="42">
+				<staticText>
+					<reportElement key="staticText" style="GroupHeader_DarkGray" x="10" y="0" width="102" height="22"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Shipment]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" style="GroupHeader_DarkGray" x="112" y="0" width="165" height="22"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement>
+						<font isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{documentno}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-4" stretchType="RelativeToBandHeight" x="10" y="22" width="1" height="20" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-6" stretchType="RelativeToBandHeight" x="535" y="0" width="1" height="42" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-8" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="42" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<staticText>
+					<reportElement key="element-90" style="Detail_Header" x="20" y="26" width="260" height="16"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#FFFFFF" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="1Point" rightBorderColor="#FFFFFF"/>
+					<textElement/>
+					<text><![CDATA[Position]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" style="Detail_Header" x="280" y="26" width="130" height="16"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#FFFFFF" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="1Point" rightBorderColor="#FFFFFF"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Qty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="element-90" style="Detail_Header" x="410" y="26" width="122" height="16"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#FFFFFF" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="1Point" rightBorderColor="#FFFFFF"/>
+					<textElement/>
+					<text><![CDATA[UOM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-2" style="GroupHeader_DarkGray" x="277" y="0" width="114" height="22"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Deliverydate]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-1" style="GroupHeader_DarkGray" x="391" y="0" width="144" height="22"/>
+					<box border="None" topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement>
+						<font isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$F{movementdate}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<line>
+					<reportElement key="line-28" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="20" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-29" stretchType="RelativeToBandHeight" x="10" y="0" width="1" height="10" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-30" stretchType="RelativeToBandHeight" x="535" y="0" width="1" height="20" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-31" x="10" y="10" width="525" height="1" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+				<line>
+					<reportElement key="line-35" x="20" y="0" width="512" height="1" forecolor="#555555"/>
+					<graphicElement pen="1Point"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="36">
+			<staticText>
+				<reportElement key="staticText-1" x="205" y="0" width="254" height="33"/>
+				<box topBorder="None" topBorderColor="#000000" topPadding="2" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Bitstream Vera Sans" size="24"/>
+				</textElement>
+				<text><![CDATA[Shipment Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12">
+			<line>
+				<reportElement key="line-1" x="0" y="5" width="535" height="1"/>
+				<graphicElement pen="2Point"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16"/>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<line>
+				<reportElement key="line-16" stretchType="RelativeToBandHeight" x="535" y="0" width="1" height="16" forecolor="#555555"/>
+				<graphicElement pen="1Point"/>
+			</line>
+			<line>
+				<reportElement key="line-17" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="16" forecolor="#555555"/>
+				<graphicElement pen="1Point"/>
+			</line>
+			<line>
+				<reportElement key="line-18" stretchType="RelativeToBandHeight" x="10" y="0" width="1" height="16" forecolor="#555555"/>
+				<graphicElement pen="1Point"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" style="Detail_Line" x="20" y="0" width="260" height="16"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#555555" leftPadding="5" bottomBorder="None" bottomBorderColor="#555555" rightBorder="None" rightBorderColor="#000000" rightPadding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" style="Detail_Line" x="280" y="0" width="130" height="16"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#555555" leftPadding="4" bottomBorder="None" bottomBorderColor="#555555" rightBorder="None" rightBorderColor="#000000" rightPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{quantityorder}!=null)?$P{NUMBERFORMAT}.format($F{quantityorder}):new String(" ")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" style="Detail_Line" x="410" y="0" width="122" height="16"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#555555" leftPadding="5" bottomBorder="None" bottomBorderColor="#555555" rightBorder="1Point" rightBorderColor="#555555" rightPadding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{uomname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="16"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27">
+			<line>
+				<reportElement key="line" x="0" y="1" width="535" height="1" forecolor="#000000"/>
+				<graphicElement pen="2Point"/>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" x="277" y="4" width="69" height="19"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times-Roman" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="195" y="4" width="78" height="19"/>
+				<box topBorder="None" topBorderColor="#000000" topPadding="2" leftBorder="None" leftBorderColor="#000000" leftPadding="5" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Printdate:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

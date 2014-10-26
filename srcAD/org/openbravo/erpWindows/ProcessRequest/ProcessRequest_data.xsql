@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ProcessRequestData" package="org.openbravo.erpWindows.ProcessRequest">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Process_Request.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Process_Request.CreatedBy) as CreatedByR, 
+        to_char(AD_Process_Request.Updated, ?) as updated, 
+        to_char(AD_Process_Request.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Process_Request.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Process_Request.UpdatedBy) as UpdatedByR,
+        AD_Process_Request.AD_Client_ID, 
+(CASE WHEN AD_Process_Request.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Process_Request.AD_Process_Request_ID, 
+AD_Process_Request.AD_Org_ID, 
+(CASE WHEN AD_Process_Request.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_Process_Request.AD_Process_ID, 
+(CASE WHEN AD_Process_Request.AD_Process_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS AD_Process_IDR, 
+COALESCE(AD_Process_Request.Isactive, 'N') AS Isactive, 
+AD_Process_Request.Timing_Option, 
+(CASE WHEN AD_Process_Request.Timing_Option IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS Timing_OptionR, 
+COALESCE(AD_Process_Request.Isrolesecurity, 'N') AS Isrolesecurity, 
+AD_Process_Request.Previous_Fire_Time, 
+AD_Process_Request.Next_Fire_Time, 
+AD_Process_Request.Start_Date, 
+TO_CHAR(AD_Process_Request.Start_Time, 'HH24:MI:SS') AS Start_Time, 
+AD_Process_Request.Channel, 
+AD_Process_Request.Frequency, 
+(CASE WHEN AD_Process_Request.Frequency IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS FrequencyR, 
+AD_Process_Request.Secondly_Interval, 
+AD_Process_Request.Secondly_Repetitions, 
+AD_Process_Request.Minutely_Interval, 
+AD_Process_Request.Minutely_Repetitions, 
+AD_Process_Request.Hourly_Interval, 
+AD_Process_Request.Hourly_Repetitions, 
+AD_Process_Request.Daily_Option, 
+(CASE WHEN AD_Process_Request.Daily_Option IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS Daily_OptionR, 
+AD_Process_Request.Daily_Interval, 
+COALESCE(AD_Process_Request.DAY_Sun, 'N') AS DAY_Sun, 
+COALESCE(AD_Process_Request.DAY_Mon, 'N') AS DAY_Mon, 
+COALESCE(AD_Process_Request.DAY_Tue, 'N') AS DAY_Tue, 
+COALESCE(AD_Process_Request.DAY_Wed, 'N') AS DAY_Wed, 
+COALESCE(AD_Process_Request.DAY_Thu, 'N') AS DAY_Thu, 
+COALESCE(AD_Process_Request.DAY_Fri, 'N') AS DAY_Fri, 
+COALESCE(AD_Process_Request.DAY_Sat, 'N') AS DAY_Sat, 
+AD_Process_Request.Monthly_Option, 
+(CASE WHEN AD_Process_Request.Monthly_Option IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS Monthly_OptionR, 
+AD_Process_Request.Monthly_Day_Of_Week, 
+(CASE WHEN AD_Process_Request.Monthly_Day_Of_Week IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list5.name),'') ) END) AS Monthly_Day_Of_WeekR, 
+AD_Process_Request.Cron, 
+AD_Process_Request.Monthly_Specific_Day, 
+COALESCE(AD_Process_Request.Finishes, 'N') AS Finishes, 
+AD_Process_Request.Finishes_Date, 
+TO_CHAR(AD_Process_Request.Finishes_Time, 'HH24:MI:SS') AS Finishes_Time, 
+AD_Process_Request.Schedule, 
+AD_Process_Request.Reschedule, 
+AD_Process_Request.Unschedule, 
+AD_Process_Request.Status, 
+(CASE WHEN AD_Process_Request.Status IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list6.name),'') ) END) AS StatusR, 
+AD_Process_Request.AD_Process_Set_ID, 
+AD_Process_Request.Scheduled_Finish, 
+AD_Process_Request.Description, 
+AD_Process_Request.OB_Context, 
+AD_Process_Request.AD_User_ID, 
+AD_Process_Request.Params, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Process_Request left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_Process_Request.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_Process_Request.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Process_ID, Name from AD_Process) table3 on (AD_Process_Request.AD_Process_ID = table3.AD_Process_ID) left join (select AD_Process_ID,AD_Language, Name from AD_Process_TRL) tableTRL3 on (table3.AD_Process_ID = tableTRL3.AD_Process_ID and tableTRL3.AD_Language = ?)  left join ad_ref_list_v list1 on (AD_Process_Request.Timing_Option = list1.value and list1.ad_reference_id = 'ABD8815EDEDB412C820FB94532952721' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (AD_Process_Request.Frequency = list2.value and list2.ad_reference_id = '665CE68BB382425BB43057256767B5DE' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (AD_Process_Request.Daily_Option = list3.value and list3.ad_reference_id = '21A4E92C455C432FACDC0C45372454F5' and list3.ad_language = ?)  left join ad_ref_list_v list4 on (AD_Process_Request.Monthly_Option = list4.value and list4.ad_reference_id = '6C11958E975D4DF8A38E7F4A119A3077' and list4.ad_language = ?)  left join ad_ref_list_v list5 on (AD_Process_Request.Monthly_Day_Of_Week = list5.value and list5.ad_reference_id = '167' and list5.ad_language = ?)  left join ad_ref_list_v list6 on (AD_Process_Request.Status = list6.value and list6.ad_reference_id = '7DB6D4792CDC4ED297C70A4F4282A52E' and list6.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_Process_Request.AD_Process_Request_ID = ? 
+        AND AD_Process_Request.AD_Client_ID IN ('1') 
+           AND AD_Process_Request.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Process_Request.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Process_Request.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="description"></Parameter><Parameter name="monthlyDayOfWeek"></Parameter><Parameter name="adProcessSetId"></Parameter><Parameter name="adProcessRequestId"></Parameter><Parameter name="timingOption"></Parameter><Parameter name="params"></Parameter><Parameter name="monthlySpecificDay"></Parameter><Parameter name="dayTue"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="nextFireTime"></Parameter><Parameter name="reschedule"></Parameter><Parameter name="obContext"></Parameter><Parameter name="isrolesecurity"></Parameter><Parameter name="unschedule"></Parameter><Parameter name="isactive"></Parameter><Parameter name="startTime"></Parameter><Parameter name="secondlyRepetitions"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="dailyInterval"></Parameter><Parameter name="status"></Parameter><Parameter name="dayFri"></Parameter><Parameter name="dailyOption"></Parameter><Parameter name="frequency"></Parameter><Parameter name="minutelyInterval"></Parameter><Parameter name="scheduledFinish"></Parameter><Parameter name="dayWed"></Parameter><Parameter name="startDate"></Parameter><Parameter name="daySun"></Parameter><Parameter name="schedule"></Parameter><Parameter name="dayMon"></Parameter><Parameter name="daySat"></Parameter><Parameter name="previousFireTime"></Parameter><Parameter name="monthlyOption"></Parameter><Parameter name="hourlyRepetitions"></Parameter><Parameter name="dayThu"></Parameter><Parameter name="finishes"></Parameter><Parameter name="finishesDate"></Parameter><Parameter name="minutelyRepetitions"></Parameter><Parameter name="hourlyInterval"></Parameter><Parameter name="adProcessId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="channel"></Parameter><Parameter name="cron"></Parameter><Parameter name="finishesTime"></Parameter><Parameter name="secondlyInterval"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef573D452F04D1243FE040007F01012792_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef573D452F04D3243FE040007F01012792_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Process_Request
+        SET AD_Client_ID = (?) , AD_Process_Request_ID = (?) , AD_Org_ID = (?) , AD_Process_ID = (?) , Isactive = (?) , Timing_Option = (?) , Isrolesecurity = (?) , Previous_Fire_Time = TO_DATE(?) , Next_Fire_Time = TO_DATE(?) , Start_Date = TO_DATE(?) , Start_Time = TO_TIMESTAMP(?,'HH24:MI:SS') , Channel = (?) , Frequency = (?) , Secondly_Interval = TO_NUMBER(?) , Secondly_Repetitions = TO_NUMBER(?) , Minutely_Interval = TO_NUMBER(?) , Minutely_Repetitions = TO_NUMBER(?) , Hourly_Interval = TO_NUMBER(?) , Hourly_Repetitions = TO_NUMBER(?) , Daily_Option = (?) , Daily_Interval = TO_NUMBER(?) , DAY_Sun = (?) , DAY_Mon = (?) , DAY_Tue = (?) , DAY_Wed = (?) , DAY_Thu = (?) , DAY_Fri = (?) , DAY_Sat = (?) , Monthly_Option = (?) , Monthly_Day_Of_Week = (?) , Cron = (?) , Monthly_Specific_Day = TO_NUMBER(?) , Finishes = (?) , Finishes_Date = TO_DATE(?) , Finishes_Time = TO_TIMESTAMP(?,'HH24:MI:SS') , Schedule = (?) , Reschedule = (?) , Unschedule = (?) , Status = (?) , AD_Process_Set_ID = (?) , Scheduled_Finish = TO_DATE(?) , Description = (?) , OB_Context = (?) , AD_User_ID = (?) , Params = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Process_Request.AD_Process_Request_ID = ? 
+        
+        AND AD_Process_Request.AD_Client_ID IN ('1') 
+        AND AD_Process_Request.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adProcessRequestId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adProcessId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="timingOption"></Parameter> <Parameter name="isrolesecurity"></Parameter> <Parameter name="previousFireTime"></Parameter> <Parameter name="nextFireTime"></Parameter> <Parameter name="startDate"></Parameter> <Parameter name="startTime"></Parameter> <Parameter name="channel"></Parameter> <Parameter name="frequency"></Parameter> <Parameter name="secondlyInterval"></Parameter> <Parameter name="secondlyRepetitions"></Parameter> <Parameter name="minutelyInterval"></Parameter> <Parameter name="minutelyRepetitions"></Parameter> <Parameter name="hourlyInterval"></Parameter> <Parameter name="hourlyRepetitions"></Parameter> <Parameter name="dailyOption"></Parameter> <Parameter name="dailyInterval"></Parameter> <Parameter name="daySun"></Parameter> <Parameter name="dayMon"></Parameter> <Parameter name="dayTue"></Parameter> <Parameter name="dayWed"></Parameter> <Parameter name="dayThu"></Parameter> <Parameter name="dayFri"></Parameter> <Parameter name="daySat"></Parameter> <Parameter name="monthlyOption"></Parameter> <Parameter name="monthlyDayOfWeek"></Parameter> <Parameter name="cron"></Parameter> <Parameter name="monthlySpecificDay"></Parameter> <Parameter name="finishes"></Parameter> <Parameter name="finishesDate"></Parameter> <Parameter name="finishesTime"></Parameter> <Parameter name="schedule"></Parameter> <Parameter name="reschedule"></Parameter> <Parameter name="unschedule"></Parameter> <Parameter name="status"></Parameter> <Parameter name="adProcessSetId"></Parameter> <Parameter name="scheduledFinish"></Parameter> <Parameter name="description"></Parameter> <Parameter name="obContext"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="params"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adProcessRequestId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Process_Request.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Process_Request.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Process_Request 
+        (AD_Client_ID, AD_Process_Request_ID, AD_Org_ID, AD_Process_ID, Isactive, Timing_Option, Isrolesecurity, Previous_Fire_Time, Next_Fire_Time, Start_Date, Start_Time, Channel, Frequency, Secondly_Interval, Secondly_Repetitions, Minutely_Interval, Minutely_Repetitions, Hourly_Interval, Hourly_Repetitions, Daily_Option, Daily_Interval, DAY_Sun, DAY_Mon, DAY_Tue, DAY_Wed, DAY_Thu, DAY_Fri, DAY_Sat, Monthly_Option, Monthly_Day_Of_Week, Cron, Monthly_Specific_Day, Finishes, Finishes_Date, Finishes_Time, Schedule, Reschedule, Unschedule, Status, AD_Process_Set_ID, Scheduled_Finish, Description, OB_Context, AD_User_ID, Params, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), TO_DATE(?), TO_DATE(?), TO_DATE(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_DATE(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), (?), (?), (?), (?), (?), TO_DATE(?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adProcessRequestId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adProcessId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="timingOption"></Parameter> <Parameter name="isrolesecurity"></Parameter> <Parameter name="previousFireTime"></Parameter> <Parameter name="nextFireTime"></Parameter> <Parameter name="startDate"></Parameter> <Parameter name="startTime"></Parameter> <Parameter name="channel"></Parameter> <Parameter name="frequency"></Parameter> <Parameter name="secondlyInterval"></Parameter> <Parameter name="secondlyRepetitions"></Parameter> <Parameter name="minutelyInterval"></Parameter> <Parameter name="minutelyRepetitions"></Parameter> <Parameter name="hourlyInterval"></Parameter> <Parameter name="hourlyRepetitions"></Parameter> <Parameter name="dailyOption"></Parameter> <Parameter name="dailyInterval"></Parameter> <Parameter name="daySun"></Parameter> <Parameter name="dayMon"></Parameter> <Parameter name="dayTue"></Parameter> <Parameter name="dayWed"></Parameter> <Parameter name="dayThu"></Parameter> <Parameter name="dayFri"></Parameter> <Parameter name="daySat"></Parameter> <Parameter name="monthlyOption"></Parameter> <Parameter name="monthlyDayOfWeek"></Parameter> <Parameter name="cron"></Parameter> <Parameter name="monthlySpecificDay"></Parameter> <Parameter name="finishes"></Parameter> <Parameter name="finishesDate"></Parameter> <Parameter name="finishesTime"></Parameter> <Parameter name="schedule"></Parameter> <Parameter name="reschedule"></Parameter> <Parameter name="unschedule"></Parameter> <Parameter name="status"></Parameter> <Parameter name="adProcessSetId"></Parameter> <Parameter name="scheduledFinish"></Parameter> <Parameter name="description"></Parameter> <Parameter name="obContext"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="params"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Process_Request
+        WHERE AD_Process_Request.AD_Process_Request_ID = ? 
+        
+        AND AD_Process_Request.AD_Client_ID IN ('1') 
+        AND AD_Process_Request.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Process_Request.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Process_Request.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Process_Request
+        WHERE AD_Process_Request.AD_Process_Request_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Process_Request
+         WHERE AD_Process_Request.AD_Process_Request_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Process_Request
+         WHERE AD_Process_Request.AD_Process_Request_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

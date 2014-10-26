@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Serialnumbers26BC2E065AFE41F9A7D99AB3FC8FC985Data" package="org.openbravo.erpWindows.PhysicalInventory">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(snr_inventoryline.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = snr_inventoryline.CreatedBy) as CreatedByR, 
+        to_char(snr_inventoryline.Updated, ?) as updated, 
+        to_char(snr_inventoryline.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        snr_inventoryline.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = snr_inventoryline.UpdatedBy) as UpdatedByR,
+        snr_inventoryline.M_Inventoryline_ID, 
+(CASE WHEN snr_inventoryline.M_Inventoryline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.QtyCount), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS M_Inventoryline_IDR, 
+snr_inventoryline.SNR_Inventoryline_ID, 
+snr_inventoryline.Serialnumber, 
+snr_inventoryline.AD_Client_ID, 
+snr_inventoryline.AD_Org_ID, 
+COALESCE(snr_inventoryline.Isunavailable, 'N') AS Isunavailable, 
+COALESCE(snr_inventoryline.Isactive, 'N') AS Isactive, 
+snr_inventoryline.Lotnumber, 
+snr_inventoryline.Quantity, 
+snr_inventoryline.Guaranteedays, 
+snr_inventoryline.Guaranteedate, 
+snr_inventoryline.Rfidnumber, 
+snr_inventoryline.Description, 
+ 
+        ? AS LANGUAGE 
+        FROM snr_inventoryline left join (select M_Inventoryline_ID, Line, QtyCount, M_Inventory_ID, Name from M_Inventoryline) table1 on (snr_inventoryline.M_Inventoryline_ID = table1.M_Inventoryline_ID) left join (select M_Inventory_ID, Name from M_Inventory) table2 on (table1.M_Inventory_ID = table2.M_Inventory_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND snr_inventoryline.SNR_Inventoryline_ID = ? 
+        AND snr_inventoryline.AD_Client_ID IN ('1') 
+           AND snr_inventoryline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="mInventorylineId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND snr_inventoryline.M_Inventoryline_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_inventoryline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_inventoryline.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mInventorylineId" id="paramKeyParent"></Parameter>
+<Parameter name="serialnumber"></Parameter><Parameter name="quantity"></Parameter><Parameter name="guaranteedate"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="isunavailable"></Parameter><Parameter name="rfidnumber"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="guaranteedays"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="snrInventorylineId"></Parameter><Parameter name="lotnumber"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefCDAFF29584E24F46A900AD54035F227B_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefDF80E990D232466DA7688A90F297EFB5_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT snr_inventoryline.M_Inventoryline_ID AS NAME
+        FROM snr_inventoryline
+        WHERE snr_inventoryline.SNR_Inventoryline_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Line), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.QtyCount), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_InventoryLine left join (select M_Inventoryline_ID, Line, QtyCount, M_Inventory_ID, Name from M_Inventoryline) table1 on (M_InventoryLine.M_Inventoryline_ID = table1.M_Inventoryline_ID) left join (select M_Inventory_ID, Name from M_Inventory) table2 on (table1.M_Inventory_ID = table2.M_Inventory_ID) WHERE M_InventoryLine.M_Inventoryline_ID = ?  
+    ]]></Sql>
+<Parameter name="mInventorylineId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Line), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.QtyCount), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM M_InventoryLine left join (select M_Inventoryline_ID, Line, QtyCount, M_Inventory_ID, Name from M_Inventoryline) table1 on (M_InventoryLine.M_Inventoryline_ID = table1.M_Inventoryline_ID) left join (select M_Inventory_ID, Name from M_Inventory) table2 on (table1.M_Inventory_ID = table2.M_Inventory_ID) WHERE M_InventoryLine.M_Inventoryline_ID = ?  
+    ]]></Sql>
+<Parameter name="mInventorylineId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE snr_inventoryline
+        SET M_Inventoryline_ID = (?) , SNR_Inventoryline_ID = (?) , Serialnumber = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Isunavailable = (?) , Isactive = (?) , Lotnumber = (?) , Quantity = TO_NUMBER(?) , Guaranteedays = TO_NUMBER(?) , Guaranteedate = TO_DATE(?) , Rfidnumber = (?) , Description = (?) , updated = now(), updatedby = ? 
+        WHERE snr_inventoryline.SNR_Inventoryline_ID = ? 
+                 AND snr_inventoryline.M_Inventoryline_ID = ? 
+        AND snr_inventoryline.AD_Client_ID IN ('1') 
+        AND snr_inventoryline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mInventorylineId"></Parameter> <Parameter name="snrInventorylineId"></Parameter> <Parameter name="serialnumber"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isunavailable"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="lotnumber"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="guaranteedays"></Parameter> <Parameter name="guaranteedate"></Parameter> <Parameter name="rfidnumber"></Parameter> <Parameter name="description"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="snrInventorylineId"></Parameter>
+    
+    <Parameter name="mInventorylineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_inventoryline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_inventoryline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO snr_inventoryline 
+        (M_Inventoryline_ID, SNR_Inventoryline_ID, Serialnumber, AD_Client_ID, AD_Org_ID, Isunavailable, Isactive, Lotnumber, Quantity, Guaranteedays, Guaranteedate, Rfidnumber, Description, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_DATE(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mInventorylineId"></Parameter> <Parameter name="snrInventorylineId"></Parameter> <Parameter name="serialnumber"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isunavailable"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="lotnumber"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="guaranteedays"></Parameter> <Parameter name="guaranteedate"></Parameter> <Parameter name="rfidnumber"></Parameter> <Parameter name="description"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM snr_inventoryline
+        WHERE snr_inventoryline.SNR_Inventoryline_ID = ? 
+                 AND snr_inventoryline.M_Inventoryline_ID = ? 
+        AND snr_inventoryline.AD_Client_ID IN ('1') 
+        AND snr_inventoryline.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mInventorylineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="snr_inventoryline.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="snr_inventoryline.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM snr_inventoryline
+        WHERE snr_inventoryline.SNR_Inventoryline_ID = ? 
+                 AND snr_inventoryline.M_Inventoryline_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mInventorylineId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM snr_inventoryline
+         WHERE snr_inventoryline.SNR_Inventoryline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM snr_inventoryline
+         WHERE snr_inventoryline.SNR_Inventoryline_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

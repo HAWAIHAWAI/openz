@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Periodicity800185Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.cmms.MachineCategory">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(MA_Maint_Periodicity.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Maint_Periodicity.CreatedBy) as CreatedByR, 
+        to_char(MA_Maint_Periodicity.Updated, ?) as updated, 
+        to_char(MA_Maint_Periodicity.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        MA_Maint_Periodicity.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Maint_Periodicity.UpdatedBy) as UpdatedByR,
+        MA_Maint_Periodicity.MA_Maint_Periodicity_ID, 
+MA_Maint_Periodicity.AD_Client_ID, 
+(CASE WHEN MA_Maint_Periodicity.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+MA_Maint_Periodicity.AD_Org_ID, 
+(CASE WHEN MA_Maint_Periodicity.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+MA_Maint_Periodicity.MA_Maintenance_ID, 
+(CASE WHEN MA_Maint_Periodicity.MA_Maintenance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS MA_Maintenance_IDR, 
+COALESCE(MA_Maint_Periodicity.IsActive, 'N') AS IsActive, 
+MA_Maint_Periodicity.Periodicity_Type, 
+(CASE WHEN MA_Maint_Periodicity.Periodicity_Type IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS Periodicity_TypeR, 
+MA_Maint_Periodicity.Shift, 
+(CASE WHEN MA_Maint_Periodicity.Shift IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS ShiftR, 
+MA_Maint_Periodicity.Monthday, 
+MA_Maint_Periodicity.Initdate, 
+MA_Maint_Periodicity.WeekDay, 
+(CASE WHEN MA_Maint_Periodicity.WeekDay IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS WeekDayR, 
+COALESCE(MA_Maint_Periodicity.Excludeweekend, 'N') AS Excludeweekend, 
+ 
+        ? AS LANGUAGE 
+        FROM MA_Maint_Periodicity left join (select AD_Client_ID, Name from AD_Client) table1 on (MA_Maint_Periodicity.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (MA_Maint_Periodicity.AD_Org_ID = table2.AD_Org_ID) left join (select MA_Maintenance_ID, Name from MA_Maintenance) table3 on (MA_Maint_Periodicity.MA_Maintenance_ID = table3.MA_Maintenance_ID) left join ad_ref_list_v list1 on (MA_Maint_Periodicity.Periodicity_Type = list1.value and list1.ad_reference_id = '800065' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (MA_Maint_Periodicity.Shift = list2.value and list2.ad_reference_id = '800038' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (MA_Maint_Periodicity.WeekDay = list3.value and list3.ad_reference_id = '167' and list3.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND MA_Maint_Periodicity.MA_Maint_Periodicity_ID = ? 
+        AND MA_Maint_Periodicity.AD_Client_ID IN ('1') 
+           AND MA_Maint_Periodicity.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="maMaintenanceId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND MA_Maint_Periodicity.MA_Maintenance_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Maint_Periodicity.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Maint_Periodicity.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="maMaintenanceId" id="paramKeyParent"></Parameter>
+<Parameter name="adOrgId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="maMaintPeriodicityId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="periodicityType"></Parameter><Parameter name="shift"></Parameter><Parameter name="initdate"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="monthday"></Parameter><Parameter name="excludeweekend"></Parameter><Parameter name="weekday"></Parameter><Parameter name="isactive"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef802628_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef802630_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MA_Maint_Periodicity.MA_Maintenance_ID AS NAME
+        FROM MA_Maint_Periodicity
+        WHERE MA_Maint_Periodicity.MA_Maint_Periodicity_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_Maintenance left join (select MA_Maintenance_ID, Name from MA_Maintenance) table1 on (MA_Maintenance.MA_Maintenance_ID = table1.MA_Maintenance_ID) WHERE MA_Maintenance.MA_Maintenance_ID = ?  
+    ]]></Sql>
+<Parameter name="maMaintenanceId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_Maintenance left join (select MA_Maintenance_ID, Name from MA_Maintenance) table1 on (MA_Maintenance.MA_Maintenance_ID = table1.MA_Maintenance_ID) WHERE MA_Maintenance.MA_Maintenance_ID = ?  
+    ]]></Sql>
+<Parameter name="maMaintenanceId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE MA_Maint_Periodicity
+        SET MA_Maint_Periodicity_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , MA_Maintenance_ID = (?) , IsActive = (?) , Periodicity_Type = (?) , Shift = (?) , Monthday = TO_NUMBER(?) , Initdate = TO_DATE(?) , WeekDay = (?) , Excludeweekend = (?) , updated = now(), updatedby = ? 
+        WHERE MA_Maint_Periodicity.MA_Maint_Periodicity_ID = ? 
+                 AND MA_Maint_Periodicity.MA_Maintenance_ID = ? 
+        AND MA_Maint_Periodicity.AD_Client_ID IN ('1') 
+        AND MA_Maint_Periodicity.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="maMaintPeriodicityId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMaintenanceId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="periodicityType"></Parameter> <Parameter name="shift"></Parameter> <Parameter name="monthday"></Parameter> <Parameter name="initdate"></Parameter> <Parameter name="weekday"></Parameter> <Parameter name="excludeweekend"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="maMaintPeriodicityId"></Parameter>
+    
+    <Parameter name="maMaintenanceId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Maint_Periodicity.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Maint_Periodicity.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO MA_Maint_Periodicity 
+        (MA_Maint_Periodicity_ID, AD_Client_ID, AD_Org_ID, MA_Maintenance_ID, IsActive, Periodicity_Type, Shift, Monthday, Initdate, WeekDay, Excludeweekend, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_DATE(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="maMaintPeriodicityId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maMaintenanceId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="periodicityType"></Parameter> <Parameter name="shift"></Parameter> <Parameter name="monthday"></Parameter> <Parameter name="initdate"></Parameter> <Parameter name="weekday"></Parameter> <Parameter name="excludeweekend"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Maint_Periodicity
+        WHERE MA_Maint_Periodicity.MA_Maint_Periodicity_ID = ? 
+                 AND MA_Maint_Periodicity.MA_Maintenance_ID = ? 
+        AND MA_Maint_Periodicity.AD_Client_ID IN ('1') 
+        AND MA_Maint_Periodicity.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMaintenanceId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Maint_Periodicity.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Maint_Periodicity.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Maint_Periodicity
+        WHERE MA_Maint_Periodicity.MA_Maint_Periodicity_ID = ? 
+                 AND MA_Maint_Periodicity.MA_Maintenance_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMaintenanceId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM MA_Maint_Periodicity
+         WHERE MA_Maint_Periodicity.MA_Maint_Periodicity_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM MA_Maint_Periodicity
+         WHERE MA_Maint_Periodicity.MA_Maint_Periodicity_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

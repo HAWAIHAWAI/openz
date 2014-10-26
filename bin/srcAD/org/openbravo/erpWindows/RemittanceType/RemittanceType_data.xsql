@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="RemittanceTypeData" package="org.openbravo.erpWindows.RemittanceType">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_Remittance_Type.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Remittance_Type.CreatedBy) as CreatedByR, 
+        to_char(C_Remittance_Type.Updated, ?) as updated, 
+        to_char(C_Remittance_Type.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_Remittance_Type.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Remittance_Type.UpdatedBy) as UpdatedByR,
+        C_Remittance_Type.C_Remittance_Type_ID, 
+C_Remittance_Type.AD_Client_ID, 
+(CASE WHEN C_Remittance_Type.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_Remittance_Type.AD_Org_ID, 
+(CASE WHEN C_Remittance_Type.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(C_Remittance_Type.IsActive, 'N') AS IsActive, 
+C_Remittance_Type.Name, 
+COALESCE(C_Remittance_Type.Consolidate, 'N') AS Consolidate, 
+C_Remittance_Type.Paymentruleconsolidated, 
+(CASE WHEN C_Remittance_Type.Paymentruleconsolidated IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS PaymentruleconsolidatedR, 
+C_Remittance_Type.Status_To, 
+(CASE WHEN C_Remittance_Type.Status_To IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS Status_ToR, 
+C_Remittance_Type.Status_Returned, 
+(CASE WHEN C_Remittance_Type.Status_Returned IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS Status_ReturnedR, 
+ 
+        ? AS LANGUAGE 
+        FROM C_Remittance_Type left join (select AD_Client_ID, Name from AD_Client) table1 on (C_Remittance_Type.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_Remittance_Type.AD_Org_ID = table2.AD_Org_ID) left join ad_ref_list_v list1 on (C_Remittance_Type.Paymentruleconsolidated = list1.value and list1.ad_reference_id = '195' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (C_Remittance_Type.Status_To = list2.value and list2.ad_reference_id = '800070' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (C_Remittance_Type.Status_Returned = list3.value and list3.ad_reference_id = '800070' and list3.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_Remittance_Type.C_Remittance_Type_ID = ? 
+        AND C_Remittance_Type.AD_Client_ID IN ('1') 
+           AND C_Remittance_Type.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Remittance_Type.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Remittance_Type.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="isactive"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="paymentruleconsolidated"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="statusReturned"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="statusTo"></Parameter><Parameter name="name"></Parameter><Parameter name="consolidate"></Parameter><Parameter name="cRemittanceTypeId"></Parameter><Parameter name="adClientId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef800824_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800826_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_Remittance_Type
+        SET C_Remittance_Type_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , IsActive = (?) , Name = (?) , Consolidate = (?) , Paymentruleconsolidated = (?) , Status_To = (?) , Status_Returned = (?) , updated = now(), updatedby = ? 
+        WHERE C_Remittance_Type.C_Remittance_Type_ID = ? 
+        
+        AND C_Remittance_Type.AD_Client_ID IN ('1') 
+        AND C_Remittance_Type.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cRemittanceTypeId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="consolidate"></Parameter> <Parameter name="paymentruleconsolidated"></Parameter> <Parameter name="statusTo"></Parameter> <Parameter name="statusReturned"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cRemittanceTypeId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Remittance_Type.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Remittance_Type.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_Remittance_Type 
+        (C_Remittance_Type_ID, AD_Client_ID, AD_Org_ID, IsActive, Name, Consolidate, Paymentruleconsolidated, Status_To, Status_Returned, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cRemittanceTypeId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="consolidate"></Parameter> <Parameter name="paymentruleconsolidated"></Parameter> <Parameter name="statusTo"></Parameter> <Parameter name="statusReturned"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Remittance_Type
+        WHERE C_Remittance_Type.C_Remittance_Type_ID = ? 
+        
+        AND C_Remittance_Type.AD_Client_ID IN ('1') 
+        AND C_Remittance_Type.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Remittance_Type.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Remittance_Type.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Remittance_Type
+        WHERE C_Remittance_Type.C_Remittance_Type_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_Remittance_Type
+         WHERE C_Remittance_Type.C_Remittance_Type_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_Remittance_Type
+         WHERE C_Remittance_Type.C_Remittance_Type_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

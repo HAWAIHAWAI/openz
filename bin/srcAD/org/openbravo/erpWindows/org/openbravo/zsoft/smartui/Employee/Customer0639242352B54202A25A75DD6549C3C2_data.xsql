@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Customer0639242352B54202A25A75DD6549C3C2Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.smartui.Employee">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_BPartner.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BPartner.CreatedBy) as CreatedByR, 
+        to_char(C_BPartner.Updated, ?) as updated, 
+        to_char(C_BPartner.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_BPartner.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BPartner.UpdatedBy) as UpdatedByR,
+        C_BPartner.Value, 
+C_BPartner.Name, 
+COALESCE(C_BPartner.IsActive, 'N') AS IsActive, 
+COALESCE(C_BPartner.IsCustomer, 'N') AS IsCustomer, 
+C_BPartner.DocumentCopies, 
+C_BPartner.InvoiceRule, 
+(CASE WHEN C_BPartner.InvoiceRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS InvoiceRuleR, 
+C_BPartner.FixMonthDay, 
+C_BPartner.C_InvoiceSchedule_ID, 
+(CASE WHEN C_BPartner.C_InvoiceSchedule_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS C_InvoiceSchedule_IDR, 
+C_BPartner.FixMonthDay2, 
+C_BPartner.Invoicegrouping, 
+(CASE WHEN C_BPartner.Invoicegrouping IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS InvoicegroupingR, 
+C_BPartner.Fixmonthday3, 
+C_BPartner.DeliveryRule, 
+(CASE WHEN C_BPartner.DeliveryRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS DeliveryRuleR, 
+C_BPartner.DeliveryViaRule, 
+(CASE WHEN C_BPartner.DeliveryViaRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS DeliveryViaRuleR, 
+C_BPartner.M_PriceList_ID, 
+(CASE WHEN C_BPartner.M_PriceList_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS M_PriceList_IDR, 
+C_BPartner.PaymentRule, 
+(CASE WHEN C_BPartner.PaymentRule IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list5.name),'') ) END) AS PaymentRuleR, 
+C_BPartner.C_PaymentTerm_ID, 
+(CASE WHEN C_BPartner.C_PaymentTerm_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS C_PaymentTerm_IDR, 
+C_BPartner.SalesRep_ID, 
+(CASE WHEN C_BPartner.SalesRep_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS SalesRep_IDR, 
+COALESCE(C_BPartner.IsDiscountPrinted, 'N') AS IsDiscountPrinted, 
+C_BPartner.SO_Bankaccount_ID, 
+C_BPartner.SO_Description, 
+C_BPartner.SO_CreditLimit, 
+C_BPartner.SO_CreditUsed, 
+COALESCE(C_BPartner.Isecommerceactive, 'N') AS Isecommerceactive, 
+C_BPartner.C_BPartner_ID, 
+C_BPartner.POReference, 
+C_BPartner.AD_Org_ID, 
+C_BPartner.AD_Client_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM C_BPartner left join ad_ref_list_v list1 on (C_BPartner.InvoiceRule = list1.value and list1.ad_reference_id = '150' and list1.ad_language = ?)  left join (select C_InvoiceSchedule_ID, Name from C_InvoiceSchedule) table1 on (C_BPartner.C_InvoiceSchedule_ID = table1.C_InvoiceSchedule_ID) left join ad_ref_list_v list2 on (C_BPartner.Invoicegrouping = list2.value and list2.ad_reference_id = '800026' and list2.ad_language = ?)  left join ad_ref_list_v list3 on (C_BPartner.DeliveryRule = list3.value and list3.ad_reference_id = '151' and list3.ad_language = ?)  left join ad_ref_list_v list4 on (C_BPartner.DeliveryViaRule = list4.value and list4.ad_reference_id = '152' and list4.ad_language = ?)  left join (select M_PriceList_ID, Name from M_PriceList) table2 on (C_BPartner.M_PriceList_ID =  table2.M_PriceList_ID) left join ad_ref_list_v list5 on (C_BPartner.PaymentRule = list5.value and list5.ad_reference_id = '195' and list5.ad_language = ?)  left join (select C_PaymentTerm_ID, Name from C_PaymentTerm) table3 on (C_BPartner.C_PaymentTerm_ID = table3.C_PaymentTerm_ID) left join (select C_PaymentTerm_ID,AD_Language, Name from C_PaymentTerm_TRL) tableTRL3 on (table3.C_PaymentTerm_ID = tableTRL3.C_PaymentTerm_ID and tableTRL3.AD_Language = ?)  left join (select C_BPartner_ID, Name from C_BPartner) table4 on (C_BPartner.SalesRep_ID =  table4.C_BPartner_ID)
+        WHERE 2=2 
+ AND c_bpartner.C_BPARTNER_ID=?
+        AND 1=1 
+        AND C_BPartner.C_BPartner_ID = ? 
+        AND C_BPartner.AD_Client_ID IN ('1') 
+           AND C_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="C_BPARTNER_ID"/>
+
+    <Parameter name="cBpartnerId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_BPartner.C_BPartner_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BPartner.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+<Parameter name="iscustomer"></Parameter><Parameter name="value"></Parameter><Parameter name="documentcopies"></Parameter><Parameter name="fixmonthday3"></Parameter><Parameter name="name"></Parameter><Parameter name="invoicerule"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="fixmonthday"></Parameter><Parameter name="isdiscountprinted"></Parameter><Parameter name="isecommerceactive"></Parameter><Parameter name="soCreditlimit"></Parameter><Parameter name="paymentrule"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="soDescription"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="fixmonthday2"></Parameter><Parameter name="soCreditused"></Parameter><Parameter name="invoicegrouping"></Parameter><Parameter name="soBankaccountId"></Parameter><Parameter name="cPaymenttermId"></Parameter><Parameter name="deliveryrule"></Parameter><Parameter name="poreference"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="cInvoicescheduleId"></Parameter><Parameter name="deliveryviarule"></Parameter><Parameter name="adClientId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef2901" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zssi_getNewBPartnerValue(?) 
+    ]]></Sql>
+
+<Parameter name="AD_ORG_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2898_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef2900_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_BPartner.C_BPartner_ID AS NAME
+        FROM C_BPartner
+        WHERE C_BPartner.C_BPartner_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(c_bpartneremployee_view.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(c_bpartneremployee_view.Name), ''))) AS NAME FROM c_bpartneremployee_view WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(c_bpartneremployee_view.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(c_bpartneremployee_view.Name), ''))) AS NAME FROM c_bpartneremployee_view WHERE c_bpartneremployee_view.C_BPartner_ID = ?  
+    ]]></Sql>
+<Parameter name="cBpartnerId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_BPartner
+        SET Value = (?) , Name = (?) , IsActive = (?) , IsCustomer = (?) , DocumentCopies = TO_NUMBER(?) , InvoiceRule = (?) , FixMonthDay = TO_NUMBER(?) , C_InvoiceSchedule_ID = (?) , FixMonthDay2 = TO_NUMBER(?) , Invoicegrouping = (?) , Fixmonthday3 = TO_NUMBER(?) , DeliveryRule = (?) , DeliveryViaRule = (?) , M_PriceList_ID = (?) , PaymentRule = (?) , C_PaymentTerm_ID = (?) , SalesRep_ID = (?) , IsDiscountPrinted = (?) , SO_Bankaccount_ID = (?) , SO_Description = (?) , SO_CreditLimit = TO_NUMBER(?) , SO_CreditUsed = TO_NUMBER(?) , Isecommerceactive = (?) , C_BPartner_ID = (?) , POReference = (?) , AD_Org_ID = (?) , AD_Client_ID = (?) , updated = now(), updatedby = ? 
+        WHERE C_BPartner.C_BPartner_ID = ? 
+                 AND C_BPartner.C_BPartner_ID = ? 
+        AND C_BPartner.AD_Client_ID IN ('1') 
+        AND C_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="iscustomer"></Parameter> <Parameter name="documentcopies"></Parameter> <Parameter name="invoicerule"></Parameter> <Parameter name="fixmonthday"></Parameter> <Parameter name="cInvoicescheduleId"></Parameter> <Parameter name="fixmonthday2"></Parameter> <Parameter name="invoicegrouping"></Parameter> <Parameter name="fixmonthday3"></Parameter> <Parameter name="deliveryrule"></Parameter> <Parameter name="deliveryviarule"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="isdiscountprinted"></Parameter> <Parameter name="soBankaccountId"></Parameter> <Parameter name="soDescription"></Parameter> <Parameter name="soCreditlimit"></Parameter> <Parameter name="soCreditused"></Parameter> <Parameter name="isecommerceactive"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cBpartnerId"></Parameter>
+    
+    <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BPartner.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_BPartner 
+        (Value, Name, IsActive, IsCustomer, DocumentCopies, InvoiceRule, FixMonthDay, C_InvoiceSchedule_ID, FixMonthDay2, Invoicegrouping, Fixmonthday3, DeliveryRule, DeliveryViaRule, M_PriceList_ID, PaymentRule, C_PaymentTerm_ID, SalesRep_ID, IsDiscountPrinted, SO_Bankaccount_ID, SO_Description, SO_CreditLimit, SO_CreditUsed, Isecommerceactive, C_BPartner_ID, POReference, AD_Org_ID, AD_Client_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="iscustomer"></Parameter> <Parameter name="documentcopies"></Parameter> <Parameter name="invoicerule"></Parameter> <Parameter name="fixmonthday"></Parameter> <Parameter name="cInvoicescheduleId"></Parameter> <Parameter name="fixmonthday2"></Parameter> <Parameter name="invoicegrouping"></Parameter> <Parameter name="fixmonthday3"></Parameter> <Parameter name="deliveryrule"></Parameter> <Parameter name="deliveryviarule"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="isdiscountprinted"></Parameter> <Parameter name="soBankaccountId"></Parameter> <Parameter name="soDescription"></Parameter> <Parameter name="soCreditlimit"></Parameter> <Parameter name="soCreditused"></Parameter> <Parameter name="isecommerceactive"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BPartner
+        WHERE C_BPartner.C_BPartner_ID = ? 
+                 AND C_BPartner.C_BPartner_ID = ? 
+        AND C_BPartner.AD_Client_ID IN ('1') 
+        AND C_BPartner.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BPartner.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BPartner.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BPartner
+        WHERE C_BPartner.C_BPartner_ID = ? 
+                 AND C_BPartner.C_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBpartnerId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_BPartner
+         WHERE C_BPartner.C_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_BPartner
+         WHERE C_BPartner.C_BPartner_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="CostingData" package="org.openbravo.erpWindows.Product">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_Costing.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Costing.CreatedBy) as CreatedByR, 
+        to_char(M_Costing.Updated, ?) as updated, 
+        to_char(M_Costing.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_Costing.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Costing.UpdatedBy) as UpdatedByR,
+        M_Costing.M_Costing_ID, 
+M_Costing.AD_Client_ID, 
+(CASE WHEN M_Costing.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_Costing.AD_Org_ID, 
+(CASE WHEN M_Costing.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_Costing.M_Product_ID, 
+(CASE WHEN M_Costing.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+M_Costing.M_InOutLine_ID, 
+(CASE WHEN M_Costing.M_InOutLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table5.MovementDate, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL6.Name IS NULL THEN TO_CHAR(table6.Name) ELSE TO_CHAR(tableTRL6.Name) END)), ''))),'') ) END) AS M_InOutLine_IDR, 
+M_Costing.Costtype, 
+(CASE WHEN M_Costing.Costtype IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS CosttypeR, 
+M_Costing.DateFrom, 
+M_Costing.DateTo, 
+M_Costing.Cost, 
+COALESCE(M_Costing.Isproduction, 'N') AS Isproduction, 
+COALESCE(M_Costing.IsManual, 'N') AS IsManual, 
+COALESCE(M_Costing.Ispermanent, 'N') AS Ispermanent, 
+M_Costing.C_InvoiceLine_ID, 
+M_Costing.Qty, 
+M_Costing.Price, 
+M_Costing.Cumqty, 
+ 
+        ? AS LANGUAGE 
+        FROM M_Costing left join (select AD_Client_ID, Name from AD_Client) table1 on (M_Costing.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (M_Costing.AD_Org_ID = table2.AD_Org_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (M_Costing.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select M_InOutLine_ID, M_InOut_ID, M_Product_ID from M_InOutLine) table4 on (M_Costing.M_InOutLine_ID = table4.M_InOutLine_ID) left join (select M_InOut_ID, DocumentNo, MovementDate from M_InOut) table5 on (table4.M_InOut_ID = table5.M_InOut_ID) left join (select M_Product_ID, Value, Name from M_Product) table6 on (table4.M_Product_ID = table6.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL6 on (table6.M_Product_ID = tableTRL6.M_Product_ID and tableTRL6.AD_Language = ?)  left join ad_ref_list_v list1 on (M_Costing.Costtype = list1.value and list1.ad_reference_id = '800025' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_Costing.M_Costing_ID = ? 
+        AND M_Costing.AD_Client_ID IN ('1') 
+           AND M_Costing.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mProductId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_Costing.M_Product_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Costing.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Costing.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+<Parameter name="mProductIdr"></Parameter><Parameter name="cInvoicelineId"></Parameter><Parameter name="cumqty"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="ispermanent"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isproduction"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mInoutlineId"></Parameter><Parameter name="mInoutlineIdr"></Parameter><Parameter name="cost"></Parameter><Parameter name="mCostingId"></Parameter><Parameter name="datefrom"></Parameter><Parameter name="dateto"></Parameter><Parameter name="price"></Parameter><Parameter name="qty"></Parameter><Parameter name="costtype"></Parameter><Parameter name="ismanual"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef800757_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800752_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800754_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800761_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table2.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table2.MovementDate), '')  || ' - ' || COALESCE(TO_CHAR(table3.Value), '')  || ' - ' || COALESCE(TO_CHAR(table3.Name), '') ) as M_InOutLine_ID FROM M_InOutLine table1 left join M_InOut table2 on (table1.M_InOut_ID = table2.M_InOut_ID) left join M_Product table3 on (table1.M_Product_ID = table3.M_Product_ID) WHERE table1.isActive='Y' AND table1.M_InOutLine_ID = ?  
+    ]]></Sql>
+<Parameter name="M_InOutLine_IDR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_Costing.M_Product_ID AS NAME
+        FROM M_Costing
+        WHERE M_Costing.M_Costing_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))) AS NAME FROM M_Product left join (select M_Product_ID, Value, Name from M_Product) table1 on (M_Product.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  WHERE M_Product.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="mProductId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_Costing
+        SET M_Costing_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , M_Product_ID = (?) , M_InOutLine_ID = (?) , Costtype = (?) , DateFrom = TO_DATE(?) , DateTo = TO_DATE(?) , Cost = TO_NUMBER(?) , Isproduction = (?) , IsManual = (?) , Ispermanent = (?) , C_InvoiceLine_ID = (?) , Qty = TO_NUMBER(?) , Price = TO_NUMBER(?) , Cumqty = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE M_Costing.M_Costing_ID = ? 
+                 AND M_Costing.M_Product_ID = ? 
+        AND M_Costing.AD_Client_ID IN ('1') 
+        AND M_Costing.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mCostingId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mInoutlineId"></Parameter> <Parameter name="costtype"></Parameter> <Parameter name="datefrom"></Parameter> <Parameter name="dateto"></Parameter> <Parameter name="cost"></Parameter> <Parameter name="isproduction"></Parameter> <Parameter name="ismanual"></Parameter> <Parameter name="ispermanent"></Parameter> <Parameter name="cInvoicelineId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="price"></Parameter> <Parameter name="cumqty"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mCostingId"></Parameter>
+    
+    <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Costing.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Costing.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_Costing 
+        (M_Costing_ID, AD_Client_ID, AD_Org_ID, M_Product_ID, M_InOutLine_ID, Costtype, DateFrom, DateTo, Cost, Isproduction, IsManual, Ispermanent, C_InvoiceLine_ID, Qty, Price, Cumqty, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_DATE(?), TO_DATE(?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mCostingId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="mInoutlineId"></Parameter> <Parameter name="costtype"></Parameter> <Parameter name="datefrom"></Parameter> <Parameter name="dateto"></Parameter> <Parameter name="cost"></Parameter> <Parameter name="isproduction"></Parameter> <Parameter name="ismanual"></Parameter> <Parameter name="ispermanent"></Parameter> <Parameter name="cInvoicelineId"></Parameter> <Parameter name="qty"></Parameter> <Parameter name="price"></Parameter> <Parameter name="cumqty"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Costing
+        WHERE M_Costing.M_Costing_ID = ? 
+                 AND M_Costing.M_Product_ID = ? 
+        AND M_Costing.AD_Client_ID IN ('1') 
+        AND M_Costing.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Costing.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Costing.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Costing
+        WHERE M_Costing.M_Costing_ID = ? 
+                 AND M_Costing.M_Product_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mProductId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_Costing
+         WHERE M_Costing.M_Costing_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_Costing
+         WHERE M_Costing.M_Costing_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

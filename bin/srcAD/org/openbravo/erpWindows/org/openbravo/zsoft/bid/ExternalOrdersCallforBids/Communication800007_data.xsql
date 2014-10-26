@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Communication800007Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.bid.ExternalOrdersCallforBids">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_ProjectProposalTask.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_ProjectProposalTask.CreatedBy) as CreatedByR, 
+        to_char(C_ProjectProposalTask.Updated, ?) as updated, 
+        to_char(C_ProjectProposalTask.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_ProjectProposalTask.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_ProjectProposalTask.UpdatedBy) as UpdatedByR,
+        C_ProjectProposalTask.C_Projectproposaltask_ID, 
+C_ProjectProposalTask.AD_Client_ID, 
+(CASE WHEN C_ProjectProposalTask.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_ProjectProposalTask.AD_Org_ID, 
+(CASE WHEN C_ProjectProposalTask.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_ProjectProposalTask.C_Projectproposal_ID, 
+(CASE WHEN C_ProjectProposalTask.C_Projectproposal_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_Projectproposal_IDR, 
+C_ProjectProposalTask.AD_User_ID, 
+(CASE WHEN C_ProjectProposalTask.AD_User_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS AD_User_IDR, 
+COALESCE(C_ProjectProposalTask.IsActive, 'N') AS IsActive, 
+C_ProjectProposalTask.Note, 
+ 
+        ? AS LANGUAGE 
+        FROM C_ProjectProposalTask left join (select AD_Client_ID, Name from AD_Client) table1 on (C_ProjectProposalTask.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_ProjectProposalTask.AD_Org_ID = table2.AD_Org_ID) left join (select C_Projectproposal_ID, C_Project_ID, C_BPartner_ID from C_Projectproposal) table3 on (C_ProjectProposalTask.C_Projectproposal_ID = table3.C_Projectproposal_ID) left join (select C_Project_ID, Value, Name from C_Project) table4 on (table3.C_Project_ID = table4.C_Project_ID) left join (select C_BPartner_ID, Name from C_BPartner) table5 on (table3.C_BPartner_ID = table5.C_BPartner_ID) left join (select AD_User_ID, Name from AD_User) table6 on (C_ProjectProposalTask.AD_User_ID =  table6.AD_User_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_ProjectProposalTask.C_Projectproposaltask_ID = ? 
+        AND C_ProjectProposalTask.AD_Client_ID IN ('1') 
+           AND C_ProjectProposalTask.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="cProjectproposalId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_ProjectProposalTask.C_Projectproposal_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_ProjectProposalTask.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_ProjectProposalTask.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cProjectproposalId" id="paramKeyParent"></Parameter>
+<Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="created"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cProjectproposaltaskId"></Parameter><Parameter name="note"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adUserId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef800112_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef800110_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_ProjectProposalTask.C_Projectproposal_ID AS NAME
+        FROM C_ProjectProposalTask
+        WHERE C_ProjectProposalTask.C_Projectproposaltask_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))) AS NAME FROM C_ProjectProposal left join (select C_Projectproposal_ID, C_Project_ID, C_BPartner_ID from C_Projectproposal) table1 on (C_ProjectProposal.C_Projectproposal_ID = table1.C_Projectproposal_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) left join (select C_BPartner_ID, Name from C_BPartner) table3 on (table1.C_BPartner_ID = table3.C_BPartner_ID) WHERE C_ProjectProposal.C_Projectproposal_ID = ?  
+    ]]></Sql>
+<Parameter name="cProjectproposalId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))) AS NAME FROM C_ProjectProposal left join (select C_Projectproposal_ID, C_Project_ID, C_BPartner_ID from C_Projectproposal) table1 on (C_ProjectProposal.C_Projectproposal_ID = table1.C_Projectproposal_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) left join (select C_BPartner_ID, Name from C_BPartner) table3 on (table1.C_BPartner_ID = table3.C_BPartner_ID) WHERE C_ProjectProposal.C_Projectproposal_ID = ?  
+    ]]></Sql>
+<Parameter name="cProjectproposalId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_ProjectProposalTask
+        SET C_Projectproposaltask_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , C_Projectproposal_ID = (?) , AD_User_ID = (?) , IsActive = (?) , Note = (?) , updated = now(), updatedby = ? 
+        WHERE C_ProjectProposalTask.C_Projectproposaltask_ID = ? 
+                 AND C_ProjectProposalTask.C_Projectproposal_ID = ? 
+        AND C_ProjectProposalTask.AD_Client_ID IN ('1') 
+        AND C_ProjectProposalTask.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cProjectproposaltaskId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cProjectproposalId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="note"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cProjectproposaltaskId"></Parameter>
+    
+    <Parameter name="cProjectproposalId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_ProjectProposalTask.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_ProjectProposalTask.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_ProjectProposalTask 
+        (C_Projectproposaltask_ID, AD_Client_ID, AD_Org_ID, C_Projectproposal_ID, AD_User_ID, IsActive, Note, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cProjectproposaltaskId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cProjectproposalId"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="note"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_ProjectProposalTask
+        WHERE C_ProjectProposalTask.C_Projectproposaltask_ID = ? 
+                 AND C_ProjectProposalTask.C_Projectproposal_ID = ? 
+        AND C_ProjectProposalTask.AD_Client_ID IN ('1') 
+        AND C_ProjectProposalTask.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cProjectproposalId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_ProjectProposalTask.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_ProjectProposalTask.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_ProjectProposalTask
+        WHERE C_ProjectProposalTask.C_Projectproposaltask_ID = ? 
+                 AND C_ProjectProposalTask.C_Projectproposal_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cProjectproposalId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_ProjectProposalTask
+         WHERE C_ProjectProposalTask.C_Projectproposaltask_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_ProjectProposalTask
+         WHERE C_ProjectProposalTask.C_Projectproposaltask_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

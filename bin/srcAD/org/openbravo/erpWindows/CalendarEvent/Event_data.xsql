@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="EventData" package="org.openbravo.erpWindows.CalendarEvent">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_CALENDAREVENT.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_CALENDAREVENT.CreatedBy) as CreatedByR, 
+        to_char(C_CALENDAREVENT.Updated, ?) as updated, 
+        to_char(C_CALENDAREVENT.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_CALENDAREVENT.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_CALENDAREVENT.UpdatedBy) as UpdatedByR,
+        C_CALENDAREVENT.C_Calendarevent_ID, 
+C_CALENDAREVENT.AD_Org_ID, 
+(CASE WHEN C_CALENDAREVENT.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(C_CALENDAREVENT.Isactive, 'N') AS Isactive, 
+C_CALENDAREVENT.Name, 
+C_CALENDAREVENT.Worktime, 
+COALESCE(C_CALENDAREVENT.Reminder, 'N') AS Reminder, 
+C_CALENDAREVENT.C_Color_ID, 
+(CASE WHEN C_CALENDAREVENT.C_Color_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS C_Color_IDR, 
+C_CALENDAREVENT.Correlation, 
+(CASE WHEN C_CALENDAREVENT.Correlation IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS CorrelationR, 
+C_CALENDAREVENT.AD_Client_ID, 
+COALESCE(C_CALENDAREVENT.Isholyday, 'N') AS Isholyday, 
+COALESCE(C_CALENDAREVENT.Isworkcalendar, 'N') AS Isworkcalendar, 
+COALESCE(C_CALENDAREVENT.Isemployeecalendar, 'N') AS Isemployeecalendar, 
+COALESCE(C_CALENDAREVENT.Ismachinecalendar, 'N') AS Ismachinecalendar, 
+ 
+        ? AS LANGUAGE 
+        FROM C_CALENDAREVENT left join (select AD_Org_ID, Name from AD_Org) table1 on (C_CALENDAREVENT.AD_Org_ID = table1.AD_Org_ID) left join (select C_Color_ID, Name from C_Color) table2 on (C_CALENDAREVENT.C_Color_ID = table2.C_Color_ID) left join ad_ref_list_v list1 on (C_CALENDAREVENT.Correlation = list1.value and list1.ad_reference_id = '19EF07A3856A47AA8DE44E73AE8C921B' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_CALENDAREVENT.C_Calendarevent_ID = ? 
+        AND C_CALENDAREVENT.AD_Client_ID IN ('1') 
+           AND C_CALENDAREVENT.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_CALENDAREVENT.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_CALENDAREVENT.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="adClientId"></Parameter><Parameter name="cCalendareventId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isholyday"></Parameter><Parameter name="isemployeecalendar"></Parameter><Parameter name="isworkcalendar"></Parameter><Parameter name="worktime"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="reminder"></Parameter><Parameter name="correlation"></Parameter><Parameter name="name"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cColorId"></Parameter><Parameter name="ismachinecalendar"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefC47AFE8748E34EA4ADCA5D9B6263B53C_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef41C811A91C7247E9B6737B33530440AD_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_CALENDAREVENT
+        SET C_Calendarevent_ID = (?) , AD_Org_ID = (?) , Isactive = (?) , Name = (?) , Worktime = TO_NUMBER(?) , Reminder = (?) , C_Color_ID = (?) , Correlation = (?) , AD_Client_ID = (?) , Isholyday = (?) , Isworkcalendar = (?) , Isemployeecalendar = (?) , Ismachinecalendar = (?) , updated = now(), updatedby = ? 
+        WHERE C_CALENDAREVENT.C_Calendarevent_ID = ? 
+        
+        AND C_CALENDAREVENT.AD_Client_ID IN ('1') 
+        AND C_CALENDAREVENT.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cCalendareventId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="worktime"></Parameter> <Parameter name="reminder"></Parameter> <Parameter name="cColorId"></Parameter> <Parameter name="correlation"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isholyday"></Parameter> <Parameter name="isworkcalendar"></Parameter> <Parameter name="isemployeecalendar"></Parameter> <Parameter name="ismachinecalendar"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cCalendareventId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_CALENDAREVENT.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_CALENDAREVENT.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_CALENDAREVENT 
+        (C_Calendarevent_ID, AD_Org_ID, Isactive, Name, Worktime, Reminder, C_Color_ID, Correlation, AD_Client_ID, Isholyday, Isworkcalendar, Isemployeecalendar, Ismachinecalendar, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cCalendareventId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="name"></Parameter> <Parameter name="worktime"></Parameter> <Parameter name="reminder"></Parameter> <Parameter name="cColorId"></Parameter> <Parameter name="correlation"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="isholyday"></Parameter> <Parameter name="isworkcalendar"></Parameter> <Parameter name="isemployeecalendar"></Parameter> <Parameter name="ismachinecalendar"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_CALENDAREVENT
+        WHERE C_CALENDAREVENT.C_Calendarevent_ID = ? 
+        
+        AND C_CALENDAREVENT.AD_Client_ID IN ('1') 
+        AND C_CALENDAREVENT.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_CALENDAREVENT.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_CALENDAREVENT.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_CALENDAREVENT
+        WHERE C_CALENDAREVENT.C_Calendarevent_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_CALENDAREVENT
+         WHERE C_CALENDAREVENT.C_Calendarevent_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_CALENDAREVENT
+         WHERE C_CALENDAREVENT.C_Calendarevent_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

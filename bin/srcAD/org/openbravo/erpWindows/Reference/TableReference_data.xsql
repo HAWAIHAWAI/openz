@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="TableReferenceData" package="org.openbravo.erpWindows.Reference">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Ref_Table.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Ref_Table.CreatedBy) as CreatedByR, 
+        to_char(AD_Ref_Table.Updated, ?) as updated, 
+        to_char(AD_Ref_Table.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Ref_Table.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Ref_Table.UpdatedBy) as UpdatedByR,
+        AD_Ref_Table.AD_Client_ID, 
+(CASE WHEN AD_Ref_Table.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Ref_Table.AD_Org_ID, 
+(CASE WHEN AD_Ref_Table.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_Ref_Table.AD_Reference_ID, 
+(CASE WHEN AD_Ref_Table.AD_Reference_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(list1.name),'') ) END) AS AD_Reference_IDR, 
+AD_Ref_Table.AD_Table_ID, 
+(CASE WHEN AD_Ref_Table.AD_Table_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.TableName), ''))),'') ) END) AS AD_Table_IDR, 
+AD_Ref_Table.AD_Key, 
+(CASE WHEN AD_Ref_Table.AD_Key IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.ColumnName), ''))),'') ) END) AS AD_KeyR, 
+AD_Ref_Table.AD_Display, 
+(CASE WHEN AD_Ref_Table.AD_Display IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.ColumnName), ''))),'') ) END) AS AD_DisplayR, 
+COALESCE(AD_Ref_Table.IsValueDisplayed, 'N') AS IsValueDisplayed, 
+COALESCE(AD_Ref_Table.IsActive, 'N') AS IsActive, 
+AD_Ref_Table.WhereClause, 
+AD_Ref_Table.OrderByClause, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Ref_Table left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_Ref_Table.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_Ref_Table.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Reference_ID, Name, ValidationType from AD_Reference) table3 on (AD_Ref_Table.AD_Reference_ID = table3.AD_Reference_ID) left join (select AD_Reference_ID,AD_Language, Name from AD_Reference_TRL) tableTRL3 on (table3.AD_Reference_ID = tableTRL3.AD_Reference_ID and tableTRL3.AD_Language = ?)  left join ad_ref_list_v list1 on (table3.ValidationType = list1.value and list1.ad_reference_id = '2' and list1.ad_language = ?)  left join (select AD_Table_ID, TableName from AD_Table) table4 on (AD_Ref_Table.AD_Table_ID = table4.AD_Table_ID) left join (select AD_Column_ID, ColumnName from AD_Column) table5 on (AD_Ref_Table.AD_Key =  table5.AD_Column_ID) left join (select AD_Column_ID, ColumnName from AD_Column) table6 on (AD_Ref_Table.AD_Display =  table6.AD_Column_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_Ref_Table.AD_Reference_ID = ? 
+        AND AD_Ref_Table.AD_Client_ID IN ('1') 
+           AND AD_Ref_Table.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adReferenceId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND AD_Ref_Table.AD_Reference_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Ref_Table.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Ref_Table.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adReferenceId" id="paramKeyParent"></Parameter>
+<Parameter name="adKey"></Parameter><Parameter name="isvaluedisplayed"></Parameter><Parameter name="orderbyclause"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="whereclause"></Parameter><Parameter name="adDisplay"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adTableId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef560_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef562_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT AD_Ref_Table.AD_Reference_ID AS NAME
+        FROM AD_Ref_Table
+        WHERE AD_Ref_Table.AD_Reference_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), '')) || ' - ' || list1.name) AS NAME FROM AD_Reference left join (select AD_Reference_ID, Name, ValidationType from AD_Reference) table1 on (AD_Reference.AD_Reference_ID = table1.AD_Reference_ID) left join (select AD_Reference_ID,AD_Language, Name from AD_Reference_TRL) tableTRL1 on (table1.AD_Reference_ID = tableTRL1.AD_Reference_ID and tableTRL1.AD_Language = ?)  left join ad_ref_list_v list1 on (table1.ValidationType = list1.value and list1.ad_reference_id = '2' and list1.ad_language = ?)  WHERE AD_Reference.AD_Reference_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="adReferenceId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), '')) || ' - ' || list1.name) AS NAME FROM AD_Reference left join (select AD_Reference_ID, Name, ValidationType from AD_Reference) table1 on (AD_Reference.AD_Reference_ID = table1.AD_Reference_ID) left join (select AD_Reference_ID,AD_Language, Name from AD_Reference_TRL) tableTRL1 on (table1.AD_Reference_ID = tableTRL1.AD_Reference_ID and tableTRL1.AD_Language = ?)  left join ad_ref_list_v list1 on (table1.ValidationType = list1.value and list1.ad_reference_id = '2' and list1.ad_language = ?)  WHERE AD_Reference.AD_Reference_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="adReferenceId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Ref_Table
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , AD_Reference_ID = (?) , AD_Table_ID = (?) , AD_Key = (?) , AD_Display = (?) , IsValueDisplayed = (?) , IsActive = (?) , WhereClause = (?) , OrderByClause = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Ref_Table.AD_Reference_ID = ? 
+                 AND AD_Ref_Table.AD_Reference_ID = ? 
+        AND AD_Ref_Table.AD_Client_ID IN ('1') 
+        AND AD_Ref_Table.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adReferenceId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adKey"></Parameter> <Parameter name="adDisplay"></Parameter> <Parameter name="isvaluedisplayed"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="whereclause"></Parameter> <Parameter name="orderbyclause"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adReferenceId"></Parameter>
+    
+    <Parameter name="adReferenceId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Ref_Table.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Ref_Table.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Ref_Table 
+        (AD_Client_ID, AD_Org_ID, AD_Reference_ID, AD_Table_ID, AD_Key, AD_Display, IsValueDisplayed, IsActive, WhereClause, OrderByClause, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adReferenceId"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adKey"></Parameter> <Parameter name="adDisplay"></Parameter> <Parameter name="isvaluedisplayed"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="whereclause"></Parameter> <Parameter name="orderbyclause"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Ref_Table
+        WHERE AD_Ref_Table.AD_Reference_ID = ? 
+                 AND AD_Ref_Table.AD_Reference_ID = ? 
+        AND AD_Ref_Table.AD_Client_ID IN ('1') 
+        AND AD_Ref_Table.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adReferenceId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Ref_Table.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Ref_Table.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Ref_Table
+        WHERE AD_Ref_Table.AD_Reference_ID = ? 
+                 AND AD_Ref_Table.AD_Reference_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adReferenceId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Ref_Table
+         WHERE AD_Ref_Table.AD_Reference_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Ref_Table
+         WHERE AD_Ref_Table.AD_Reference_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="LocationData" package="org.openbravo.erpWindows.Location">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_Location.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Location.CreatedBy) as CreatedByR, 
+        to_char(C_Location.Updated, ?) as updated, 
+        to_char(C_Location.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_Location.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_Location.UpdatedBy) as UpdatedByR,
+        C_Location.C_City_ID, 
+C_Location.RegionName, 
+C_Location.AD_Client_ID, 
+(CASE WHEN C_Location.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_Location.AD_Org_ID, 
+(CASE WHEN C_Location.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(C_Location.IsActive, 'N') AS IsActive, 
+C_Location.Address1, 
+C_Location.Address2, 
+C_Location.City, 
+C_Location.Postal, 
+C_Location.C_Region_ID, 
+(CASE WHEN C_Location.C_Region_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS C_Region_IDR, 
+C_Location.C_Country_ID, 
+(CASE WHEN C_Location.C_Country_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL4.Name IS NULL THEN TO_CHAR(table4.Name) ELSE TO_CHAR(tableTRL4.Name) END)), ''))),'') ) END) AS C_Country_IDR, 
+C_Location.Postal_Add, 
+C_Location.C_Location_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM C_Location left join (select AD_Client_ID, Name from AD_Client) table1 on (C_Location.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_Location.AD_Org_ID = table2.AD_Org_ID) left join (select C_Region_ID, Name from C_Region) table3 on (C_Location.C_Region_ID = table3.C_Region_ID) left join (select C_Country_ID, Name from C_Country) table4 on (C_Location.C_Country_ID = table4.C_Country_ID) left join (select C_Country_ID,AD_Language, Name from C_Country_TRL) tableTRL4 on (table4.C_Country_ID = tableTRL4.C_Country_ID and tableTRL4.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_Location.C_Location_ID = ? 
+        AND C_Location.AD_Client_ID IN ('1') 
+           AND C_Location.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Location.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Location.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="city"></Parameter><Parameter name="isactive"></Parameter><Parameter name="postalAdd"></Parameter><Parameter name="address2"></Parameter><Parameter name="cCityId"></Parameter><Parameter name="cRegionId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="cLocationId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="postal"></Parameter><Parameter name="address1"></Parameter><Parameter name="cCountryId"></Parameter><Parameter name="regionname"></Parameter><Parameter name="adClientId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef815_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef813_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_Location
+        SET C_City_ID = (?) , RegionName = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , IsActive = (?) , Address1 = (?) , Address2 = (?) , City = (?) , Postal = (?) , C_Region_ID = (?) , C_Country_ID = (?) , Postal_Add = (?) , C_Location_ID = (?) , updated = now(), updatedby = ? 
+        WHERE C_Location.C_Location_ID = ? 
+        
+        AND C_Location.AD_Client_ID IN ('1') 
+        AND C_Location.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cCityId"></Parameter> <Parameter name="regionname"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="city"></Parameter> <Parameter name="postal"></Parameter> <Parameter name="cRegionId"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="postalAdd"></Parameter> <Parameter name="cLocationId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cLocationId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Location.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Location.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_Location 
+        (C_City_ID, RegionName, AD_Client_ID, AD_Org_ID, IsActive, Address1, Address2, City, Postal, C_Region_ID, C_Country_ID, Postal_Add, C_Location_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cCityId"></Parameter> <Parameter name="regionname"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="address1"></Parameter> <Parameter name="address2"></Parameter> <Parameter name="city"></Parameter> <Parameter name="postal"></Parameter> <Parameter name="cRegionId"></Parameter> <Parameter name="cCountryId"></Parameter> <Parameter name="postalAdd"></Parameter> <Parameter name="cLocationId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Location
+        WHERE C_Location.C_Location_ID = ? 
+        
+        AND C_Location.AD_Client_ID IN ('1') 
+        AND C_Location.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_Location.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_Location.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_Location
+        WHERE C_Location.C_Location_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_Location
+         WHERE C_Location.C_Location_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_Location
+         WHERE C_Location.C_Location_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

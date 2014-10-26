@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="InformationData" package="org.openbravo.erpWindows.Client">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_ClientInfo.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_ClientInfo.CreatedBy) as CreatedByR, 
+        to_char(AD_ClientInfo.Updated, ?) as updated, 
+        to_char(AD_ClientInfo.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_ClientInfo.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_ClientInfo.UpdatedBy) as UpdatedByR,
+        AD_ClientInfo.AD_Client_ID, 
+(CASE WHEN AD_ClientInfo.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_ClientInfo.AD_Tree_Org_ID, 
+(CASE WHEN AD_ClientInfo.AD_Tree_Org_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Tree_Org_IDR, 
+AD_ClientInfo.AD_Tree_Menu_ID, 
+(CASE WHEN AD_ClientInfo.AD_Tree_Menu_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_Tree_Menu_IDR, 
+AD_ClientInfo.AD_Tree_BPartner_ID, 
+(CASE WHEN AD_ClientInfo.AD_Tree_BPartner_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Tree_BPartner_IDR, 
+AD_ClientInfo.AD_Tree_Product_ID, 
+(CASE WHEN AD_ClientInfo.AD_Tree_Product_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Tree_Product_IDR, 
+AD_ClientInfo.AD_Tree_Project_ID, 
+(CASE WHEN AD_ClientInfo.AD_Tree_Project_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Name), ''))),'') ) END) AS AD_Tree_Project_IDR, 
+AD_ClientInfo.AD_Tree_SalesRegion_ID, 
+(CASE WHEN AD_ClientInfo.AD_Tree_SalesRegion_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS AD_Tree_SalesRegion_IDR, 
+COALESCE(AD_ClientInfo.AllowNegativeStock, 'N') AS AllowNegativeStock, 
+COALESCE(AD_ClientInfo.Checkinoutorg, 'N') AS Checkinoutorg, 
+COALESCE(AD_ClientInfo.Checkorderorg, 'N') AS Checkorderorg, 
+AD_ClientInfo.Your_Company_Big_Image, 
+AD_ClientInfo.Your_Company_Document_Image, 
+AD_ClientInfo.Your_Company_Menu_Image, 
+AD_ClientInfo.M_ProductFreight_ID, 
+COALESCE(AD_ClientInfo.IsDiscountLineAmt, 'N') AS IsDiscountLineAmt, 
+AD_ClientInfo.C_BPartnerCashTrx_ID, 
+AD_ClientInfo.M_PriceList_ID, 
+AD_ClientInfo.C_UOM_Time_ID, 
+AD_ClientInfo.C_UOM_Length_ID, 
+AD_ClientInfo.C_UOM_Weight_ID, 
+COALESCE(AD_ClientInfo.Groupacctinvlines, 'N') AS Groupacctinvlines, 
+AD_ClientInfo.C_Calendar_ID, 
+AD_ClientInfo.C_AcctSchema1_ID, 
+COALESCE(AD_ClientInfo.Acct2_Active, 'N') AS Acct2_Active, 
+AD_ClientInfo.C_AcctSchema2_ID, 
+COALESCE(AD_ClientInfo.Acct3_Active, 'N') AS Acct3_Active, 
+AD_ClientInfo.C_AcctSchema3_ID, 
+COALESCE(AD_ClientInfo.IsActive, 'N') AS IsActive, 
+AD_ClientInfo.AD_Org_ID, 
+AD_ClientInfo.C_UOM_Volume_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_ClientInfo left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_ClientInfo.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Tree_ID, Name from AD_Tree) table2 on (AD_ClientInfo.AD_Tree_Org_ID =  table2.AD_Tree_ID) left join (select AD_Tree_ID, Name from AD_Tree) table3 on (AD_ClientInfo.AD_Tree_Menu_ID =  table3.AD_Tree_ID) left join (select AD_Tree_ID, Name from AD_Tree) table4 on (AD_ClientInfo.AD_Tree_BPartner_ID =  table4.AD_Tree_ID) left join (select AD_Tree_ID, Name from AD_Tree) table5 on (AD_ClientInfo.AD_Tree_Product_ID =  table5.AD_Tree_ID) left join (select AD_Tree_ID, Name from AD_Tree) table6 on (AD_ClientInfo.AD_Tree_Project_ID =  table6.AD_Tree_ID) left join (select AD_Tree_ID, Name from AD_Tree) table7 on (AD_ClientInfo.AD_Tree_SalesRegion_ID =  table7.AD_Tree_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_ClientInfo.AD_Client_ID = ? 
+        AND AD_ClientInfo.AD_Client_ID IN ('1') 
+           AND AD_ClientInfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_ClientInfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_ClientInfo.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="yourCompanyDocumentImage"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="mProductfreightId"></Parameter><Parameter name="yourCompanyMenuImage"></Parameter><Parameter name="cUomWeightId"></Parameter><Parameter name="allownegativestock"></Parameter><Parameter name="isactive"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="cCalendarId"></Parameter><Parameter name="cAcctschema3Id"></Parameter><Parameter name="adTreeMenuId"></Parameter><Parameter name="checkorderorg"></Parameter><Parameter name="adTreeOrgId"></Parameter><Parameter name="isdiscountlineamt"></Parameter><Parameter name="groupacctinvlines"></Parameter><Parameter name="cAcctschema2Id"></Parameter><Parameter name="acct2Active"></Parameter><Parameter name="adTreeSalesregionId"></Parameter><Parameter name="checkinoutorg"></Parameter><Parameter name="acct3Active"></Parameter><Parameter name="cUomTimeId"></Parameter><Parameter name="cAcctschema1Id"></Parameter><Parameter name="adTreeProductId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adTreeBpartnerId"></Parameter><Parameter name="cBpartnercashtrxId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="cUomLengthId"></Parameter><Parameter name="yourCompanyBigImage"></Parameter><Parameter name="cUomVolumeId"></Parameter><Parameter name="adTreeProjectId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1989_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1987_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_ClientInfo
+        SET AD_Client_ID = (?) , AD_Tree_Org_ID = (?) , AD_Tree_Menu_ID = (?) , AD_Tree_BPartner_ID = (?) , AD_Tree_Product_ID = (?) , AD_Tree_Project_ID = (?) , AD_Tree_SalesRegion_ID = (?) , AllowNegativeStock = (?) , Checkinoutorg = (?) , Checkorderorg = (?) , Your_Company_Big_Image = (?) , Your_Company_Document_Image = (?) , Your_Company_Menu_Image = (?) , M_ProductFreight_ID = (?) , IsDiscountLineAmt = (?) , C_BPartnerCashTrx_ID = (?) , M_PriceList_ID = (?) , C_UOM_Time_ID = (?) , C_UOM_Length_ID = (?) , C_UOM_Weight_ID = (?) , Groupacctinvlines = (?) , C_Calendar_ID = (?) , C_AcctSchema1_ID = (?) , Acct2_Active = (?) , C_AcctSchema2_ID = (?) , Acct3_Active = (?) , C_AcctSchema3_ID = (?) , IsActive = (?) , AD_Org_ID = (?) , C_UOM_Volume_ID = (?) , updated = now(), updatedby = ? 
+        WHERE AD_ClientInfo.AD_Client_ID = ? 
+        
+        AND AD_ClientInfo.AD_Client_ID IN ('1') 
+        AND AD_ClientInfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adTreeOrgId"></Parameter> <Parameter name="adTreeMenuId"></Parameter> <Parameter name="adTreeBpartnerId"></Parameter> <Parameter name="adTreeProductId"></Parameter> <Parameter name="adTreeProjectId"></Parameter> <Parameter name="adTreeSalesregionId"></Parameter> <Parameter name="allownegativestock"></Parameter> <Parameter name="checkinoutorg"></Parameter> <Parameter name="checkorderorg"></Parameter> <Parameter name="yourCompanyBigImage"></Parameter> <Parameter name="yourCompanyDocumentImage"></Parameter> <Parameter name="yourCompanyMenuImage"></Parameter> <Parameter name="mProductfreightId"></Parameter> <Parameter name="isdiscountlineamt"></Parameter> <Parameter name="cBpartnercashtrxId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="cUomTimeId"></Parameter> <Parameter name="cUomLengthId"></Parameter> <Parameter name="cUomWeightId"></Parameter> <Parameter name="groupacctinvlines"></Parameter> <Parameter name="cCalendarId"></Parameter> <Parameter name="cAcctschema1Id"></Parameter> <Parameter name="acct2Active"></Parameter> <Parameter name="cAcctschema2Id"></Parameter> <Parameter name="acct3Active"></Parameter> <Parameter name="cAcctschema3Id"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cUomVolumeId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adClientId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_ClientInfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_ClientInfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_ClientInfo 
+        (AD_Client_ID, AD_Tree_Org_ID, AD_Tree_Menu_ID, AD_Tree_BPartner_ID, AD_Tree_Product_ID, AD_Tree_Project_ID, AD_Tree_SalesRegion_ID, AllowNegativeStock, Checkinoutorg, Checkorderorg, Your_Company_Big_Image, Your_Company_Document_Image, Your_Company_Menu_Image, M_ProductFreight_ID, IsDiscountLineAmt, C_BPartnerCashTrx_ID, M_PriceList_ID, C_UOM_Time_ID, C_UOM_Length_ID, C_UOM_Weight_ID, Groupacctinvlines, C_Calendar_ID, C_AcctSchema1_ID, Acct2_Active, C_AcctSchema2_ID, Acct3_Active, C_AcctSchema3_ID, IsActive, AD_Org_ID, C_UOM_Volume_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adTreeOrgId"></Parameter> <Parameter name="adTreeMenuId"></Parameter> <Parameter name="adTreeBpartnerId"></Parameter> <Parameter name="adTreeProductId"></Parameter> <Parameter name="adTreeProjectId"></Parameter> <Parameter name="adTreeSalesregionId"></Parameter> <Parameter name="allownegativestock"></Parameter> <Parameter name="checkinoutorg"></Parameter> <Parameter name="checkorderorg"></Parameter> <Parameter name="yourCompanyBigImage"></Parameter> <Parameter name="yourCompanyDocumentImage"></Parameter> <Parameter name="yourCompanyMenuImage"></Parameter> <Parameter name="mProductfreightId"></Parameter> <Parameter name="isdiscountlineamt"></Parameter> <Parameter name="cBpartnercashtrxId"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="cUomTimeId"></Parameter> <Parameter name="cUomLengthId"></Parameter> <Parameter name="cUomWeightId"></Parameter> <Parameter name="groupacctinvlines"></Parameter> <Parameter name="cCalendarId"></Parameter> <Parameter name="cAcctschema1Id"></Parameter> <Parameter name="acct2Active"></Parameter> <Parameter name="cAcctschema2Id"></Parameter> <Parameter name="acct3Active"></Parameter> <Parameter name="cAcctschema3Id"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cUomVolumeId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_ClientInfo
+        WHERE AD_ClientInfo.AD_Client_ID = ? 
+        
+        AND AD_ClientInfo.AD_Client_ID IN ('1') 
+        AND AD_ClientInfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_ClientInfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_ClientInfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_ClientInfo
+        WHERE AD_ClientInfo.AD_Client_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_ClientInfo
+         WHERE AD_ClientInfo.AD_Client_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_ClientInfo
+         WHERE AD_ClientInfo.AD_Client_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

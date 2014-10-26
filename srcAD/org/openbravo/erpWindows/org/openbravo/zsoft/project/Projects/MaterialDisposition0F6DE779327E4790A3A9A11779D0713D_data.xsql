@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="MaterialDisposition0F6DE779327E4790A3A9A11779D0713DData" package="org.openbravo.erpWindows.org.openbravo.zsoft.project.Projects">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zspm_projecttaskbom_view.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspm_projecttaskbom_view.CreatedBy) as CreatedByR, 
+        to_char(zspm_projecttaskbom_view.Updated, ?) as updated, 
+        to_char(zspm_projecttaskbom_view.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zspm_projecttaskbom_view.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zspm_projecttaskbom_view.UpdatedBy) as UpdatedByR,
+        zspm_projecttaskbom_view.C_Projecttask_ID, 
+(CASE WHEN zspm_projecttaskbom_view.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID, 
+zspm_projecttaskbom_view.Line, 
+zspm_projecttaskbom_view.M_Product_ID, 
+(CASE WHEN zspm_projecttaskbom_view.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+zspm_projecttaskbom_view.Description, 
+zspm_projecttaskbom_view.AD_Client_ID, 
+zspm_projecttaskbom_view.AD_Org_ID, 
+zspm_projecttaskbom_view.Constuctivemeasure, 
+zspm_projecttaskbom_view.Rawmaterial, 
+zspm_projecttaskbom_view.M_Locator_ID, 
+(CASE WHEN zspm_projecttaskbom_view.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'') ) END) AS M_Locator_IDR, 
+zspm_projecttaskbom_view.QTY_Plan, 
+zspm_projecttaskbom_view.Cutoff, 
+zspm_projecttaskbom_view.Quantity, 
+zspm_projecttaskbom_view.Date_Plan, 
+COALESCE(zspm_projecttaskbom_view.isreturnafteruse, 'N') AS isreturnafteruse, 
+COALESCE(zspm_projecttaskbom_view.Planrequisition, 'N') AS Planrequisition, 
+COALESCE(zspm_projecttaskbom_view.Isactive, 'N') AS Isactive, 
+zspm_projecttaskbom_view.Qtyreceived, 
+zspm_projecttaskbom_view.QTY_Instock, 
+zspm_projecttaskbom_view.QTY_Inconsumption, 
+zspm_projecttaskbom_view.QTY_Available, 
+zspm_projecttaskbom_view.Qtyinrequisition, 
+zspm_projecttaskbom_view.Qtyreserved, 
+zspm_projecttaskbom_view.QTY_Ordered, 
+zspm_projecttaskbom_view.QTY_Nextreceipt, 
+zspm_projecttaskbom_view.Date_Nextreceipt, 
+zspm_projecttaskbom_view.Actualcosamount, 
+zspm_projecttaskbom_view.plannedamt, 
+ 
+        ? AS LANGUAGE 
+        FROM zspm_projecttaskbom_view left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table1 on (zspm_projecttaskbom_view.C_Projecttask_ID = table1.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) left join (select M_Product_ID, Value, Name from M_Product) table3 on (zspm_projecttaskbom_view.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select M_Locator_ID, Value from M_Locator) table4 on (zspm_projecttaskbom_view.M_Locator_ID = table4.M_Locator_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID = ? 
+        AND zspm_projecttaskbom_view.AD_Client_ID IN ('1') 
+           AND zspm_projecttaskbom_view.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cProjecttaskId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zspm_projecttaskbom_view.C_Projecttask_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspm_projecttaskbom_view.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspm_projecttaskbom_view.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+<Parameter name="qtyInstock"></Parameter><Parameter name="isreturnafteruse"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="dateNextreceipt"></Parameter><Parameter name="plannedamt"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="constuctivemeasure"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="mLocatorIdr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="cutoff"></Parameter><Parameter name="line"></Parameter><Parameter name="actualcosamount"></Parameter><Parameter name="datePlan"></Parameter><Parameter name="qtyreceived"></Parameter><Parameter name="qtyNextreceipt"></Parameter><Parameter name="qtyInconsumption"></Parameter><Parameter name="qtyreserved"></Parameter><Parameter name="qtyinrequisition"></Parameter><Parameter name="qtyOrdered"></Parameter><Parameter name="zspmProjecttaskbomViewId"></Parameter><Parameter name="planrequisition"></Parameter><Parameter name="qtyPlan"></Parameter><Parameter name="qtyAvailable"></Parameter><Parameter name="description"></Parameter><Parameter name="isactive"></Parameter><Parameter name="rawmaterial"></Parameter><Parameter name="quantity"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef36D3710C11BA4C478269FA855BD6F9F1_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefA6B12CC55F2040858356D4D480345AD2_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Locator_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefB58091F4A926457D863F0E2200F63AD1_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefA7975728970945138506C6579D71286E" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(line),0)+10 AS DefaultValue FROM zspm_projecttaskbom_view WHERE c_projecttask_id=? 
+    ]]></Sql>
+
+<Parameter name="c_projecttask_id"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3705F5804CE2418589BE19F9AC2ECB35_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zspm_projecttaskbom_view.C_Projecttask_ID AS NAME
+        FROM zspm_projecttaskbom_view
+        WHERE zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))) AS NAME FROM C_ProjectTask left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table1 on (C_ProjectTask.C_Projecttask_ID = table1.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) WHERE C_ProjectTask.C_Projecttask_ID = ?  
+    ]]></Sql>
+<Parameter name="cProjecttaskId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))) AS NAME FROM C_ProjectTask left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table1 on (C_ProjectTask.C_Projecttask_ID = table1.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table2 on (table1.C_Project_ID = table2.C_Project_ID) WHERE C_ProjectTask.C_Projecttask_ID = ?  
+    ]]></Sql>
+<Parameter name="cProjecttaskId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zspm_projecttaskbom_view
+        SET C_Projecttask_ID = (?) , Zspm_Projecttaskbom_View_ID = (?) , Line = TO_NUMBER(?) , M_Product_ID = (?) , Description = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Constuctivemeasure = (?) , Rawmaterial = (?) , M_Locator_ID = (?) , QTY_Plan = TO_NUMBER(?) , Cutoff = TO_NUMBER(?) , Quantity = TO_NUMBER(?) , Date_Plan = TO_DATE(?) , isreturnafteruse = (?) , Planrequisition = (?) , Isactive = (?) , Qtyreceived = TO_NUMBER(?) , QTY_Instock = TO_NUMBER(?) , QTY_Inconsumption = TO_NUMBER(?) , QTY_Available = TO_NUMBER(?) , Qtyinrequisition = TO_NUMBER(?) , Qtyreserved = TO_NUMBER(?) , QTY_Ordered = TO_NUMBER(?) , QTY_Nextreceipt = TO_NUMBER(?) , Date_Nextreceipt = TO_DATE(?) , Actualcosamount = TO_NUMBER(?) , plannedamt = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID = ? 
+                 AND zspm_projecttaskbom_view.C_Projecttask_ID = ? 
+        AND zspm_projecttaskbom_view.AD_Client_ID IN ('1') 
+        AND zspm_projecttaskbom_view.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cProjecttaskId"></Parameter> <Parameter name="zspmProjecttaskbomViewId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="constuctivemeasure"></Parameter> <Parameter name="rawmaterial"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="qtyPlan"></Parameter> <Parameter name="cutoff"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="datePlan"></Parameter> <Parameter name="isreturnafteruse"></Parameter> <Parameter name="planrequisition"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="qtyreceived"></Parameter> <Parameter name="qtyInstock"></Parameter> <Parameter name="qtyInconsumption"></Parameter> <Parameter name="qtyAvailable"></Parameter> <Parameter name="qtyinrequisition"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyOrdered"></Parameter> <Parameter name="qtyNextreceipt"></Parameter> <Parameter name="dateNextreceipt"></Parameter> <Parameter name="actualcosamount"></Parameter> <Parameter name="plannedamt"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zspmProjecttaskbomViewId"></Parameter>
+    
+    <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspm_projecttaskbom_view.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspm_projecttaskbom_view.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zspm_projecttaskbom_view 
+        (C_Projecttask_ID, Zspm_Projecttaskbom_View_ID, Line, M_Product_ID, Description, AD_Client_ID, AD_Org_ID, Constuctivemeasure, Rawmaterial, M_Locator_ID, QTY_Plan, Cutoff, Quantity, Date_Plan, isreturnafteruse, Planrequisition, Isactive, Qtyreceived, QTY_Instock, QTY_Inconsumption, QTY_Available, Qtyinrequisition, Qtyreserved, QTY_Ordered, QTY_Nextreceipt, Date_Nextreceipt, Actualcosamount, plannedamt, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_DATE(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_DATE(?), TO_NUMBER(?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cProjecttaskId"></Parameter> <Parameter name="zspmProjecttaskbomViewId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="constuctivemeasure"></Parameter> <Parameter name="rawmaterial"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="qtyPlan"></Parameter> <Parameter name="cutoff"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="datePlan"></Parameter> <Parameter name="isreturnafteruse"></Parameter> <Parameter name="planrequisition"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="qtyreceived"></Parameter> <Parameter name="qtyInstock"></Parameter> <Parameter name="qtyInconsumption"></Parameter> <Parameter name="qtyAvailable"></Parameter> <Parameter name="qtyinrequisition"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyOrdered"></Parameter> <Parameter name="qtyNextreceipt"></Parameter> <Parameter name="dateNextreceipt"></Parameter> <Parameter name="actualcosamount"></Parameter> <Parameter name="plannedamt"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspm_projecttaskbom_view
+        WHERE zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID = ? 
+                 AND zspm_projecttaskbom_view.C_Projecttask_ID = ? 
+        AND zspm_projecttaskbom_view.AD_Client_ID IN ('1') 
+        AND zspm_projecttaskbom_view.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zspm_projecttaskbom_view.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zspm_projecttaskbom_view.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zspm_projecttaskbom_view
+        WHERE zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID = ? 
+                 AND zspm_projecttaskbom_view.C_Projecttask_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cProjecttaskId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zspm_projecttaskbom_view
+         WHERE zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zspm_projecttaskbom_view
+         WHERE zspm_projecttaskbom_view.Zspm_Projecttaskbom_View_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

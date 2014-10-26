@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="CompanyGroupsBrandsC3F7D6483B3B41BF9575FDA9119FED53Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.smartui.CompanyGroupsBrands">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssi_groupofcompanies.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_groupofcompanies.CreatedBy) as CreatedByR, 
+        to_char(zssi_groupofcompanies.Updated, ?) as updated, 
+        to_char(zssi_groupofcompanies.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssi_groupofcompanies.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssi_groupofcompanies.UpdatedBy) as UpdatedByR,
+        zssi_groupofcompanies.AD_Org_ID, 
+(CASE WHEN zssi_groupofcompanies.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+zssi_groupofcompanies.Zssi_Groupofcompanies_ID, 
+zssi_groupofcompanies.AD_Client_ID, 
+zssi_groupofcompanies.Name, 
+zssi_groupofcompanies.Description, 
+COALESCE(zssi_groupofcompanies.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM zssi_groupofcompanies left join (select AD_Org_ID, Name from AD_Org) table1 on (zssi_groupofcompanies.AD_Org_ID = table1.AD_Org_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssi_groupofcompanies.Zssi_Groupofcompanies_ID = ? 
+        AND zssi_groupofcompanies.AD_Client_ID IN ('1') 
+           AND zssi_groupofcompanies.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_groupofcompanies.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_groupofcompanies.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="name"></Parameter><Parameter name="description"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="zssiGroupofcompaniesId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefA36E0B44C90A446AA42FCDD2994265DE_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef40DBBA0BDE1B4D4489B9F3110C8C18C4_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssi_groupofcompanies
+        SET AD_Org_ID = (?) , Zssi_Groupofcompanies_ID = (?) , AD_Client_ID = (?) , Name = (?) , Description = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE zssi_groupofcompanies.Zssi_Groupofcompanies_ID = ? 
+        
+        AND zssi_groupofcompanies.AD_Client_ID IN ('1') 
+        AND zssi_groupofcompanies.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="zssiGroupofcompaniesId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssiGroupofcompaniesId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_groupofcompanies.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_groupofcompanies.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssi_groupofcompanies 
+        (AD_Org_ID, Zssi_Groupofcompanies_ID, AD_Client_ID, Name, Description, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="zssiGroupofcompaniesId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_groupofcompanies
+        WHERE zssi_groupofcompanies.Zssi_Groupofcompanies_ID = ? 
+        
+        AND zssi_groupofcompanies.AD_Client_ID IN ('1') 
+        AND zssi_groupofcompanies.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssi_groupofcompanies.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssi_groupofcompanies.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssi_groupofcompanies
+        WHERE zssi_groupofcompanies.Zssi_Groupofcompanies_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssi_groupofcompanies
+         WHERE zssi_groupofcompanies.Zssi_Groupofcompanies_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssi_groupofcompanies
+         WHERE zssi_groupofcompanies.Zssi_Groupofcompanies_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

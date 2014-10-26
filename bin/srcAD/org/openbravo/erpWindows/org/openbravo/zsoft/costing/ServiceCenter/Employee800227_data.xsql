@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Employee800227Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.costing.ServiceCenter">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(MA_Costcenter_Employee.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Costcenter_Employee.CreatedBy) as CreatedByR, 
+        to_char(MA_Costcenter_Employee.Updated, ?) as updated, 
+        to_char(MA_Costcenter_Employee.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        MA_Costcenter_Employee.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = MA_Costcenter_Employee.UpdatedBy) as UpdatedByR,
+        MA_Costcenter_Employee.AD_Client_ID, 
+(CASE WHEN MA_Costcenter_Employee.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+MA_Costcenter_Employee.MA_Costcenter_Employee_ID, 
+MA_Costcenter_Employee.AD_Org_ID, 
+(CASE WHEN MA_Costcenter_Employee.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+MA_Costcenter_Employee.MA_Costcenter_Version_ID, 
+(CASE WHEN MA_Costcenter_Employee.MA_Costcenter_Version_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.ValidFrom, 'DD-MM-YYYY')),'') ) END) AS MA_Costcenter_Version_IDR, 
+COALESCE(MA_Costcenter_Employee.IsActive, 'N') AS IsActive, 
+MA_Costcenter_Employee.C_Salary_Category_ID, 
+(CASE WHEN MA_Costcenter_Employee.C_Salary_Category_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS C_Salary_Category_IDR, 
+MA_Costcenter_Employee.Quantity, 
+MA_Costcenter_Employee.Costuom, 
+(CASE WHEN MA_Costcenter_Employee.Costuom IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS CostuomR, 
+ 
+        ? AS LANGUAGE 
+        FROM MA_Costcenter_Employee left join (select AD_Client_ID, Name from AD_Client) table1 on (MA_Costcenter_Employee.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (MA_Costcenter_Employee.AD_Org_ID = table2.AD_Org_ID) left join (select MA_Costcenter_Version_ID, DocumentNo, MA_Costcenter_ID, ValidFrom from MA_Costcenter_Version) table3 on (MA_Costcenter_Employee.MA_Costcenter_Version_ID = table3.MA_Costcenter_Version_ID) left join (select MA_Costcenter_ID, Name from MA_Costcenter) table4 on (table3.MA_Costcenter_ID = table4.MA_Costcenter_ID) left join (select C_Salary_Category_ID, Name from C_Salary_Category) table5 on (MA_Costcenter_Employee.C_Salary_Category_ID = table5.C_Salary_Category_ID) left join ad_ref_list_v list1 on (MA_Costcenter_Employee.Costuom = list1.value and list1.ad_reference_id = '800088' and list1.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND MA_Costcenter_Employee.MA_Costcenter_Employee_ID = ? 
+        AND MA_Costcenter_Employee.AD_Client_ID IN ('1') 
+           AND MA_Costcenter_Employee.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="maCostcenterVersionId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND MA_Costcenter_Employee.MA_Costcenter_Version_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Costcenter_Employee.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Costcenter_Employee.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="maCostcenterVersionId" id="paramKeyParent"></Parameter>
+<Parameter name="cSalaryCategoryId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="maCostcenterEmployeeId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="costuom"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="quantity"></Parameter><Parameter name="adOrgId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef803168_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803166_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT MA_Costcenter_Employee.MA_Costcenter_Version_ID AS NAME
+        FROM MA_Costcenter_Employee
+        WHERE MA_Costcenter_Employee.MA_Costcenter_Employee_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(table1.ValidFrom, 'DD-MM-YYYY')) AS NAME FROM MA_Costcenter_Version left join (select MA_Costcenter_Version_ID, DocumentNo, MA_Costcenter_ID, ValidFrom from MA_Costcenter_Version) table1 on (MA_Costcenter_Version.MA_Costcenter_Version_ID = table1.MA_Costcenter_Version_ID) left join (select MA_Costcenter_ID, Name from MA_Costcenter) table2 on (table1.MA_Costcenter_ID = table2.MA_Costcenter_ID) WHERE MA_Costcenter_Version.MA_Costcenter_Version_ID = ?  
+    ]]></Sql>
+<Parameter name="maCostcenterVersionId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.DocumentNo), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), '')) || ' - ' || TO_CHAR(table1.ValidFrom, 'DD-MM-YYYY')) AS NAME FROM MA_Costcenter_Version left join (select MA_Costcenter_Version_ID, DocumentNo, MA_Costcenter_ID, ValidFrom from MA_Costcenter_Version) table1 on (MA_Costcenter_Version.MA_Costcenter_Version_ID = table1.MA_Costcenter_Version_ID) left join (select MA_Costcenter_ID, Name from MA_Costcenter) table2 on (table1.MA_Costcenter_ID = table2.MA_Costcenter_ID) WHERE MA_Costcenter_Version.MA_Costcenter_Version_ID = ?  
+    ]]></Sql>
+<Parameter name="maCostcenterVersionId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE MA_Costcenter_Employee
+        SET AD_Client_ID = (?) , MA_Costcenter_Employee_ID = (?) , AD_Org_ID = (?) , MA_Costcenter_Version_ID = (?) , IsActive = (?) , C_Salary_Category_ID = (?) , Quantity = TO_NUMBER(?) , Costuom = (?) , updated = now(), updatedby = ? 
+        WHERE MA_Costcenter_Employee.MA_Costcenter_Employee_ID = ? 
+                 AND MA_Costcenter_Employee.MA_Costcenter_Version_ID = ? 
+        AND MA_Costcenter_Employee.AD_Client_ID IN ('1') 
+        AND MA_Costcenter_Employee.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="maCostcenterEmployeeId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maCostcenterVersionId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="costuom"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="maCostcenterEmployeeId"></Parameter>
+    
+    <Parameter name="maCostcenterVersionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Costcenter_Employee.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Costcenter_Employee.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO MA_Costcenter_Employee 
+        (AD_Client_ID, MA_Costcenter_Employee_ID, AD_Org_ID, MA_Costcenter_Version_ID, IsActive, C_Salary_Category_ID, Quantity, Costuom, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="maCostcenterEmployeeId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="maCostcenterVersionId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cSalaryCategoryId"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="costuom"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Costcenter_Employee
+        WHERE MA_Costcenter_Employee.MA_Costcenter_Employee_ID = ? 
+                 AND MA_Costcenter_Employee.MA_Costcenter_Version_ID = ? 
+        AND MA_Costcenter_Employee.AD_Client_ID IN ('1') 
+        AND MA_Costcenter_Employee.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maCostcenterVersionId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="MA_Costcenter_Employee.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="MA_Costcenter_Employee.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM MA_Costcenter_Employee
+        WHERE MA_Costcenter_Employee.MA_Costcenter_Employee_ID = ? 
+                 AND MA_Costcenter_Employee.MA_Costcenter_Version_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maCostcenterVersionId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM MA_Costcenter_Employee
+         WHERE MA_Costcenter_Employee.MA_Costcenter_Employee_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM MA_Costcenter_Employee
+         WHERE MA_Costcenter_Employee.MA_Costcenter_Employee_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

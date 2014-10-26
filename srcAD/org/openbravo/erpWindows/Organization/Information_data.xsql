@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="InformationData" package="org.openbravo.erpWindows.Organization">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_OrgInfo.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_OrgInfo.CreatedBy) as CreatedByR, 
+        to_char(AD_OrgInfo.Updated, ?) as updated, 
+        to_char(AD_OrgInfo.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_OrgInfo.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_OrgInfo.UpdatedBy) as UpdatedByR,
+        AD_OrgInfo.AD_Client_ID, 
+(CASE WHEN AD_OrgInfo.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_OrgInfo.C_BPartner_ID, 
+AD_OrgInfo.AD_Org_ID, 
+(CASE WHEN AD_OrgInfo.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+AD_OrgInfo.Logo, 
+COALESCE(AD_OrgInfo.IsActive, 'N') AS IsActive, 
+COALESCE(AD_OrgInfo.Reference_Order, 'N') AS Reference_Order, 
+AD_OrgInfo.C_Location_ID, 
+(CASE WHEN AD_OrgInfo.C_Location_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Address1), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Address2), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Postal), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.City), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL5.Name IS NULL THEN TO_CHAR(table5.Name) ELSE TO_CHAR(tableTRL5.Name) END)), ''))),'') ) END) AS C_Location_IDR, 
+AD_OrgInfo.DUNS, 
+AD_OrgInfo.TaxID, 
+AD_OrgInfo.Your_Company_Document_Image, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_OrgInfo left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_OrgInfo.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_OrgInfo.AD_Org_ID = table2.AD_Org_ID) left join (select C_Location_ID, Address1, Address2, Postal, City, C_Region_ID, C_Country_ID from C_Location) table3 on (AD_OrgInfo.C_Location_ID = table3.C_Location_ID) left join (select C_Region_ID, Name from C_Region) table4 on (table3.C_Region_ID = table4.C_Region_ID) left join (select C_Country_ID, Name from C_Country) table5 on (table3.C_Country_ID = table5.C_Country_ID) left join (select C_Country_ID,AD_Language, Name from C_Country_TRL) tableTRL5 on (table5.C_Country_ID = tableTRL5.C_Country_ID and tableTRL5.AD_Language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND AD_OrgInfo.AD_Org_ID = ? 
+        AND AD_OrgInfo.AD_Client_ID IN ('1') 
+           AND AD_OrgInfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adOrgId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND AD_OrgInfo.AD_Org_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_OrgInfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_OrgInfo.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+<Parameter name="duns"></Parameter><Parameter name="taxid"></Parameter><Parameter name="logo"></Parameter><Parameter name="isactive"></Parameter><Parameter name="yourCompanyDocumentImage"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="referenceOrder"></Parameter><Parameter name="cLocationId"></Parameter><Parameter name="cLocationIdr"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef1999_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1811_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Address1), '')  || ' - ' || COALESCE(TO_CHAR(table1.Address2), '')  || ' - ' || COALESCE(TO_CHAR(table1.Postal), '')  || ' - ' || COALESCE(TO_CHAR(table1.City), '')  || ' - ' || COALESCE(TO_CHAR(table1.C_Region_ID), '')  || ' - ' || COALESCE(TO_CHAR(table1.C_Country_ID), '') ) as C_Location_ID FROM C_Location table1 WHERE table1.isActive='Y' AND table1.C_Location_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Location_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef1997_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT AD_OrgInfo.AD_Org_ID AS NAME
+        FROM AD_OrgInfo
+        WHERE AD_OrgInfo.AD_Org_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Org left join (select AD_Org_ID, Name from AD_Org) table1 on (AD_Org.AD_Org_ID = table1.AD_Org_ID) WHERE AD_Org.AD_Org_ID = ?  
+    ]]></Sql>
+<Parameter name="adOrgId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_OrgInfo
+        SET AD_Client_ID = (?) , C_BPartner_ID = (?) , AD_Org_ID = (?) , Logo = (?) , IsActive = (?) , Reference_Order = (?) , C_Location_ID = (?) , DUNS = (?) , TaxID = (?) , Your_Company_Document_Image = (?) , updated = now(), updatedby = ? 
+        WHERE AD_OrgInfo.AD_Org_ID = ? 
+                 AND AD_OrgInfo.AD_Org_ID = ? 
+        AND AD_OrgInfo.AD_Client_ID IN ('1') 
+        AND AD_OrgInfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="logo"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="referenceOrder"></Parameter> <Parameter name="cLocationId"></Parameter> <Parameter name="duns"></Parameter> <Parameter name="taxid"></Parameter> <Parameter name="yourCompanyDocumentImage"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adOrgId"></Parameter>
+    
+    <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_OrgInfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_OrgInfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_OrgInfo 
+        (AD_Client_ID, C_BPartner_ID, AD_Org_ID, Logo, IsActive, Reference_Order, C_Location_ID, DUNS, TaxID, Your_Company_Document_Image, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="logo"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="referenceOrder"></Parameter> <Parameter name="cLocationId"></Parameter> <Parameter name="duns"></Parameter> <Parameter name="taxid"></Parameter> <Parameter name="yourCompanyDocumentImage"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_OrgInfo
+        WHERE AD_OrgInfo.AD_Org_ID = ? 
+                 AND AD_OrgInfo.AD_Org_ID = ? 
+        AND AD_OrgInfo.AD_Client_ID IN ('1') 
+        AND AD_OrgInfo.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_OrgInfo.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_OrgInfo.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_OrgInfo
+        WHERE AD_OrgInfo.AD_Org_ID = ? 
+                 AND AD_OrgInfo.AD_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adOrgId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_OrgInfo
+         WHERE AD_OrgInfo.AD_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_OrgInfo
+         WHERE AD_OrgInfo.AD_Org_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

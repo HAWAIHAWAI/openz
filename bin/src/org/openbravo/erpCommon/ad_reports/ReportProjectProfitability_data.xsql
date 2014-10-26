@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+***************************************************************************************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html. Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific  language  governing  rights  and  limitations
+* under the License. The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SL. Parts created by Openbravo are Copyright (C) 2001-2009 Openbravo SL
+* All Rights Reserved.
+* Contributor(s): Stefan Zimmermann, sz@zimmermann-software.de (SZ) Contributions are Copyright (C) 2011 Stefan Zimmermann
+****************************************************************************************************************************************************
+    -->
+
+
+
+<SqlClass name="ReportProjectProfitabilityData" package="org.openbravo.erpCommon.ad_reports">
+  <SqlClassComment></SqlClassComment>
+  <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+       select coalesce(pr.actualcostamount,0) as actualcostamount,coalesce(pr.materialcost,0) as materialcost,coalesce(pr.indirectcost,0) as indirectcost,coalesce(pr.servcost,0) as workcost,
+       coalesce(pr.expenses,0) as externalcost, coalesce(pr.machinecost,0) as machinecost,coalesce(pr.invoicedamt,0) as revenue,
+       coalesce(pr.plannedamt,0) as plancost,coalesce(pr.committedamt,0) as contractamount,coalesce(coalesce(pr.invoicedamt,0)-coalesce(pr.actualcostamount,0),0) as income,
+       coalesce(coalesce(pr.committedamt,0)-coalesce(pr.plannedamt,0),0) as planincome,
+       sum(coalesce(pt.materialcostplan,0)) as matcostplan, sum(coalesce(pt.indirectcostplan,0)) as indcostplan, sum(coalesce(pt.machinecostplan,0)) as machinecostplan ,
+       sum(coalesce(pt.servcostplan,0)) as workcostplan  ,  sum(0) as externalcostplan,  
+       org.name as ORGNAME,bp.name as partner,pr.name as projectname,ad_user.NAME AS responsible,zssi_getListRefText('288',pr.ProjectCategory,?) as projecttype,
+       zssi_strDate(pr.startdate,?) as initdate, zssi_strDate(pr.datecontract,?) as contractdate, zssi_strDate(pr.datefinish,?) as enddate,
+       org.ad_org_id as org
+   from c_project pr
+     left join c_bpartner bp on pr.c_bpartner_id=bp.c_bpartner_id
+     left join ad_user on ad_user.ad_user_id=pr.ad_user_id
+     left join c_projecttask pt on pt.c_projectphase_id in (select c_projectphase_id from c_projectphase where c_projectphase.c_project_id=pr.c_project_id),
+     ad_org org
+  where
+    org.ad_org_id=pr.ad_org_id 
+    and pr.projectcategory in ('C','CS','P','S')
+    AND PR.AD_CLIENT_ID IN ('1')
+    AND PR.AD_ORG_ID IN ('1')
+    AND 1=1
+    AND 2=2
+    AND 3=3
+    AND 6=6
+   group by pr.c_project_id,pr.actualcostamount,pr.materialcost,pr.indirectcost,pr.servcost,pr.machinecost,pr.expenses,pr.invoicedamt,pr.plannedamt,pr.committedamt,org.name,org.ad_org_id,bp.name,pr.name,ad_user.NAME,pr.startdate,pr.ProjectCategory,pr.datecontract,pr.datefinish
+      ]]>
+    </Sql>
+     <Parameter name="adLanguage"/>
+     <Parameter name="adLanguage"/>
+     <Parameter name="adLanguage"/>
+     <Parameter name="adLanguage"/>
+    <Parameter name="adUserClient" type="replace" optional="true" after="AND PR.AD_CLIENT_ID IN (" text="'1'"/>
+    <Parameter name="adUserOrg" type="replace" optional="true" after="AND PR.AD_ORG_ID IN (" text="'1'"/>
+    <Parameter name="orgid" optional="true" after="AND 1=1"><![CDATA[ AND pr.ad_org_id = ? ]]></Parameter>    
+    <Parameter name="dateFrom" optional="true" after="AND 1=1"><![CDATA[ AND pr.Datecontract >= to_date(?) ]]></Parameter>
+    <Parameter name="dateTo" optional="true" after="AND 1=1"><![CDATA[ AND pr.Datecontract < to_date(?) ]]></Parameter>
+    <Parameter name="datefrom2" optional="true" after="AND 2=2"><![CDATA[ AND pr.datefinish>= to_date(?) ]]></Parameter>
+    <Parameter name="dateto2" optional="true" after="AND 2=2"><![CDATA[ AND pr.datefinish  < to_date(?) ]]></Parameter>
+    <Parameter name="dateFrom3" optional="true" after="AND 3=3"><![CDATA[ AND pr.Startdate >= to_date(?) ]]></Parameter>
+    <Parameter name="dateTo3" optional="true" after="AND 3=3"><![CDATA[ AND pr.Startdate < to_date(?) ]]></Parameter>
+    <Parameter name="projecttype" optional="true" after="AND 6=6"><![CDATA[ AND pr.C_Projecttype_ID = ? ]]></Parameter>
+    <Parameter name="project" optional="true" after="AND 6=6"><![CDATA[ AND pr.C_Project_ID = ? ]]></Parameter>
+    <Parameter name="Responsible" optional="true" after="AND 6=6"><![CDATA[ AND pr.Responsible_ID = ? ]]></Parameter>
+    <Parameter name="Partner" optional="true" after="AND 6=6"><![CDATA[ AND pr.C_BPartner_ID = ? ]]></Parameter>
+  </SqlMethod>
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment></SqlMethodComment>
+      <Sql></Sql>
+  </SqlMethod>
+</SqlClass>

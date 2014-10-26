@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="DeliveriesExpectedA354C7963BF9421EA0631E0E132AAB77Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.mrp.ExpectedDeliveries">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(mrp_deliveries_expected.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = mrp_deliveries_expected.CreatedBy) as CreatedByR, 
+        to_char(mrp_deliveries_expected.Updated, ?) as updated, 
+        to_char(mrp_deliveries_expected.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        mrp_deliveries_expected.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = mrp_deliveries_expected.UpdatedBy) as UpdatedByR,
+        mrp_deliveries_expected.MRP_Deliveries_Expected_ID, 
+mrp_deliveries_expected.M_Product_ID, 
+(CASE WHEN mrp_deliveries_expected.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+mrp_deliveries_expected.Description, 
+mrp_deliveries_expected.Salesrep_ID, 
+(CASE WHEN mrp_deliveries_expected.Salesrep_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS Salesrep_IDR, 
+mrp_deliveries_expected.Qtyordered, 
+mrp_deliveries_expected.Qtydelivered, 
+COALESCE(mrp_deliveries_expected.Isactive, 'N') AS Isactive, 
+mrp_deliveries_expected.C_Order_ID, 
+(CASE WHEN mrp_deliveries_expected.C_Order_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table3.DateOrdered, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.GrandTotal), ''))),'') ) END) AS C_Order_IDR, 
+mrp_deliveries_expected.Scheddeliverydate, 
+mrp_deliveries_expected.AD_Client_ID, 
+mrp_deliveries_expected.C_Project_ID, 
+(CASE WHEN mrp_deliveries_expected.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS C_Project_IDR, 
+mrp_deliveries_expected.AD_Org_ID, 
+mrp_deliveries_expected.A_Asset_ID, 
+(CASE WHEN mrp_deliveries_expected.A_Asset_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS A_Asset_IDR, 
+mrp_deliveries_expected.Line, 
+mrp_deliveries_expected.Datedelivered, 
+mrp_deliveries_expected.Dateordered, 
+COALESCE(mrp_deliveries_expected.Overdue, 'N') AS Overdue, 
+mrp_deliveries_expected.Datepromised, 
+mrp_deliveries_expected.C_Projectphase_ID, 
+mrp_deliveries_expected.C_Projecttask_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM mrp_deliveries_expected left join (select M_Product_ID, Value, Name from M_Product) table1 on (mrp_deliveries_expected.M_Product_ID = table1.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL1 on (table1.M_Product_ID = tableTRL1.M_Product_ID and tableTRL1.AD_Language = ?)  left join (select AD_User_ID, Name from AD_User) table2 on (mrp_deliveries_expected.Salesrep_ID =  table2.AD_User_ID) left join (select C_Order_ID, DocumentNo, Name, DateOrdered, GrandTotal from C_Order) table3 on (mrp_deliveries_expected.C_Order_ID = table3.C_Order_ID) left join (select C_Project_ID, Value, Name from C_Project) table4 on (mrp_deliveries_expected.C_Project_ID = table4.C_Project_ID) left join (select A_Asset_ID, Name from A_Asset) table5 on (mrp_deliveries_expected.A_Asset_ID = table5.A_Asset_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND mrp_deliveries_expected.MRP_Deliveries_Expected_ID = ? 
+        AND mrp_deliveries_expected.AD_Client_ID IN ('1') 
+           AND mrp_deliveries_expected.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="mrp_deliveries_expected.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="mrp_deliveries_expected.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="adOrgId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="qtyordered"></Parameter><Parameter name="line"></Parameter><Parameter name="cOrderId"></Parameter><Parameter name="overdue"></Parameter><Parameter name="cProjectphaseId"></Parameter><Parameter name="mrpDeliveriesExpectedId"></Parameter><Parameter name="datedelivered"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="description"></Parameter><Parameter name="dateordered"></Parameter><Parameter name="scheddeliverydate"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="qtydelivered"></Parameter><Parameter name="datepromised"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="aAssetId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef4E6334A4BAE94D6F9C0BD80212D35A87_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef967196860D134B87BB8A12512446251E_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef078698AD70344670950F4045C3B311D0_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE mrp_deliveries_expected
+        SET MRP_Deliveries_Expected_ID = (?) , M_Product_ID = (?) , Description = (?) , Salesrep_ID = (?) , Qtyordered = TO_NUMBER(?) , Qtydelivered = TO_NUMBER(?) , Isactive = (?) , C_Order_ID = (?) , Scheddeliverydate = TO_DATE(?) , AD_Client_ID = (?) , C_Project_ID = (?) , AD_Org_ID = (?) , A_Asset_ID = (?) , Line = TO_NUMBER(?) , Datedelivered = TO_DATE(?) , Dateordered = TO_DATE(?) , Overdue = (?) , Datepromised = TO_DATE(?) , C_Projectphase_ID = (?) , C_Projecttask_ID = (?) , updated = now(), updatedby = ? 
+        WHERE mrp_deliveries_expected.MRP_Deliveries_Expected_ID = ? 
+        
+        AND mrp_deliveries_expected.AD_Client_ID IN ('1') 
+        AND mrp_deliveries_expected.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="mrpDeliveriesExpectedId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="qtydelivered"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="datedelivered"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="overdue"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mrpDeliveriesExpectedId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="mrp_deliveries_expected.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="mrp_deliveries_expected.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO mrp_deliveries_expected 
+        (MRP_Deliveries_Expected_ID, M_Product_ID, Description, Salesrep_ID, Qtyordered, Qtydelivered, Isactive, C_Order_ID, Scheddeliverydate, AD_Client_ID, C_Project_ID, AD_Org_ID, A_Asset_ID, Line, Datedelivered, Dateordered, Overdue, Datepromised, C_Projectphase_ID, C_Projecttask_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_DATE(?), (?), (?), (?), (?), TO_NUMBER(?), TO_DATE(?), TO_DATE(?), (?), TO_DATE(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="mrpDeliveriesExpectedId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="qtyordered"></Parameter> <Parameter name="qtydelivered"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="cOrderId"></Parameter> <Parameter name="scheddeliverydate"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="datedelivered"></Parameter> <Parameter name="dateordered"></Parameter> <Parameter name="overdue"></Parameter> <Parameter name="datepromised"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM mrp_deliveries_expected
+        WHERE mrp_deliveries_expected.MRP_Deliveries_Expected_ID = ? 
+        
+        AND mrp_deliveries_expected.AD_Client_ID IN ('1') 
+        AND mrp_deliveries_expected.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="mrp_deliveries_expected.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="mrp_deliveries_expected.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM mrp_deliveries_expected
+        WHERE mrp_deliveries_expected.MRP_Deliveries_Expected_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM mrp_deliveries_expected
+         WHERE mrp_deliveries_expected.MRP_Deliveries_Expected_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM mrp_deliveries_expected
+         WHERE mrp_deliveries_expected.MRP_Deliveries_Expected_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

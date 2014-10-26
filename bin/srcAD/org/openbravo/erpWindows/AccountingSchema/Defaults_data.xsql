@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="DefaultsData" package="org.openbravo.erpWindows.AccountingSchema">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_AcctSchema_Default.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_AcctSchema_Default.CreatedBy) as CreatedByR, 
+        to_char(C_AcctSchema_Default.Updated, ?) as updated, 
+        to_char(C_AcctSchema_Default.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_AcctSchema_Default.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_AcctSchema_Default.UpdatedBy) as UpdatedByR,
+        C_AcctSchema_Default.AD_Client_ID, 
+(CASE WHEN C_AcctSchema_Default.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_AcctSchema_Default.AD_Org_ID, 
+(CASE WHEN C_AcctSchema_Default.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_AcctSchema_Default.C_Acctschema_Default_ID, 
+C_AcctSchema_Default.C_AcctSchema_ID, 
+(CASE WHEN C_AcctSchema_Default.C_AcctSchema_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS C_AcctSchema_IDR, 
+C_AcctSchema_Default.C_Receivable_Acct, 
+(CASE WHEN C_AcctSchema_Default.C_Receivable_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Combination), ''))),'') ) END) AS C_Receivable_AcctR, 
+C_AcctSchema_Default.C_Prepayment_Acct, 
+C_AcctSchema_Default.A_Disposal_Gain, 
+C_AcctSchema_Default.PayDiscount_Exp_Acct, 
+C_AcctSchema_Default.A_Disposal_Loss, 
+C_AcctSchema_Default.WriteOff_Acct, 
+(CASE WHEN C_AcctSchema_Default.WriteOff_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Combination), ''))),'') ) END) AS WriteOff_AcctR, 
+C_AcctSchema_Default.AR_Discount_Acct, 
+(CASE WHEN C_AcctSchema_Default.AR_Discount_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.Combination), ''))),'') ) END) AS AR_Discount_AcctR, 
+C_AcctSchema_Default.AP_Discount_Acct, 
+(CASE WHEN C_AcctSchema_Default.AP_Discount_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Combination), ''))),'') ) END) AS AP_Discount_AcctR, 
+C_AcctSchema_Default.NotInvoicedReceivables_Acct, 
+C_AcctSchema_Default.NotInvoicedRevenue_Acct, 
+C_AcctSchema_Default.UnEarnedRevenue_Acct, 
+C_AcctSchema_Default.V_Liability_Acct, 
+(CASE WHEN C_AcctSchema_Default.V_Liability_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Combination), ''))),'') ) END) AS V_Liability_AcctR, 
+C_AcctSchema_Default.V_Liability_Services_Acct, 
+C_AcctSchema_Default.V_Prepayment_Acct, 
+C_AcctSchema_Default.PayDiscount_Rev_Acct, 
+C_AcctSchema_Default.NotInvoicedReceipts_Acct, 
+(CASE WHEN C_AcctSchema_Default.NotInvoicedReceipts_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table9.Combination), ''))),'') ) END) AS NotInvoicedReceipts_AcctR, 
+C_AcctSchema_Default.E_Prepayment_Acct, 
+C_AcctSchema_Default.E_Expense_Acct, 
+C_AcctSchema_Default.P_Asset_Acct, 
+(CASE WHEN C_AcctSchema_Default.P_Asset_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.Combination), ''))),'') ) END) AS P_Asset_AcctR, 
+C_AcctSchema_Default.P_Expense_Acct, 
+(CASE WHEN C_AcctSchema_Default.P_Expense_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Combination), ''))),'') ) END) AS P_Expense_AcctR, 
+C_AcctSchema_Default.P_Revenue_Acct, 
+(CASE WHEN C_AcctSchema_Default.P_Revenue_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Combination), ''))),'') ) END) AS P_Revenue_AcctR, 
+C_AcctSchema_Default.P_Cogs_Acct, 
+(CASE WHEN C_AcctSchema_Default.P_Cogs_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Combination), ''))),'') ) END) AS P_Cogs_AcctR, 
+C_AcctSchema_Default.P_PurchasePriceVariance_Acct, 
+C_AcctSchema_Default.P_InvoicePriceVariance_Acct, 
+(CASE WHEN C_AcctSchema_Default.P_InvoicePriceVariance_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Combination), ''))),'') ) END) AS P_InvoicePriceVariance_AcctR, 
+C_AcctSchema_Default.P_TradeDiscountRec_Acct, 
+C_AcctSchema_Default.P_TradeDiscountGrant_Acct, 
+C_AcctSchema_Default.W_Inventory_Acct, 
+(CASE WHEN C_AcctSchema_Default.W_Inventory_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Combination), ''))),'') ) END) AS W_Inventory_AcctR, 
+C_AcctSchema_Default.W_InvActualAdjust_Acct, 
+C_AcctSchema_Default.W_Differences_Acct, 
+(CASE WHEN C_AcctSchema_Default.W_Differences_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Combination), ''))),'') ) END) AS W_Differences_AcctR, 
+C_AcctSchema_Default.W_Revaluation_Acct, 
+(CASE WHEN C_AcctSchema_Default.W_Revaluation_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Combination), ''))),'') ) END) AS W_Revaluation_AcctR, 
+C_AcctSchema_Default.B_Asset_Acct, 
+(CASE WHEN C_AcctSchema_Default.B_Asset_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table18.Combination), ''))),'') ) END) AS B_Asset_AcctR, 
+C_AcctSchema_Default.B_InTransit_Acct, 
+(CASE WHEN C_AcctSchema_Default.B_InTransit_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Combination), ''))),'') ) END) AS B_InTransit_AcctR, 
+C_AcctSchema_Default.B_Unidentified_Acct, 
+C_AcctSchema_Default.B_UnallocatedCash_Acct, 
+C_AcctSchema_Default.B_PaymentSelect_Acct, 
+(CASE WHEN C_AcctSchema_Default.B_PaymentSelect_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table20.Combination), ''))),'') ) END) AS B_PaymentSelect_AcctR, 
+C_AcctSchema_Default.B_Expense_Acct, 
+(CASE WHEN C_AcctSchema_Default.B_Expense_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table21.Combination), ''))),'') ) END) AS B_Expense_AcctR, 
+C_AcctSchema_Default.B_InterestExp_Acct, 
+C_AcctSchema_Default.B_InterestRev_Acct, 
+C_AcctSchema_Default.B_RevaluationGain_Acct, 
+(CASE WHEN C_AcctSchema_Default.B_RevaluationGain_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table22.Combination), ''))),'') ) END) AS B_RevaluationGain_AcctR, 
+C_AcctSchema_Default.B_RevaluationLoss_Acct, 
+(CASE WHEN C_AcctSchema_Default.B_RevaluationLoss_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table23.Combination), ''))),'') ) END) AS B_RevaluationLoss_AcctR, 
+C_AcctSchema_Default.B_SettlementLoss_Acct, 
+C_AcctSchema_Default.B_SettlementGain_Acct, 
+C_AcctSchema_Default.T_Due_Acct, 
+(CASE WHEN C_AcctSchema_Default.T_Due_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table24.Combination), ''))),'') ) END) AS T_Due_AcctR, 
+C_AcctSchema_Default.T_Liability_Acct, 
+C_AcctSchema_Default.T_Credit_Acct, 
+(CASE WHEN C_AcctSchema_Default.T_Credit_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table25.Combination), ''))),'') ) END) AS T_Credit_AcctR, 
+C_AcctSchema_Default.T_Receivables_Acct, 
+C_AcctSchema_Default.T_Expense_Acct, 
+C_AcctSchema_Default.Ch_Expense_Acct, 
+(CASE WHEN C_AcctSchema_Default.Ch_Expense_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table26.Combination), ''))),'') ) END) AS Ch_Expense_AcctR, 
+C_AcctSchema_Default.Ch_Revenue_Acct, 
+C_AcctSchema_Default.UnrealizedGain_Acct, 
+C_AcctSchema_Default.UnrealizedLoss_Acct, 
+C_AcctSchema_Default.RealizedGain_Acct, 
+C_AcctSchema_Default.RealizedLoss_Acct, 
+C_AcctSchema_Default.CB_Asset_Acct, 
+(CASE WHEN C_AcctSchema_Default.CB_Asset_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table27.Combination), ''))),'') ) END) AS CB_Asset_AcctR, 
+C_AcctSchema_Default.CB_Differences_Acct, 
+(CASE WHEN C_AcctSchema_Default.CB_Differences_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table28.Combination), ''))),'') ) END) AS CB_Differences_AcctR, 
+C_AcctSchema_Default.CB_CashTransfer_Acct, 
+(CASE WHEN C_AcctSchema_Default.CB_CashTransfer_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table29.Combination), ''))),'') ) END) AS CB_CashTransfer_AcctR, 
+C_AcctSchema_Default.CB_Expense_Acct, 
+(CASE WHEN C_AcctSchema_Default.CB_Expense_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table30.Combination), ''))),'') ) END) AS CB_Expense_AcctR, 
+C_AcctSchema_Default.CB_Receipt_Acct, 
+(CASE WHEN C_AcctSchema_Default.CB_Receipt_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table31.Combination), ''))),'') ) END) AS CB_Receipt_AcctR, 
+C_AcctSchema_Default.A_Depreciation_Acct, 
+(CASE WHEN C_AcctSchema_Default.A_Depreciation_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table32.Combination), ''))),'') ) END) AS A_Depreciation_AcctR, 
+C_AcctSchema_Default.A_Accumdepreciation_Acct, 
+(CASE WHEN C_AcctSchema_Default.A_Accumdepreciation_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table33.Combination), ''))),'') ) END) AS A_Accumdepreciation_AcctR, 
+C_AcctSchema_Default.PJ_Asset_Acct, 
+(CASE WHEN C_AcctSchema_Default.PJ_Asset_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table34.Combination), ''))),'') ) END) AS PJ_Asset_AcctR, 
+C_AcctSchema_Default.PJ_WIP_Acct, 
+(CASE WHEN C_AcctSchema_Default.PJ_WIP_Acct IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table35.Combination), ''))),'') ) END) AS PJ_WIP_AcctR, 
+COALESCE(C_AcctSchema_Default.IsActive, 'N') AS IsActive, 
+C_AcctSchema_Default.Withholding_Acct, 
+C_AcctSchema_Default.Processing, 
+ 
+        ? AS LANGUAGE 
+        FROM C_AcctSchema_Default left join (select AD_Client_ID, Name from AD_Client) table1 on (C_AcctSchema_Default.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_AcctSchema_Default.AD_Org_ID = table2.AD_Org_ID) left join (select C_AcctSchema_ID, Name from C_AcctSchema) table3 on (C_AcctSchema_Default.C_AcctSchema_ID = table3.C_AcctSchema_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table4 on (C_AcctSchema_Default.C_Receivable_Acct = table4.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table5 on (C_AcctSchema_Default.WriteOff_Acct = table5.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table6 on (C_AcctSchema_Default.AR_Discount_Acct = table6.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table7 on (C_AcctSchema_Default.AP_Discount_Acct = table7.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table8 on (C_AcctSchema_Default.V_Liability_Acct = table8.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table9 on (C_AcctSchema_Default.NotInvoicedReceipts_Acct = table9.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table10 on (C_AcctSchema_Default.P_Asset_Acct = table10.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table11 on (C_AcctSchema_Default.P_Expense_Acct = table11.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table12 on (C_AcctSchema_Default.P_Revenue_Acct = table12.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table13 on (C_AcctSchema_Default.P_Cogs_Acct = table13.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table14 on (C_AcctSchema_Default.P_InvoicePriceVariance_Acct = table14.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table15 on (C_AcctSchema_Default.W_Inventory_Acct = table15.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table16 on (C_AcctSchema_Default.W_Differences_Acct = table16.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table17 on (C_AcctSchema_Default.W_Revaluation_Acct = table17.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table18 on (C_AcctSchema_Default.B_Asset_Acct = table18.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table19 on (C_AcctSchema_Default.B_InTransit_Acct = table19.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table20 on (C_AcctSchema_Default.B_PaymentSelect_Acct = table20.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table21 on (C_AcctSchema_Default.B_Expense_Acct = table21.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table22 on (C_AcctSchema_Default.B_RevaluationGain_Acct = table22.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table23 on (C_AcctSchema_Default.B_RevaluationLoss_Acct = table23.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table24 on (C_AcctSchema_Default.T_Due_Acct = table24.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table25 on (C_AcctSchema_Default.T_Credit_Acct = table25.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table26 on (C_AcctSchema_Default.Ch_Expense_Acct = table26.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table27 on (C_AcctSchema_Default.CB_Asset_Acct = table27.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table28 on (C_AcctSchema_Default.CB_Differences_Acct = table28.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table29 on (C_AcctSchema_Default.CB_CashTransfer_Acct = table29.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table30 on (C_AcctSchema_Default.CB_Expense_Acct = table30.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table31 on (C_AcctSchema_Default.CB_Receipt_Acct = table31.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table32 on (C_AcctSchema_Default.A_Depreciation_Acct = table32.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table33 on (C_AcctSchema_Default.A_Accumdepreciation_Acct = table33.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table34 on (C_AcctSchema_Default.PJ_Asset_Acct = table34.C_ValidCombination_ID) left join (select C_ValidCombination_ID, Combination from C_ValidCombination) table35 on (C_AcctSchema_Default.PJ_WIP_Acct = table35.C_ValidCombination_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_AcctSchema_Default.C_Acctschema_Default_ID = ? 
+        AND C_AcctSchema_Default.AD_Client_ID IN ('1') 
+           AND C_AcctSchema_Default.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="cAcctschemaId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_AcctSchema_Default.C_AcctSchema_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_AcctSchema_Default.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_AcctSchema_Default.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cAcctschemaId" id="paramKeyParent"></Parameter>
+<Parameter name="apDiscountAcct"></Parameter><Parameter name="apDiscountAcctr"></Parameter><Parameter name="aDepreciationAcct"></Parameter><Parameter name="aDepreciationAcctr"></Parameter><Parameter name="notinvoicedrevenueAcct"></Parameter><Parameter name="notinvoicedrevenueAcctr"></Parameter><Parameter name="pjWipAcct"></Parameter><Parameter name="pjWipAcctr"></Parameter><Parameter name="aAccumdepreciationAcct"></Parameter><Parameter name="aAccumdepreciationAcctr"></Parameter><Parameter name="bInterestrevAcct"></Parameter><Parameter name="bInterestrevAcctr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="wInvactualadjustAcct"></Parameter><Parameter name="wInvactualadjustAcctr"></Parameter><Parameter name="cAcctschemaDefaultId"></Parameter><Parameter name="cPrepaymentAcct"></Parameter><Parameter name="cPrepaymentAcctr"></Parameter><Parameter name="bPaymentselectAcct"></Parameter><Parameter name="bPaymentselectAcctr"></Parameter><Parameter name="pRevenueAcct"></Parameter><Parameter name="pRevenueAcctr"></Parameter><Parameter name="created"></Parameter><Parameter name="ePrepaymentAcct"></Parameter><Parameter name="ePrepaymentAcctr"></Parameter><Parameter name="cReceivableAcct"></Parameter><Parameter name="cReceivableAcctr"></Parameter><Parameter name="pInvoicepricevarianceAcct"></Parameter><Parameter name="pInvoicepricevarianceAcctr"></Parameter><Parameter name="notinvoicedreceiptsAcct"></Parameter><Parameter name="notinvoicedreceiptsAcctr"></Parameter><Parameter name="tCreditAcct"></Parameter><Parameter name="tCreditAcctr"></Parameter><Parameter name="vLiabilityServicesAcct"></Parameter><Parameter name="vLiabilityServicesAcctr"></Parameter><Parameter name="vLiabilityAcct"></Parameter><Parameter name="vLiabilityAcctr"></Parameter><Parameter name="paydiscountExpAcct"></Parameter><Parameter name="paydiscountExpAcctr"></Parameter><Parameter name="bAssetAcct"></Parameter><Parameter name="bAssetAcctr"></Parameter><Parameter name="withholdingAcct"></Parameter><Parameter name="bRevaluationgainAcct"></Parameter><Parameter name="bRevaluationgainAcctr"></Parameter><Parameter name="wDifferencesAcct"></Parameter><Parameter name="wDifferencesAcctr"></Parameter><Parameter name="cbReceiptAcct"></Parameter><Parameter name="cbReceiptAcctr"></Parameter><Parameter name="pExpenseAcct"></Parameter><Parameter name="pExpenseAcctr"></Parameter><Parameter name="pAssetAcct"></Parameter><Parameter name="pAssetAcctr"></Parameter><Parameter name="cbDifferencesAcct"></Parameter><Parameter name="cbDifferencesAcctr"></Parameter><Parameter name="chExpenseAcct"></Parameter><Parameter name="chExpenseAcctr"></Parameter><Parameter name="pjAssetAcct"></Parameter><Parameter name="pjAssetAcctr"></Parameter><Parameter name="unearnedrevenueAcct"></Parameter><Parameter name="unearnedrevenueAcctr"></Parameter><Parameter name="bExpenseAcct"></Parameter><Parameter name="bExpenseAcctr"></Parameter><Parameter name="aDisposalLoss"></Parameter><Parameter name="unrealizedlossAcct"></Parameter><Parameter name="unrealizedlossAcctr"></Parameter><Parameter name="unrealizedgainAcct"></Parameter><Parameter name="unrealizedgainAcctr"></Parameter><Parameter name="pTradediscountrecAcct"></Parameter><Parameter name="pTradediscountrecAcctr"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="tReceivablesAcct"></Parameter><Parameter name="tReceivablesAcctr"></Parameter><Parameter name="wInventoryAcct"></Parameter><Parameter name="wInventoryAcctr"></Parameter><Parameter name="writeoffAcct"></Parameter><Parameter name="writeoffAcctr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="cbExpenseAcct"></Parameter><Parameter name="cbExpenseAcctr"></Parameter><Parameter name="bInterestexpAcct"></Parameter><Parameter name="bInterestexpAcctr"></Parameter><Parameter name="pPurchasepricevarianceAcct"></Parameter><Parameter name="pPurchasepricevarianceAcctr"></Parameter><Parameter name="bIntransitAcct"></Parameter><Parameter name="bIntransitAcctr"></Parameter><Parameter name="wRevaluationAcct"></Parameter><Parameter name="wRevaluationAcctr"></Parameter><Parameter name="arDiscountAcct"></Parameter><Parameter name="arDiscountAcctr"></Parameter><Parameter name="chRevenueAcct"></Parameter><Parameter name="chRevenueAcctr"></Parameter><Parameter name="realizedgainAcct"></Parameter><Parameter name="realizedgainAcctr"></Parameter><Parameter name="realizedlossAcct"></Parameter><Parameter name="realizedlossAcctr"></Parameter><Parameter name="bSettlementgainAcct"></Parameter><Parameter name="bSettlementgainAcctr"></Parameter><Parameter name="pCogsAcct"></Parameter><Parameter name="pCogsAcctr"></Parameter><Parameter name="aDisposalGain"></Parameter><Parameter name="cbCashtransferAcct"></Parameter><Parameter name="cbCashtransferAcctr"></Parameter><Parameter name="tDueAcct"></Parameter><Parameter name="tDueAcctr"></Parameter><Parameter name="vPrepaymentAcct"></Parameter><Parameter name="vPrepaymentAcctr"></Parameter><Parameter name="pTradediscountgrantAcct"></Parameter><Parameter name="pTradediscountgrantAcctr"></Parameter><Parameter name="tExpenseAcct"></Parameter><Parameter name="tExpenseAcctr"></Parameter><Parameter name="notinvoicedreceivablesAcct"></Parameter><Parameter name="notinvoicedreceivablesAcctr"></Parameter><Parameter name="tLiabilityAcct"></Parameter><Parameter name="tLiabilityAcctr"></Parameter><Parameter name="isactive"></Parameter><Parameter name="cbAssetAcct"></Parameter><Parameter name="cbAssetAcctr"></Parameter><Parameter name="processing"></Parameter><Parameter name="bUnallocatedcashAcct"></Parameter><Parameter name="bUnallocatedcashAcctr"></Parameter><Parameter name="bSettlementlossAcct"></Parameter><Parameter name="bSettlementlossAcctr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="bUnidentifiedAcct"></Parameter><Parameter name="bUnidentifiedAcctr"></Parameter><Parameter name="paydiscountRevAcct"></Parameter><Parameter name="paydiscountRevAcctr"></Parameter><Parameter name="eExpenseAcct"></Parameter><Parameter name="eExpenseAcctr"></Parameter><Parameter name="bRevaluationlossAcct"></Parameter><Parameter name="bRevaluationlossAcctr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef4AB84B7CA36B42088BA5533EE6998C45_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as AP_Discount_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="AP_Discount_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803370_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as A_Depreciation_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="A_Depreciation_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4840_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as NotInvoicedRevenue_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="NotInvoicedRevenue_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4854_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as PJ_WIP_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="PJ_WIP_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef803369_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as A_Accumdepreciation_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="A_Accumdepreciation_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4863_5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_InterestRev_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_InterestRev_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6114_6" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as W_InvActualAdjust_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="W_InvActualAdjust_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3452_7" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as C_Prepayment_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Prepayment_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6491_8" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_PaymentSelect_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_PaymentSelect_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3445_9" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Revenue_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Revenue_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3450_10" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as E_Prepayment_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="E_Prepayment_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3451_11" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as C_Receivable_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="C_Receivable_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6111_12" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_InvoicePriceVariance_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_InvoicePriceVariance_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4841_13" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as NotInvoicedReceipts_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="NotInvoicedReceipts_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4859_14" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as T_Credit_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="T_Credit_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3455_15" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as V_Liability_Services_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="V_Liability_Services_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3453_16" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as V_Liability_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="V_Liability_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4846_17" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as PayDiscount_Exp_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="PayDiscount_Exp_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4861_18" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_Asset_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_Asset_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4868_19" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_RevaluationGain_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_RevaluationGain_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3444_20" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as W_Differences_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="W_Differences_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5209_21" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as CB_Receipt_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="CB_Receipt_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3446_22" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Expense_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Expense_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3447_23" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Asset_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Asset_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5207_24" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as CB_Differences_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="CB_Differences_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4870_25" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as Ch_Expense_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="Ch_Expense_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3456_26" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as PJ_Asset_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="PJ_Asset_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4872_27" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as UnEarnedRevenue_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="UnEarnedRevenue_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4862_28" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_Expense_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_Expense_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4850_29" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as UnrealizedLoss_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="UnrealizedLoss_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4849_30" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as UnrealizedGain_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="UnrealizedGain_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6112_31" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_TradeDiscountRec_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_TradeDiscountRec_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3440_32" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4857_33" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as T_Receivables_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="T_Receivables_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3443_34" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as W_Inventory_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="W_Inventory_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4847_35" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as WriteOff_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="WriteOff_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5208_36" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as CB_Expense_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="CB_Expense_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4864_37" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_InterestExp_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_InterestExp_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4844_38" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_PurchasePriceVariance_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_PurchasePriceVariance_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4860_39" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_InTransit_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_InTransit_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4843_40" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as W_Revaluation_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="W_Revaluation_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef9E64B4959F9B4D29B393E3E516093DB1_41" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as AR_Discount_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="AR_Discount_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4871_42" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as Ch_Revenue_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="Ch_Revenue_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4851_43" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as RealizedGain_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="RealizedGain_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4852_44" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as RealizedLoss_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="RealizedLoss_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4866_45" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_SettlementGain_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_SettlementGain_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3448_46" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_Cogs_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_Cogs_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6493_47" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as CB_CashTransfer_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="CB_CashTransfer_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4858_48" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as T_Due_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="T_Due_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3454_49" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as V_Prepayment_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="V_Prepayment_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6113_50" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as P_TradeDiscountGrant_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="P_TradeDiscountGrant_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4855_51" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as T_Expense_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="T_Expense_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4873_52" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as NotInvoicedReceivables_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="NotInvoicedReceivables_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4856_53" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as T_Liability_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="T_Liability_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef5206_54" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as CB_Asset_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="CB_Asset_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef6492_55" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_UnallocatedCash_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_UnallocatedCash_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4867_56" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_SettlementLoss_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_SettlementLoss_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3442_57" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4865_58" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_Unidentified_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_Unidentified_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4848_59" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as PayDiscount_Rev_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="PayDiscount_Rev_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3449_60" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as E_Expense_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="E_Expense_AcctR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef4869_61" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Combination), '') ) as B_RevaluationLoss_Acct FROM C_ValidCombination table1 WHERE table1.isActive='Y' AND table1.C_ValidCombination_ID = ?  
+    ]]></Sql>
+<Parameter name="B_RevaluationLoss_AcctR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_AcctSchema_Default.C_AcctSchema_ID AS NAME
+        FROM C_AcctSchema_Default
+        WHERE C_AcctSchema_Default.C_Acctschema_Default_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM C_AcctSchema left join (select C_AcctSchema_ID, Name from C_AcctSchema) table1 on (C_AcctSchema.C_AcctSchema_ID = table1.C_AcctSchema_ID) WHERE C_AcctSchema.C_AcctSchema_ID = ?  
+    ]]></Sql>
+<Parameter name="cAcctschemaId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM C_AcctSchema left join (select C_AcctSchema_ID, Name from C_AcctSchema) table1 on (C_AcctSchema.C_AcctSchema_ID = table1.C_AcctSchema_ID) WHERE C_AcctSchema.C_AcctSchema_ID = ?  
+    ]]></Sql>
+<Parameter name="cAcctschemaId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_AcctSchema_Default
+        SET AD_Client_ID = (?) , AD_Org_ID = (?) , C_Acctschema_Default_ID = (?) , C_AcctSchema_ID = (?) , C_Receivable_Acct = (?) , C_Prepayment_Acct = (?) , A_Disposal_Gain = (?) , PayDiscount_Exp_Acct = (?) , A_Disposal_Loss = (?) , WriteOff_Acct = (?) , AR_Discount_Acct = (?) , AP_Discount_Acct = (?) , NotInvoicedReceivables_Acct = (?) , NotInvoicedRevenue_Acct = (?) , UnEarnedRevenue_Acct = (?) , V_Liability_Acct = (?) , V_Liability_Services_Acct = (?) , V_Prepayment_Acct = (?) , PayDiscount_Rev_Acct = (?) , NotInvoicedReceipts_Acct = (?) , E_Prepayment_Acct = (?) , E_Expense_Acct = (?) , P_Asset_Acct = (?) , P_Expense_Acct = (?) , P_Revenue_Acct = (?) , P_Cogs_Acct = (?) , P_PurchasePriceVariance_Acct = (?) , P_InvoicePriceVariance_Acct = (?) , P_TradeDiscountRec_Acct = (?) , P_TradeDiscountGrant_Acct = (?) , W_Inventory_Acct = (?) , W_InvActualAdjust_Acct = (?) , W_Differences_Acct = (?) , W_Revaluation_Acct = (?) , B_Asset_Acct = (?) , B_InTransit_Acct = (?) , B_Unidentified_Acct = (?) , B_UnallocatedCash_Acct = (?) , B_PaymentSelect_Acct = (?) , B_Expense_Acct = (?) , B_InterestExp_Acct = (?) , B_InterestRev_Acct = (?) , B_RevaluationGain_Acct = (?) , B_RevaluationLoss_Acct = (?) , B_SettlementLoss_Acct = (?) , B_SettlementGain_Acct = (?) , T_Due_Acct = (?) , T_Liability_Acct = (?) , T_Credit_Acct = (?) , T_Receivables_Acct = (?) , T_Expense_Acct = (?) , Ch_Expense_Acct = (?) , Ch_Revenue_Acct = (?) , UnrealizedGain_Acct = (?) , UnrealizedLoss_Acct = (?) , RealizedGain_Acct = (?) , RealizedLoss_Acct = (?) , CB_Asset_Acct = (?) , CB_Differences_Acct = (?) , CB_CashTransfer_Acct = (?) , CB_Expense_Acct = (?) , CB_Receipt_Acct = (?) , A_Depreciation_Acct = (?) , A_Accumdepreciation_Acct = (?) , PJ_Asset_Acct = (?) , PJ_WIP_Acct = (?) , IsActive = (?) , Withholding_Acct = (?) , Processing = (?) , updated = now(), updatedby = ? 
+        WHERE C_AcctSchema_Default.C_Acctschema_Default_ID = ? 
+                 AND C_AcctSchema_Default.C_AcctSchema_ID = ? 
+        AND C_AcctSchema_Default.AD_Client_ID IN ('1') 
+        AND C_AcctSchema_Default.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cAcctschemaDefaultId"></Parameter> <Parameter name="cAcctschemaId"></Parameter> <Parameter name="cReceivableAcct"></Parameter> <Parameter name="cPrepaymentAcct"></Parameter> <Parameter name="aDisposalGain"></Parameter> <Parameter name="paydiscountExpAcct"></Parameter> <Parameter name="aDisposalLoss"></Parameter> <Parameter name="writeoffAcct"></Parameter> <Parameter name="arDiscountAcct"></Parameter> <Parameter name="apDiscountAcct"></Parameter> <Parameter name="notinvoicedreceivablesAcct"></Parameter> <Parameter name="notinvoicedrevenueAcct"></Parameter> <Parameter name="unearnedrevenueAcct"></Parameter> <Parameter name="vLiabilityAcct"></Parameter> <Parameter name="vLiabilityServicesAcct"></Parameter> <Parameter name="vPrepaymentAcct"></Parameter> <Parameter name="paydiscountRevAcct"></Parameter> <Parameter name="notinvoicedreceiptsAcct"></Parameter> <Parameter name="ePrepaymentAcct"></Parameter> <Parameter name="eExpenseAcct"></Parameter> <Parameter name="pAssetAcct"></Parameter> <Parameter name="pExpenseAcct"></Parameter> <Parameter name="pRevenueAcct"></Parameter> <Parameter name="pCogsAcct"></Parameter> <Parameter name="pPurchasepricevarianceAcct"></Parameter> <Parameter name="pInvoicepricevarianceAcct"></Parameter> <Parameter name="pTradediscountrecAcct"></Parameter> <Parameter name="pTradediscountgrantAcct"></Parameter> <Parameter name="wInventoryAcct"></Parameter> <Parameter name="wInvactualadjustAcct"></Parameter> <Parameter name="wDifferencesAcct"></Parameter> <Parameter name="wRevaluationAcct"></Parameter> <Parameter name="bAssetAcct"></Parameter> <Parameter name="bIntransitAcct"></Parameter> <Parameter name="bUnidentifiedAcct"></Parameter> <Parameter name="bUnallocatedcashAcct"></Parameter> <Parameter name="bPaymentselectAcct"></Parameter> <Parameter name="bExpenseAcct"></Parameter> <Parameter name="bInterestexpAcct"></Parameter> <Parameter name="bInterestrevAcct"></Parameter> <Parameter name="bRevaluationgainAcct"></Parameter> <Parameter name="bRevaluationlossAcct"></Parameter> <Parameter name="bSettlementlossAcct"></Parameter> <Parameter name="bSettlementgainAcct"></Parameter> <Parameter name="tDueAcct"></Parameter> <Parameter name="tLiabilityAcct"></Parameter> <Parameter name="tCreditAcct"></Parameter> <Parameter name="tReceivablesAcct"></Parameter> <Parameter name="tExpenseAcct"></Parameter> <Parameter name="chExpenseAcct"></Parameter> <Parameter name="chRevenueAcct"></Parameter> <Parameter name="unrealizedgainAcct"></Parameter> <Parameter name="unrealizedlossAcct"></Parameter> <Parameter name="realizedgainAcct"></Parameter> <Parameter name="realizedlossAcct"></Parameter> <Parameter name="cbAssetAcct"></Parameter> <Parameter name="cbDifferencesAcct"></Parameter> <Parameter name="cbCashtransferAcct"></Parameter> <Parameter name="cbExpenseAcct"></Parameter> <Parameter name="cbReceiptAcct"></Parameter> <Parameter name="aDepreciationAcct"></Parameter> <Parameter name="aAccumdepreciationAcct"></Parameter> <Parameter name="pjAssetAcct"></Parameter> <Parameter name="pjWipAcct"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="withholdingAcct"></Parameter> <Parameter name="processing"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cAcctschemaDefaultId"></Parameter>
+    
+    <Parameter name="cAcctschemaId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_AcctSchema_Default.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_AcctSchema_Default.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_AcctSchema_Default 
+        (AD_Client_ID, AD_Org_ID, C_Acctschema_Default_ID, C_AcctSchema_ID, C_Receivable_Acct, C_Prepayment_Acct, A_Disposal_Gain, PayDiscount_Exp_Acct, A_Disposal_Loss, WriteOff_Acct, AR_Discount_Acct, AP_Discount_Acct, NotInvoicedReceivables_Acct, NotInvoicedRevenue_Acct, UnEarnedRevenue_Acct, V_Liability_Acct, V_Liability_Services_Acct, V_Prepayment_Acct, PayDiscount_Rev_Acct, NotInvoicedReceipts_Acct, E_Prepayment_Acct, E_Expense_Acct, P_Asset_Acct, P_Expense_Acct, P_Revenue_Acct, P_Cogs_Acct, P_PurchasePriceVariance_Acct, P_InvoicePriceVariance_Acct, P_TradeDiscountRec_Acct, P_TradeDiscountGrant_Acct, W_Inventory_Acct, W_InvActualAdjust_Acct, W_Differences_Acct, W_Revaluation_Acct, B_Asset_Acct, B_InTransit_Acct, B_Unidentified_Acct, B_UnallocatedCash_Acct, B_PaymentSelect_Acct, B_Expense_Acct, B_InterestExp_Acct, B_InterestRev_Acct, B_RevaluationGain_Acct, B_RevaluationLoss_Acct, B_SettlementLoss_Acct, B_SettlementGain_Acct, T_Due_Acct, T_Liability_Acct, T_Credit_Acct, T_Receivables_Acct, T_Expense_Acct, Ch_Expense_Acct, Ch_Revenue_Acct, UnrealizedGain_Acct, UnrealizedLoss_Acct, RealizedGain_Acct, RealizedLoss_Acct, CB_Asset_Acct, CB_Differences_Acct, CB_CashTransfer_Acct, CB_Expense_Acct, CB_Receipt_Acct, A_Depreciation_Acct, A_Accumdepreciation_Acct, PJ_Asset_Acct, PJ_WIP_Acct, IsActive, Withholding_Acct, Processing, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cAcctschemaDefaultId"></Parameter> <Parameter name="cAcctschemaId"></Parameter> <Parameter name="cReceivableAcct"></Parameter> <Parameter name="cPrepaymentAcct"></Parameter> <Parameter name="aDisposalGain"></Parameter> <Parameter name="paydiscountExpAcct"></Parameter> <Parameter name="aDisposalLoss"></Parameter> <Parameter name="writeoffAcct"></Parameter> <Parameter name="arDiscountAcct"></Parameter> <Parameter name="apDiscountAcct"></Parameter> <Parameter name="notinvoicedreceivablesAcct"></Parameter> <Parameter name="notinvoicedrevenueAcct"></Parameter> <Parameter name="unearnedrevenueAcct"></Parameter> <Parameter name="vLiabilityAcct"></Parameter> <Parameter name="vLiabilityServicesAcct"></Parameter> <Parameter name="vPrepaymentAcct"></Parameter> <Parameter name="paydiscountRevAcct"></Parameter> <Parameter name="notinvoicedreceiptsAcct"></Parameter> <Parameter name="ePrepaymentAcct"></Parameter> <Parameter name="eExpenseAcct"></Parameter> <Parameter name="pAssetAcct"></Parameter> <Parameter name="pExpenseAcct"></Parameter> <Parameter name="pRevenueAcct"></Parameter> <Parameter name="pCogsAcct"></Parameter> <Parameter name="pPurchasepricevarianceAcct"></Parameter> <Parameter name="pInvoicepricevarianceAcct"></Parameter> <Parameter name="pTradediscountrecAcct"></Parameter> <Parameter name="pTradediscountgrantAcct"></Parameter> <Parameter name="wInventoryAcct"></Parameter> <Parameter name="wInvactualadjustAcct"></Parameter> <Parameter name="wDifferencesAcct"></Parameter> <Parameter name="wRevaluationAcct"></Parameter> <Parameter name="bAssetAcct"></Parameter> <Parameter name="bIntransitAcct"></Parameter> <Parameter name="bUnidentifiedAcct"></Parameter> <Parameter name="bUnallocatedcashAcct"></Parameter> <Parameter name="bPaymentselectAcct"></Parameter> <Parameter name="bExpenseAcct"></Parameter> <Parameter name="bInterestexpAcct"></Parameter> <Parameter name="bInterestrevAcct"></Parameter> <Parameter name="bRevaluationgainAcct"></Parameter> <Parameter name="bRevaluationlossAcct"></Parameter> <Parameter name="bSettlementlossAcct"></Parameter> <Parameter name="bSettlementgainAcct"></Parameter> <Parameter name="tDueAcct"></Parameter> <Parameter name="tLiabilityAcct"></Parameter> <Parameter name="tCreditAcct"></Parameter> <Parameter name="tReceivablesAcct"></Parameter> <Parameter name="tExpenseAcct"></Parameter> <Parameter name="chExpenseAcct"></Parameter> <Parameter name="chRevenueAcct"></Parameter> <Parameter name="unrealizedgainAcct"></Parameter> <Parameter name="unrealizedlossAcct"></Parameter> <Parameter name="realizedgainAcct"></Parameter> <Parameter name="realizedlossAcct"></Parameter> <Parameter name="cbAssetAcct"></Parameter> <Parameter name="cbDifferencesAcct"></Parameter> <Parameter name="cbCashtransferAcct"></Parameter> <Parameter name="cbExpenseAcct"></Parameter> <Parameter name="cbReceiptAcct"></Parameter> <Parameter name="aDepreciationAcct"></Parameter> <Parameter name="aAccumdepreciationAcct"></Parameter> <Parameter name="pjAssetAcct"></Parameter> <Parameter name="pjWipAcct"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="withholdingAcct"></Parameter> <Parameter name="processing"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_AcctSchema_Default
+        WHERE C_AcctSchema_Default.C_Acctschema_Default_ID = ? 
+                 AND C_AcctSchema_Default.C_AcctSchema_ID = ? 
+        AND C_AcctSchema_Default.AD_Client_ID IN ('1') 
+        AND C_AcctSchema_Default.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cAcctschemaId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_AcctSchema_Default.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_AcctSchema_Default.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_AcctSchema_Default
+        WHERE C_AcctSchema_Default.C_Acctschema_Default_ID = ? 
+                 AND C_AcctSchema_Default.C_AcctSchema_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cAcctschemaId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_AcctSchema_Default
+         WHERE C_AcctSchema_Default.C_Acctschema_Default_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_AcctSchema_Default
+         WHERE C_AcctSchema_Default.C_Acctschema_Default_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

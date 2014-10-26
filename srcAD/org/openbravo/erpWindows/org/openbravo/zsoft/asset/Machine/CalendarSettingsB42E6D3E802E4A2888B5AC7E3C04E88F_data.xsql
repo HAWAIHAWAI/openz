@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="CalendarSettingsB42E6D3E802E4A2888B5AC7E3C04E88FData" package="org.openbravo.erpWindows.org.openbravo.zsoft.asset.Machine">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ma_machineCALENDARSETTINGS.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ma_machineCALENDARSETTINGS.CreatedBy) as CreatedByR, 
+        to_char(ma_machineCALENDARSETTINGS.Updated, ?) as updated, 
+        to_char(ma_machineCALENDARSETTINGS.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ma_machineCALENDARSETTINGS.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ma_machineCALENDARSETTINGS.UpdatedBy) as UpdatedByR,
+        ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID, 
+ma_machineCALENDARSETTINGS.MA_Machine_ID, 
+(CASE WHEN ma_machineCALENDARSETTINGS.MA_Machine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS MA_Machine_IDR, 
+ma_machineCALENDARSETTINGS.Validfrom, 
+COALESCE(ma_machineCALENDARSETTINGS.Isactive, 'N') AS Isactive, 
+ma_machineCALENDARSETTINGS.Worktimemonday, 
+TO_CHAR(ma_machineCALENDARSETTINGS.Workbegintimemonday, 'HH24:MI:SS') AS Workbegintimemonday, 
+ma_machineCALENDARSETTINGS.Worktimetuesday, 
+TO_CHAR(ma_machineCALENDARSETTINGS.Workbegintimetuesday, 'HH24:MI:SS') AS Workbegintimetuesday, 
+ma_machineCALENDARSETTINGS.Worktimewednesday, 
+TO_CHAR(ma_machineCALENDARSETTINGS.Workbegintimewednesday, 'HH24:MI:SS') AS Workbegintimewednesday, 
+ma_machineCALENDARSETTINGS.Worktimethursday, 
+TO_CHAR(ma_machineCALENDARSETTINGS.Workbegintimethursday, 'HH24:MI:SS') AS Workbegintimethursday, 
+ma_machineCALENDARSETTINGS.Worktimefriday, 
+TO_CHAR(ma_machineCALENDARSETTINGS.Workbegintimefriday, 'HH24:MI:SS') AS Workbegintimefriday, 
+ma_machineCALENDARSETTINGS.Worktimesaturday, 
+TO_CHAR(ma_machineCALENDARSETTINGS.Workbegintimesaturday, 'HH24:MI:SS') AS Workbegintimesaturday, 
+ma_machineCALENDARSETTINGS.Worktimesunday, 
+TO_CHAR(ma_machineCALENDARSETTINGS.Workbegintimesunday, 'HH24:MI:SS') AS Workbegintimesunday, 
+ma_machineCALENDARSETTINGS.AD_Client_ID, 
+ma_machineCALENDARSETTINGS.AD_Org_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM ma_machineCALENDARSETTINGS left join (select MA_Machine_ID, Value, Name from MA_Machine) table1 on (ma_machineCALENDARSETTINGS.MA_Machine_ID = table1.MA_Machine_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID = ? 
+        AND ma_machineCALENDARSETTINGS.AD_Client_ID IN ('1') 
+           AND ma_machineCALENDARSETTINGS.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="maMachineId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ma_machineCALENDARSETTINGS.MA_Machine_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ma_machineCALENDARSETTINGS.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ma_machineCALENDARSETTINGS.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+<Parameter name="workbegintimesunday"></Parameter><Parameter name="worktimewednesday"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="worktimetuesday"></Parameter><Parameter name="workbegintimefriday"></Parameter><Parameter name="worktimethursday"></Parameter><Parameter name="workbegintimewednesday"></Parameter><Parameter name="worktimemonday"></Parameter><Parameter name="worktimefriday"></Parameter><Parameter name="worktimesaturday"></Parameter><Parameter name="validfrom"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="workbegintimethursday"></Parameter><Parameter name="workbegintimesaturday"></Parameter><Parameter name="isactive"></Parameter><Parameter name="maMachinecalendarsettingsId"></Parameter><Parameter name="worktimesunday"></Parameter><Parameter name="workbegintimemonday"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="workbegintimetuesday"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef4CB4FC98B1034D5CA50FAC31BCE68A5A_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefC6AAECB9D2CE4BABBDB9F2E53DA381C7_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ma_machineCALENDARSETTINGS.MA_Machine_ID AS NAME
+        FROM ma_machineCALENDARSETTINGS
+        WHERE ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_Machine left join (select MA_Machine_ID, Value, Name from MA_Machine) table1 on (MA_Machine.MA_Machine_ID = table1.MA_Machine_ID) WHERE MA_Machine.MA_Machine_ID = ?  
+    ]]></Sql>
+<Parameter name="maMachineId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM MA_Machine left join (select MA_Machine_ID, Value, Name from MA_Machine) table1 on (MA_Machine.MA_Machine_ID = table1.MA_Machine_ID) WHERE MA_Machine.MA_Machine_ID = ?  
+    ]]></Sql>
+<Parameter name="maMachineId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ma_machineCALENDARSETTINGS
+        SET MA_Machinecalendarsettings_ID = (?) , MA_Machine_ID = (?) , Validfrom = TO_DATE(?) , Isactive = (?) , Worktimemonday = TO_NUMBER(?) , Workbegintimemonday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimetuesday = TO_NUMBER(?) , Workbegintimetuesday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimewednesday = TO_NUMBER(?) , Workbegintimewednesday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimethursday = TO_NUMBER(?) , Workbegintimethursday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimefriday = TO_NUMBER(?) , Workbegintimefriday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimesaturday = TO_NUMBER(?) , Workbegintimesaturday = TO_TIMESTAMP(?,'HH24:MI:SS') , Worktimesunday = TO_NUMBER(?) , Workbegintimesunday = TO_TIMESTAMP(?,'HH24:MI:SS') , AD_Client_ID = (?) , AD_Org_ID = (?) , updated = now(), updatedby = ? 
+        WHERE ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID = ? 
+                 AND ma_machineCALENDARSETTINGS.MA_Machine_ID = ? 
+        AND ma_machineCALENDARSETTINGS.AD_Client_ID IN ('1') 
+        AND ma_machineCALENDARSETTINGS.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="maMachinecalendarsettingsId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="validfrom"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="worktimemonday"></Parameter> <Parameter name="workbegintimemonday"></Parameter> <Parameter name="worktimetuesday"></Parameter> <Parameter name="workbegintimetuesday"></Parameter> <Parameter name="worktimewednesday"></Parameter> <Parameter name="workbegintimewednesday"></Parameter> <Parameter name="worktimethursday"></Parameter> <Parameter name="workbegintimethursday"></Parameter> <Parameter name="worktimefriday"></Parameter> <Parameter name="workbegintimefriday"></Parameter> <Parameter name="worktimesaturday"></Parameter> <Parameter name="workbegintimesaturday"></Parameter> <Parameter name="worktimesunday"></Parameter> <Parameter name="workbegintimesunday"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="maMachinecalendarsettingsId"></Parameter>
+    
+    <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ma_machineCALENDARSETTINGS.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ma_machineCALENDARSETTINGS.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ma_machineCALENDARSETTINGS 
+        (MA_Machinecalendarsettings_ID, MA_Machine_ID, Validfrom, Isactive, Worktimemonday, Workbegintimemonday, Worktimetuesday, Workbegintimetuesday, Worktimewednesday, Workbegintimewednesday, Worktimethursday, Workbegintimethursday, Worktimefriday, Workbegintimefriday, Worktimesaturday, Workbegintimesaturday, Worktimesunday, Workbegintimesunday, AD_Client_ID, AD_Org_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), TO_DATE(?), (?), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), TO_NUMBER(?), TO_TIMESTAMP(?, 'HH24:MI:SS'), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="maMachinecalendarsettingsId"></Parameter> <Parameter name="maMachineId"></Parameter> <Parameter name="validfrom"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="worktimemonday"></Parameter> <Parameter name="workbegintimemonday"></Parameter> <Parameter name="worktimetuesday"></Parameter> <Parameter name="workbegintimetuesday"></Parameter> <Parameter name="worktimewednesday"></Parameter> <Parameter name="workbegintimewednesday"></Parameter> <Parameter name="worktimethursday"></Parameter> <Parameter name="workbegintimethursday"></Parameter> <Parameter name="worktimefriday"></Parameter> <Parameter name="workbegintimefriday"></Parameter> <Parameter name="worktimesaturday"></Parameter> <Parameter name="workbegintimesaturday"></Parameter> <Parameter name="worktimesunday"></Parameter> <Parameter name="workbegintimesunday"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ma_machineCALENDARSETTINGS
+        WHERE ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID = ? 
+                 AND ma_machineCALENDARSETTINGS.MA_Machine_ID = ? 
+        AND ma_machineCALENDARSETTINGS.AD_Client_ID IN ('1') 
+        AND ma_machineCALENDARSETTINGS.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ma_machineCALENDARSETTINGS.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ma_machineCALENDARSETTINGS.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ma_machineCALENDARSETTINGS
+        WHERE ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID = ? 
+                 AND ma_machineCALENDARSETTINGS.MA_Machine_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="maMachineId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ma_machineCALENDARSETTINGS
+         WHERE ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ma_machineCALENDARSETTINGS
+         WHERE ma_machineCALENDARSETTINGS.MA_Machinecalendarsettings_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

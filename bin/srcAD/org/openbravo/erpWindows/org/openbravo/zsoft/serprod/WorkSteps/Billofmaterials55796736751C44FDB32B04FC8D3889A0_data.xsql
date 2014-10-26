@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="Billofmaterials55796736751C44FDB32B04FC8D3889A0Data" package="org.openbravo.erpWindows.org.openbravo.zsoft.serprod.WorkSteps">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssm_workstepbom_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_workstepbom_v.CreatedBy) as CreatedByR, 
+        to_char(zssm_workstepbom_v.Updated, ?) as updated, 
+        to_char(zssm_workstepbom_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssm_workstepbom_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_workstepbom_v.UpdatedBy) as UpdatedByR,
+        zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID, 
+(CASE WHEN zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.IsActive), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))),'') ) END) AS Zssm_Workstep_Prp_V_IDR, 
+zssm_workstepbom_v.Zspm_Projecttaskbom_ID, 
+COALESCE(zssm_workstepbom_v.IsActive, 'N') AS IsActive, 
+zssm_workstepbom_v.AD_Client_ID, 
+zssm_workstepbom_v.AD_Org_ID, 
+zssm_workstepbom_v.Line, 
+zssm_workstepbom_v.M_Product_ID, 
+(CASE WHEN zssm_workstepbom_v.M_Product_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS M_Product_IDR, 
+zssm_workstepbom_v.Description, 
+zssm_workstepbom_v.Quantity, 
+zssm_workstepbom_v.Receiving_Locator, 
+(CASE WHEN zssm_workstepbom_v.Receiving_Locator IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Value), ''))),'') ) END) AS Receiving_LocatorR, 
+zssm_workstepbom_v.Issuing_Locator, 
+(CASE WHEN zssm_workstepbom_v.Issuing_Locator IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Value), ''))),'') ) END) AS Issuing_LocatorR, 
+zssm_workstepbom_v.M_Locator_ID, 
+zssm_workstepbom_v.Actualcosamount, 
+zssm_workstepbom_v.Constuctivemeasure, 
+zssm_workstepbom_v.Rawmaterial, 
+zssm_workstepbom_v.Cutoff, 
+zssm_workstepbom_v.QTY_Plan, 
+zssm_workstepbom_v.Qtyreserved, 
+zssm_workstepbom_v.Qtyinrequisition, 
+zssm_workstepbom_v.Qtyreceived, 
+zssm_workstepbom_v.Date_Plan, 
+COALESCE(zssm_workstepbom_v.Planrequisition, 'N') AS Planrequisition, 
+zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID, 
+zssm_workstepbom_v.QTY_Available, 
+ 
+        ? AS LANGUAGE 
+        FROM zssm_workstepbom_v left join (select Zssm_Workstep_Prp_V_ID, IsActive, Name, M_Product_ID from Zssm_Workstep_Prp_V) table1 on (zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID = table1.Zssm_Workstep_Prp_V_ID) left join (select M_Product_ID, Value, Name from M_Product) table2 on (table1.M_Product_ID = table2.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL2 on (table2.M_Product_ID = tableTRL2.M_Product_ID and tableTRL2.AD_Language = ?)  left join (select M_Product_ID, Value, Name from M_Product) table3 on (zssm_workstepbom_v.M_Product_ID = table3.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL3 on (table3.M_Product_ID = tableTRL3.M_Product_ID and tableTRL3.AD_Language = ?)  left join (select M_Locator_ID, Value from M_Locator) table4 on (zssm_workstepbom_v.Receiving_Locator = table4.M_Locator_ID) left join (select M_Locator_ID, Value from M_Locator) table5 on (zssm_workstepbom_v.Issuing_Locator = table5.M_Locator_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID = ? 
+        AND zssm_workstepbom_v.AD_Client_ID IN ('1') 
+           AND zssm_workstepbom_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="zssmWorkstepPrpVId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_workstepbom_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_workstepbom_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+<Parameter name="qtyPlan"></Parameter><Parameter name="zssmWorkstepbomVId"></Parameter><Parameter name="qtyreserved"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="description"></Parameter><Parameter name="cutoff"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductIdr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="datePlan"></Parameter><Parameter name="quantity"></Parameter><Parameter name="rawmaterial"></Parameter><Parameter name="qtyreceived"></Parameter><Parameter name="constuctivemeasure"></Parameter><Parameter name="line"></Parameter><Parameter name="issuingLocator"></Parameter><Parameter name="issuingLocatorr"></Parameter><Parameter name="zspmProjecttaskbomId"></Parameter><Parameter name="planrequisition"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="qtyAvailable"></Parameter><Parameter name="receivingLocator"></Parameter><Parameter name="receivingLocatorr"></Parameter><Parameter name="actualcosamount"></Parameter><Parameter name="qtyinrequisition"></Parameter><Parameter name="isactive"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef7A3F6AF960BC464C8334BFAC465DD8DB_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '')  || ' - ' || COALESCE(TO_CHAR(table1.Name), '') ) as M_Product_ID FROM M_Product table1 WHERE table1.isActive='Y' AND table1.M_Product_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Product_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef29EE2442C220441C839A0E8F1C38656B_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefBA20CE0076A6439B8059C15E850186F8" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(LINE),0)+10 AS DefaultValue FROM ZSSM_WORKSTEPBOM_V WHERE zssm_workstep_prp_v_id=? or zssm_workstep_v_id=? 
+    ]]></Sql>
+
+<Parameter name="zssm_workstep_prp_v_id"/>
+<Parameter name="zssm_workstep_v_id"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefCD3B8890911A4846A51869974E95AB3D_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as Issuing_Locator FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="Issuing_LocatorR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef46D4D22988AC41AAB9A58DD210B09837_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef66C89371CA33406C84E2A61CF9B8DC91_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as Receiving_Locator FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="Receiving_LocatorR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID AS NAME
+        FROM zssm_workstepbom_v
+        WHERE zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.IsActive), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))) AS NAME FROM zssm_workstep_prp_v left join (select Zssm_Workstep_Prp_V_ID, IsActive, Name, M_Product_ID from Zssm_Workstep_Prp_V) table1 on (zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = table1.Zssm_Workstep_Prp_V_ID) left join (select M_Product_ID, Value, Name from M_Product) table2 on (table1.M_Product_ID = table2.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL2 on (table2.M_Product_ID = tableTRL2.M_Product_ID and tableTRL2.AD_Language = ?)  WHERE zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="zssmWorkstepPrpVId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.IsActive), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Value), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL2.Name IS NULL THEN TO_CHAR(table2.Name) ELSE TO_CHAR(tableTRL2.Name) END)), ''))) AS NAME FROM zssm_workstep_prp_v left join (select Zssm_Workstep_Prp_V_ID, IsActive, Name, M_Product_ID from Zssm_Workstep_Prp_V) table1 on (zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = table1.Zssm_Workstep_Prp_V_ID) left join (select M_Product_ID, Value, Name from M_Product) table2 on (table1.M_Product_ID = table2.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL2 on (table2.M_Product_ID = tableTRL2.M_Product_ID and tableTRL2.AD_Language = ?)  WHERE zssm_workstep_prp_v.Zssm_Workstep_Prp_V_ID = ?  
+    ]]></Sql>
+<Parameter name="paramLanguage"/>
+<Parameter name="zssmWorkstepPrpVId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssm_workstepbom_v
+        SET Zssm_Workstep_Prp_V_ID = (?) , Zspm_Projecttaskbom_ID = (?) , IsActive = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , Line = TO_NUMBER(?) , M_Product_ID = (?) , Description = (?) , Quantity = TO_NUMBER(?) , Receiving_Locator = (?) , Issuing_Locator = (?) , M_Locator_ID = (?) , Actualcosamount = TO_NUMBER(?) , Constuctivemeasure = (?) , Rawmaterial = (?) , Cutoff = TO_NUMBER(?) , QTY_Plan = TO_NUMBER(?) , Qtyreserved = TO_NUMBER(?) , Qtyinrequisition = TO_NUMBER(?) , Qtyreceived = TO_NUMBER(?) , Date_Plan = TO_DATE(?) , Planrequisition = (?) , Zssm_WorkstepBOM_V_ID = (?) , QTY_Available = TO_NUMBER(?) , updated = now(), updatedby = ? 
+        WHERE zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID = ? 
+                 AND zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID = ? 
+        AND zssm_workstepbom_v.AD_Client_ID IN ('1') 
+        AND zssm_workstepbom_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="zssmWorkstepPrpVId"></Parameter> <Parameter name="zspmProjecttaskbomId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="receivingLocator"></Parameter> <Parameter name="issuingLocator"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="actualcosamount"></Parameter> <Parameter name="constuctivemeasure"></Parameter> <Parameter name="rawmaterial"></Parameter> <Parameter name="cutoff"></Parameter> <Parameter name="qtyPlan"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyinrequisition"></Parameter> <Parameter name="qtyreceived"></Parameter> <Parameter name="datePlan"></Parameter> <Parameter name="planrequisition"></Parameter> <Parameter name="zssmWorkstepbomVId"></Parameter> <Parameter name="qtyAvailable"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssmWorkstepbomVId"></Parameter>
+    
+    <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_workstepbom_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_workstepbom_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssm_workstepbom_v 
+        (Zssm_Workstep_Prp_V_ID, Zspm_Projecttaskbom_ID, IsActive, AD_Client_ID, AD_Org_ID, Line, M_Product_ID, Description, Quantity, Receiving_Locator, Issuing_Locator, M_Locator_ID, Actualcosamount, Constuctivemeasure, Rawmaterial, Cutoff, QTY_Plan, Qtyreserved, Qtyinrequisition, Qtyreceived, Date_Plan, Planrequisition, Zssm_WorkstepBOM_V_ID, QTY_Available, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), TO_DATE(?), (?), (?), TO_NUMBER(?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="zssmWorkstepPrpVId"></Parameter> <Parameter name="zspmProjecttaskbomId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="quantity"></Parameter> <Parameter name="receivingLocator"></Parameter> <Parameter name="issuingLocator"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="actualcosamount"></Parameter> <Parameter name="constuctivemeasure"></Parameter> <Parameter name="rawmaterial"></Parameter> <Parameter name="cutoff"></Parameter> <Parameter name="qtyPlan"></Parameter> <Parameter name="qtyreserved"></Parameter> <Parameter name="qtyinrequisition"></Parameter> <Parameter name="qtyreceived"></Parameter> <Parameter name="datePlan"></Parameter> <Parameter name="planrequisition"></Parameter> <Parameter name="zssmWorkstepbomVId"></Parameter> <Parameter name="qtyAvailable"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_workstepbom_v
+        WHERE zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID = ? 
+                 AND zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID = ? 
+        AND zssm_workstepbom_v.AD_Client_ID IN ('1') 
+        AND zssm_workstepbom_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_workstepbom_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_workstepbom_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_workstepbom_v
+        WHERE zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID = ? 
+                 AND zssm_workstepbom_v.Zssm_Workstep_Prp_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="zssmWorkstepPrpVId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssm_workstepbom_v
+         WHERE zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssm_workstepbom_v
+         WHERE zssm_workstepbom_v.Zssm_WorkstepBOM_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

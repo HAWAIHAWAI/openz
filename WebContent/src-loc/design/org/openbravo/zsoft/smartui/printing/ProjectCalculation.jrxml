@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProjectCalculation" pageWidth="595" pageHeight="842" columnWidth="585" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DOCUMENT_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREP_ProjectCalculationEMP" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LANGUAGE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["de_DE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREP_ProjectCalculationMAP" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SUBREP_ProjectCalculationMAT" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SUBREP_ProjectCalculationLL" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SERVCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ACTSERVCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MACCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ACTMACCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MATCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ACTMATCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LLCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ACTLLCOSP" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREP_ProjectCalculationLLF" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="SUBREP_ProjectCalculationINC" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select
+--Main Report
+--Headers
+zssi_getElementTextByColumname('Project',$P{LANGUAGE}) as ph,
+zssi_getElementTextByColumname('Overviewss',$P{LANGUAGE}) as overs,
+zssi_getElementTextByColumname('Precalculation',$P{LANGUAGE}) as pc,
+zssi_getElementTextByColumname('Postcalculation',$P{LANGUAGE}) as poc,
+zssi_getElementTextByColumname('Start',$P{LANGUAGE}) as start,
+zssi_getElementTextByColumname('End',$P{LANGUAGE}) as end,
+zssi_getElementTextByColumname('Commited Amount',$P{LANGUAGE}) as Auftragswert,
+zssi_getElementTextByColumname('Materialcosts',$P{LANGUAGE}) as Matkost,
+zssi_getElementTextByColumname('Servcosts', $P{LANGUAGE}) as Arbkost,
+zssi_getElementTextByColumname('Del. costs', $P{LANGUAGE}) as Liefkost,
+zssi_getElementTextByColumname('Externalservice', $P{LANGUAGE}) as Fremdleistung,
+zssi_getElementTextByColumname('Machinecosts',$P{LANGUAGE}) as Machkost,
+zssi_getElementTextByColumname('Indirect Costs',$P{LANGUAGE}) as indkost,
+zssi_getElementTextByColumname('Margins',$P{LANGUAGE}) as Margin,
+zssi_getElementTextByColumname('Cost total',$P{LANGUAGE}) as Kostenges,
+zssi_getElementTextByColumname('Fact. Amount',$P{LANGUAGE}) as Fakt,
+zssi_getElementTextByColumname('Sum',$P{LANGUAGE}) as sum,
+zssi_getElementTextByColumname('Personals',$P{LANGUAGE}) as personal,
+zssi_getElementTextByColumname('Machiness', $P{LANGUAGE}) as machines,
+zssi_getElementTextByColumname('Matss',$P{LANGUAGE}) as matss,
+zssi_getElementTextByColumname('expensesplan',$P{LANGUAGE}) as expcosplan,
+zssi_getElementTextByColumname('Externalserviceplan',$P{LANGUAGE}) as Fremdleistungplan,
+CASE when $P{LANGUAGE}='de_DE' then 'Std' else 'h' end as omt,
+CASE when $P{LANGUAGE}='de_DE' then 'Stk' else 'Pc' end as omp,
+(select cursymbol from c_currency, ad_client where ad_client.c_currency_id=c_currency.c_currency_id) as curs,
+--Planned Costs
+p.c_project_id as id,
+p.value||'-'||p.name as name,
+to_char(now(),'DD.MM.YYYY') as now,
+to_char(p.startdate,'DD.MM.YYYY') as startdate,
+to_char(p.datefinish,'DD.MM.YYYY') as datefinish,
+p.committedamt,
+p.plannedmarginamt,
+coalesce((p.plannedmarginpercent/100),0) as plannedmarginpercent,
+p.plannedamt,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE ((p.plannedamt/(p.committedamt/100))/100) END as plancosp,
+p.estimatedamt,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE((p.estimatedamt/(p.committedamt/100))/100) END as estcosp,
+p.materialcostplan,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE((p.materialcostplan/(p.committedamt/100))/100) END as matcosp,
+p.machinecostplan,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE((p.machinecostplan/(p.committedamt/100))/100) END as maccosp,
+p.indirectcostplan,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE((p.indirectcostplan/(p.committedamt/100))/100) END as indcosp,
+p.servcostplan,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE((p.servcostplan/(p.committedamt/100))/100) END as servcosp,
+p.expensesplan,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE((p.expensesplan/(p.committedamt/100))/100) END as expcosp,
+p.externalserviceplan,
+CASE WHEN (p.committedamt=0) THEN 0 ELSE((p.externalserviceplan/(p.committedamt/100))/100) END as externalserviceplanpercent,
+--Actual Costs
+p.percentdoneyet,
+p.schedulestatus,
+p.invoicedamt,
+p.actualcostamount,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE((p.actualcostamount/(p.invoicedamt/100))/100) END as actcosp,
+p.marginamt,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE(p.marginpercent/100)  END as marginpercent,
+p.materialcost,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE((p.materialcost/(p.invoicedamt/100))/100) END as actmatcosp,
+p.machinecost,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE((p.machinecost/(p.invoicedamt/100))/100) END as actmaccosp,
+p.indirectcost,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE((p.indirectcost/(p.invoicedamt/100))/100) END as actindcosp,
+p.servcost,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE((p.servcost/(p.invoicedamt/100))/100) END as actservcosp,
+p.expenses,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE((p.expenses/(p.invoicedamt/100))/100) END as actexpcosp,
+p.externalservice,
+CASE WHEN (p.invoicedamt=0) THEN 0 ELSE((p.externalservice/(p.invoicedamt/100))/100) END as externalservicepercent
+from c_project p
+where p.c_project_id in ($P{DOCUMENT_ID})]]>
+	</queryString>
+	<field name="ph" class="java.lang.String"/>
+	<field name="overs" class="java.lang.String"/>
+	<field name="pc" class="java.lang.String"/>
+	<field name="poc" class="java.lang.String"/>
+	<field name="start" class="java.lang.String"/>
+	<field name="end" class="java.lang.String"/>
+	<field name="auftragswert" class="java.lang.String"/>
+	<field name="matkost" class="java.lang.String"/>
+	<field name="arbkost" class="java.lang.String"/>
+	<field name="liefkost" class="java.lang.String"/>
+	<field name="fremdleistung" class="java.lang.String"/>
+	<field name="machkost" class="java.lang.String"/>
+	<field name="indkost" class="java.lang.String"/>
+	<field name="margin" class="java.lang.String"/>
+	<field name="kostenges" class="java.lang.String"/>
+	<field name="fakt" class="java.lang.String"/>
+	<field name="sum" class="java.lang.String"/>
+	<field name="personal" class="java.lang.String"/>
+	<field name="machines" class="java.lang.String"/>
+	<field name="matss" class="java.lang.String"/>
+	<field name="expcosplan" class="java.lang.String"/>
+	<field name="fremdleistungplan" class="java.lang.String"/>
+	<field name="omt" class="java.lang.String"/>
+	<field name="omp" class="java.lang.String"/>
+	<field name="curs" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="now" class="java.lang.String"/>
+	<field name="startdate" class="java.lang.String"/>
+	<field name="datefinish" class="java.lang.String"/>
+	<field name="committedamt" class="java.math.BigDecimal"/>
+	<field name="plannedmarginamt" class="java.math.BigDecimal"/>
+	<field name="plannedmarginpercent" class="java.math.BigDecimal"/>
+	<field name="plannedamt" class="java.math.BigDecimal"/>
+	<field name="plancosp" class="java.math.BigDecimal"/>
+	<field name="estimatedamt" class="java.math.BigDecimal"/>
+	<field name="estcosp" class="java.math.BigDecimal"/>
+	<field name="materialcostplan" class="java.math.BigDecimal"/>
+	<field name="matcosp" class="java.math.BigDecimal"/>
+	<field name="machinecostplan" class="java.math.BigDecimal"/>
+	<field name="maccosp" class="java.math.BigDecimal"/>
+	<field name="indirectcostplan" class="java.math.BigDecimal"/>
+	<field name="indcosp" class="java.math.BigDecimal"/>
+	<field name="servcostplan" class="java.math.BigDecimal"/>
+	<field name="servcosp" class="java.math.BigDecimal"/>
+	<field name="expensesplan" class="java.math.BigDecimal"/>
+	<field name="expcosp" class="java.math.BigDecimal"/>
+	<field name="externalserviceplan" class="java.math.BigDecimal"/>
+	<field name="externalserviceplanpercent" class="java.math.BigDecimal"/>
+	<field name="percentdoneyet" class="java.math.BigDecimal"/>
+	<field name="schedulestatus" class="java.lang.String"/>
+	<field name="invoicedamt" class="java.math.BigDecimal"/>
+	<field name="actualcostamount" class="java.math.BigDecimal"/>
+	<field name="actcosp" class="java.math.BigDecimal"/>
+	<field name="marginamt" class="java.math.BigDecimal"/>
+	<field name="marginpercent" class="java.math.BigDecimal"/>
+	<field name="materialcost" class="java.math.BigDecimal"/>
+	<field name="actmatcosp" class="java.math.BigDecimal"/>
+	<field name="machinecost" class="java.math.BigDecimal"/>
+	<field name="actmaccosp" class="java.math.BigDecimal"/>
+	<field name="indirectcost" class="java.math.BigDecimal"/>
+	<field name="actindcosp" class="java.math.BigDecimal"/>
+	<field name="servcost" class="java.math.BigDecimal"/>
+	<field name="actservcosp" class="java.math.BigDecimal"/>
+	<field name="expenses" class="java.math.BigDecimal"/>
+	<field name="actexpcosp" class="java.math.BigDecimal"/>
+	<field name="externalservice" class="java.math.BigDecimal"/>
+	<field name="externalservicepercent" class="java.math.BigDecimal"/>
+	<variable name="SUMHOURSPLANEMP" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMHOURSEMP" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMAMOUNTEMP" class="java.math.BigDecimal" calculation="System"/>
+	<variable name="SUMAMOUNTPLANEMP" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMHOURSPLANMAP" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMAMOUNTPLANMAP" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMAMOUNTMAP" class="java.math.BigDecimal" calculation="System"/>
+	<variable name="SUMHOURSMAP" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMQTYPLANMAT" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMAMOUNTPLANMAT" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="SUMAMOUNTMAT" class="java.math.BigDecimal" calculation="System"/>
+	<variable name="SUMQTYMAT" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<title>
+		<band height="195" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="-1" y="11" width="48" height="30" backcolor="#FFFF00"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ph}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement mode="Opaque" x="369" y="11" width="112" height="30" backcolor="#FFFF00"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{start}+": "+($F{startdate} == null ? "" :$F{startdate})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="47" y="11" width="323" height="30" backcolor="#FFFF00"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="481" y="11" width="104" height="30" backcolor="#FFFF00"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{end}+": "+($F{datefinish} == null ? "" :$F{datefinish})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="117" y="44" width="208" height="14" backcolor="#FFFF00"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pc}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-1" y="69" width="586" height="124"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement mode="Opaque" x="325" y="44" width="260" height="14" backcolor="#FFFF00"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{poc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="154" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{committedamt}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="166" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{plannedmarginamt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="154" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="166" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="166" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{plannedmarginpercent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="100" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="100" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{materialcostplan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="112" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="112" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{servcostplan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="124" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="124" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{machinecostplan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="180" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{plannedamt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="180" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="136" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{indirectcostplan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="136" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="154" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{invoicedamt}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="166" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{marginamt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="154" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="166" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="166" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{marginpercent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="101" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="101" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{materialcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="113" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="113" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{servcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="125" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="125" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{machinecost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="180" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actualcostamount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="180" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="137" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{indirectcost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="137" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="154" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{auftragswert}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="166" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{margin}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="100" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{matkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="112" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{arbkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="124" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{machkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="136" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{indkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="180" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{kostenges}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="154" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fakt}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="166" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{margin}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="75" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{expenses}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="75" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="75" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{liefkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="137" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{indkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="125" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{machkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="113" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{arbkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="101" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{matkost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="180" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{kostenges}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="100" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{matcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="180" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{plancosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="136" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{indcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="124" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{maccosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="112" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{servcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="75" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actexpcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="101" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actmatcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="113" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actservcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="125" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actmaccosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="137" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actindcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="180" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actcosp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="74" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="74" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{expcosp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="74" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{expcosplan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="74" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{expensesplan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="235" y="58" width="149" height="13" isPrintInFirstWholeBand="true" backcolor="#E7E7E7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-1" y="58" width="167" height="13" isPrintInFirstWholeBand="true" backcolor="#E7E7E7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="507" y="58" width="78" height="13" isPrintInFirstWholeBand="true" backcolor="#E7E7E7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph rightIndent="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="166" y="58" width="71" height="13" isPrintInFirstWholeBand="true" backcolor="#E7E7E7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="383" y="58" width="124" height="13" isPrintInFirstWholeBand="true" backcolor="#E7E7E7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="35"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-1" y="44" width="118" height="14" isPrintInFirstWholeBand="true" backcolor="#FFFF00"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{overs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="0" width="151" height="11"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{now}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="1" y="86" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fremdleistungplan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="110" y="87" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{externalserviceplan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="85" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="208" y="86" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{externalserviceplanpercent}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="325" y="88" width="109" height="13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fremdleistung}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="434" y="88" width="84" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{externalservice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="87" width="16" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{curs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="532" y="87" width="49" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{externalservicepercent}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="131" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-1" y="3" width="586" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="ACTSERVCOSP">
+					<subreportParameterExpression><![CDATA[$F{actservcosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SERVCOSP">
+					<subreportParameterExpression><![CDATA[$F{servcosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LANGUAGE">
+					<subreportParameterExpression><![CDATA[$P{LANGUAGE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="C_PROJECT_ID">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUMHOURSPLAN" toVariable="SUMHOURSPLANEMP"/>
+				<returnValue subreportVariable="SUMHOURS" toVariable="SUMHOURSEMP"/>
+				<returnValue subreportVariable="SUMAMOUNT" toVariable="SUMAMOUNTEMP"/>
+				<returnValue subreportVariable="SUMAMOUNTPLAN" toVariable="SUMAMOUNTPLANEMP"/>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{SUBREP_ProjectCalculationEMP}]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-1" y="53" width="586" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="ACTMATCOSP">
+					<subreportParameterExpression><![CDATA[$F{indirectcostplan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LANGUAGE">
+					<subreportParameterExpression><![CDATA[$P{LANGUAGE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MATCOSP">
+					<subreportParameterExpression><![CDATA[$F{indirectcost}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="C_PROJECT_ID">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUMAMOUNT" toVariable="SUMAMOUNTMAT"/>
+				<returnValue subreportVariable="SUMAMOUNTPLAN" toVariable="SUMAMOUNTPLANMAT"/>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{SUBREP_ProjectCalculationINC}]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-1" y="28" width="586" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="ACTMACCOSP">
+					<subreportParameterExpression><![CDATA[$F{actmaccosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LANGUAGE">
+					<subreportParameterExpression><![CDATA[$P{LANGUAGE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MACCOSP">
+					<subreportParameterExpression><![CDATA[$F{maccosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="C_PROJECT_ID">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUMHOURS" toVariable="SUMHOURSMAP"/>
+				<returnValue subreportVariable="SUMHOURSPLAN" toVariable="SUMHOURSPLANMAP"/>
+				<returnValue subreportVariable="SUMAMOUNT" toVariable="SUMAMOUNTMAP"/>
+				<returnValue subreportVariable="SUMAMOUNTPLAN" toVariable="SUMAMOUNTPLANMAP"/>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{SUBREP_ProjectCalculationMAP}]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-1" y="78" width="586" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="ACTLLCOSP">
+					<subreportParameterExpression><![CDATA[$F{actexpcosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LANGUAGE">
+					<subreportParameterExpression><![CDATA[$P{LANGUAGE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LLCOSP">
+					<subreportParameterExpression><![CDATA[$F{expcosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="C_PROJECT_ID">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUMAMOUNT" toVariable="SUMAMOUNTMAT"/>
+				<returnValue subreportVariable="SUMAMOUNTPLAN" toVariable="SUMAMOUNTPLANMAT"/>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{SUBREP_ProjectCalculationLL}]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-1" y="104" width="586" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="ACTLLCOSP">
+					<subreportParameterExpression><![CDATA[$F{actexpcosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LANGUAGE">
+					<subreportParameterExpression><![CDATA[$P{LANGUAGE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LLCOSP">
+					<subreportParameterExpression><![CDATA[$F{expcosp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="C_PROJECT_ID">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="SUMAMOUNT" toVariable="SUMAMOUNTMAT"/>
+				<returnValue subreportVariable="SUMAMOUNTPLAN" toVariable="SUMAMOUNTPLANMAT"/>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{SUBREP_ProjectCalculationLLF}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="13"/>
+	</summary>
+</jasperReport>

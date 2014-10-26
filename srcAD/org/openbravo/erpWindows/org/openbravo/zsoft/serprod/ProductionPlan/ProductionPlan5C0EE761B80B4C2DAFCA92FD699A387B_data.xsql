@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="ProductionPlan5C0EE761B80B4C2DAFCA92FD699A387BData" package="org.openbravo.erpWindows.org.openbravo.zsoft.serprod.ProductionPlan">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(zssm_productionplan_v.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_productionplan_v.CreatedBy) as CreatedByR, 
+        to_char(zssm_productionplan_v.Updated, ?) as updated, 
+        to_char(zssm_productionplan_v.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        zssm_productionplan_v.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = zssm_productionplan_v.UpdatedBy) as UpdatedByR,
+        zssm_productionplan_v.AD_Org_ID, 
+(CASE WHEN zssm_productionplan_v.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Org_IDR, 
+zssm_productionplan_v.ProjectCategory, 
+(CASE WHEN zssm_productionplan_v.ProjectCategory IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS ProjectCategoryR, 
+COALESCE(zssm_productionplan_v.IsActive, 'N') AS IsActive, 
+zssm_productionplan_v.ProjectStatus, 
+(CASE WHEN zssm_productionplan_v.ProjectStatus IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS ProjectStatusR, 
+COALESCE(zssm_productionplan_v.Isdefault, 'N') AS Isdefault, 
+COALESCE(zssm_productionplan_v.Isautotriggered, 'N') AS Isautotriggered, 
+zssm_productionplan_v.Timeperpiece, 
+zssm_productionplan_v.Setuptime, 
+zssm_productionplan_v.Value, 
+zssm_productionplan_v.Name, 
+zssm_productionplan_v.Description, 
+zssm_productionplan_v.Note, 
+zssm_productionplan_v.Responsible_ID, 
+(CASE WHEN zssm_productionplan_v.Responsible_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS Responsible_IDR, 
+zssm_productionplan_v.ChangeProjectStatus, 
+zssm_productionplan_v.C_Phase_ID, 
+zssm_productionplan_v.CommittedAmt, 
+zssm_productionplan_v.Expreinvoicing, 
+COALESCE(zssm_productionplan_v.Processed, 'N') AS Processed, 
+zssm_productionplan_v.LastPlannedProposalDate, 
+zssm_productionplan_v.C_ProjectType_ID, 
+zssm_productionplan_v.Projectphase, 
+zssm_productionplan_v.Expenses, 
+zssm_productionplan_v.PaymentRule, 
+zssm_productionplan_v.Machinecost, 
+COALESCE(zssm_productionplan_v.IsCommitCeiling, 'N') AS IsCommitCeiling, 
+zssm_productionplan_v.GenerateTo, 
+zssm_productionplan_v.C_BPartner_ID, 
+COALESCE(zssm_productionplan_v.IsSummary, 'N') AS IsSummary, 
+zssm_productionplan_v.CommittedQty, 
+zssm_productionplan_v.PlannedMarginAmt, 
+zssm_productionplan_v.InvoicedAmt, 
+zssm_productionplan_v.C_Location_ID, 
+COALESCE(zssm_productionplan_v.Invoice_ToProject, 'N') AS Invoice_ToProject, 
+zssm_productionplan_v.AD_Client_ID, 
+zssm_productionplan_v.Document_Copies, 
+zssm_productionplan_v.Percentdoneyet, 
+zssm_productionplan_v.Projectkind, 
+zssm_productionplan_v.PlannedPOAmt, 
+zssm_productionplan_v.M_PriceList_Version_ID, 
+zssm_productionplan_v.Indirectcost, 
+zssm_productionplan_v.DateFinish, 
+zssm_productionplan_v.A_Asset_ID, 
+zssm_productionplan_v.ProjectBalanceAmt, 
+zssm_productionplan_v.Servcost, 
+zssm_productionplan_v.C_Campaign_ID, 
+zssm_productionplan_v.Schedulestatus, 
+zssm_productionplan_v.Qtyofproduct, 
+COALESCE(zssm_productionplan_v.IsCommitment, 'N') AS IsCommitment, 
+zssm_productionplan_v.Servrevenue, 
+zssm_productionplan_v.Zssm_Productionplan_V_ID, 
+zssm_productionplan_v.Expexpenses, 
+zssm_productionplan_v.Reopenproject, 
+zssm_productionplan_v.DateContract, 
+zssm_productionplan_v.C_Currency_ID, 
+zssm_productionplan_v.Processing, 
+zssm_productionplan_v.Estimatedamt, 
+zssm_productionplan_v.AD_User_ID, 
+zssm_productionplan_v.M_Product_ID, 
+zssm_productionplan_v.PlannedAmt, 
+zssm_productionplan_v.Actualcostamount, 
+zssm_productionplan_v.Expmargin, 
+zssm_productionplan_v.AccountNo, 
+zssm_productionplan_v.Publicprivate, 
+zssm_productionplan_v.M_PriceList_ID, 
+zssm_productionplan_v.POReference, 
+zssm_productionplan_v.M_Warehouse_ID, 
+zssm_productionplan_v.C_PaymentTerm_ID, 
+zssm_productionplan_v.C_BPartner_Location_ID, 
+COALESCE(zssm_productionplan_v.Createtemppricelist, 'N') AS Createtemppricelist, 
+zssm_productionplan_v.C_Project_ID, 
+zssm_productionplan_v.PlannedQty, 
+zssm_productionplan_v.Setprojecttype, 
+zssm_productionplan_v.InvoicedQty, 
+zssm_productionplan_v.BillTo_ID, 
+zssm_productionplan_v.Materialcost, 
+zssm_productionplan_v.SalesRep_ID, 
+zssm_productionplan_v.Closeproject, 
+zssm_productionplan_v.Servmargin, 
+zssm_productionplan_v.Startdate, 
+zssm_productionplan_v.CopyFrom, 
+zssm_productionplan_v.GenerateOrder, 
+ 
+        ? AS LANGUAGE 
+        FROM zssm_productionplan_v left join (select AD_Org_ID, Name from AD_Org) table1 on (zssm_productionplan_v.AD_Org_ID = table1.AD_Org_ID) left join ad_ref_list_v list1 on (zssm_productionplan_v.ProjectCategory = list1.value and list1.ad_reference_id = '377B9AA223674A8B825295B11AEAFE25' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (zssm_productionplan_v.ProjectStatus = list2.value and list2.ad_reference_id = 'CF2E265D07B74B8492A031AAD6BCE74D' and list2.ad_language = ?)  left join (select AD_User_ID, Name from AD_User) table2 on (zssm_productionplan_v.Responsible_ID =  table2.AD_User_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND zssm_productionplan_v.Zssm_Productionplan_V_ID = ? 
+        AND zssm_productionplan_v.AD_Client_ID IN ('1') 
+           AND zssm_productionplan_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_productionplan_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_productionplan_v.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="expexpenses"></Parameter><Parameter name="invoicedqty"></Parameter><Parameter name="projectbalanceamt"></Parameter><Parameter name="cPhaseId"></Parameter><Parameter name="accountno"></Parameter><Parameter name="materialcost"></Parameter><Parameter name="iscommitment"></Parameter><Parameter name="actualcostamount"></Parameter><Parameter name="salesrepId"></Parameter><Parameter name="committedqty"></Parameter><Parameter name="responsibleId"></Parameter><Parameter name="closeproject"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="projectphase"></Parameter><Parameter name="schedulestatus"></Parameter><Parameter name="servrevenue"></Parameter><Parameter name="iscommitceiling"></Parameter><Parameter name="projectkind"></Parameter><Parameter name="invoicedamt"></Parameter><Parameter name="plannedpoamt"></Parameter><Parameter name="note"></Parameter><Parameter name="setuptime"></Parameter><Parameter name="committedamt"></Parameter><Parameter name="name"></Parameter><Parameter name="projectstatus"></Parameter><Parameter name="mPricelistId"></Parameter><Parameter name="invoiceToproject"></Parameter><Parameter name="poreference"></Parameter><Parameter name="plannedqty"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mPricelistVersionId"></Parameter><Parameter name="expenses"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="setprojecttype"></Parameter><Parameter name="cPaymenttermId"></Parameter><Parameter name="startdate"></Parameter><Parameter name="expreinvoicing"></Parameter><Parameter name="plannedamt"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="lastplannedproposaldate"></Parameter><Parameter name="processed"></Parameter><Parameter name="issummary"></Parameter><Parameter name="datefinish"></Parameter><Parameter name="paymentrule"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="cLocationId"></Parameter><Parameter name="aAssetId"></Parameter><Parameter name="servcost"></Parameter><Parameter name="description"></Parameter><Parameter name="generateorder"></Parameter><Parameter name="billtoId"></Parameter><Parameter name="cCampaignId"></Parameter><Parameter name="publicprivate"></Parameter><Parameter name="cBpartnerLocationId"></Parameter><Parameter name="isautotriggered"></Parameter><Parameter name="qtyofproduct"></Parameter><Parameter name="zssmProductionplanVId"></Parameter><Parameter name="expmargin"></Parameter><Parameter name="percentdoneyet"></Parameter><Parameter name="copyfrom"></Parameter><Parameter name="cProjecttypeId"></Parameter><Parameter name="machinecost"></Parameter><Parameter name="timeperpiece"></Parameter><Parameter name="servmargin"></Parameter><Parameter name="plannedmarginamt"></Parameter><Parameter name="datecontract"></Parameter><Parameter name="estimatedamt"></Parameter><Parameter name="changeprojectstatus"></Parameter><Parameter name="changeprojectstatusBtn"></Parameter><Parameter name="value"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="generateto"></Parameter><Parameter name="cBpartnerId"></Parameter><Parameter name="reopenproject"></Parameter><Parameter name="projectcategory"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adUserId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="processing"></Parameter><Parameter name="createtemppricelist"></Parameter><Parameter name="documentCopies"></Parameter><Parameter name="indirectcost"></Parameter><Parameter name="mWarehouseId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef464EC7312A434A6B8CFB56A6244A0DD5" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        select c_currency_id from ad_client where ad_client_id=? 
+    ]]></Sql>
+
+<Parameter name="ad_client_ID"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefDDCB17F4783B42F3AB9159DBC8BA5284_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefC3CDDA746364456B84023E8993F65CEF_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+  <SqlMethod name="updateChangeProjectStatus" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        UPDATE zssm_productionplan_v
+        SET changeprojectstatus = ? 
+        WHERE zssm_productionplan_v.Zssm_Productionplan_V_ID = ?
+    ]]></Sql>
+    <Parameter name="changeprojectstatus"></Parameter>
+    <Parameter id="paramKey" name="zssmProductionplanVId"></Parameter>
+  </SqlMethod>
+
+
+
+
+
+   <SqlMethod name="selectActDefC_Project_ID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for action search</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT Value FROM C_Project WHERE isActive='Y' AND C_Project_ID = ?  
+    ]]></Sql>
+    <Parameter name="C_Project_ID"/>
+  </SqlMethod>
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE zssm_productionplan_v
+        SET AD_Org_ID = (?) , ProjectCategory = (?) , IsActive = (?) , ProjectStatus = (?) , Isdefault = (?) , Isautotriggered = (?) , Timeperpiece = TO_NUMBER(?) , Setuptime = TO_NUMBER(?) , Value = (?) , Name = (?) , Description = (?) , Note = (?) , Responsible_ID = (?) , ChangeProjectStatus = (?) , C_Phase_ID = (?) , CommittedAmt = TO_NUMBER(?) , Expreinvoicing = TO_NUMBER(?) , Processed = (?) , LastPlannedProposalDate = TO_DATE(?) , C_ProjectType_ID = (?) , Projectphase = (?) , Expenses = TO_NUMBER(?) , PaymentRule = (?) , Machinecost = TO_NUMBER(?) , IsCommitCeiling = (?) , GenerateTo = (?) , C_BPartner_ID = (?) , IsSummary = (?) , CommittedQty = TO_NUMBER(?) , PlannedMarginAmt = TO_NUMBER(?) , InvoicedAmt = TO_NUMBER(?) , C_Location_ID = (?) , Invoice_ToProject = (?) , AD_Client_ID = (?) , Document_Copies = TO_NUMBER(?) , Percentdoneyet = TO_NUMBER(?) , Projectkind = (?) , PlannedPOAmt = TO_NUMBER(?) , M_PriceList_Version_ID = (?) , Indirectcost = TO_NUMBER(?) , DateFinish = TO_DATE(?) , A_Asset_ID = (?) , ProjectBalanceAmt = TO_NUMBER(?) , Servcost = TO_NUMBER(?) , C_Campaign_ID = (?) , Schedulestatus = (?) , Qtyofproduct = TO_NUMBER(?) , IsCommitment = (?) , Servrevenue = TO_NUMBER(?) , Zssm_Productionplan_V_ID = (?) , Expexpenses = TO_NUMBER(?) , Reopenproject = (?) , DateContract = TO_DATE(?) , C_Currency_ID = (?) , Processing = (?) , Estimatedamt = TO_NUMBER(?) , AD_User_ID = (?) , M_Product_ID = (?) , PlannedAmt = TO_NUMBER(?) , Actualcostamount = TO_NUMBER(?) , Expmargin = TO_NUMBER(?) , AccountNo = (?) , Publicprivate = (?) , M_PriceList_ID = (?) , POReference = (?) , M_Warehouse_ID = (?) , C_PaymentTerm_ID = (?) , C_BPartner_Location_ID = (?) , Createtemppricelist = (?) , C_Project_ID = (?) , PlannedQty = TO_NUMBER(?) , Setprojecttype = (?) , InvoicedQty = TO_NUMBER(?) , BillTo_ID = (?) , Materialcost = TO_NUMBER(?) , SalesRep_ID = (?) , Closeproject = (?) , Servmargin = TO_NUMBER(?) , Startdate = TO_DATE(?) , CopyFrom = (?) , GenerateOrder = (?) , updated = now(), updatedby = ? 
+        WHERE zssm_productionplan_v.Zssm_Productionplan_V_ID = ? 
+        
+        AND zssm_productionplan_v.AD_Client_ID IN ('1') 
+        AND zssm_productionplan_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="projectcategory"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="projectstatus"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="isautotriggered"></Parameter> <Parameter name="timeperpiece"></Parameter> <Parameter name="setuptime"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="note"></Parameter> <Parameter name="responsibleId"></Parameter> <Parameter name="changeprojectstatus"></Parameter> <Parameter name="cPhaseId"></Parameter> <Parameter name="committedamt"></Parameter> <Parameter name="expreinvoicing"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="lastplannedproposaldate"></Parameter> <Parameter name="cProjecttypeId"></Parameter> <Parameter name="projectphase"></Parameter> <Parameter name="expenses"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="machinecost"></Parameter> <Parameter name="iscommitceiling"></Parameter> <Parameter name="generateto"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="issummary"></Parameter> <Parameter name="committedqty"></Parameter> <Parameter name="plannedmarginamt"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="cLocationId"></Parameter> <Parameter name="invoiceToproject"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="documentCopies"></Parameter> <Parameter name="percentdoneyet"></Parameter> <Parameter name="projectkind"></Parameter> <Parameter name="plannedpoamt"></Parameter> <Parameter name="mPricelistVersionId"></Parameter> <Parameter name="indirectcost"></Parameter> <Parameter name="datefinish"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="projectbalanceamt"></Parameter> <Parameter name="servcost"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="schedulestatus"></Parameter> <Parameter name="qtyofproduct"></Parameter> <Parameter name="iscommitment"></Parameter> <Parameter name="servrevenue"></Parameter> <Parameter name="zssmProductionplanVId"></Parameter> <Parameter name="expexpenses"></Parameter> <Parameter name="reopenproject"></Parameter> <Parameter name="datecontract"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="estimatedamt"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="plannedamt"></Parameter> <Parameter name="actualcostamount"></Parameter> <Parameter name="expmargin"></Parameter> <Parameter name="accountno"></Parameter> <Parameter name="publicprivate"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="createtemppricelist"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="plannedqty"></Parameter> <Parameter name="setprojecttype"></Parameter> <Parameter name="invoicedqty"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="materialcost"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="closeproject"></Parameter> <Parameter name="servmargin"></Parameter> <Parameter name="startdate"></Parameter> <Parameter name="copyfrom"></Parameter> <Parameter name="generateorder"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="zssmProductionplanVId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_productionplan_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_productionplan_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO zssm_productionplan_v 
+        (AD_Org_ID, ProjectCategory, IsActive, ProjectStatus, Isdefault, Isautotriggered, Timeperpiece, Setuptime, Value, Name, Description, Note, Responsible_ID, ChangeProjectStatus, C_Phase_ID, CommittedAmt, Expreinvoicing, Processed, LastPlannedProposalDate, C_ProjectType_ID, Projectphase, Expenses, PaymentRule, Machinecost, IsCommitCeiling, GenerateTo, C_BPartner_ID, IsSummary, CommittedQty, PlannedMarginAmt, InvoicedAmt, C_Location_ID, Invoice_ToProject, AD_Client_ID, Document_Copies, Percentdoneyet, Projectkind, PlannedPOAmt, M_PriceList_Version_ID, Indirectcost, DateFinish, A_Asset_ID, ProjectBalanceAmt, Servcost, C_Campaign_ID, Schedulestatus, Qtyofproduct, IsCommitment, Servrevenue, Zssm_Productionplan_V_ID, Expexpenses, Reopenproject, DateContract, C_Currency_ID, Processing, Estimatedamt, AD_User_ID, M_Product_ID, PlannedAmt, Actualcostamount, Expmargin, AccountNo, Publicprivate, M_PriceList_ID, POReference, M_Warehouse_ID, C_PaymentTerm_ID, C_BPartner_Location_ID, Createtemppricelist, C_Project_ID, PlannedQty, Setprojecttype, InvoicedQty, BillTo_ID, Materialcost, SalesRep_ID, Closeproject, Servmargin, Startdate, CopyFrom, GenerateOrder, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), TO_DATE(?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), TO_DATE(?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_DATE(?), (?), (?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), TO_DATE(?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adOrgId"></Parameter> <Parameter name="projectcategory"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="projectstatus"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="isautotriggered"></Parameter> <Parameter name="timeperpiece"></Parameter> <Parameter name="setuptime"></Parameter> <Parameter name="value"></Parameter> <Parameter name="name"></Parameter> <Parameter name="description"></Parameter> <Parameter name="note"></Parameter> <Parameter name="responsibleId"></Parameter> <Parameter name="changeprojectstatus"></Parameter> <Parameter name="cPhaseId"></Parameter> <Parameter name="committedamt"></Parameter> <Parameter name="expreinvoicing"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="lastplannedproposaldate"></Parameter> <Parameter name="cProjecttypeId"></Parameter> <Parameter name="projectphase"></Parameter> <Parameter name="expenses"></Parameter> <Parameter name="paymentrule"></Parameter> <Parameter name="machinecost"></Parameter> <Parameter name="iscommitceiling"></Parameter> <Parameter name="generateto"></Parameter> <Parameter name="cBpartnerId"></Parameter> <Parameter name="issummary"></Parameter> <Parameter name="committedqty"></Parameter> <Parameter name="plannedmarginamt"></Parameter> <Parameter name="invoicedamt"></Parameter> <Parameter name="cLocationId"></Parameter> <Parameter name="invoiceToproject"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="documentCopies"></Parameter> <Parameter name="percentdoneyet"></Parameter> <Parameter name="projectkind"></Parameter> <Parameter name="plannedpoamt"></Parameter> <Parameter name="mPricelistVersionId"></Parameter> <Parameter name="indirectcost"></Parameter> <Parameter name="datefinish"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="projectbalanceamt"></Parameter> <Parameter name="servcost"></Parameter> <Parameter name="cCampaignId"></Parameter> <Parameter name="schedulestatus"></Parameter> <Parameter name="qtyofproduct"></Parameter> <Parameter name="iscommitment"></Parameter> <Parameter name="servrevenue"></Parameter> <Parameter name="zssmProductionplanVId"></Parameter> <Parameter name="expexpenses"></Parameter> <Parameter name="reopenproject"></Parameter> <Parameter name="datecontract"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="estimatedamt"></Parameter> <Parameter name="adUserId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="plannedamt"></Parameter> <Parameter name="actualcostamount"></Parameter> <Parameter name="expmargin"></Parameter> <Parameter name="accountno"></Parameter> <Parameter name="publicprivate"></Parameter> <Parameter name="mPricelistId"></Parameter> <Parameter name="poreference"></Parameter> <Parameter name="mWarehouseId"></Parameter> <Parameter name="cPaymenttermId"></Parameter> <Parameter name="cBpartnerLocationId"></Parameter> <Parameter name="createtemppricelist"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="plannedqty"></Parameter> <Parameter name="setprojecttype"></Parameter> <Parameter name="invoicedqty"></Parameter> <Parameter name="billtoId"></Parameter> <Parameter name="materialcost"></Parameter> <Parameter name="salesrepId"></Parameter> <Parameter name="closeproject"></Parameter> <Parameter name="servmargin"></Parameter> <Parameter name="startdate"></Parameter> <Parameter name="copyfrom"></Parameter> <Parameter name="generateorder"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_productionplan_v
+        WHERE zssm_productionplan_v.Zssm_Productionplan_V_ID = ? 
+        
+        AND zssm_productionplan_v.AD_Client_ID IN ('1') 
+        AND zssm_productionplan_v.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="zssm_productionplan_v.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="zssm_productionplan_v.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM zssm_productionplan_v
+        WHERE zssm_productionplan_v.Zssm_Productionplan_V_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM zssm_productionplan_v
+         WHERE zssm_productionplan_v.Zssm_Productionplan_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM zssm_productionplan_v
+         WHERE zssm_productionplan_v.Zssm_Productionplan_V_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

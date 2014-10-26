@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="BankAccountData" package="org.openbravo.erpWindows.Bank">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(C_BankAccount.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BankAccount.CreatedBy) as CreatedByR, 
+        to_char(C_BankAccount.Updated, ?) as updated, 
+        to_char(C_BankAccount.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        C_BankAccount.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = C_BankAccount.UpdatedBy) as UpdatedByR,
+        C_BankAccount.Digitcontrol, 
+C_BankAccount.AccountNo, 
+C_BankAccount.Codeaccount, 
+C_BankAccount.AD_Client_ID, 
+(CASE WHEN C_BankAccount.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+C_BankAccount.AD_Org_ID, 
+(CASE WHEN C_BankAccount.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+C_BankAccount.C_Bank_ID, 
+(CASE WHEN C_BankAccount.C_Bank_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS C_Bank_IDR, 
+COALESCE(C_BankAccount.IsActive, 'N') AS IsActive, 
+COALESCE(C_BankAccount.ShowSpanish, 'N') AS ShowSpanish, 
+C_BankAccount.BankAccountType, 
+(CASE WHEN C_BankAccount.BankAccountType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS BankAccountTypeR, 
+COALESCE(C_BankAccount.IsDefault, 'N') AS IsDefault, 
+C_BankAccount.C_Currency_ID, 
+(CASE WHEN C_BankAccount.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+C_BankAccount.GenericAccount, 
+COALESCE(C_BankAccount.ShowGeneric, 'N') AS ShowGeneric, 
+C_BankAccount.Iban, 
+COALESCE(C_BankAccount.ShowIBAN, 'N') AS ShowIBAN, 
+C_BankAccount.DisplayedAccount, 
+C_BankAccount.CreditLimit, 
+C_BankAccount.CurrentBalance, 
+C_BankAccount.C_BankAccount_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM C_BankAccount left join (select AD_Client_ID, Name from AD_Client) table1 on (C_BankAccount.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (C_BankAccount.AD_Org_ID = table2.AD_Org_ID) left join (select C_Bank_ID, Name from C_Bank) table3 on (C_BankAccount.C_Bank_ID = table3.C_Bank_ID) left join ad_ref_list_v list1 on (C_BankAccount.BankAccountType = list1.value and list1.ad_reference_id = '216' and list1.ad_language = ?)  left join (select C_Currency_ID, ISO_Code from C_Currency) table4 on (C_BankAccount.C_Currency_ID = table4.C_Currency_ID)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND C_BankAccount.C_BankAccount_ID = ? 
+        AND C_BankAccount.AD_Client_ID IN ('1') 
+           AND C_BankAccount.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="cBankId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND C_BankAccount.C_Bank_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BankAccount.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BankAccount.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="cBankId" id="paramKeyParent"></Parameter>
+<Parameter name="currentbalance"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="accountno"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="codeaccount"></Parameter><Parameter name="digitcontrol"></Parameter><Parameter name="genericaccount"></Parameter><Parameter name="iban"></Parameter><Parameter name="showiban"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isdefault"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="created"></Parameter><Parameter name="showgeneric"></Parameter><Parameter name="showspanish"></Parameter><Parameter name="creditlimit"></Parameter><Parameter name="isactive"></Parameter><Parameter name="bankaccounttype"></Parameter><Parameter name="displayedaccount"></Parameter><Parameter name="cBankaccountId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef3071_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3069_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT C_BankAccount.C_Bank_ID AS NAME
+        FROM C_BankAccount
+        WHERE C_BankAccount.C_BankAccount_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM C_Bank left join (select C_Bank_ID, Name from C_Bank) table1 on (C_Bank.C_Bank_ID = table1.C_Bank_ID) WHERE C_Bank.C_Bank_ID = ?  
+    ]]></Sql>
+<Parameter name="cBankId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM C_Bank left join (select C_Bank_ID, Name from C_Bank) table1 on (C_Bank.C_Bank_ID = table1.C_Bank_ID) WHERE C_Bank.C_Bank_ID = ?  
+    ]]></Sql>
+<Parameter name="cBankId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE C_BankAccount
+        SET Digitcontrol = (?) , AccountNo = (?) , Codeaccount = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , C_Bank_ID = (?) , IsActive = (?) , ShowSpanish = (?) , BankAccountType = (?) , IsDefault = (?) , C_Currency_ID = (?) , GenericAccount = (?) , ShowGeneric = (?) , Iban = (?) , ShowIBAN = (?) , DisplayedAccount = (?) , CreditLimit = TO_NUMBER(?) , CurrentBalance = TO_NUMBER(?) , C_BankAccount_ID = (?) , updated = now(), updatedby = ? 
+        WHERE C_BankAccount.C_BankAccount_ID = ? 
+                 AND C_BankAccount.C_Bank_ID = ? 
+        AND C_BankAccount.AD_Client_ID IN ('1') 
+        AND C_BankAccount.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="digitcontrol"></Parameter> <Parameter name="accountno"></Parameter> <Parameter name="codeaccount"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cBankId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="showspanish"></Parameter> <Parameter name="bankaccounttype"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="genericaccount"></Parameter> <Parameter name="showgeneric"></Parameter> <Parameter name="iban"></Parameter> <Parameter name="showiban"></Parameter> <Parameter name="displayedaccount"></Parameter> <Parameter name="creditlimit"></Parameter> <Parameter name="currentbalance"></Parameter> <Parameter name="cBankaccountId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="cBankaccountId"></Parameter>
+    
+    <Parameter name="cBankId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BankAccount.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BankAccount.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO C_BankAccount 
+        (Digitcontrol, AccountNo, Codeaccount, AD_Client_ID, AD_Org_ID, C_Bank_ID, IsActive, ShowSpanish, BankAccountType, IsDefault, C_Currency_ID, GenericAccount, ShowGeneric, Iban, ShowIBAN, DisplayedAccount, CreditLimit, CurrentBalance, C_BankAccount_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="digitcontrol"></Parameter> <Parameter name="accountno"></Parameter> <Parameter name="codeaccount"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="cBankId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="showspanish"></Parameter> <Parameter name="bankaccounttype"></Parameter> <Parameter name="isdefault"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="genericaccount"></Parameter> <Parameter name="showgeneric"></Parameter> <Parameter name="iban"></Parameter> <Parameter name="showiban"></Parameter> <Parameter name="displayedaccount"></Parameter> <Parameter name="creditlimit"></Parameter> <Parameter name="currentbalance"></Parameter> <Parameter name="cBankaccountId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BankAccount
+        WHERE C_BankAccount.C_BankAccount_ID = ? 
+                 AND C_BankAccount.C_Bank_ID = ? 
+        AND C_BankAccount.AD_Client_ID IN ('1') 
+        AND C_BankAccount.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBankId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="C_BankAccount.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="C_BankAccount.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM C_BankAccount
+        WHERE C_BankAccount.C_BankAccount_ID = ? 
+                 AND C_BankAccount.C_Bank_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="cBankId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM C_BankAccount
+         WHERE C_BankAccount.C_BankAccount_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM C_BankAccount
+         WHERE C_BankAccount.C_BankAccount_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="FieldColumnsInstanceSpecificData" package="org.openbravo.erpWindows.Reference">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ad_ref_fieldcolumninstance.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_ref_fieldcolumninstance.CreatedBy) as CreatedByR, 
+        to_char(ad_ref_fieldcolumninstance.Updated, ?) as updated, 
+        to_char(ad_ref_fieldcolumninstance.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ad_ref_fieldcolumninstance.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_ref_fieldcolumninstance.UpdatedBy) as UpdatedByR,
+        ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID, 
+(CASE WHEN ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Ref_Fieldcolumn_IDR, 
+ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID, 
+ad_ref_fieldcolumninstance.Line, 
+ad_ref_fieldcolumninstance.AD_Client_ID, 
+ad_ref_fieldcolumninstance.AD_Element_ID, 
+(CASE WHEN ad_ref_fieldcolumninstance.AD_Element_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.ColumnName), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Element_IDR, 
+ad_ref_fieldcolumninstance.AD_Org_ID, 
+ad_ref_fieldcolumninstance.Leadingemptycols, 
+ad_ref_fieldcolumninstance.Colstotal, 
+ad_ref_fieldcolumninstance.Isfirstfocusedfield, 
+(CASE WHEN ad_ref_fieldcolumninstance.Isfirstfocusedfield IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS IsfirstfocusedfieldR, 
+ad_ref_fieldcolumninstance.Editsetting, 
+(CASE WHEN ad_ref_fieldcolumninstance.Editsetting IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list2.name),'') ) END) AS EditsettingR, 
+ad_ref_fieldcolumninstance.Maxlength, 
+ad_ref_fieldcolumninstance.Fieldreference, 
+(CASE WHEN ad_ref_fieldcolumninstance.Fieldreference IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL3.Name IS NULL THEN TO_CHAR(table3.Name) ELSE TO_CHAR(tableTRL3.Name) END)), ''))),'') ) END) AS FieldreferenceR, 
+ad_ref_fieldcolumninstance.Referenceurl, 
+ad_ref_fieldcolumninstance.AD_Table_ID, 
+(CASE WHEN ad_ref_fieldcolumninstance.AD_Table_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.TableName), ''))),'') ) END) AS AD_Table_IDR, 
+ad_ref_fieldcolumninstance.AD_Val_Rule_ID, 
+(CASE WHEN ad_ref_fieldcolumninstance.AD_Val_Rule_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Val_Rule_IDR, 
+ad_ref_fieldcolumninstance.Includesemptyitem, 
+(CASE WHEN ad_ref_fieldcolumninstance.Includesemptyitem IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list3.name),'') ) END) AS IncludesemptyitemR, 
+ad_ref_fieldcolumninstance.Template, 
+(CASE WHEN ad_ref_fieldcolumninstance.Template IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list4.name),'') ) END) AS TemplateR, 
+ad_ref_fieldcolumninstance.Buttonclass, 
+ad_ref_fieldcolumninstance.Islinebreak, 
+(CASE WHEN ad_ref_fieldcolumninstance.Islinebreak IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list5.name),'') ) END) AS IslinebreakR, 
+COALESCE(ad_ref_fieldcolumninstance.Isdisplayed, 'N') AS Isdisplayed, 
+COALESCE(ad_ref_fieldcolumninstance.Isactive, 'N') AS Isactive, 
+ad_ref_fieldcolumninstance.Visiblesetting, 
+(CASE WHEN ad_ref_fieldcolumninstance.Visiblesetting IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list6.name),'') ) END) AS VisiblesettingR, 
+ad_ref_fieldcolumninstance.Displaylogic, 
+ad_ref_fieldcolumninstance.Readonlylogic, 
+ad_ref_fieldcolumninstance.Mandantorylogic, 
+ad_ref_fieldcolumninstance.Defaultvalue, 
+ad_ref_fieldcolumninstance.Style, 
+ad_ref_fieldcolumninstance.Onchangeevent, 
+ 
+        ? AS LANGUAGE 
+        FROM ad_ref_fieldcolumninstance left join (select AD_Ref_Fieldcolumn_ID, Name from AD_Ref_Fieldcolumn) table1 on (ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID = table1.AD_Ref_Fieldcolumn_ID) left join (select AD_Element_ID, ColumnName, Name from AD_Element) table2 on (ad_ref_fieldcolumninstance.AD_Element_ID = table2.AD_Element_ID) left join ad_ref_list_v list1 on (ad_ref_fieldcolumninstance.Isfirstfocusedfield = list1.value and list1.ad_reference_id = 'BE2C89D33763486BBCDDB2E1D63A5B00' and list1.ad_language = ?)  left join ad_ref_list_v list2 on (ad_ref_fieldcolumninstance.Editsetting = list2.value and list2.ad_reference_id = '0765914076274AD79BACA01E75F4D0A1' and list2.ad_language = ?)  left join (select AD_Reference_ID, Name from AD_Reference) table3 on (ad_ref_fieldcolumninstance.Fieldreference =  table3.AD_Reference_ID) left join (select AD_Reference_ID,AD_Language, Name from AD_Reference_TRL) tableTRL3 on (table3.AD_Reference_ID = tableTRL3.AD_Reference_ID and tableTRL3.AD_Language = ?)  left join (select AD_Table_ID, TableName from AD_Table) table4 on (ad_ref_fieldcolumninstance.AD_Table_ID = table4.AD_Table_ID) left join (select AD_Val_Rule_ID, Name from AD_Val_Rule) table5 on (ad_ref_fieldcolumninstance.AD_Val_Rule_ID = table5.AD_Val_Rule_ID) left join ad_ref_list_v list3 on (ad_ref_fieldcolumninstance.Includesemptyitem = list3.value and list3.ad_reference_id = 'BE2C89D33763486BBCDDB2E1D63A5B00' and list3.ad_language = ?)  left join ad_ref_list_v list4 on (ad_ref_fieldcolumninstance.Template = list4.value and list4.ad_reference_id = '029984D63BCA4F67AD81C93DCF486DFE' and list4.ad_language = ?)  left join ad_ref_list_v list5 on (ad_ref_fieldcolumninstance.Islinebreak = list5.value and list5.ad_reference_id = 'BE2C89D33763486BBCDDB2E1D63A5B00' and list5.ad_language = ?)  left join ad_ref_list_v list6 on (ad_ref_fieldcolumninstance.Visiblesetting = list6.value and list6.ad_reference_id = 'A4801B9D7ADB4BB69EBF727B71C8AB45' and list6.ad_language = ?) 
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID = ? 
+        AND ad_ref_fieldcolumninstance.AD_Client_ID IN ('1') 
+           AND ad_ref_fieldcolumninstance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="adRefFieldcolumnId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_ref_fieldcolumninstance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_ref_fieldcolumninstance.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adRefFieldcolumnId" id="paramKeyParent"></Parameter>
+<Parameter name="visiblesetting"></Parameter><Parameter name="adValRuleId"></Parameter><Parameter name="editsetting"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="adElementId"></Parameter><Parameter name="fieldreference"></Parameter><Parameter name="maxlength"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="isfirstfocusedfield"></Parameter><Parameter name="colstotal"></Parameter><Parameter name="template"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adRefFieldcolumninstanceId"></Parameter><Parameter name="adTableId"></Parameter><Parameter name="displaylogic"></Parameter><Parameter name="defaultvalue"></Parameter><Parameter name="isdisplayed"></Parameter><Parameter name="buttonclass"></Parameter><Parameter name="includesemptyitem"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="line"></Parameter><Parameter name="onchangeevent"></Parameter><Parameter name="islinebreak"></Parameter><Parameter name="mandantorylogic"></Parameter><Parameter name="style"></Parameter><Parameter name="referenceurl"></Parameter><Parameter name="leadingemptycols"></Parameter><Parameter name="readonlylogic"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefEEC307933AC7464493D6F837D29DE356_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDefE99A70AF5AAF468EADAE54B850666583_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID AS NAME
+        FROM ad_ref_fieldcolumninstance
+        WHERE ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM ad_ref_fieldcolumn left join (select AD_Ref_Fieldcolumn_ID, Name from AD_Ref_Fieldcolumn) table1 on (ad_ref_fieldcolumn.AD_Ref_Fieldcolumn_ID = table1.AD_Ref_Fieldcolumn_ID) WHERE ad_ref_fieldcolumn.AD_Ref_Fieldcolumn_ID = ?  
+    ]]></Sql>
+<Parameter name="adRefFieldcolumnId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM ad_ref_fieldcolumn left join (select AD_Ref_Fieldcolumn_ID, Name from AD_Ref_Fieldcolumn) table1 on (ad_ref_fieldcolumn.AD_Ref_Fieldcolumn_ID = table1.AD_Ref_Fieldcolumn_ID) WHERE ad_ref_fieldcolumn.AD_Ref_Fieldcolumn_ID = ?  
+    ]]></Sql>
+<Parameter name="adRefFieldcolumnId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ad_ref_fieldcolumninstance
+        SET AD_Ref_Fieldcolumn_ID = (?) , AD_Ref_Fieldcolumninstance_ID = (?) , Line = TO_NUMBER(?) , AD_Client_ID = (?) , AD_Element_ID = (?) , AD_Org_ID = (?) , Leadingemptycols = TO_NUMBER(?) , Colstotal = TO_NUMBER(?) , Isfirstfocusedfield = (?) , Editsetting = (?) , Maxlength = TO_NUMBER(?) , Fieldreference = (?) , Referenceurl = (?) , AD_Table_ID = (?) , AD_Val_Rule_ID = (?) , Includesemptyitem = (?) , Template = (?) , Buttonclass = (?) , Islinebreak = (?) , Isdisplayed = (?) , Isactive = (?) , Visiblesetting = (?) , Displaylogic = (?) , Readonlylogic = (?) , Mandantorylogic = (?) , Defaultvalue = (?) , Style = (?) , Onchangeevent = (?) , updated = now(), updatedby = ? 
+        WHERE ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID = ? 
+                 AND ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID = ? 
+        AND ad_ref_fieldcolumninstance.AD_Client_ID IN ('1') 
+        AND ad_ref_fieldcolumninstance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adRefFieldcolumnId"></Parameter> <Parameter name="adRefFieldcolumninstanceId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adElementId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="leadingemptycols"></Parameter> <Parameter name="colstotal"></Parameter> <Parameter name="isfirstfocusedfield"></Parameter> <Parameter name="editsetting"></Parameter> <Parameter name="maxlength"></Parameter> <Parameter name="fieldreference"></Parameter> <Parameter name="referenceurl"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adValRuleId"></Parameter> <Parameter name="includesemptyitem"></Parameter> <Parameter name="template"></Parameter> <Parameter name="buttonclass"></Parameter> <Parameter name="islinebreak"></Parameter> <Parameter name="isdisplayed"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="visiblesetting"></Parameter> <Parameter name="displaylogic"></Parameter> <Parameter name="readonlylogic"></Parameter> <Parameter name="mandantorylogic"></Parameter> <Parameter name="defaultvalue"></Parameter> <Parameter name="style"></Parameter> <Parameter name="onchangeevent"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adRefFieldcolumninstanceId"></Parameter>
+    
+    <Parameter name="adRefFieldcolumnId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_ref_fieldcolumninstance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_ref_fieldcolumninstance.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ad_ref_fieldcolumninstance 
+        (AD_Ref_Fieldcolumn_ID, AD_Ref_Fieldcolumninstance_ID, Line, AD_Client_ID, AD_Element_ID, AD_Org_ID, Leadingemptycols, Colstotal, Isfirstfocusedfield, Editsetting, Maxlength, Fieldreference, Referenceurl, AD_Table_ID, AD_Val_Rule_ID, Includesemptyitem, Template, Buttonclass, Islinebreak, Isdisplayed, Isactive, Visiblesetting, Displaylogic, Readonlylogic, Mandantorylogic, Defaultvalue, Style, Onchangeevent, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), TO_NUMBER(?), (?), (?), (?), TO_NUMBER(?), TO_NUMBER(?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adRefFieldcolumnId"></Parameter> <Parameter name="adRefFieldcolumninstanceId"></Parameter> <Parameter name="line"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adElementId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="leadingemptycols"></Parameter> <Parameter name="colstotal"></Parameter> <Parameter name="isfirstfocusedfield"></Parameter> <Parameter name="editsetting"></Parameter> <Parameter name="maxlength"></Parameter> <Parameter name="fieldreference"></Parameter> <Parameter name="referenceurl"></Parameter> <Parameter name="adTableId"></Parameter> <Parameter name="adValRuleId"></Parameter> <Parameter name="includesemptyitem"></Parameter> <Parameter name="template"></Parameter> <Parameter name="buttonclass"></Parameter> <Parameter name="islinebreak"></Parameter> <Parameter name="isdisplayed"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="visiblesetting"></Parameter> <Parameter name="displaylogic"></Parameter> <Parameter name="readonlylogic"></Parameter> <Parameter name="mandantorylogic"></Parameter> <Parameter name="defaultvalue"></Parameter> <Parameter name="style"></Parameter> <Parameter name="onchangeevent"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_ref_fieldcolumninstance
+        WHERE ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID = ? 
+                 AND ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID = ? 
+        AND ad_ref_fieldcolumninstance.AD_Client_ID IN ('1') 
+        AND ad_ref_fieldcolumninstance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adRefFieldcolumnId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_ref_fieldcolumninstance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_ref_fieldcolumninstance.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_ref_fieldcolumninstance
+        WHERE ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID = ? 
+                 AND ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumn_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adRefFieldcolumnId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ad_ref_fieldcolumninstance
+         WHERE ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ad_ref_fieldcolumninstance
+         WHERE ad_ref_fieldcolumninstance.AD_Ref_Fieldcolumninstance_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

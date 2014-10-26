@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="IncludeData" package="org.openbravo.erpWindows.Module">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(AD_Module_Dependency.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Module_Dependency.CreatedBy) as CreatedByR, 
+        to_char(AD_Module_Dependency.Updated, ?) as updated, 
+        to_char(AD_Module_Dependency.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        AD_Module_Dependency.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = AD_Module_Dependency.UpdatedBy) as UpdatedByR,
+        AD_Module_Dependency.AD_Module_Dependency_ID, 
+AD_Module_Dependency.AD_Client_ID, 
+(CASE WHEN AD_Module_Dependency.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Client_IDR, 
+AD_Module_Dependency.AD_Org_ID, 
+(CASE WHEN AD_Module_Dependency.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+COALESCE(AD_Module_Dependency.IsActive, 'N') AS IsActive, 
+AD_Module_Dependency.AD_Module_ID, 
+(CASE WHEN AD_Module_Dependency.AD_Module_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Version), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Name), ''))),'') ) END) AS AD_Module_IDR, 
+AD_Module_Dependency.AD_Dependent_Module_ID, 
+(CASE WHEN AD_Module_Dependency.AD_Dependent_Module_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS AD_Dependent_Module_IDR, 
+AD_Module_Dependency.StartVersion, 
+COALESCE(AD_Module_Dependency.IsIncluded, 'N') AS IsIncluded, 
+ 
+        ? AS LANGUAGE 
+        FROM AD_Module_Dependency left join (select AD_Client_ID, Name from AD_Client) table1 on (AD_Module_Dependency.AD_Client_ID = table1.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (AD_Module_Dependency.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table3 on (AD_Module_Dependency.AD_Module_ID = table3.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table4 on (table3.AD_Language =  table4.AD_Language) left join (select AD_Module_ID, Name from AD_Module) table5 on (AD_Module_Dependency.AD_Dependent_Module_ID =  table5.AD_Module_ID)
+        WHERE 2=2 
+ AND IsIncluded='Y'
+        AND 1=1 
+        AND AD_Module_Dependency.AD_Module_Dependency_ID = ? 
+        AND AD_Module_Dependency.AD_Client_ID IN ('1') 
+           AND AD_Module_Dependency.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="adModuleId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND AD_Module_Dependency.AD_Module_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Module_Dependency.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Module_Dependency.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adModuleId" id="paramKeyParent"></Parameter>
+<Parameter name="adDependentModuleId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="isactive"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="startversion"></Parameter><Parameter name="createdby"></Parameter><Parameter name="adModuleDependencyId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isincluded"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT AD_Module_Dependency.AD_Module_ID AS NAME
+        FROM AD_Module_Dependency
+        WHERE AD_Module_Dependency.AD_Module_Dependency_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Version), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))) AS NAME FROM AD_Module left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table1 on (AD_Module.AD_Module_ID = table1.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table2 on (table1.AD_Language =  table2.AD_Language) WHERE AD_Module.AD_Module_ID = ?  
+    ]]></Sql>
+<Parameter name="adModuleId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.Name), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Version), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))) AS NAME FROM AD_Module left join (select AD_Module_ID, Name, Version, AD_Language from AD_Module) table1 on (AD_Module.AD_Module_ID = table1.AD_Module_ID) left join (select AD_Language, Name from AD_Language) table2 on (table1.AD_Language =  table2.AD_Language) WHERE AD_Module.AD_Module_ID = ?  
+    ]]></Sql>
+<Parameter name="adModuleId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE AD_Module_Dependency
+        SET AD_Module_Dependency_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , IsActive = (?) , AD_Module_ID = (?) , AD_Dependent_Module_ID = (?) , StartVersion = (?) , IsIncluded = (?) , updated = now(), updatedby = ? 
+        WHERE AD_Module_Dependency.AD_Module_Dependency_ID = ? 
+                 AND AD_Module_Dependency.AD_Module_ID = ? 
+        AND AD_Module_Dependency.AD_Client_ID IN ('1') 
+        AND AD_Module_Dependency.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adModuleDependencyId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="adDependentModuleId"></Parameter> <Parameter name="startversion"></Parameter> <Parameter name="isincluded"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adModuleDependencyId"></Parameter>
+    
+    <Parameter name="adModuleId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Module_Dependency.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Module_Dependency.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO AD_Module_Dependency 
+        (AD_Module_Dependency_ID, AD_Client_ID, AD_Org_ID, IsActive, AD_Module_ID, AD_Dependent_Module_ID, StartVersion, IsIncluded, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adModuleDependencyId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="adModuleId"></Parameter> <Parameter name="adDependentModuleId"></Parameter> <Parameter name="startversion"></Parameter> <Parameter name="isincluded"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Module_Dependency
+        WHERE AD_Module_Dependency.AD_Module_Dependency_ID = ? 
+                 AND AD_Module_Dependency.AD_Module_ID = ? 
+        AND AD_Module_Dependency.AD_Client_ID IN ('1') 
+        AND AD_Module_Dependency.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adModuleId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="AD_Module_Dependency.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="AD_Module_Dependency.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM AD_Module_Dependency
+        WHERE AD_Module_Dependency.AD_Module_Dependency_ID = ? 
+                 AND AD_Module_Dependency.AD_Module_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adModuleId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM AD_Module_Dependency
+         WHERE AD_Module_Dependency.AD_Module_Dependency_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM AD_Module_Dependency
+         WHERE AD_Module_Dependency.AD_Module_Dependency_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

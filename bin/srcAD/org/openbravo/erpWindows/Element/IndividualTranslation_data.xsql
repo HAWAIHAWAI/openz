@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="IndividualTranslationData" package="org.openbravo.erpWindows.Element">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(ad_element_trl_instance.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_element_trl_instance.CreatedBy) as CreatedByR, 
+        to_char(ad_element_trl_instance.Updated, ?) as updated, 
+        to_char(ad_element_trl_instance.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        ad_element_trl_instance.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = ad_element_trl_instance.UpdatedBy) as UpdatedByR,
+        ad_element_trl_instance.AD_Element_ID, 
+(CASE WHEN ad_element_trl_instance.AD_Element_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.ColumnName), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))),'') ) END) AS AD_Element_IDR, 
+ad_element_trl_instance.AD_Element_Trl_Instance_ID, 
+ad_element_trl_instance.AD_Org_ID, 
+(CASE WHEN ad_element_trl_instance.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Org_IDR, 
+ad_element_trl_instance.AD_Client_ID, 
+ad_element_trl_instance.AD_Language, 
+(CASE WHEN ad_element_trl_instance.AD_Language IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_LanguageR, 
+ad_element_trl_instance.Name, 
+COALESCE(ad_element_trl_instance.Isactive, 'N') AS Isactive, 
+ 
+        ? AS LANGUAGE 
+        FROM ad_element_trl_instance left join (select AD_Element_ID, ColumnName, Name from AD_Element) table1 on (ad_element_trl_instance.AD_Element_ID = table1.AD_Element_ID) left join (select AD_Org_ID, Name from AD_Org) table2 on (ad_element_trl_instance.AD_Org_ID = table2.AD_Org_ID) left join (select AD_Language, Name from AD_Language) table3 on (ad_element_trl_instance.AD_Language =  table3.AD_Language)
+        WHERE 2=2 
+
+        AND 1=1 
+        AND ad_element_trl_instance.AD_Element_Trl_Instance_ID = ? 
+        AND ad_element_trl_instance.AD_Client_ID IN ('1') 
+           AND ad_element_trl_instance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+
+    <Parameter name="adElementId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND ad_element_trl_instance.AD_Element_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_element_trl_instance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_element_trl_instance.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="adElementId" id="paramKeyParent"></Parameter>
+<Parameter name="name"></Parameter><Parameter name="adLanguage"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="adElementTrlInstanceId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="isactive"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDefDDD7CAEFC0204A6AA3602B84721BFF10_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Updatedby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef68F1FC5484B14DB19549D60D5A1CA1B9_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as Createdby FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT ad_element_trl_instance.AD_Element_ID AS NAME
+        FROM ad_element_trl_instance
+        WHERE ad_element_trl_instance.AD_Element_Trl_Instance_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.ColumnName), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Element left join (select AD_Element_ID, ColumnName, Name from AD_Element) table1 on (AD_Element.AD_Element_ID = table1.AD_Element_ID) WHERE AD_Element.AD_Element_ID = ?  
+    ]]></Sql>
+<Parameter name="adElementId"/>
+
+  </SqlMethod>
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(COALESCE(TO_CHAR(table1.ColumnName), '')) || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Name), ''))) AS NAME FROM AD_Element left join (select AD_Element_ID, ColumnName, Name from AD_Element) table1 on (AD_Element.AD_Element_ID = table1.AD_Element_ID) WHERE AD_Element.AD_Element_ID = ?  
+    ]]></Sql>
+<Parameter name="adElementId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE ad_element_trl_instance
+        SET AD_Element_ID = (?) , AD_Element_Trl_Instance_ID = (?) , AD_Org_ID = (?) , AD_Client_ID = (?) , AD_Language = (?) , Name = (?) , Isactive = (?) , updated = now(), updatedby = ? 
+        WHERE ad_element_trl_instance.AD_Element_Trl_Instance_ID = ? 
+                 AND ad_element_trl_instance.AD_Element_ID = ? 
+        AND ad_element_trl_instance.AD_Client_ID IN ('1') 
+        AND ad_element_trl_instance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="adElementId"></Parameter> <Parameter name="adElementTrlInstanceId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="adElementTrlInstanceId"></Parameter>
+    
+    <Parameter name="adElementId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_element_trl_instance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_element_trl_instance.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO ad_element_trl_instance 
+        (AD_Element_ID, AD_Element_Trl_Instance_ID, AD_Org_ID, AD_Client_ID, AD_Language, Name, Isactive, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="adElementId"></Parameter> <Parameter name="adElementTrlInstanceId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adLanguage"></Parameter> <Parameter name="name"></Parameter> <Parameter name="isactive"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_element_trl_instance
+        WHERE ad_element_trl_instance.AD_Element_Trl_Instance_ID = ? 
+                 AND ad_element_trl_instance.AD_Element_ID = ? 
+        AND ad_element_trl_instance.AD_Client_ID IN ('1') 
+        AND ad_element_trl_instance.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adElementId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="ad_element_trl_instance.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="ad_element_trl_instance.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM ad_element_trl_instance
+        WHERE ad_element_trl_instance.AD_Element_Trl_Instance_ID = ? 
+                 AND ad_element_trl_instance.AD_Element_ID = ? 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="adElementId" id="paramKeyParent"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM ad_element_trl_instance
+         WHERE ad_element_trl_instance.AD_Element_Trl_Instance_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM ad_element_trl_instance
+         WHERE ad_element_trl_instance.AD_Element_Trl_Instance_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>

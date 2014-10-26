@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="TransactionsData" package="org.openbravo.erpWindows.Product">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_Transaction.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Transaction.CreatedBy) as CreatedByR, 
+        to_char(M_Transaction.Updated, ?) as updated, 
+        to_char(M_Transaction.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_Transaction.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_Transaction.UpdatedBy) as UpdatedByR,
+        M_Transaction.C_ProjectIssue_ID, 
+M_Transaction.M_Product_Uom_Id, 
+M_Transaction.M_Product_ID, 
+M_Transaction.QuantityOrder, 
+M_Transaction.C_UOM_ID, 
+(CASE WHEN M_Transaction.C_UOM_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS C_UOM_IDR, 
+M_Transaction.C_Projectphase_ID, 
+M_Transaction.AD_Client_ID, 
+(CASE WHEN M_Transaction.AD_Client_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))),'') ) END) AS AD_Client_IDR, 
+M_Transaction.AD_Org_ID, 
+(CASE WHEN M_Transaction.AD_Org_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS AD_Org_IDR, 
+M_Transaction.M_AttributeSetInstance_ID, 
+(CASE WHEN M_Transaction.M_AttributeSetInstance_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.Description), ''))),'') ) END) AS M_AttributeSetInstance_IDR, 
+COALESCE(M_Transaction.IsActive, 'N') AS IsActive, 
+M_Transaction.M_Locator_ID, 
+(CASE WHEN M_Transaction.M_Locator_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Value), ''))),'') ) END) AS M_Locator_IDR, 
+M_Transaction.MovementQty, 
+M_Transaction.MovementDate, 
+M_Transaction.MovementType, 
+(CASE WHEN M_Transaction.MovementType IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(list1.name),'') ) END) AS MovementTypeR, 
+M_Transaction.M_Internal_Consumptionline_ID, 
+(CASE WHEN M_Transaction.M_Internal_Consumptionline_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL8.Name IS NULL THEN TO_CHAR(table8.Name) ELSE TO_CHAR(tableTRL8.Name) END)), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.MovementQty), ''))),'') ) END) AS M_Internal_Consumptionline_IDR, 
+M_Transaction.M_InOutLine_ID, 
+(CASE WHEN M_Transaction.M_InOutLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table10.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table10.MovementDate, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table11.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL11.Name IS NULL THEN TO_CHAR(table11.Name) ELSE TO_CHAR(tableTRL11.Name) END)), ''))),'') ) END) AS M_InOutLine_IDR, 
+M_Transaction.M_InventoryLine_ID, 
+(CASE WHEN M_Transaction.M_InventoryLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.QtyCount), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table13.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table12.Name), ''))),'') ) END) AS M_InventoryLine_IDR, 
+M_Transaction.M_MovementLine_ID, 
+(CASE WHEN M_Transaction.M_MovementLine_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.Line), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table14.MovementQty), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table15.Name), ''))),'') ) END) AS M_MovementLine_IDR, 
+M_Transaction.M_ProductionLine_ID, 
+M_Transaction.C_Project_ID, 
+(CASE WHEN M_Transaction.C_Project_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table16.Name), ''))),'') ) END) AS C_Project_IDR, 
+M_Transaction.C_Projecttask_ID, 
+(CASE WHEN M_Transaction.C_Projecttask_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table17.Name), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table18.Value), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table18.Name), ''))),'') ) END) AS C_Projecttask_IDR, 
+M_Transaction.A_Asset_ID, 
+(CASE WHEN M_Transaction.A_Asset_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table19.Name), ''))),'') ) END) AS A_Asset_IDR, 
+M_Transaction.M_Transaction_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM M_Transaction left join (select C_UOM_ID, Name from C_UOM) table1 on (M_Transaction.C_UOM_ID = table1.C_UOM_ID) left join (select C_UOM_ID,AD_Language, Name from C_UOM_TRL) tableTRL1 on (table1.C_UOM_ID = tableTRL1.C_UOM_ID and tableTRL1.AD_Language = ?)  left join (select AD_Client_ID, Name from AD_Client) table2 on (M_Transaction.AD_Client_ID = table2.AD_Client_ID) left join (select AD_Org_ID, Name from AD_Org) table3 on (M_Transaction.AD_Org_ID = table3.AD_Org_ID) left join (select M_AttributeSetInstance_ID, Description from M_AttributeSetInstance) table4 on (M_Transaction.M_AttributeSetInstance_ID = table4.M_AttributeSetInstance_ID) left join (select M_Locator_ID, Value from M_Locator) table5 on (M_Transaction.M_Locator_ID = table5.M_Locator_ID) left join ad_ref_list_v list1 on (M_Transaction.MovementType = list1.value and list1.ad_reference_id = '189' and list1.ad_language = ?)  left join (select M_Internal_Consumptionline_ID, M_Internal_Consumption_ID, M_Product_ID, MovementQty from M_Internal_Consumptionline) table6 on (M_Transaction.M_Internal_Consumptionline_ID = table6.M_Internal_Consumptionline_ID) left join (select M_Internal_Consumption_ID, Name from M_Internal_Consumption) table7 on (table6.M_Internal_Consumption_ID = table7.M_Internal_Consumption_ID) left join (select M_Product_ID, Value, Name from M_Product) table8 on (table6.M_Product_ID = table8.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL8 on (table8.M_Product_ID = tableTRL8.M_Product_ID and tableTRL8.AD_Language = ?)  left join (select M_InOutLine_ID, M_InOut_ID, M_Product_ID from M_InOutLine) table9 on (M_Transaction.M_InOutLine_ID = table9.M_InOutLine_ID) left join (select M_InOut_ID, DocumentNo, MovementDate from M_InOut) table10 on (table9.M_InOut_ID = table10.M_InOut_ID) left join (select M_Product_ID, Value, Name from M_Product) table11 on (table9.M_Product_ID = table11.M_Product_ID) left join (select M_Product_ID,AD_Language, Name from M_Product_TRL) tableTRL11 on (table11.M_Product_ID = tableTRL11.M_Product_ID and tableTRL11.AD_Language = ?)  left join (select M_InventoryLine_ID, Line, QtyCount, M_Inventory_ID, Name from M_InventoryLine) table12 on (M_Transaction.M_InventoryLine_ID = table12.M_InventoryLine_ID) left join (select M_Inventory_ID, Name from M_Inventory) table13 on (table12.M_Inventory_ID = table13.M_Inventory_ID) left join (select M_MovementLine_ID, Line, MovementQty, M_Movement_ID from M_MovementLine) table14 on (M_Transaction.M_MovementLine_ID = table14.M_MovementLine_ID) left join (select M_Movement_ID, DocumentNo, Name from M_Movement) table15 on (table14.M_Movement_ID = table15.M_Movement_ID) left join (select C_Project_ID, Value, Name from C_Project) table16 on (M_Transaction.C_Project_ID = table16.C_Project_ID) left join (select C_Projecttask_ID, Name, C_Project_ID from C_Projecttask) table17 on (M_Transaction.C_Projecttask_ID = table17.C_Projecttask_ID) left join (select C_Project_ID, Value, Name from C_Project) table18 on (table17.C_Project_ID = table18.C_Project_ID) left join (select A_Asset_ID, Name from A_Asset) table19 on (M_Transaction.A_Asset_ID = table19.A_Asset_ID)
+        WHERE 2=2 
+ AND M_TRANSACTION.M_Product_ID = ?
+        AND 1=1 
+        AND M_Transaction.M_Transaction_ID = ? 
+        AND M_Transaction.AD_Client_ID IN ('1') 
+           AND M_Transaction.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+<Parameter name="M_PRODUCT_ID"/>
+
+
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Transaction.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Transaction.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+
+<Parameter name="mInventorylineId"></Parameter><Parameter name="mInternalConsumptionlineId"></Parameter><Parameter name="cProjectId"></Parameter><Parameter name="mProductUomId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="mAttributesetinstanceId"></Parameter><Parameter name="mAttributesetinstanceIdr"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="movementqty"></Parameter><Parameter name="cUomId"></Parameter><Parameter name="cProjectissueId"></Parameter><Parameter name="quantityorder"></Parameter><Parameter name="cProjecttaskId"></Parameter><Parameter name="mTransactionId"></Parameter><Parameter name="movementtype"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="mInoutlineId"></Parameter><Parameter name="mInoutlineIdr"></Parameter><Parameter name="mLocatorId"></Parameter><Parameter name="mLocatorIdr"></Parameter><Parameter name="mMovementlineId"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="cProjectphaseId"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mProductId"></Parameter><Parameter name="mProductionlineId"></Parameter><Parameter name="movementdate"></Parameter><Parameter name="aAssetId"></Parameter>
+   </SqlMethod>
+
+
+
+
+
+
+   <SqlMethod name="selectDef9867_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Description), '') ) as M_AttributeSetInstance_ID FROM M_AttributeSetInstance table1 WHERE table1.isActive='Y' AND table1.M_AttributeSetInstance_ID = ?  
+    ]]></Sql>
+<Parameter name="M_AttributeSetInstance_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3673_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table2.DocumentNo), '')  || ' - ' || COALESCE(TO_CHAR(table2.MovementDate), '')  || ' - ' || COALESCE(TO_CHAR(table3.Value), '')  || ' - ' || COALESCE(TO_CHAR(table3.Name), '') ) as M_InOutLine_ID FROM M_InOutLine table1 left join M_InOut table2 on (table1.M_InOut_ID = table2.M_InOut_ID) left join M_Product table3 on (table1.M_Product_ID = table3.M_Product_ID) WHERE table1.isActive='Y' AND table1.M_InOutLine_ID = ?  
+    ]]></Sql>
+<Parameter name="M_InOutLine_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3667_2" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Value), '') ) as M_Locator_ID FROM M_Locator table1 WHERE table1.isActive='Y' AND table1.M_Locator_ID = ?  
+    ]]></Sql>
+<Parameter name="M_Locator_IDR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3663_3" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as CreatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedByR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef3665_4" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(table1.Name), '') ) as UpdatedBy FROM AD_User table1 WHERE table1.isActive='Y' AND table1.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedByR"/>
+  </SqlMethod>
+
+
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_Transaction
+        SET C_ProjectIssue_ID = (?) , M_Product_Uom_Id = (?) , M_Product_ID = (?) , QuantityOrder = TO_NUMBER(?) , C_UOM_ID = (?) , C_Projectphase_ID = (?) , AD_Client_ID = (?) , AD_Org_ID = (?) , M_AttributeSetInstance_ID = (?) , IsActive = (?) , M_Locator_ID = (?) , MovementQty = TO_NUMBER(?) , MovementDate = TO_DATE(?) , MovementType = (?) , M_Internal_Consumptionline_ID = (?) , M_InOutLine_ID = (?) , M_InventoryLine_ID = (?) , M_MovementLine_ID = (?) , M_ProductionLine_ID = (?) , C_Project_ID = (?) , C_Projecttask_ID = (?) , A_Asset_ID = (?) , M_Transaction_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_Transaction.M_Transaction_ID = ? 
+        
+        AND M_Transaction.AD_Client_ID IN ('1') 
+        AND M_Transaction.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="cProjectissueId"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="movementdate"></Parameter> <Parameter name="movementtype"></Parameter> <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="mInoutlineId"></Parameter> <Parameter name="mInventorylineId"></Parameter> <Parameter name="mMovementlineId"></Parameter> <Parameter name="mProductionlineId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="mTransactionId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mTransactionId"></Parameter>
+    
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Transaction.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Transaction.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_Transaction 
+        (C_ProjectIssue_ID, M_Product_Uom_Id, M_Product_ID, QuantityOrder, C_UOM_ID, C_Projectphase_ID, AD_Client_ID, AD_Org_ID, M_AttributeSetInstance_ID, IsActive, M_Locator_ID, MovementQty, MovementDate, MovementType, M_Internal_Consumptionline_ID, M_InOutLine_ID, M_InventoryLine_ID, M_MovementLine_ID, M_ProductionLine_ID, C_Project_ID, C_Projecttask_ID, A_Asset_ID, M_Transaction_ID, created, createdby, updated, updatedBy)
+        VALUES ((?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), TO_NUMBER(?), TO_DATE(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="cProjectissueId"></Parameter> <Parameter name="mProductUomId"></Parameter> <Parameter name="mProductId"></Parameter> <Parameter name="quantityorder"></Parameter> <Parameter name="cUomId"></Parameter> <Parameter name="cProjectphaseId"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mAttributesetinstanceId"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="mLocatorId"></Parameter> <Parameter name="movementqty"></Parameter> <Parameter name="movementdate"></Parameter> <Parameter name="movementtype"></Parameter> <Parameter name="mInternalConsumptionlineId"></Parameter> <Parameter name="mInoutlineId"></Parameter> <Parameter name="mInventorylineId"></Parameter> <Parameter name="mMovementlineId"></Parameter> <Parameter name="mProductionlineId"></Parameter> <Parameter name="cProjectId"></Parameter> <Parameter name="cProjecttaskId"></Parameter> <Parameter name="aAssetId"></Parameter> <Parameter name="mTransactionId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Transaction
+        WHERE M_Transaction.M_Transaction_ID = ? 
+        
+        AND M_Transaction.AD_Client_ID IN ('1') 
+        AND M_Transaction.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_Transaction.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_Transaction.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="deleteTransactional" connection="true" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_Transaction
+        WHERE M_Transaction.M_Transaction_ID = ? 
+        
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+    
+  </SqlMethod>
+  
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_Transaction
+         WHERE M_Transaction.M_Transaction_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_Transaction
+         WHERE M_Transaction.M_Transaction_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>
