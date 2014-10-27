@@ -2,6 +2,31 @@
 
 It was Forked from Openbravo ERP , Version 2.50.15979 MP11
 
+---begin custom part---
+Import von OpenZ in Eclipse
+1. Im Verzeichnis von OpenZ die Datei classpath in .classpath umbenennen. Falls das nicht über Rechtsklick -> Umbennen geht, einfach die Datei mittels Editor öffnen und mittels „Speichern unter“ als .classpath speichern und als Dateityp „Alle Dateitypen“ auswählen.
+2. Die .classpath-Datei öffnen und bei den <classpath…./>-Einträgen die beiden folgenden Einträge noch hinzufügen:
+		<classpathentry kind=“src“ path=“modules/org.openz.internallogistic/src“/>
+		<classpathentry kind=“src“ path=“modules/org.openz.pdc/src“/>
+3.Das Projekt importieren in Eclipse mittels File -> Import -> Existing Projects into Workspace und über „Select root directory“ das OpenZ-Verzeichnis wählen. Nun sollte unter Projects „openz“ zu sehen sein und nun einfach den Import durchführen.
+4. In Eclipse über Window -> Preferences -> Java -> BuildPath -> User Librarys eine neue Library mit dem Namen „OpenZ“ anlegen. Zu dieser Library werden alle .jar-Dateien aus dem Projekt openz in Eclipse aus dem Verzeichnis …/lib/runtime hinzugefügt.
+5. Nun muss die eben erstelle Library noch dem Projekt hinzugefügt werden. Dies kann man mittels Rechtsklick auf das Projekt „openz“ -> Properties -> Java Build Path -> Libraries -> „Add Library…“ machen.
+
+Das sollte es nun für den OpenZ-Import in Eclipse an sich gewesen sein.
+Für die Tomcat-Anbindung (muss noch auf Deutsch geschrieben werden)
+Create a (Tomcat) Server in Window / preferences / Runtime Environments
+
+In the tray: Tab Server New Server
+
+Add openz Project To the server:
+
+In run / Run Configurations add  the following to Tomcat (x) - arguments / VM-Arguments : 
+
+-Djava.awt.headless=true -Xms384M -Xmx1024M -XX:MaxPermSize=256M
+
+(Also Dcatalina.home, Dcatalina.base, Dlog4j.configuration,  Djava.endorsed.dirs may be necessary here to start the server - These Arguments Depends on your environment)
+: 
+---end custom part---
 
 * Installation
 
